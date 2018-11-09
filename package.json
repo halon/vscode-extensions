@@ -1,0 +1,125 @@
+{
+	"name": "vscode-halon",
+	"version": "5.0.0",
+	"publisher": "Halon",
+	"engines": {
+		"vscode": "^1.28.2"
+	},
+	"license": "ISC",
+	"displayName": "Halon",
+	"description": "Halon extension for Visual Studio Code",
+	"author": {
+		"name": "Halon Security AB"
+	},
+	"categories": [
+		"Programming Languages",
+		"Snippets",
+		"Linters"
+	],
+	"keywords": [
+		"halon",
+		"hsl"
+	],
+	"icon": "images/icon.png",
+	"galleryBanner": {
+		"color": "#062B36",
+		"theme": "dark"
+	},
+	"main": "./out/extension",
+	"contributes": {
+		"languages": [
+			{
+				"id": "hsl",
+				"aliases": [
+					"Halon Scripting Language",
+					"hsl"
+				],
+				"extensions": [
+					".hsl"
+				],
+				"configuration": "./language-configuration.json"
+			}
+		],
+		"grammars": [
+			{
+				"language": "hsl",
+				"scopeName": "source.hsl",
+				"path": "./syntaxes/hsl.tmLanguage.json"
+			}
+		],
+		"snippets": [
+			{
+				"language": "hsl",
+				"path": "./snippets/hsl.json"
+			}
+		],
+		"commands": [
+			{
+				"command": "halon.init",
+				"title": "Halon: Init"
+			},
+			{
+				"command": "halon.initForce",
+				"title": "Halon: Init (Force)"
+			},
+			{
+				"command": "halon.build",
+				"title": "Halon: Build"
+			},
+			{
+				"command": "halon.livestageStart",
+				"title": "Halon: Live Staging (Start)"
+			},
+			{
+				"command": "halon.livestageStatus",
+				"title": "Halon: Live Staging (Status)"
+			},
+			{
+				"command": "halon.livestageCancel",
+				"title": "Halon: Live Staging (Cancel)"
+			}
+		]
+	},
+	"activationEvents": [
+		"onLanguage:hsl",
+		"onCommand:halon.init",
+		"onCommand:halon.initForce",
+		"onCommand:halon.build",
+		"onCommand:halon.livestageStart",
+		"onCommand:halon.livestageStatus",
+		"onCommand:halon.livestageCancel"
+	],
+	"qna": "marketplace",
+	"devDependencies": {
+		"@types/mocha": "^5.2.5",
+		"@types/node": "^10.12.0",
+		"@types/underscore": "^1.8.9",
+		"halon-hsl-docs": "github:halon/hsl-docs",
+		"tslint": "^5.11.0",
+		"typescript": "^3.1.3",
+		"vsce": "^1.53.0",
+		"vscode": "^1.1.21"
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"postinstall": "node ./node_modules/vscode/bin/install",
+		"test": "npm run compile && node ./node_modules/vscode/bin/test",
+		"docs": "npm --prefix node_modules/halon-hsl-docs install && npm --prefix node_modules/halon-hsl-docs run json && cp node_modules/halon-hsl-docs/dist/json/* src/docs/",
+		"vsce": "./node_modules/vsce/out/vsce"
+	},
+	"bugs": {
+		"url": "https://github.com/halon/vscode-extension/issues",
+		"email": "support@halon.io"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/halon/vscode-extension"
+	},
+	"homepage": "https://github.com/halon/vscode-extension",
+	"dependencies": {
+		"@halon/cli": "^5.0.0",
+		"underscore": "^1.9.1"
+	}
+}

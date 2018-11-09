@@ -1,0 +1,100 @@
+{
+    "core": [
+        {
+            "name": "MIME",
+            "parameters": {
+                "required": [],
+                "optional": []
+            },
+            "detail": "MIME()",
+            "value": "MIME()",
+            "documentation": "The MIME object \"constructor\" takes no function arguments, and returns a new MIME object.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#MIME)"
+        },
+        {
+            "name": "Socket",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "family",
+                        "type": "string"
+                    },
+                    {
+                        "name": "type",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "detail": "Socket(string $family, string $type)",
+            "value": "Socket($0)",
+            "documentation": "The Socket class allows POSIX like socket(2) code. A socket resource is created for each Socket instance, this resource is automatically garbage collected (closed) once the object is destroyed.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#Socket)"
+        },
+        {
+            "name": "TLSSocket",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "socket",
+                        "type": "Socket"
+                    },
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ],
+                "optional": []
+            },
+            "detail": "TLSSocket(Socket $socket, array $options)",
+            "value": "TLSSocket($0)",
+            "documentation": "The TLSSocket class allows OpenSSL like SSL(3) code. The TLSSocket class takes a connected Socket instance (SOCK_STREAM) and encapsulates any read and writes in TLS\/SSL.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#TLSSocket)"
+        }
+    ],
+    "connect": [],
+    "helo": [],
+    "auth": [],
+    "mailfrom": [],
+    "rcptto": [],
+    "eodonce": [
+        {
+            "name": "MIME",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "partid",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "detail": "MIME(string $partid)",
+            "value": "MIME($0)",
+            "documentation": "Working with MIME parts is done using MIME objects. To instantiate a reference to the root MIME part object call the MIME function with the string literal \"0\" (zero) as the argument.",
+            "link": "[Full documentation]({{ docsurl }}eodonce.html#MIME)"
+        }
+    ],
+    "eodrcpt": [
+        {
+            "name": "MIME",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "partid",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "detail": "MIME(string $partid)",
+            "value": "MIME($0)",
+            "documentation": "Working with MIME parts is done using MIME objects. To instantiate a reference to the root MIME part object call the MIME function with the string literal \"0\" (zero) as the argument.",
+            "link": "[Full documentation]({{ docsurl }}eodrcpt.html#MIME)"
+        }
+    ],
+    "predelivery": [],
+    "postdelivery": [],
+    "api": [],
+    "firewall": []
+}

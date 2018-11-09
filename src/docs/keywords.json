@@ -1,0 +1,152 @@
+[
+	{
+		"name": "echo",
+		"detail": "echo",
+		"documentation": "The `echo` statement will convert the expression to a string and print its value.",
+		"link": "[Full documentation]({{ docsurl }}structures.html#echo)"
+	},
+	{
+		"name": "if",
+		"detail": "if",
+		"documentation": "One of the most basic control structures in HSL is the `if` statement, it allows conditional control flow. `if` statements check the expression for [truthiness](https://docs.halon.io/hsl/operators.html#truthtable).",
+		"link": "[Full documentation]({{ docsurl }}structures.html#if)"
+	},
+	{
+		"name": "else",
+		"detail": "else",
+		"documentation": "In addition to `if` there is also an `else` branch available; executed if the expression yields `false`.",
+		"link": "[Full documentation]({{ docsurl }}structures.html#if)"
+	},
+	{
+		"name": "for",
+		"detail": "for",
+		"documentation": "`for` statements allows conditional loops.",
+		"link": "[Full documentation]({{ docsurl }}structures.html#for)"
+	},
+	{
+		"name": "break",
+		"detail": "break",
+		"documentation": "`break` will abort the loop iteration of a `for`, `foreach`, `while` and `forever` loop and also the execution of `switch` statements.",
+		"link": "[Full documentation]({{ docsurl }}structures.html#break)"
+	},
+	{
+		"name": "continue",
+		"detail": "contiue",
+		"documentation": "`continue` will abort the current loop iteration of a `for`, `foreach`, while and `forever` loop, and restart on the next iteration.",
+		"link": "[Full documentation]({{ docsurl }}structures.html#continue)"
+	},
+	{
+		"name": "foreach",
+		"detail": "foreach",
+		"documentation": "`foreach` loops allows iteration on array values to execute the same statements multiple times.",
+		"link": "[Full documentation]({{ docsurl }}structures.html#foreach)"
+	},
+	{
+		"name": "while",
+		"detail": "while",
+		"documentation": "`while` statements allows conditional loops.",
+		"link": "[Full documentation]({{ docsurl }}structures.html#while)"
+	},
+	{
+		"name": "forever",
+		"detail": "forever",
+		"documentation": "`forever` statements allows indefinite loops.",
+		"link": "[Full documentation]({{ docsurl }}structures.html#forever)"
+	},
+	{
+		"name": "switch",
+		"detail": "switch",
+		"documentation": "`switch` statements are in many ways similar to nested `if`-`else` statements. `case` expressions are compared to the `switch` expression until a match is found. If no match is found, and a `default` label exists, it will be executed.",
+		"link": "[Full documentation]({{ docsurl }}structures.html#switch)"
+	},
+	{
+		"name": "case",
+		"detail": "case",
+		"documentation": "`case` expressions are compared to the `switch` expression until a match is found.",
+		"link": "[Full documentation]({{ docsurl }}structures.html#switch)"
+	},
+	{
+		"name": "default",
+		"detail": "default",
+		"documentation": "If no match is found inside a `switch` statement, and a `default` label exists, it will be executed.",
+		"link": "[Full documentation]({{ docsurl }}structures.html#switch)"
+	},
+	{
+		"name": "include",
+		"detail": "include",
+		"documentation": "The `include` statement allows code to be structured in logical modules and shared between different scripts.",
+		"link": "[Full documentation]({{ docsurl }}structures.html#include)"
+	},
+	{
+		"name": "include_once",
+		"detail": "include_once",
+		"documentation": "The `include_once` keyword will only include the file if it hasn’t been included before.",
+		"link": "[Full documentation]({{ docsurl }}structures.html#include-once)"
+	},
+	{
+		"name": "import",
+		"detail": "import",
+		"documentation": "The `import` statement allows code to be structured in logical modules and shared between different scripts very much like `include_once` with the difference that all symbols which should be used in the calling script has to be explicitly imported. Also instead of running the imported code directly it is executed in a seperate context (with its own function and variable symbol table) referred to as “the module’s global scope”. If a file is imported multiple times (regardless of the symbols imported) its code will only be executed once (a behaviour which could be used to initialize global state), very much like `include_once` would behave. All symbols in a module’s symbol table is exported (by default), that include symbols which the module itself has imported from another module (a.k.a forwarding imports). An import can not be conditionally and must be defined unconditionally in the script (that usually means at the top of a script).",
+		"link": "[Full documentation]({{ docsurl }}structures.html#import)"
+	},
+	{
+		"name": "function",
+		"detail": "function",
+		"documentation": "It’s possible to write new functions in HSL, and also to override builtin functions. A function may take any number of arguments and return a value using the `return` statement. If non-variadic arguments are specified, the number of argument given by the caller must match the number of required arguments in the function definition.",
+		"link": "[Full documentation]({{ docsurl }}structures.html#function)"
+	},
+	{
+		"name": "return",
+		"detail": "return",
+		"documentation": "The `return` statement return a value from a function. If the expression is omitted a value of `none` is returned.",
+		"link": "[Full documentation]({{ docsurl }}structures.html#return)"
+	},
+	{
+		"name": "global",
+		"detail": "global",
+		"documentation": "The `global` statement allows variables to be imported in to a local function scope (by reference). If the variable is not defined at the time of execution (of the global statement) it will simply be marked as “global” and if later assigned; written back to the global scope once the function returns. If the variable that is imported to the function scope already exists in the function scope an error will be raised. If an imported variable is read-only, it will be read-only in the function scope as well.",
+		"link": "[Full documentation]({{ docsurl }}structures.html#global)"
+	},
+	{
+		"name": "builtin",
+		"detail": "builtin",
+		"documentation": "The `builtin` statement allows you to explicitly call the builtin version of an overridden function.",
+		"link": "[Full documentation]({{ docsurl }}structures.html#builtin)"
+	},
+	{
+		"name": "class",
+		"detail": "class",
+		"documentation": "The `class` statement can be used to declare new types of classes. The class-name must be a valid function name. In order to create a new instance of a class (object) call the class by name using the function calling convention. Class instances (objects) are not copy on write and all copies reference the same object. The default visibility of class members are public.",
+		"link": "[Full documentation]({{ docsurl }}structures.html#class)"
+	},
+	{
+		"name": "constructor",
+		"detail": "constructor",
+		"documentation": "The constructor (function) is a special function declared inside the `class` statement. This function (if it exist) is called when an object is created, all arguments from the class-name calling is passed to the constructor function. The constructor function supports all features of function calling (such as default arguments). The constructor is usually used to initialize object instance variables on the special `$this` variable.",
+		"link": "[Full documentation]({{ docsurl }}structures.html#constructor)"
+	},
+	{
+		"name": "static",
+		"detail": "static",
+		"documentation": "A static function or variable is not bound to a class instance instead they are only scoped by the class name using the scope resolution operator (`::`). Static members are not available on instance objects.",
+		"link": "[Full documentation]({{ docsurl }}structures.html#static)"
+	},
+	{
+		"name": "private",
+		"detail": "private",
+		"documentation": "Variables and functions may be declared as private, in which case they can only be accessed from within other function on the same instance or class.",
+		"link": "[Full documentation]({{ docsurl }}structures.html#private)"
+	},
+	{
+		"name": "cache",
+		"detail": "cache",
+		"documentation": "The `cache` statement can be prepended to any named function call. It will cache the function call in a process wide cache. If the same call is done and the result is already in its cache the function will not be executed again, instead the previous result will be used. The cache take the function name and argument values into account when caching.",
+		"link": "[Full documentation]({{ docsurl }}structures.html#cache)"
+	},
+	{
+		"name": "barrier",
+		"detail": "barrier",
+		"documentation": "A barrier is system-wide named mutually exclusive scope, only one execution is allowed to enter the same named scope (applies to all thread and processes). Waiters are queued for execution in random order. Optionally with every barrier comes a shared variable (shared memory) which data is shared among executions.",
+		"link": "[Full documentation]({{ docsurl }}structures.html#barrier)"
+	}
+]
