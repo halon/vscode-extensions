@@ -1,6 +1,6 @@
 {
 	"name": "vscode-halon",
-	"version": "5.0.0",
+	"version": "5.0.1",
 	"publisher": "Halon",
 	"engines": {
 		"vscode": "^1.28.2"
@@ -90,16 +90,6 @@
 		"onCommand:halon.livestageCancel"
 	],
 	"qna": "marketplace",
-	"devDependencies": {
-		"@types/mocha": "^5.2.5",
-		"@types/node": "^10.12.0",
-		"@types/underscore": "^1.8.9",
-		"halon-hsl-docs": "github:halon/hsl-docs",
-		"tslint": "^5.11.0",
-		"typescript": "^3.1.3",
-		"vsce": "^1.53.0",
-		"vscode": "^1.1.21"
-	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
 		"compile": "tsc -p ./",
@@ -118,8 +108,19 @@
 		"url": "https://github.com/halon/vscode-extension"
 	},
 	"homepage": "https://github.com/halon/vscode-extension",
+	"devDependencies": {
+		"@types/mocha": "^5.2.5",
+		"@types/node": "^10.12.0",
+		"@types/ssh2": "^0.5.36",
+		"@types/underscore": "^1.8.9",
+		"halon-hsl-docs": "github:halon/hsl-docs",
+		"tslint": "^5.11.0",
+		"typescript": "^3.1.3",
+		"vsce": "^1.53.0",
+		"vscode": "^1.1.21"
+	},
 	"dependencies": {
-		"@halon/cli": "^5.0.0",
+		"@halon/cli": "^5.0.8",
 		"underscore": "^1.9.1"
 	}
 }
