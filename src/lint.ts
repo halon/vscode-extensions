@@ -1,6 +1,19 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { window, workspace, Uri, DiagnosticCollection, Range, Diagnostic, DiagnosticSeverity, TextDocument, RelativePattern, Location } from 'vscode';
+import {
+	window,
+	workspace,
+	Uri,
+	DiagnosticCollection,
+	Range,
+	Diagnostic,
+	DiagnosticSeverity,
+	TextDocument,
+	RelativePattern,
+	Location,
+	Position,
+	DiagnosticRelatedInformation
+} from 'vscode';
 import { build, remote, factory } from '@halon/cli';
 import pathIsInside from 'path-is-inside';
 
@@ -15,8 +28,8 @@ export default async (document: TextDocument, diagnosticCollection: DiagnosticCo
 			if (userSettings.ssh2) {
 				let uris: Uri[] = [];
 
-				let hooksPath = path.join(workspaceFolder.uri.fsPath, 'src', 'hooks');
 				let filesPath = path.join(workspaceFolder.uri.fsPath, 'src', 'files');
+				let hooksPath = path.join(workspaceFolder.uri.fsPath, 'src', 'hooks');
 
 				if (pathIsInside(document.uri.fsPath, hooksPath)) {
 					uris.push(document.uri);
@@ -39,7 +52,7 @@ export default async (document: TextDocument, diagnosticCollection: DiagnosticCo
 							syntaxObject.data = dirtyScript.getText();
 						}
 						const matchedIndex = syntaxObject.files.map((file: any) => {
-							return path.join(workspaceFolder.uri.fsPath, 'src', 'files', file.id);
+							return path.join(filesPath, file.id);
 						}).indexOf(dirtyScript.uri.fsPath);
 						if (matchedIndex !== -1) {
 							syntaxObject.files[matchedIndex].data = dirtyScript.getText();
@@ -53,17 +66,22 @@ export default async (document: TextDocument, diagnosticCollection: DiagnosticCo
 					connector.dispose();
 					diagnosticCollection.delete(document.uri);
 
-					for (let [index, syntaxError] of syntaxErrors.entries()) {
-						diagnosticCollection.delete(uris[index]);
+					for (const [uriIndex, syntaxError] of syntaxErrors.entries()) {
+						diagnosticCollection.delete(uris[uriIndex]);
 						if (syntaxError) {
-							const filePath = syntaxError.file ? path.join(workspaceFolder.uri.toString(), 'src', 'files', syntaxError.file) : document.uri.toString();
-							let range = new Range(syntaxError.line - 1, syntaxError.column - 1, syntaxError.line - 1, 5000);
-							let diagnostic = new Diagnostic(range, syntaxError.message, DiagnosticSeverity.Error);
-							if (typeof syntaxError.file !== 'undefined') {
-								diagnostic.relatedInformation = [{
-									location: new Location(uris[index], new Range(0, 0, 0, 0)),
-									message: 'The hook where the file was included'
-								}];
+							const filePath = syntaxError.file ? path.join(workspaceFolder.uri.toString(), 'src', 'files', syntaxError.file) : uris[uriIndex].toString();
+							const range = new Range(syntaxError.line - 1, syntaxError.column - 1, syntaxError.line - 1, 5000);
+							const diagnostic = new Diagnostic(range, syntaxError.message, DiagnosticSeverity.Error);
+							if (syntaxError.path) {
+								let related: DiagnosticRelatedInformation[] = [];
+								for (const [itemIndex, item] of syntaxError.path.entries()) {
+									const uri = item.file ? Uri.file(path.join(filesPath, item.file)) : uris[uriIndex];
+									related.push({
+										location: new Location(uri, new Position(item.line - 1, item.column - 1)),
+										message: item.file ? `Include chain (#${syntaxError.path.length - itemIndex - 1})` : 'The hook entry point'
+									});
+								}
+								diagnostic.relatedInformation = related;
 								diagnosticCollection.delete(Uri.parse(filePath));
 							}
 							diagnosticCollection.set(Uri.parse(filePath), [diagnostic]);
