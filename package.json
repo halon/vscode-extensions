@@ -1,6 +1,6 @@
 {
   "name": "vscode-halon",
-  "version": "5.0.2",
+  "version": "5.0.3",
   "publisher": "Halon",
   "engines": {
     "vscode": "^1.28.2"
@@ -78,6 +78,47 @@
         "command": "halon.livestageCancel",
         "title": "Halon: Live Staging (Cancel)"
       }
+    ],
+    "extensionDependencies": [
+      "redhat.vscode-yaml"
+    ],
+    "yamlValidation": [
+      {
+        "fileMatch": "smtpd.yaml",
+        "url": "./node_modules/@halon/json-schemas/smtpd.schema.json"
+      },
+      {
+        "fileMatch": "smtpd-app.yaml",
+        "url": "./node_modules/@halon/json-schemas/smtpd-app.schema.json"
+      },
+      {
+        "fileMatch": "queued.yaml",
+        "url": "./node_modules/@halon/json-schemas/queued.schema.json"
+      },
+      {
+        "fileMatch": "queued-app.yaml",
+        "url": "./node_modules/@halon/json-schemas/queued-app.schema.json"
+      },
+      {
+        "fileMatch": "dlpd.yaml",
+        "url": "./node_modules/@halon/json-schemas/dlpd.schema.json"
+      },
+      {
+        "fileMatch": "dlpd-app.yaml",
+        "url": "./node_modules/@halon/json-schemas/dlpd-app.schema.json"
+      },
+      {
+        "fileMatch": "httprd.yaml",
+        "url": "./node_modules/@halon/json-schemas/httprd.schema.json"
+      },
+      {
+        "fileMatch": "rated.yaml",
+        "url": "./node_modules/@halon/json-schemas/rated.schema.json"
+      },
+      {
+        "fileMatch": "rated-app.yaml",
+        "url": "./node_modules/@halon/json-schemas/rated-app.schema.json"
+      }
     ]
   },
   "activationEvents": [
@@ -123,6 +164,7 @@
   },
   "dependencies": {
     "@halon/cli": "^5.0.13",
+    "@halon/json-schemas": "^5.0.3",
     "path-is-inside": "^1.0.2",
     "underscore": "^1.9.1"
   }
