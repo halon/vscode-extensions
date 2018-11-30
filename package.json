@@ -1,6 +1,6 @@
 {
   "name": "vscode-halon",
-  "version": "5.0.3",
+  "version": "5.0.4",
   "publisher": "Halon",
   "engines": {
     "vscode": "^1.28.2"
@@ -79,9 +79,6 @@
         "title": "Halon: Live Staging (Cancel)"
       }
     ],
-    "extensionDependencies": [
-      "redhat.vscode-yaml"
-    ],
     "yamlValidation": [
       {
         "fileMatch": "smtpd.yaml",
@@ -149,6 +146,9 @@
     "url": "https://github.com/halon/vscode-extension"
   },
   "homepage": "https://github.com/halon/vscode-extension",
+  "extensionDependencies": [
+    "redhat.vscode-yaml"
+  ],
   "devDependencies": {
     "@types/fs-readdir-recursive": "^1.0.0",
     "@types/mocha": "^5.2.5",
