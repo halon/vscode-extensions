@@ -12,6 +12,33 @@
             "link": "[Full documentation]({{ docsurl }}functions.html#MIME)"
         },
         {
+            "name": "LDAP",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "uri",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "detail": "LDAP(string $uri)",
+            "value": "LDAP($0)",
+            "documentation": "The LDAP class is a OpenLDAP wrapper class. The URI should be in the format of ldap:\/\/ or ldaps:\/\/. Multiple hosts may be given separated by space.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#LDAP)"
+        },
+        {
+            "name": "LDAPResult",
+            "parameters": {
+                "required": [],
+                "optional": []
+            },
+            "detail": "LDAPResult()",
+            "value": "LDAPResult()",
+            "documentation": "A LDAP result iterable object which holds the result from an LDAP search.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#LDAPResult)"
+        },
+        {
             "name": "Socket",
             "parameters": {
                 "required": [

@@ -32,21 +32,21 @@
             "name": "$serverip",
             "type": "string",
             "detail": "string readonly $serverip",
-            "documentation": "IP address of the mailserver",
+            "documentation": "IP address of the server",
             "example": "\"10.0.0.1\""
         },
         {
             "name": "$serverport",
             "type": "number",
             "detail": "number readonly $serverport",
-            "documentation": "TCP port of the mailserver",
+            "documentation": "TCP port of the server",
             "example": "25"
         },
         {
             "name": "$serverid",
             "type": "string",
             "detail": "string readonly $serverid",
-            "documentation": "ID of the mailserver profile",
+            "documentation": "ID of the server",
             "example": "\"mailserver:1\""
         }
     ],
@@ -69,21 +69,21 @@
             "name": "$serverip",
             "type": "string",
             "detail": "string readonly $serverip",
-            "documentation": "IP address of the mailserver",
+            "documentation": "IP address of the server",
             "example": "\"10.0.0.1\""
         },
         {
             "name": "$serverport",
             "type": "number",
             "detail": "number readonly $serverport",
-            "documentation": "TCP port of the mailserver",
+            "documentation": "TCP port of the server",
             "example": "25"
         },
         {
             "name": "$serverid",
             "type": "string",
             "detail": "string readonly $serverid",
-            "documentation": "ID of the mailserver profile",
+            "documentation": "ID of the server",
             "example": "\"mailserver:1\""
         },
         {
@@ -154,21 +154,21 @@
             "name": "$serverip",
             "type": "string",
             "detail": "string readonly $serverip",
-            "documentation": "IP address of the mailserver",
+            "documentation": "IP address of the server",
             "example": "\"10.0.0.1\""
         },
         {
             "name": "$serverport",
             "type": "number",
             "detail": "number readonly $serverport",
-            "documentation": "TCP port of the mailserver",
+            "documentation": "TCP port of the server",
             "example": "25"
         },
         {
             "name": "$serverid",
             "type": "string",
             "detail": "string readonly $serverid",
-            "documentation": "ID of the mailserver profile",
+            "documentation": "ID of the server",
             "example": "\"mailserver:1\""
         },
         {
@@ -253,21 +253,21 @@
             "name": "$serverip",
             "type": "string",
             "detail": "string readonly $serverip",
-            "documentation": "IP address of the mailserver",
+            "documentation": "IP address of the server",
             "example": "\"10.0.0.1\""
         },
         {
             "name": "$serverport",
             "type": "number",
             "detail": "number readonly $serverport",
-            "documentation": "TCP port of the mailserver",
+            "documentation": "TCP port of the server",
             "example": "25"
         },
         {
             "name": "$serverid",
             "type": "string",
             "detail": "string readonly $serverid",
-            "documentation": "ID of the mailserver profile",
+            "documentation": "ID of the server",
             "example": "\"mailserver:1\""
         },
         {
@@ -359,21 +359,21 @@
             "name": "$serverip",
             "type": "string",
             "detail": "string readonly $serverip",
-            "documentation": "IP address of the mailserver",
+            "documentation": "IP address of the server",
             "example": "\"10.0.0.1\""
         },
         {
             "name": "$serverport",
             "type": "number",
             "detail": "number readonly $serverport",
-            "documentation": "TCP port of the mailserver",
+            "documentation": "TCP port of the server",
             "example": "25"
         },
         {
             "name": "$serverid",
             "type": "string",
             "detail": "string readonly $serverid",
-            "documentation": "ID of the mailserver profile",
+            "documentation": "ID of the server",
             "example": "\"mailserver:1\""
         },
         {
@@ -416,83 +416,6 @@
             "detail": "array readonly $transaction",
             "documentation": "Contains the transaction ID and envelope data (sender and recipient)",
             "example": "[...]"
-        },
-        {
-            "name": "\"id\"",
-            "type": "string",
-            "detail": "string readonly \"id\"",
-            "documentation": "ID of the transaction",
-            "example": "\"18c190a3-93f-47d7-bd...\""
-        },
-        {
-            "name": "\"sender\"",
-            "type": "string",
-            "detail": "string readonly \"sender\"",
-            "documentation": "Email address of sender (envelope), lowercase",
-            "example": "\"test@example.org\""
-        },
-        {
-            "name": "\"senderlocalpart\"",
-            "type": "string",
-            "detail": "string readonly \"senderlocalpart\"",
-            "documentation": "Local part of sender's address (envelope)",
-            "example": "\"test\""
-        },
-        {
-            "name": "\"senderdomain\"",
-            "type": "string",
-            "detail": "string readonly \"senderdomain\"",
-            "documentation": "Domain part of sender's address (envelope)",
-            "example": "\"example.org\""
-        },
-        {
-            "name": "\"senderparams\"",
-            "type": "array",
-            "detail": "array readonly \"senderparams\"",
-            "documentation": "Sender parameters to the envelope address",
-            "example": "[\"SIZE\" => \"2048\", ... ]"
-        },
-        {
-            "name": "\"recipients\"",
-            "type": "array",
-            "detail": "array readonly \"recipients\"",
-            "documentation": "List of all accepted recipients (envelope), in order of scanning",
-            "example": "[...]"
-        },
-        {
-            "name": "\"recipient\"",
-            "type": "string",
-            "detail": "string readonly \"recipient\"",
-            "documentation": "Recipient address, lowercase",
-            "example": "\"test@example.com\""
-        },
-        {
-            "name": "\"recipientlocalpart\"",
-            "type": "string",
-            "detail": "string readonly \"recipientlocalpart\"",
-            "documentation": "Local part of recipient address",
-            "example": "\"test\""
-        },
-        {
-            "name": "\"recipientdomain\"",
-            "type": "string",
-            "detail": "string readonly \"recipientdomain\"",
-            "documentation": "Domain part of recipient address",
-            "example": "\"example.com\""
-        },
-        {
-            "name": "\"recipientparams\"",
-            "type": "array",
-            "detail": "array readonly \"recipientparams\"",
-            "documentation": "Recipient parameters to the envelope address",
-            "example": "[\"NOTIFY\" => \"NEVER\", .. ]"
-        },
-        {
-            "name": "\"transportid\"",
-            "type": "string",
-            "detail": "string readonly \"transportid\"",
-            "documentation": "Transport ID for recipient",
-            "example": "\"mx\""
         },
         {
             "name": "$recipient",
@@ -549,21 +472,21 @@
             "name": "$serverip",
             "type": "string",
             "detail": "string readonly $serverip",
-            "documentation": "IP address of the mailserver",
+            "documentation": "IP address of the server",
             "example": "\"10.0.0.1\""
         },
         {
             "name": "$serverport",
             "type": "number",
             "detail": "number readonly $serverport",
-            "documentation": "TCP port of the mailserver",
+            "documentation": "TCP port of the server",
             "example": "25"
         },
         {
             "name": "$serverid",
             "type": "string",
             "detail": "string readonly $serverid",
-            "documentation": "ID of the mailserver profile",
+            "documentation": "ID of the server",
             "example": "\"mailserver:1\""
         },
         {
@@ -606,83 +529,6 @@
             "detail": "array readonly $transaction",
             "documentation": "Contains the transaction ID and envelope data (sender and recipient)",
             "example": "[...]"
-        },
-        {
-            "name": "\"id\"",
-            "type": "string",
-            "detail": "string readonly \"id\"",
-            "documentation": "ID of the transaction",
-            "example": "\"18c190a3-93f-47d7-bd...\""
-        },
-        {
-            "name": "\"sender\"",
-            "type": "string",
-            "detail": "string readonly \"sender\"",
-            "documentation": "Email address of sender (envelope), lowercase",
-            "example": "\"test@example.org\""
-        },
-        {
-            "name": "\"senderlocalpart\"",
-            "type": "string",
-            "detail": "string readonly \"senderlocalpart\"",
-            "documentation": "Local part of sender's address (envelope)",
-            "example": "\"test\""
-        },
-        {
-            "name": "\"senderdomain\"",
-            "type": "string",
-            "detail": "string readonly \"senderdomain\"",
-            "documentation": "Domain part of sender's address (envelope)",
-            "example": "\"example.org\""
-        },
-        {
-            "name": "\"senderparams\"",
-            "type": "array",
-            "detail": "array readonly \"senderparams\"",
-            "documentation": "Sender parameters to the envelope address",
-            "example": "[\"SIZE\" => \"2048\", ... ]"
-        },
-        {
-            "name": "\"recipients\"",
-            "type": "array",
-            "detail": "array readonly \"recipients\"",
-            "documentation": "List of all accepted recipients (envelope), in order of scanning",
-            "example": "[...]"
-        },
-        {
-            "name": "\"recipient\"",
-            "type": "string",
-            "detail": "string readonly \"recipient\"",
-            "documentation": "Recipient address, lowercase",
-            "example": "\"test@example.com\""
-        },
-        {
-            "name": "\"recipientlocalpart\"",
-            "type": "string",
-            "detail": "string readonly \"recipientlocalpart\"",
-            "documentation": "Local part of recipient address",
-            "example": "\"test\""
-        },
-        {
-            "name": "\"recipientdomain\"",
-            "type": "string",
-            "detail": "string readonly \"recipientdomain\"",
-            "documentation": "Domain part of recipient address",
-            "example": "\"example.com\""
-        },
-        {
-            "name": "\"recipientparams\"",
-            "type": "array",
-            "detail": "array readonly \"recipientparams\"",
-            "documentation": "Recipient parameters to the envelope address",
-            "example": "[\"NOTIFY\" => \"NEVER\", .. ]"
-        },
-        {
-            "name": "\"transportid\"",
-            "type": "string",
-            "detail": "string readonly \"transportid\"",
-            "documentation": "Transport ID for recipient",
-            "example": "\"mx\""
         }
     ],
     "eodrcpt": [
@@ -704,21 +550,21 @@
             "name": "$serverip",
             "type": "string",
             "detail": "string readonly $serverip",
-            "documentation": "IP address of the mailserver",
+            "documentation": "IP address of the server",
             "example": "\"10.0.0.1\""
         },
         {
             "name": "$serverport",
             "type": "number",
             "detail": "number readonly $serverport",
-            "documentation": "TCP port of the mailserver",
+            "documentation": "TCP port of the server",
             "example": "25"
         },
         {
             "name": "$serverid",
             "type": "string",
             "detail": "string readonly $serverid",
-            "documentation": "ID of the mailserver profile",
+            "documentation": "ID of the server",
             "example": "\"mailserver:1\""
         },
         {
@@ -761,83 +607,6 @@
             "detail": "array readonly $transaction",
             "documentation": "Contains the transaction ID and envelope data (sender and recipient)",
             "example": "[...]"
-        },
-        {
-            "name": "\"id\"",
-            "type": "string",
-            "detail": "string readonly \"id\"",
-            "documentation": "ID of the transaction",
-            "example": "\"18c190a3-93f-47d7-bd...\""
-        },
-        {
-            "name": "\"sender\"",
-            "type": "string",
-            "detail": "string readonly \"sender\"",
-            "documentation": "Email address of sender (envelope), lowercase",
-            "example": "\"test@example.org\""
-        },
-        {
-            "name": "\"senderlocalpart\"",
-            "type": "string",
-            "detail": "string readonly \"senderlocalpart\"",
-            "documentation": "Local part of sender's address (envelope)",
-            "example": "\"test\""
-        },
-        {
-            "name": "\"senderdomain\"",
-            "type": "string",
-            "detail": "string readonly \"senderdomain\"",
-            "documentation": "Domain part of sender's address (envelope)",
-            "example": "\"example.org\""
-        },
-        {
-            "name": "\"senderparams\"",
-            "type": "array",
-            "detail": "array readonly \"senderparams\"",
-            "documentation": "Sender parameters to the envelope address",
-            "example": "[\"SIZE\" => \"2048\", ... ]"
-        },
-        {
-            "name": "\"recipients\"",
-            "type": "array",
-            "detail": "array readonly \"recipients\"",
-            "documentation": "List of all accepted recipients (envelope), in order of scanning",
-            "example": "[...]"
-        },
-        {
-            "name": "\"recipient\"",
-            "type": "string",
-            "detail": "string readonly \"recipient\"",
-            "documentation": "Recipient address, lowercase",
-            "example": "\"test@example.com\""
-        },
-        {
-            "name": "\"recipientlocalpart\"",
-            "type": "string",
-            "detail": "string readonly \"recipientlocalpart\"",
-            "documentation": "Local part of recipient address",
-            "example": "\"test\""
-        },
-        {
-            "name": "\"recipientdomain\"",
-            "type": "string",
-            "detail": "string readonly \"recipientdomain\"",
-            "documentation": "Domain part of recipient address",
-            "example": "\"example.com\""
-        },
-        {
-            "name": "\"recipientparams\"",
-            "type": "array",
-            "detail": "array readonly \"recipientparams\"",
-            "documentation": "Recipient parameters to the envelope address",
-            "example": "[\"NOTIFY\" => \"NEVER\", .. ]"
-        },
-        {
-            "name": "\"transportid\"",
-            "type": "string",
-            "detail": "string readonly \"transportid\"",
-            "documentation": "Transport ID for recipient",
-            "example": "\"mx\""
         },
         {
             "name": "$recipient",
@@ -1006,14 +775,14 @@
             "name": "$serverid",
             "type": "string",
             "detail": "string readonly $serverid",
-            "documentation": "ID of the mailserver profile",
+            "documentation": "ID of the server the message was recevied on",
             "example": "\"mailserver:1\""
         },
         {
             "name": "$transportid",
             "type": "string",
             "detail": "string readonly $transportid",
-            "documentation": "ID of the transport profile that is used",
+            "documentation": "ID of the transport profile assigned",
             "example": "\"mailtransport:1\""
         },
         {

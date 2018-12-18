@@ -1,23 +1,6 @@
 {
     "core": [
         {
-            "name": "array_keys",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "array",
-                        "type": "array"
-                    }
-                ],
-                "optional": []
-            },
-            "returnType": "array",
-            "detail": "array_keys(array $array): array",
-            "value": "array_keys($0)",
-            "documentation": "Returns the keys in the array.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#array_keys)"
-        },
-        {
             "name": "array_filter",
             "parameters": {
                 "required": [
@@ -39,6 +22,83 @@
             "link": "[Full documentation]({{ docsurl }}functions.html#array_filter)"
         },
         {
+            "name": "array_find",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "array",
+                        "type": "array"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "boolean or none",
+            "detail": "array_find(array $array): boolean or none",
+            "value": "array_find($0)",
+            "documentation": "Return the first element that matches in the array.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#array_find)"
+        },
+        {
+            "name": "array_includes",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "needle",
+                        "type": "any"
+                    },
+                    {
+                        "name": "array",
+                        "type": "array"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "boolean",
+            "detail": "array_includes(any $needle, array $array): boolean",
+            "value": "array_includes($0)",
+            "documentation": "Returns true if needle is found in the array.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#array_includes)"
+        },
+        {
+            "name": "array_join",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "array",
+                        "type": "array"
+                    }
+                ],
+                "optional": [
+                    {
+                        "name": "separator",
+                        "type": "string"
+                    }
+                ]
+            },
+            "returnType": "string",
+            "detail": "array_join(array $array [, string $separator]): string",
+            "value": "array_join($0)",
+            "documentation": "Join the elements in the array with a separator returning a string",
+            "link": "[Full documentation]({{ docsurl }}functions.html#array_join)"
+        },
+        {
+            "name": "array_keys",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "array",
+                        "type": "array"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "array",
+            "detail": "array_keys(array $array): array",
+            "value": "array_keys($0)",
+            "documentation": "Returns the keys in the array.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#array_keys)"
+        },
+        {
             "name": "array_map",
             "parameters": {
                 "required": [
@@ -58,6 +118,32 @@
             "value": "array_map($0)",
             "documentation": "Returns values from the array with the callback applied.",
             "link": "[Full documentation]({{ docsurl }}functions.html#array_map)"
+        },
+        {
+            "name": "array_range",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "start",
+                        "type": "number"
+                    },
+                    {
+                        "name": "stop",
+                        "type": "number"
+                    }
+                ],
+                "optional": [
+                    {
+                        "name": "step = 1",
+                        "type": "number"
+                    }
+                ]
+            },
+            "returnType": "array",
+            "detail": "array_range(number $start, number $stop [, number $step = 1]): array",
+            "value": "array_range($0)",
+            "documentation": "Returns an array from a numeric range (half-open) with the given steps.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#array_range)"
         },
         {
             "name": "array_reduce",
@@ -129,117 +215,6 @@
             "link": "[Full documentation]({{ docsurl }}functions.html#array_sort)"
         },
         {
-            "name": "count",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "array",
-                        "type": "array"
-                    }
-                ],
-                "optional": []
-            },
-            "returnType": "number",
-            "detail": "count(array $array): number",
-            "value": "count($0)",
-            "documentation": "Counts items in an array.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#count)"
-        },
-        {
-            "name": "explode",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "delimiter",
-                        "type": "string"
-                    },
-                    {
-                        "name": "string",
-                        "type": "string"
-                    }
-                ],
-                "optional": [
-                    {
-                        "name": "limit = 0",
-                        "type": "number"
-                    }
-                ]
-            },
-            "returnType": "array",
-            "detail": "explode(string $delimiter, string $string [, number $limit = 0]): array",
-            "value": "explode($0)",
-            "documentation": "Splits the string into an array on the delimiter.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#explode)"
-        },
-        {
-            "name": "implode",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "glue",
-                        "type": "string"
-                    },
-                    {
-                        "name": "array",
-                        "type": "array"
-                    }
-                ],
-                "optional": []
-            },
-            "returnType": "string",
-            "detail": "implode(string $glue, array $array): string",
-            "value": "implode($0)",
-            "documentation": "Joins the array with the glue.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#implode)"
-        },
-        {
-            "name": "in_array",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "needle",
-                        "type": "any"
-                    },
-                    {
-                        "name": "array",
-                        "type": "array"
-                    }
-                ],
-                "optional": []
-            },
-            "returnType": "boolean",
-            "detail": "in_array(any $needle, array $array): boolean",
-            "value": "in_array($0)",
-            "documentation": "Returns true if needle is found in the array.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#in_array)"
-        },
-        {
-            "name": "range",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "start",
-                        "type": "number"
-                    },
-                    {
-                        "name": "stop",
-                        "type": "number"
-                    }
-                ],
-                "optional": [
-                    {
-                        "name": "step = 1",
-                        "type": "number"
-                    }
-                ]
-            },
-            "returnType": "array",
-            "detail": "range(number $start, number $stop [, number $step = 1]): array",
-            "value": "range($0)",
-            "documentation": "Returns an array from a numeric range (inclusive) with the given steps.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#range)"
-        },
-        {
             "name": "aes_decrypt",
             "parameters": {
                 "required": [
@@ -308,16 +283,16 @@
                         "type": "string"
                     },
                     {
-                        "name": "s",
+                        "name": "message",
                         "type": "string"
                     }
                 ],
                 "optional": []
             },
             "returnType": "string",
-            "detail": "hmac_md5(string $key, string $s): string",
+            "detail": "hmac_md5(string $key, string $message): string",
             "value": "hmac_md5($0)",
-            "documentation": "Return the HMAC MD5 hash of s with the key.",
+            "documentation": "Return the HMAC MD5 hash of message with the key.",
             "link": "[Full documentation]({{ docsurl }}functions.html#hmac_md5)"
         },
         {
@@ -329,16 +304,16 @@
                         "type": "string"
                     },
                     {
-                        "name": "s",
+                        "name": "message",
                         "type": "string"
                     }
                 ],
                 "optional": []
             },
             "returnType": "string",
-            "detail": "hmac_sha1(string $key, string $s): string",
+            "detail": "hmac_sha1(string $key, string $message): string",
             "value": "hmac_sha1($0)",
-            "documentation": "Return the HMAC SHA1 hash of s with the key.",
+            "documentation": "Return the HMAC SHA1 hash of message with the key.",
             "link": "[Full documentation]({{ docsurl }}functions.html#hmac_sha1)"
         },
         {
@@ -350,7 +325,7 @@
                         "type": "string"
                     },
                     {
-                        "name": "s",
+                        "name": "message",
                         "type": "string"
                     },
                     {
@@ -361,9 +336,9 @@
                 "optional": []
             },
             "returnType": "string",
-            "detail": "hmac_sha2(string $key, string $s, number $hashsize): string",
+            "detail": "hmac_sha2(string $key, string $message, number $hashsize): string",
             "value": "hmac_sha2($0)",
-            "documentation": "Return the HMAC SHA2 hash of s with the key.",
+            "documentation": "Return the HMAC SHA2 hash of message with the key.",
             "link": "[Full documentation]({{ docsurl }}functions.html#hmac_sha2)"
         },
         {
@@ -371,16 +346,16 @@
             "parameters": {
                 "required": [
                     {
-                        "name": "s",
+                        "name": "message",
                         "type": "string"
                     }
                 ],
                 "optional": []
             },
             "returnType": "string",
-            "detail": "md5(string $s): string",
+            "detail": "md5(string $message): string",
             "value": "md5($0)",
-            "documentation": "Return the MD5 hash of s.",
+            "documentation": "Return the MD5 hash of message.",
             "link": "[Full documentation]({{ docsurl }}functions.html#md5)"
         },
         {
@@ -388,16 +363,16 @@
             "parameters": {
                 "required": [
                     {
-                        "name": "s",
+                        "name": "message",
                         "type": "string"
                     }
                 ],
                 "optional": []
             },
             "returnType": "string",
-            "detail": "sha1(string $s): string",
+            "detail": "sha1(string $message): string",
             "value": "sha1($0)",
-            "documentation": "Return the SHA1 hash of s.",
+            "documentation": "Return the SHA1 hash of message.",
             "link": "[Full documentation]({{ docsurl }}functions.html#sha1)"
         },
         {
@@ -405,7 +380,7 @@
             "parameters": {
                 "required": [
                     {
-                        "name": "s",
+                        "name": "message",
                         "type": "string"
                     },
                     {
@@ -416,9 +391,9 @@
                 "optional": []
             },
             "returnType": "string",
-            "detail": "sha2(string $s, number $hashsize): string",
+            "detail": "sha2(string $message, number $hashsize): string",
             "value": "sha2($0)",
-            "documentation": "Return the SHA2 hash of s.",
+            "documentation": "Return the SHA2 hash of message.",
             "link": "[Full documentation]({{ docsurl }}functions.html#sha2)"
         },
         {
@@ -426,16 +401,16 @@
             "parameters": {
                 "required": [
                     {
-                        "name": "string",
+                        "name": "message",
                         "type": "string"
                     }
                 ],
                 "optional": []
             },
             "returnType": "number",
-            "detail": "hash(string $string): number",
+            "detail": "hash(string $message): number",
             "value": "hash($0)",
-            "documentation": "Return the numeric hash value of the input string. The hash value is same for equal strings.",
+            "documentation": "Return the numeric hash value of the message. The hash value is same for equal messages.",
             "link": "[Full documentation]({{ docsurl }}functions.html#hash)"
         },
         {
@@ -558,6 +533,23 @@
             "link": "[Full documentation]({{ docsurl }}functions.html#random_bytes)"
         },
         {
+            "name": "random_number",
+            "parameters": {
+                "required": [],
+                "optional": [
+                    {
+                        "name": "first",
+                        "type": "number"
+                    }
+                ]
+            },
+            "returnType": "number",
+            "detail": "random_number([number $first]): number",
+            "value": "random_number($0)",
+            "documentation": "Return a random integer between first and last (inclusive) or a random double (decimal) between 0 and 1 (inclusive).",
+            "link": "[Full documentation]({{ docsurl }}functions.html#random_number)"
+        },
+        {
             "name": "crypt",
             "parameters": {
                 "required": [
@@ -577,6 +569,23 @@
             "value": "crypt($0)",
             "documentation": "Uses the underlying operating system's crypt() function.",
             "link": "[Full documentation]({{ docsurl }}functions.html#crypt)"
+        },
+        {
+            "name": "length",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "value",
+                        "type": "any"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "number or none",
+            "detail": "length(any $value): number or none",
+            "value": "length($0)",
+            "documentation": "Return the length of an array (items) or a string (characters). For all other datatypes none is returned.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#length)"
         },
         {
             "name": "array",
@@ -600,16 +609,16 @@
             "parameters": {
                 "required": [
                     {
-                        "name": "x",
+                        "name": "value",
                         "type": "any"
                     }
                 ],
                 "optional": []
             },
             "returnType": "boolean",
-            "detail": "boolean(any $x): boolean",
+            "detail": "boolean(any $value): boolean",
             "value": "boolean($0)",
-            "documentation": "This function converts the input of x to the boolean type (according to the truthiness) table.",
+            "documentation": "This function converts the input of value to the boolean type (according to the truthiness) table.",
             "link": "[Full documentation]({{ docsurl }}functions.html#boolean)"
         },
         {
@@ -617,16 +626,16 @@
             "parameters": {
                 "required": [
                     {
-                        "name": "x",
+                        "name": "value",
                         "type": "any"
                     }
                 ],
                 "optional": []
             },
             "returnType": "number",
-            "detail": "number(any $x): number",
+            "detail": "number(any $value): number",
             "value": "number($0)",
-            "documentation": "This function converts the input of x to the number type. Decimal and hexadecimal (Ox) numbers are supported. If the input contains an invalid number as string or type 0 is returned.",
+            "documentation": "This function converts the input of value to the number type. Decimal and hexadecimal (Ox) numbers are supported. If the input contains an invalid number as string or type 0 is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#number)"
         },
         {
@@ -634,16 +643,16 @@
             "parameters": {
                 "required": [
                     {
-                        "name": "x",
+                        "name": "value",
                         "type": "any"
                     }
                 ],
                 "optional": []
             },
             "returnType": "string",
-            "detail": "string(any $x): string",
+            "detail": "string(any $value): string",
             "value": "string($0)",
-            "documentation": "This function converts the input of s to the string type, hence converting it to its string representation.",
+            "documentation": "This function converts the input of value to the string type, hence converting it to its string representation.",
             "link": "[Full documentation]({{ docsurl }}functions.html#string)"
         },
         {
@@ -651,16 +660,16 @@
             "parameters": {
                 "required": [
                     {
-                        "name": "a",
+                        "name": "value",
                         "type": "any"
                     }
                 ],
                 "optional": []
             },
             "returnType": "boolean",
-            "detail": "is_array(any $a): boolean",
+            "detail": "is_array(any $value): boolean",
             "value": "is_array($0)",
-            "documentation": "Returns true if the type of a is an array.",
+            "documentation": "Returns true if the type of value is an array.",
             "link": "[Full documentation]({{ docsurl }}functions.html#is_array)"
         },
         {
@@ -668,16 +677,16 @@
             "parameters": {
                 "required": [
                     {
-                        "name": "a",
+                        "name": "value",
                         "type": "any"
                     }
                 ],
                 "optional": []
             },
             "returnType": "boolean",
-            "detail": "is_boolean(any $a): boolean",
+            "detail": "is_boolean(any $value): boolean",
             "value": "is_boolean($0)",
-            "documentation": "Returns true if the type of a is a boolean.",
+            "documentation": "Returns true if the type of value is a boolean.",
             "link": "[Full documentation]({{ docsurl }}functions.html#is_boolean)"
         },
         {
@@ -685,16 +694,16 @@
             "parameters": {
                 "required": [
                     {
-                        "name": "f",
+                        "name": "value",
                         "type": "any"
                     }
                 ],
                 "optional": []
             },
             "returnType": "boolean",
-            "detail": "is_function(any $f): boolean",
+            "detail": "is_function(any $value): boolean",
             "value": "is_function($0)",
-            "documentation": "Returns true if the type of f is a function.",
+            "documentation": "Returns true if the type of value is a function.",
             "link": "[Full documentation]({{ docsurl }}functions.html#is_function)"
         },
         {
@@ -702,16 +711,16 @@
             "parameters": {
                 "required": [
                     {
-                        "name": "n",
+                        "name": "value",
                         "type": "any"
                     }
                 ],
                 "optional": []
             },
             "returnType": "boolean",
-            "detail": "is_number(any $n): boolean",
+            "detail": "is_number(any $value): boolean",
             "value": "is_number($0)",
-            "documentation": "Returns true if the type of n is a number.",
+            "documentation": "Returns true if the type of value is a number.",
             "link": "[Full documentation]({{ docsurl }}functions.html#is_number)"
         },
         {
@@ -719,16 +728,16 @@
             "parameters": {
                 "required": [
                     {
-                        "name": "o",
+                        "name": "value",
                         "type": "any"
                     }
                 ],
                 "optional": []
             },
             "returnType": "boolean",
-            "detail": "is_object(any $o): boolean",
+            "detail": "is_object(any $value): boolean",
             "value": "is_object($0)",
-            "documentation": "Returns true if the type of o is an object.",
+            "documentation": "Returns true if the type of value is an object.",
             "link": "[Full documentation]({{ docsurl }}functions.html#is_object)"
         },
         {
@@ -736,16 +745,16 @@
             "parameters": {
                 "required": [
                     {
-                        "name": "s",
+                        "name": "value",
                         "type": "any"
                     }
                 ],
                 "optional": []
             },
             "returnType": "boolean",
-            "detail": "is_string(any $s): boolean",
+            "detail": "is_string(any $value): boolean",
             "value": "is_string($0)",
-            "documentation": "Returns true if the type of s is a string.",
+            "documentation": "Returns true if the type of value is a string.",
             "link": "[Full documentation]({{ docsurl }}functions.html#is_string)"
         },
         {
@@ -799,14 +808,14 @@
             "parameters": {
                 "required": [
                     {
-                        "name": "x",
+                        "name": "seconds",
                         "type": "number"
                     }
                 ],
                 "optional": []
             },
             "returnType": "number",
-            "detail": "sleep(number $x): number",
+            "detail": "sleep(number $seconds): number",
             "value": "sleep($0)",
             "documentation": "Pause the code execution for x seconds.",
             "link": "[Full documentation]({{ docsurl }}functions.html#sleep)"
@@ -909,169 +918,15 @@
             "returnType": "array",
             "detail": "dns(string $host [, array $options]): array",
             "value": "dns($0)",
-            "documentation": "Query for the A and AAAA record of a hostname.",
+            "documentation": "Query for DNS records of a hostname.",
             "link": "[Full documentation]({{ docsurl }}functions.html#dns)"
-        },
-        {
-            "name": "dns4",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "host",
-                        "type": "string"
-                    }
-                ],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "array",
-            "detail": "dns4(string $host [, array $options]): array",
-            "value": "dns4($0)",
-            "documentation": "Query the resolvers for the A record of the hostname.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#dns4)"
-        },
-        {
-            "name": "dns6",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "host",
-                        "type": "string"
-                    }
-                ],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "array",
-            "detail": "dns6(string $host [, array $options]): array",
-            "value": "dns6($0)",
-            "documentation": "Query the resolvers for the AAAA record of the hostname.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#dns6)"
-        },
-        {
-            "name": "dnscname",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "host",
-                        "type": "string"
-                    }
-                ],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "array",
-            "detail": "dnscname(string $host [, array $options]): array",
-            "value": "dnscname($0)",
-            "documentation": "Query the resolvers for the CNAME record of the hostname.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#dnscname)"
-        },
-        {
-            "name": "dnsmx",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "host",
-                        "type": "string"
-                    }
-                ],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "array",
-            "detail": "dnsmx(string $host [, array $options]): array",
-            "value": "dnsmx($0)",
-            "documentation": "Query the resolvers for the MX record of the hostname.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#dnsmx)"
-        },
-        {
-            "name": "dnsns",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "host",
-                        "type": "string"
-                    }
-                ],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "array",
-            "detail": "dnsns(string $host [, array $options]): array",
-            "value": "dnsns($0)",
-            "documentation": "Query the resolvers for the NS record of the hostname.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#dnsns)"
-        },
-        {
-            "name": "dnsptr",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "host",
-                        "type": "string"
-                    }
-                ],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "array",
-            "detail": "dnsptr(string $host [, array $options]): array",
-            "value": "dnsptr($0)",
-            "documentation": "Query the resolvers for the PTR record of the address.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#dnsptr)"
-        },
-        {
-            "name": "dnstxt",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "host",
-                        "type": "string"
-                    }
-                ],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "array",
-            "detail": "dnstxt(string $host [, array $options]): array",
-            "value": "dnstxt($0)",
-            "documentation": "Query the resolvers for the TXT record of the hostname.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#dnstxt)"
         },
         {
             "name": "is_subdomain",
             "parameters": {
                 "required": [
                     {
-                        "name": "d",
+                        "name": "subdomain",
                         "type": "string"
                     },
                     {
@@ -1082,9 +937,9 @@
                 "optional": []
             },
             "returnType": "boolean",
-            "detail": "is_subdomain(string $d, string $domain): boolean",
+            "detail": "is_subdomain(string $subdomain, string $domain): boolean",
             "value": "is_subdomain($0)",
-            "documentation": "Test if d is subdomain of domain. If the domain starts with a dot . it must be a subdomain of domain, hence it will not even if d == domain.",
+            "documentation": "Test if subdomain is a subdomain of domain. If the domain starts with a dot . it must be a subdomain of domain, hence it will not even if subdomain == domain.",
             "link": "[Full documentation]({{ docsurl }}functions.html#is_subdomain)"
         },
         {
@@ -1156,7 +1011,7 @@
             "link": "[Full documentation]({{ docsurl }}functions.html#base64_decode)"
         },
         {
-            "name": "csv_explode",
+            "name": "csv_decode",
             "parameters": {
                 "required": [
                     {
@@ -1164,13 +1019,18 @@
                         "type": "string"
                     }
                 ],
-                "optional": []
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
             },
             "returnType": "array",
-            "detail": "csv_explode(string $string): array",
-            "value": "csv_explode($0)",
-            "documentation": "CSV explode the string.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#csv_explode)"
+            "detail": "csv_decode(string $string [, array $options]): array",
+            "value": "csv_decode($0)",
+            "documentation": "Parse CSV data as string.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#csv_decode)"
         },
         {
             "name": "json_encode",
@@ -1203,10 +1063,15 @@
                         "type": "string"
                     }
                 ],
-                "optional": []
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
             },
             "returnType": "any",
-            "detail": "json_decode(string $string): any",
+            "detail": "json_decode(string $string [, array $options]): any",
             "value": "json_decode($0)",
             "documentation": "Decodes a JSON string into a HSL data type.",
             "link": "[Full documentation]({{ docsurl }}functions.html#json_decode)"
@@ -1431,14 +1296,14 @@
             "parameters": {
                 "required": [
                     {
-                        "name": "x",
+                        "name": "number",
                         "type": "number"
                     }
                 ],
                 "optional": []
             },
             "returnType": "number",
-            "detail": "abs(number $x): number",
+            "detail": "abs(number $number): number",
             "value": "abs($0)",
             "documentation": "Return the absolute value of a number.",
             "link": "[Full documentation]({{ docsurl }}functions.html#abs)"
@@ -1448,14 +1313,14 @@
             "parameters": {
                 "required": [
                     {
-                        "name": "x",
+                        "name": "number",
                         "type": "number"
                     }
                 ],
                 "optional": []
             },
             "returnType": "number",
-            "detail": "ceil(number $x): number",
+            "detail": "ceil(number $number): number",
             "value": "ceil($0)",
             "documentation": "Return the integer value of a number by rounding up if necessary.",
             "link": "[Full documentation]({{ docsurl }}functions.html#ceil)"
@@ -1465,14 +1330,14 @@
             "parameters": {
                 "required": [
                     {
-                        "name": "x",
+                        "name": "number",
                         "type": "number"
                     }
                 ],
                 "optional": []
             },
             "returnType": "number",
-            "detail": "floor(number $x): number",
+            "detail": "floor(number $number): number",
             "value": "floor($0)",
             "documentation": "Return the integer value of a number by rounding down if necessary.",
             "link": "[Full documentation]({{ docsurl }}functions.html#floor)"
@@ -1482,21 +1347,21 @@
             "parameters": {
                 "required": [
                     {
-                        "name": "x",
+                        "name": "number",
                         "type": "number"
                     }
                 ],
                 "optional": [
                     {
-                        "name": "y = e",
+                        "name": "base = e",
                         "type": "number"
                     }
                 ]
             },
             "returnType": "number",
-            "detail": "log(number $x [, number $y = e]): number",
+            "detail": "log(number $number [, number $base = e]): number",
             "value": "log($0)",
-            "documentation": "Return the logarithm of base x and exponent y.",
+            "documentation": "Return the logarithm of number to base.",
             "link": "[Full documentation]({{ docsurl }}functions.html#log)"
         },
         {
@@ -1504,20 +1369,20 @@
             "parameters": {
                 "required": [
                     {
-                        "name": "x",
+                        "name": "base",
                         "type": "number"
                     },
                     {
-                        "name": "y",
+                        "name": "exponent",
                         "type": "number"
                     }
                 ],
                 "optional": []
             },
             "returnType": "number",
-            "detail": "pow(number $x, number $y): number",
+            "detail": "pow(number $base, number $exponent): number",
             "value": "pow($0)",
-            "documentation": "Return base x raised to the power of the exponent y.",
+            "documentation": "Return base raised to the power of the exponent.",
             "link": "[Full documentation]({{ docsurl }}functions.html#pow)"
         },
         {
@@ -1525,21 +1390,21 @@
             "parameters": {
                 "required": [
                     {
-                        "name": "x",
+                        "name": "number",
                         "type": "number"
                     }
                 ],
                 "optional": [
                     {
-                        "name": "y = 0",
+                        "name": "decimals = 0",
                         "type": "number"
                     }
                 ]
             },
             "returnType": "number",
-            "detail": "round(number $x [, number $y = 0]): number",
+            "detail": "round(number $number [, number $decimals = 0]): number",
             "value": "round($0)",
-            "documentation": "Return x rounded to precision of y decimals.",
+            "documentation": "Return number rounded to precision of decimals.",
             "link": "[Full documentation]({{ docsurl }}functions.html#round)"
         },
         {
@@ -1547,38 +1412,17 @@
             "parameters": {
                 "required": [
                     {
-                        "name": "x",
+                        "name": "number",
                         "type": "number"
                     }
                 ],
                 "optional": []
             },
             "returnType": "number",
-            "detail": "sqrt(number $x): number",
+            "detail": "sqrt(number $number): number",
             "value": "sqrt($0)",
-            "documentation": "Return the square root of x.",
+            "documentation": "Return the square root of number.",
             "link": "[Full documentation]({{ docsurl }}functions.html#sqrt)"
-        },
-        {
-            "name": "rand",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "x",
-                        "type": "number"
-                    },
-                    {
-                        "name": "y",
-                        "type": "number"
-                    }
-                ],
-                "optional": []
-            },
-            "returnType": "number",
-            "detail": "rand(number $x, number $y): number",
-            "value": "rand($0)",
-            "documentation": "Return a random integer between x and y (inclusive).",
-            "link": "[Full documentation]({{ docsurl }}functions.html#rand)"
         },
         {
             "name": "serial",
@@ -1935,20 +1779,20 @@
             "parameters": {
                 "required": [
                     {
-                        "name": "s",
+                        "name": "string",
                         "type": "string"
                     },
                     {
-                        "name": "n",
+                        "name": "multiplier",
                         "type": "number"
                     }
                 ],
                 "optional": []
             },
             "returnType": "string",
-            "detail": "str_repeat(string $s, number $n): string",
+            "detail": "str_repeat(string $string, number $multiplier): string",
             "value": "str_repeat($0)",
-            "documentation": "Returns the string s repeated n times.",
+            "documentation": "Returns the string repeated multiplier times.",
             "link": "[Full documentation]({{ docsurl }}functions.html#str_repeat)"
         },
         {
@@ -1977,32 +1821,41 @@
             "link": "[Full documentation]({{ docsurl }}functions.html#str_replace)"
         },
         {
-            "name": "strlen",
+            "name": "str_split",
             "parameters": {
                 "required": [
                     {
-                        "name": "s",
-                        "type": "string"
-                    }
-                ],
-                "optional": []
-            },
-            "returnType": "number",
-            "detail": "strlen(string $s): number",
-            "value": "strlen($0)",
-            "documentation": "Returns the length of the string s.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#strlen)"
-        },
-        {
-            "name": "strpos",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "s",
+                        "name": "string",
                         "type": "string"
                     },
                     {
-                        "name": "find",
+                        "name": "delimiter",
+                        "type": "string"
+                    }
+                ],
+                "optional": [
+                    {
+                        "name": "limit = 0",
+                        "type": "number"
+                    }
+                ]
+            },
+            "returnType": "array",
+            "detail": "str_split(string $string, string $delimiter [, number $limit = 0]): array",
+            "value": "str_split($0)",
+            "documentation": "Splits the string into an array on the delimiter.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#str_split)"
+        },
+        {
+            "name": "str_find",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "string",
+                        "type": "string"
+                    },
+                    {
+                        "name": "substring",
                         "type": "string"
                     }
                 ],
@@ -2014,21 +1867,17 @@
                 ]
             },
             "returnType": "number",
-            "detail": "strpos(string $s, string $find [, number $offset = 0]): number",
-            "value": "strpos($0)",
-            "documentation": "Return the position (starting from zero) of the first occurrence of find in s (starting from the offset). If the find is not found -1 is returned.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#strpos)"
+            "detail": "str_find(string $string, string $substring [, number $offset = 0]): number",
+            "value": "str_find($0)",
+            "documentation": "Return the position (starting from zero) of the first occurrence of substring in the string (starting from the offset). If the substring is not found -1 is returned.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#str_find)"
         },
         {
-            "name": "strrpos",
+            "name": "str_rfind",
             "parameters": {
                 "required": [
                     {
-                        "name": "s",
-                        "type": "string"
-                    },
-                    {
-                        "name": "find",
+                        "name": "string",
                         "type": "string"
                     }
                 ],
@@ -2040,51 +1889,51 @@
                 ]
             },
             "returnType": "number",
-            "detail": "strrpos(string $s, string $find [, number $offset = 0]): number",
-            "value": "strrpos($0)",
-            "documentation": "Return the position (starting from zero) of the last occurrence of find in s searching backward (starting from the offset relative to the end). If the find is not found -1 is returned.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#strrpos)"
+            "detail": "str_rfind(string $string [, number $offset = 0]): number",
+            "value": "str_rfind($0)",
+            "documentation": "Return the position (starting from zero) of the last occurrence of substring in the string searching backward (starting from the offset relative to the end). If the substring is not found -1 is returned.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#str_rfind)"
         },
         {
-            "name": "strtolower",
+            "name": "str_lower",
             "parameters": {
                 "required": [
                     {
-                        "name": "s",
+                        "name": "string",
                         "type": "string"
                     }
                 ],
                 "optional": []
             },
             "returnType": "string",
-            "detail": "strtolower(string $s): string",
-            "value": "strtolower($0)",
-            "documentation": "Returns s with all US-ASCII character to lowercased.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#strtolower)"
+            "detail": "str_lower(string $string): string",
+            "value": "str_lower($0)",
+            "documentation": "Returns string with all US-ASCII character to lowercased.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#str_lower)"
         },
         {
-            "name": "strtoupper",
+            "name": "str_upper",
             "parameters": {
                 "required": [
                     {
-                        "name": "s",
+                        "name": "string",
                         "type": "string"
                     }
                 ],
                 "optional": []
             },
             "returnType": "string",
-            "detail": "strtoupper(string $s): string",
-            "value": "strtoupper($0)",
-            "documentation": "Returns s with all US-ASCII character uppercased.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#strtoupper)"
+            "detail": "str_upper(string $string): string",
+            "value": "str_upper($0)",
+            "documentation": "Returns string with all US-ASCII character uppercased.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#str_upper)"
         },
         {
-            "name": "substr",
+            "name": "str_slice",
             "parameters": {
                 "required": [
                     {
-                        "name": "s",
+                        "name": "string",
                         "type": "string"
                     },
                     {
@@ -2094,33 +1943,33 @@
                 ],
                 "optional": [
                     {
-                        "name": "len",
+                        "name": "length",
                         "type": "number"
                     }
                 ]
             },
             "returnType": "string",
-            "detail": "substr(string $s, number $offset [, number $len]): string",
-            "value": "substr($0)",
-            "documentation": "Return the substring of s.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#substr)"
+            "detail": "str_slice(string $string, number $offset [, number $length]): string",
+            "value": "str_slice($0)",
+            "documentation": "Return the substring of string.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#str_slice)"
         },
         {
-            "name": "trim",
+            "name": "str_strip",
             "parameters": {
                 "required": [
                     {
-                        "name": "s",
+                        "name": "string",
                         "type": "string"
                     }
                 ],
                 "optional": []
             },
             "returnType": "string",
-            "detail": "trim(string $s): string",
-            "value": "trim($0)",
-            "documentation": "Returns s with whitespace characters (\\s\\t\\r\\n) removed from the start and end of the string.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#trim)"
+            "detail": "str_strip(string $string): string",
+            "value": "str_strip($0)",
+            "documentation": "Returns string with whitespace characters (\\s\\t\\r\\n) removed from the start and end of the string.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#str_strip)"
         },
         {
             "name": "pcre_match",
@@ -3327,14 +3176,14 @@
             "parameters": {
                 "required": [
                     {
-                        "name": "transportid",
+                        "name": "id",
                         "type": "string"
                     }
                 ],
                 "optional": []
             },
             "returnType": "none",
-            "detail": "SetMailTransport(string $transportid): none",
+            "detail": "SetMailTransport(string $id): none",
             "value": "SetMailTransport($0)",
             "documentation": "Changes the transport profile.",
             "link": "[Full documentation]({{ docsurl }}eodrcpt.html#SetMailTransport)"
@@ -3822,7 +3671,7 @@
             "returnType": "none",
             "detail": "SetXCLIENT(array $attributes): none",
             "value": "SetXCLIENT($0)",
-            "documentation": "Send the following XCLIENT xclient attributes.",
+            "documentation": "Send the following XCLIENT xclient attributes. It is not remembered for the next retry.",
             "link": "[Full documentation]({{ docsurl }}predelivery.html#SetXCLIENT)"
         },
         {
@@ -3847,7 +3696,7 @@
             "parameters": {
                 "required": [
                     {
-                        "name": "netaddr",
+                        "name": "id",
                         "type": "string or array"
                     }
                 ],
@@ -3859,7 +3708,7 @@
                 ]
             },
             "returnType": "none",
-            "detail": "SetSourceIP(string or array $netaddr [, array $options]): none",
+            "detail": "SetSourceIP(string or array $id [, array $options]): none",
             "value": "SetSourceIP($0)",
             "documentation": "This function changes the source IP of the current delivery attempt. It is not remembered for the next retry.",
             "link": "[Full documentation]({{ docsurl }}predelivery.html#SetSourceIP)"
