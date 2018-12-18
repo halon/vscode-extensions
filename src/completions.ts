@@ -27,7 +27,7 @@ export default class Completions implements CompletionItemProvider
     for (let item of variables) {
       let completionItem = new CompletionItem(item.name, CompletionItemKind.Variable);
       completionItem.detail = item.detail;
-      completionItem.documentation = new MarkdownString(item.documentation);
+      completionItem.documentation = new MarkdownString(item.example ? `${item.documentation} \n\n Example: \`${item.example}\`` : item.documentation);
       completionItems.push(completionItem);
     }
 

@@ -36,7 +36,8 @@ export default class Hovers implements HoverProvider
       if (item.name === text) {
         let contents = [
           new MarkdownString().appendCodeblock(item.detail, 'plaintext'),
-          new MarkdownString(item.documentation)
+          new MarkdownString(item.documentation),
+          new MarkdownString('Example: `' + item.example + '`')
         ];
         return new Hover(contents);
       }
