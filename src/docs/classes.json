@@ -28,17 +28,6 @@
             "link": "[Full documentation]({{ docsurl }}functions.html#LDAP)"
         },
         {
-            "name": "LDAPResult",
-            "parameters": {
-                "required": [],
-                "optional": []
-            },
-            "detail": "LDAPResult()",
-            "value": "LDAPResult()",
-            "documentation": "A LDAP result iterable object which holds the result from an LDAP search.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#LDAPResult)"
-        },
-        {
             "name": "Socket",
             "parameters": {
                 "required": [

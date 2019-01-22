@@ -922,7 +922,7 @@
             "link": "[Full documentation]({{ docsurl }}functions.html#dns)"
         },
         {
-            "name": "is_subdomain",
+            "name": "domain_includes",
             "parameters": {
                 "required": [
                     {
@@ -937,10 +937,10 @@
                 "optional": []
             },
             "returnType": "boolean",
-            "detail": "is_subdomain(string $subdomain, string $domain): boolean",
-            "value": "is_subdomain($0)",
+            "detail": "domain_includes(string $subdomain, string $domain): boolean",
+            "value": "domain_includes($0)",
             "documentation": "Test if subdomain is a subdomain of domain. If the domain starts with a dot . it must be a subdomain of domain, hence it will not even if subdomain == domain.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#is_subdomain)"
+            "link": "[Full documentation]({{ docsurl }}functions.html#domain_includes)"
         },
         {
             "name": "idna_encode",
@@ -1123,66 +1123,6 @@
             "value": "unpack($0)",
             "documentation": "Unpack data from a binary string. On error None is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#unpack)"
-        },
-        {
-            "name": "file",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "filename",
-                        "type": "string"
-                    }
-                ],
-                "optional": []
-            },
-            "returnType": "array",
-            "detail": "file(string $filename): array",
-            "value": "file($0)",
-            "documentation": "Return the content of the filename as an array line by line (without CR\/LF).",
-            "link": "[Full documentation]({{ docsurl }}functions.html#file)"
-        },
-        {
-            "name": "file_get_contents",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "filename",
-                        "type": "string"
-                    }
-                ],
-                "optional": []
-            },
-            "returnType": "string",
-            "detail": "file_get_contents(string $filename): string",
-            "value": "file_get_contents($0)",
-            "documentation": "Return the content of the filename as a string.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#file_get_contents)"
-        },
-        {
-            "name": "in_file",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "needle",
-                        "type": "any"
-                    },
-                    {
-                        "name": "filename",
-                        "type": "string"
-                    }
-                ],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "array",
-            "detail": "in_file(any $needle, string $filename [, array $options]): array",
-            "value": "in_file($0)",
-            "documentation": "Searches for a needle at the beginning (or at index) of each line in filename. If found, the line is returned as an array separated by the delimiter.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#in_file)"
         },
         {
             "name": "http",
@@ -1503,7 +1443,7 @@
             "link": "[Full documentation]({{ docsurl }}functions.html#stat)"
         },
         {
-            "name": "in_network",
+            "name": "inet_includes",
             "parameters": {
                 "required": [
                     {
@@ -1518,10 +1458,10 @@
                 "optional": []
             },
             "returnType": "boolean",
-            "detail": "in_network(string $ip, string $network): boolean",
-            "value": "in_network($0)",
-            "documentation": "Returns true if ip is in the subnet of network. Both IPv4 and IPv6 are supported.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#in_network)"
+            "detail": "inet_includes(string $ip, string $network): boolean",
+            "value": "inet_includes($0)",
+            "documentation": "Returns true if ip is in the subnet or range of network. Both IPv4 and IPv6 are supported.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#inet_includes)"
         },
         {
             "name": "inet_ntop",
@@ -1556,6 +1496,28 @@
             "value": "inet_pton($0)",
             "documentation": "Converts an IP from printable string format (eg 10.0.0.1) to a binary string format (4 char for IPv4 and 16 char for IPv6). On error None is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#inet_pton)"
+        },
+        {
+            "name": "inet_reverse",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "ip",
+                        "type": "string"
+                    }
+                ],
+                "optional": [
+                    {
+                        "name": "zone",
+                        "type": "string"
+                    }
+                ]
+            },
+            "returnType": "string",
+            "detail": "inet_reverse(string $ip [, string $zone]): string",
+            "value": "inet_reverse($0)",
+            "documentation": "Converts an IP to a reverse DNS compatible format (to be used with PTR lookups or DNSxL lookups). By default the zone correspons to the ARPA address for each IP family. On error None is returned.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#inet_reverse)"
         },
         {
             "name": "rate",
@@ -2361,16 +2323,16 @@
         {
             "name": "GetMailQueueMetric",
             "parameters": {
-                "required": [
+                "required": [],
+                "optional": [
                     {
                         "name": "options",
                         "type": "array"
                     }
-                ],
-                "optional": []
+                ]
             },
             "returnType": "number",
-            "detail": "GetMailQueueMetric(array $options): number",
+            "detail": "GetMailQueueMetric([array $options]): number",
             "value": "GetMailQueueMetric($0)",
             "documentation": "Return metric information about the mail queue, it can be used to enforce quotas.",
             "link": "[Full documentation]({{ docsurl }}mailfrom.html#GetMailQueueMetric)"
@@ -2453,16 +2415,16 @@
         {
             "name": "GetMailQueueMetric",
             "parameters": {
-                "required": [
+                "required": [],
+                "optional": [
                     {
                         "name": "options",
                         "type": "array"
                     }
-                ],
-                "optional": []
+                ]
             },
             "returnType": "number",
-            "detail": "GetMailQueueMetric(array $options): number",
+            "detail": "GetMailQueueMetric([array $options]): number",
             "value": "GetMailQueueMetric($0)",
             "documentation": "Return metric information about the mail queue, it can be used to enforce quotas.",
             "link": "[Full documentation]({{ docsurl }}rcptto.html#GetMailQueueMetric)"
@@ -2790,16 +2752,16 @@
         {
             "name": "GetMailQueueMetric",
             "parameters": {
-                "required": [
+                "required": [],
+                "optional": [
                     {
                         "name": "options",
                         "type": "array"
                     }
-                ],
-                "optional": []
+                ]
             },
             "returnType": "number",
-            "detail": "GetMailQueueMetric(array $options): number",
+            "detail": "GetMailQueueMetric([array $options]): number",
             "value": "GetMailQueueMetric($0)",
             "documentation": "Return metric information about the mail queue, it can be used to enforce quotas.",
             "link": "[Full documentation]({{ docsurl }}eodonce.html#GetMailQueueMetric)"
@@ -3123,16 +3085,16 @@
         {
             "name": "GetMailQueueMetric",
             "parameters": {
-                "required": [
+                "required": [],
+                "optional": [
                     {
                         "name": "options",
                         "type": "array"
                     }
-                ],
-                "optional": []
+                ]
             },
             "returnType": "number",
-            "detail": "GetMailQueueMetric(array $options): number",
+            "detail": "GetMailQueueMetric([array $options]): number",
             "value": "GetMailQueueMetric($0)",
             "documentation": "Return metric information about the mail queue, it can be used to enforce quotas.",
             "link": "[Full documentation]({{ docsurl }}eodrcpt.html#GetMailQueueMetric)"
@@ -3830,16 +3792,16 @@
         {
             "name": "GetMailQueueMetric",
             "parameters": {
-                "required": [
+                "required": [],
+                "optional": [
                     {
                         "name": "options",
                         "type": "array"
                     }
-                ],
-                "optional": []
+                ]
             },
             "returnType": "number",
-            "detail": "GetMailQueueMetric(array $options): number",
+            "detail": "GetMailQueueMetric([array $options]): number",
             "value": "GetMailQueueMetric($0)",
             "documentation": "Return metric information about the mail queue, it can be used to enforce quotas.",
             "link": "[Full documentation]({{ docsurl }}predelivery.html#GetMailQueueMetric)"
