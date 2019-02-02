@@ -26,14 +26,18 @@
             "parameters": {
                 "required": [
                     {
+                        "name": "callback",
+                        "type": "function"
+                    },
+                    {
                         "name": "array",
                         "type": "array"
                     }
                 ],
                 "optional": []
             },
-            "returnType": "boolean or none",
-            "detail": "array_find(array $array): boolean or none",
+            "returnType": "any",
+            "detail": "array_find(function $callback, array $array): any",
             "value": "array_find($0)",
             "documentation": "Return the first element that matches in the array.",
             "link": "[Full documentation]({{ docsurl }}functions.html#array_find)"
