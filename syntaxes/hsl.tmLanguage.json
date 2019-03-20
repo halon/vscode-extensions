@@ -59,7 +59,7 @@
         },
         {
           "name": "keyword.other.hsl",
-          "match": "\\b(echo|barrier|as|function|global|include|include_once|cache|closure|object|builtin|import|from|with|static|class|constructor|private)\\b"
+          "match": "\\b(echo|barrier|as|function|global|include|include_once|cache|closure|object|builtin|import|from|with|static|class|constructor|private|readonly)\\b"
         }
       ]
     },

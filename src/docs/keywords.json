@@ -8,8 +8,18 @@
   {
     "name": "if",
     "detail": "if",
-    "documentation": "One of the most basic control structures in HSL is the `if` statement, it allows conditional control flow. `if` statements check the expression for [truthiness](https://docs.halon.io/hsl/operators.html#truthtable).",
-    "link": "[Full documentation]({{ docsurl }}structures.html#if)"
+    "documentation": "One of the most basic control structures in HSL is the `if` statement, it allows conditional control flow. `if` statements check the expression for [truthiness]({{ docsurl }}operators.html#truthtable).",
+    "link": "[Full documentation]({{ docsurl }}structures.html#if)",
+    "snippets": [
+      {
+        "detail": "if snippet",
+        "insertText": [
+          "if (${1:condition}) {",
+          "\t$0",
+          "}"
+        ]
+      }
+    ]
   },
   {
     "name": "else",
@@ -21,7 +31,17 @@
     "name": "for",
     "detail": "for",
     "documentation": "`for` statements allows conditional loops.",
-    "link": "[Full documentation]({{ docsurl }}structures.html#for)"
+    "link": "[Full documentation]({{ docsurl }}structures.html#for)",
+    "snippets": [
+      {
+        "detail": "for snippet",
+        "insertText": [
+          "for (\\$i = ${1:1}; ${2:\\$i <= 10}; \\$i${3:++}) {",
+          "\t$0",
+          "}"
+        ]
+      }
+    ]
   },
   {
     "name": "break",
@@ -39,13 +59,33 @@
     "name": "foreach",
     "detail": "foreach",
     "documentation": "`foreach` loops allows iteration on array values to execute the same statements multiple times.",
-    "link": "[Full documentation]({{ docsurl }}structures.html#foreach)"
+    "link": "[Full documentation]({{ docsurl }}structures.html#foreach)",
+    "snippets": [
+      {
+        "detail": "foreach snippet",
+        "insertText": [
+          "foreach (${1:condition} as \\$${2:key} => \\$${3:value}) {",
+          "\t$0",
+          "}"
+        ]
+      }
+    ]
   },
   {
     "name": "while",
     "detail": "while",
     "documentation": "`while` statements allows conditional loops.",
-    "link": "[Full documentation]({{ docsurl }}structures.html#while)"
+    "link": "[Full documentation]({{ docsurl }}structures.html#while)",
+    "snippets": [
+      {
+        "detail": "while snippet",
+        "insertText": [
+          "while (${1:condition}) {",
+          "\t$0",
+          "}"
+        ]
+      }
+    ]
   },
   {
     "name": "forever",
@@ -73,27 +113,54 @@
   },
   {
     "name": "include",
+    "value": "include ",
     "detail": "include",
     "documentation": "The `include` statement allows code to be structured in logical modules and shared between different scripts.",
     "link": "[Full documentation]({{ docsurl }}structures.html#include)"
   },
   {
     "name": "include_once",
+    "value": "include_once ",
     "detail": "include_once",
     "documentation": "The `include_once` keyword will only include the file if it hasn’t been included before.",
     "link": "[Full documentation]({{ docsurl }}structures.html#include-once)"
   },
   {
     "name": "import",
+    "value": "import ",
     "detail": "import",
     "documentation": "The `import` statement allows code to be structured in logical modules and shared between different scripts very much like `include_once` with the difference that all symbols which should be used in the calling script has to be explicitly imported. Also instead of running the imported code directly it is executed in a seperate context (with its own function and variable symbol table) referred to as “the module’s global scope”. If a file is imported multiple times (regardless of the symbols imported) its code will only be executed once (a behaviour which could be used to initialize global state), very much like `include_once` would behave. All symbols in a module’s symbol table is exported (by default), that include symbols which the module itself has imported from another module (a.k.a forwarding imports). An import can not be conditionally and must be defined unconditionally in the script (that usually means at the top of a script).",
-    "link": "[Full documentation]({{ docsurl }}structures.html#import)"
+    "link": "[Full documentation]({{ docsurl }}structures.html#import)",
+    "snippets": [
+      {
+        "detail": "import snippet (function)",
+        "documentation": "A function in the module’s global scope may be imported into the global scope. An imported function (when executed) is executed in the module’s global scope. Hence, the global keyword imports from the module’s global context.",
+        "insertText": [
+          "import { ${1:function} } from \"${2:module}\";"
+        ]
+      },
+      {
+        "detail": "import snippet (csv)",
+        "documentation": "All content in a module/file can be imported as a variable using different import methods at compile time (chosen by file extensions), this has the benefit of doing the data import once and the data shared across all executions.",
+        "insertText": [
+          "import \\$${1:file} from \"${2:file}.csv\";"
+        ]
+      }
+    ]
   },
   {
     "name": "function",
     "detail": "function",
     "documentation": "It’s possible to write new functions in HSL, and also to override builtin functions. A function may take any number of arguments and return a value using the `return` statement. If non-variadic arguments are specified, the number of argument given by the caller must match the number of required arguments in the function definition.",
-    "link": "[Full documentation]({{ docsurl }}structures.html#function)"
+    "link": "[Full documentation]({{ docsurl }}structures.html#function)",
+    "snippets": [
+      {
+        "detail": "function snippet",
+        "insertText": [
+          "function (\\$${1:argument}) { return $2; }"
+        ]
+      }
+    ]
   },
   {
     "name": "return",
@@ -136,6 +203,12 @@
     "detail": "private",
     "documentation": "Variables and functions may be declared as private, in which case they can only be accessed from within other function on the same instance or class.",
     "link": "[Full documentation]({{ docsurl }}structures.html#private)"
+  },
+  {
+    "name": "readonly",
+    "detail": "readonly",
+    "documentation": "Variable may be declared as readonly, in which case they can only be written to from within other function on the same instance or class.",
+    "link": "[Full documentation]({{ docsurl }}structures.html#readonly)"
   },
   {
     "name": "cache",
