@@ -163,8 +163,8 @@
     "vscode": "^1.1.22"
   },
   "dependencies": {
-    "@halon/cli": "^5.0.15",
-    "@halon/json-schemas": "^5.0.4",
+    "@halon/cli": "^5.1.0",
+    "@halon/json-schemas": "^5.1.0",
     "path-is-inside": "^1.0.2",
     "underscore": "^1.9.1"
   }
