@@ -2,20 +2,93 @@
     "core": [],
     "connect": [
         {
-            "name": "$context",
-            "type": "any",
-            "detail": "any $context",
-            "documentation": "Connection-bound variable"
+            "name": "$arguments",
+            "type": "array",
+            "detail": "array readonly $arguments",
+            "documentation": "Context\/hook arguments",
+            "keys": [
+                {
+                    "name": "remoteip",
+                    "type": "string",
+                    "detail": "string remoteip",
+                    "example": "\"192.168.1.11\"",
+                    "documentation": "IP address of the connected client"
+                },
+                {
+                    "name": "remoteport",
+                    "type": "number",
+                    "detail": "number remoteport",
+                    "example": "41666",
+                    "documentation": "TCP port of connected client"
+                },
+                {
+                    "name": "localip",
+                    "type": "string",
+                    "detail": "string localip",
+                    "example": "\"10.0.0.1\"",
+                    "documentation": "IP address of the server"
+                },
+                {
+                    "name": "localport",
+                    "type": "number",
+                    "detail": "number localport",
+                    "example": "25",
+                    "documentation": "TCP port of the server"
+                },
+                {
+                    "name": "serverid",
+                    "type": "string",
+                    "detail": "string serverid",
+                    "example": "\"inbound\"",
+                    "documentation": "ID of the server"
+                },
+                {
+                    "name": "proxyip",
+                    "type": "string",
+                    "detail": "string proxyip",
+                    "example": "\"192.168.1.1\"",
+                    "documentation": "IP address of the proxy server (not always available)"
+                }
+            ]
+        },
+        {
+            "name": "$connection",
+            "type": "array",
+            "detail": "array readonly $connection",
+            "documentation": "Connection\/session bound"
         },
         {
             "name": "$transaction",
             "type": "array",
             "detail": "array readonly $transaction",
-            "documentation": "Contains the transaction ID",
-            "example": "[\"id\" => \"18c190a3-93f...\""
+            "documentation": "Transaction bound",
+            "keys": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "detail": "string id",
+                    "example": "\"18c190a3-93f-47d7-bd...\"",
+                    "documentation": "ID of the transaction"
+                }
+            ]
+        },
+        {
+            "name": "$context",
+            "type": "any",
+            "detail": "any $context",
+            "documentation": "Connection bound user-defined (default none)"
+        },
+        {
+            "name": "$messageid",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $messageid",
+            "documentation": "ID of the message",
+            "example": "\"18c190a3-93f-47d7-bd...\""
         },
         {
             "name": "$senderip",
+            "compat": 1,
             "type": "string",
             "detail": "string readonly $senderip",
             "documentation": "IP address of the connected client",
@@ -23,6 +96,7 @@
         },
         {
             "name": "$senderport",
+            "compat": 1,
             "type": "number",
             "detail": "number readonly $senderport",
             "documentation": "TCP port of connected client",
@@ -30,29 +104,416 @@
         },
         {
             "name": "$serverip",
+            "compat": 1,
             "type": "string",
             "detail": "string readonly $serverip",
-            "documentation": "IP address of the server",
+            "documentation": "IP address of the mailserver",
             "example": "\"10.0.0.1\""
         },
         {
             "name": "$serverport",
+            "compat": 1,
             "type": "number",
             "detail": "number readonly $serverport",
-            "documentation": "TCP port of the server",
+            "documentation": "TCP port of the mailserver",
             "example": "25"
         },
         {
             "name": "$serverid",
+            "compat": 1,
             "type": "string",
             "detail": "string readonly $serverid",
-            "documentation": "ID of the server",
+            "documentation": "ID of the mailserver profile",
             "example": "\"mailserver:1\""
+        }
+    ],
+    "proxy": [
+        {
+            "name": "$arguments",
+            "type": "array",
+            "detail": "array readonly $arguments",
+            "documentation": "Context\/hook arguments",
+            "keys": [
+                {
+                    "name": "command",
+                    "type": "string",
+                    "detail": "string command",
+                    "example": "\"XCLIENT ADDR=1.1.1.1\"",
+                    "documentation": "The SMTP command line issued"
+                }
+            ]
+        },
+        {
+            "name": "$connection",
+            "type": "array",
+            "detail": "array readonly $connection",
+            "documentation": "Connection\/session bound",
+            "keys": [
+                {
+                    "name": "remoteip",
+                    "type": "string",
+                    "detail": "string remoteip",
+                    "example": "\"192.168.1.11\"",
+                    "documentation": "IP address of the connected client"
+                },
+                {
+                    "name": "remoteport",
+                    "type": "number",
+                    "detail": "number remoteport",
+                    "example": "41666",
+                    "documentation": "TCP port of connected client"
+                },
+                {
+                    "name": "localip",
+                    "type": "string",
+                    "detail": "string localip",
+                    "example": "\"10.0.0.1\"",
+                    "documentation": "IP address of the server"
+                },
+                {
+                    "name": "localport",
+                    "type": "number",
+                    "detail": "number localport",
+                    "example": "25",
+                    "documentation": "TCP port of the server"
+                },
+                {
+                    "name": "serverid",
+                    "type": "string",
+                    "detail": "string serverid",
+                    "example": "\"inbound\"",
+                    "documentation": "ID of the server"
+                },
+                {
+                    "name": "helo",
+                    "type": "array",
+                    "detail": "array helo",
+                    "documentation": "HELO information (not always available)",
+                    "keys": [
+                        {
+                            "name": "verb",
+                            "type": "string",
+                            "detail": "string verb",
+                            "example": "\"EHLO\"",
+                            "documentation": "HELO or EHLO command"
+                        },
+                        {
+                            "name": "host",
+                            "type": "string",
+                            "detail": "string host",
+                            "example": "\"mail.example.com\"",
+                            "documentation": "HELO hostname"
+                        }
+                    ]
+                },
+                {
+                    "name": "tls",
+                    "type": "array",
+                    "detail": "array tls",
+                    "documentation": "TLS information (if TLS was started)",
+                    "keys": [
+                        {
+                            "name": "protocol",
+                            "type": "string",
+                            "detail": "string protocol",
+                            "example": "\"TLSv1.3\"",
+                            "documentation": "The protocol"
+                        },
+                        {
+                            "name": "cipher",
+                            "type": "string",
+                            "detail": "string cipher",
+                            "example": "\"ECDHE-RSA-AES256-SHA384\"",
+                            "documentation": "The cipher"
+                        },
+                        {
+                            "name": "keysize",
+                            "type": "number",
+                            "detail": "number keysize",
+                            "example": "256",
+                            "documentation": "The keysize"
+                        },
+                        {
+                            "name": "peercert",
+                            "type": "array",
+                            "detail": "array peercert",
+                            "documentation": "The peer certificate (if provided by the client)",
+                            "keys": [
+                                {
+                                    "name": "x509",
+                                    "type": "X509Resource",
+                                    "detail": "X509Resource x509",
+                                    "documentation": "An X509Resource to be used with the  class"
+                                },
+                                {
+                                    "name": "error",
+                                    "type": "number",
+                                    "detail": "number error",
+                                    "example": "18",
+                                    "documentation": "The peer certificate validation error (see OpenSSLs SSL_get_verify_result(3))"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "auth",
+                    "type": "array",
+                    "detail": "array auth",
+                    "documentation": "AUTH information (not always available)",
+                    "keys": [
+                        {
+                            "name": "mechanism",
+                            "type": "string",
+                            "detail": "string mechanism",
+                            "example": "\"PLAIN\"",
+                            "documentation": "SASL mechanism (always in uppercase)"
+                        },
+                        {
+                            "name": "username",
+                            "type": "string",
+                            "detail": "string username",
+                            "example": "\"mailuser\"",
+                            "documentation": "SASL username (not always available)"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "$transaction",
+            "type": "array",
+            "detail": "array readonly $transaction",
+            "documentation": "Transaction bound",
+            "keys": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "detail": "string id",
+                    "example": "\"18c190a3-93f-47d7-bd...\"",
+                    "documentation": "ID of the transaction"
+                },
+                {
+                    "name": "sender",
+                    "type": "string",
+                    "detail": "string sender",
+                    "example": "\"test@example.org\"",
+                    "documentation": "Sender address (envelope), lowercase"
+                },
+                {
+                    "name": "senderaddress",
+                    "type": "array",
+                    "detail": "array senderaddress",
+                    "example": "[\"localpart\" => \"examp...]",
+                    "documentation": "Sender address (envelope)",
+                    "keys": [
+                        {
+                            "name": "localpart",
+                            "type": "string",
+                            "detail": "string localpart",
+                            "example": "\"test\"",
+                            "documentation": "Local part of address"
+                        },
+                        {
+                            "name": "domain",
+                            "type": "string",
+                            "detail": "string domain",
+                            "example": "\"example.org\"",
+                            "documentation": "Domain part of address"
+                        }
+                    ]
+                },
+                {
+                    "name": "senderparams",
+                    "type": "array",
+                    "detail": "array senderparams",
+                    "example": "[\"SIZE\" => \"2048\", ... ]",
+                    "documentation": "Sender parameters to the envelope address"
+                },
+                {
+                    "name": "recipients",
+                    "type": "array",
+                    "detail": "array recipients",
+                    "documentation": "List of all accepted recipients (envelope), in order of scanning"
+                }
+            ]
+        },
+        {
+            "name": "$context",
+            "type": "any",
+            "detail": "any $context",
+            "documentation": "Connection bound user-defined (default none)"
         }
     ],
     "helo": [
         {
+            "name": "$arguments",
+            "type": "array",
+            "detail": "array readonly $arguments",
+            "documentation": "Context\/hook arguments",
+            "keys": [
+                {
+                    "name": "verb",
+                    "type": "string",
+                    "detail": "string verb",
+                    "example": "\"EHLO\"",
+                    "documentation": "HELO or EHLO command"
+                },
+                {
+                    "name": "host",
+                    "type": "string",
+                    "detail": "string host",
+                    "example": "\"mail.example.com\"",
+                    "documentation": "HELO hostname of sender"
+                },
+                {
+                    "name": "extensions",
+                    "type": "array",
+                    "detail": "array extensions",
+                    "example": "[\"PIPELINING\", \"SIZE 1...",
+                    "documentation": "The extensions to be sent to the client (if EHLO was issued)"
+                }
+            ]
+        },
+        {
+            "name": "$connection",
+            "type": "array",
+            "detail": "array readonly $connection",
+            "documentation": "Connection\/session bound",
+            "keys": [
+                {
+                    "name": "remoteip",
+                    "type": "string",
+                    "detail": "string remoteip",
+                    "example": "\"192.168.1.11\"",
+                    "documentation": "IP address of the connected client"
+                },
+                {
+                    "name": "remoteport",
+                    "type": "number",
+                    "detail": "number remoteport",
+                    "example": "41666",
+                    "documentation": "TCP port of connected client"
+                },
+                {
+                    "name": "localip",
+                    "type": "string",
+                    "detail": "string localip",
+                    "example": "\"10.0.0.1\"",
+                    "documentation": "IP address of the server"
+                },
+                {
+                    "name": "localport",
+                    "type": "number",
+                    "detail": "number localport",
+                    "example": "25",
+                    "documentation": "TCP port of the server"
+                },
+                {
+                    "name": "serverid",
+                    "type": "string",
+                    "detail": "string serverid",
+                    "example": "\"inbound\"",
+                    "documentation": "ID of the server"
+                },
+                {
+                    "name": "tls",
+                    "type": "array",
+                    "detail": "array tls",
+                    "documentation": "TLS information (if TLS was started)",
+                    "keys": [
+                        {
+                            "name": "protocol",
+                            "type": "string",
+                            "detail": "string protocol",
+                            "example": "\"TLSv1.3\"",
+                            "documentation": "The protocol"
+                        },
+                        {
+                            "name": "cipher",
+                            "type": "string",
+                            "detail": "string cipher",
+                            "example": "\"ECDHE-RSA-AES256-SHA384\"",
+                            "documentation": "The cipher"
+                        },
+                        {
+                            "name": "keysize",
+                            "type": "number",
+                            "detail": "number keysize",
+                            "example": "256",
+                            "documentation": "The keysize"
+                        },
+                        {
+                            "name": "peercert",
+                            "type": "array",
+                            "detail": "array peercert",
+                            "documentation": "The peer certificate (if provided by the client)",
+                            "keys": [
+                                {
+                                    "name": "x509",
+                                    "type": "X509Resource",
+                                    "detail": "X509Resource x509",
+                                    "documentation": "An X509Resource to be used with the  class"
+                                },
+                                {
+                                    "name": "error",
+                                    "type": "number",
+                                    "detail": "number error",
+                                    "example": "18",
+                                    "documentation": "The peer certificate validation error (see OpenSSLs SSL_get_verify_result(3))"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "auth",
+                    "type": "array",
+                    "detail": "array auth",
+                    "documentation": "AUTH information (not always available)",
+                    "keys": [
+                        {
+                            "name": "mechanism",
+                            "type": "string",
+                            "detail": "string mechanism",
+                            "example": "\"PLAIN\"",
+                            "documentation": "SASL mechanism (always in uppercase)"
+                        },
+                        {
+                            "name": "username",
+                            "type": "string",
+                            "detail": "string username",
+                            "example": "\"mailuser\"",
+                            "documentation": "SASL username (not always available)"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "$transaction",
+            "type": "array",
+            "detail": "array readonly $transaction",
+            "documentation": "Transaction bound",
+            "keys": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "detail": "string id",
+                    "example": "\"18c190a3-93f-47d7-bd...\"",
+                    "documentation": "ID of the transaction"
+                }
+            ]
+        },
+        {
+            "name": "$context",
+            "type": "any",
+            "detail": "any $context",
+            "documentation": "Connection bound user-defined (default none)"
+        },
+        {
             "name": "$senderip",
+            "compat": 1,
             "type": "string",
             "detail": "string readonly $senderip",
             "documentation": "IP address of the connected client",
@@ -60,6 +521,7 @@
         },
         {
             "name": "$senderport",
+            "compat": 1,
             "type": "number",
             "detail": "number readonly $senderport",
             "documentation": "TCP port of connected client",
@@ -67,27 +529,31 @@
         },
         {
             "name": "$serverip",
+            "compat": 1,
             "type": "string",
             "detail": "string readonly $serverip",
-            "documentation": "IP address of the server",
+            "documentation": "IP address of the mailserver",
             "example": "\"10.0.0.1\""
         },
         {
             "name": "$serverport",
+            "compat": 1,
             "type": "number",
             "detail": "number readonly $serverport",
-            "documentation": "TCP port of the server",
+            "documentation": "TCP port of the mailserver",
             "example": "25"
         },
         {
             "name": "$serverid",
+            "compat": 1,
             "type": "string",
             "detail": "string readonly $serverid",
-            "documentation": "ID of the server",
+            "documentation": "ID of the mailserver profile",
             "example": "\"mailserver:1\""
         },
         {
             "name": "$tlsstarted",
+            "compat": 1,
             "type": "boolean",
             "detail": "boolean readonly $tlsstarted",
             "documentation": "Whether or not the SMTP session is using TLS",
@@ -95,6 +561,7 @@
         },
         {
             "name": "$saslauthed",
+            "compat": 1,
             "type": "boolean",
             "detail": "boolean readonly $saslauthed",
             "documentation": "Whether or not the SMTP session is authenticated (SASL)",
@@ -102,26 +569,23 @@
         },
         {
             "name": "$saslusername",
+            "compat": 1,
             "type": "string",
             "detail": "string readonly $saslusername",
             "documentation": "SASL username",
             "example": "\"mailuser\""
         },
         {
-            "name": "$context",
-            "type": "any",
-            "detail": "any $context",
-            "documentation": "Connection-bound variable"
-        },
-        {
-            "name": "$transaction",
-            "type": "array",
-            "detail": "array readonly $transaction",
-            "documentation": "Contains the transaction ID",
-            "example": "[\"id\" => \"18c190a3-93f...\""
+            "name": "$messageid",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $messageid",
+            "documentation": "ID of the message",
+            "example": "\"18c190a3-93f-47d7-bd...\""
         },
         {
             "name": "$senderhelo",
+            "compat": 1,
             "type": "string",
             "detail": "string readonly $senderhelo",
             "documentation": "HELO message of sender",
@@ -129,6 +593,7 @@
         },
         {
             "name": "$senderhelotype",
+            "compat": 1,
             "type": "string",
             "detail": "string readonly $senderhelotype",
             "documentation": "HELO or EHLO command",
@@ -137,7 +602,186 @@
     ],
     "auth": [
         {
+            "name": "$arguments",
+            "type": "array",
+            "detail": "array readonly $arguments",
+            "documentation": "Context\/hook arguments",
+            "keys": [
+                {
+                    "name": "username",
+                    "type": "string",
+                    "detail": "string username",
+                    "example": "\"mailuser\"",
+                    "documentation": "SASL username (only available with LOGIN or PLAIN)"
+                },
+                {
+                    "name": "password",
+                    "type": "string",
+                    "detail": "string password",
+                    "example": "\"secret\"",
+                    "documentation": "SASL password (only available with LOGIN or PLAIN)"
+                },
+                {
+                    "name": "mechanism",
+                    "type": "string",
+                    "detail": "string mechanism",
+                    "example": "\"PLAIN\"",
+                    "documentation": "SASL mechanism (always in uppercase)"
+                },
+                {
+                    "name": "state",
+                    "type": "number",
+                    "detail": "number state",
+                    "documentation": "SASL state, incremeted per Reply (not available with LOGIN or PLAIN)"
+                },
+                {
+                    "name": "response",
+                    "type": "string",
+                    "detail": "string response",
+                    "example": "none",
+                    "documentation": "SASL response (not available with LOGIN or PLAIN)"
+                }
+            ]
+        },
+        {
+            "name": "$connection",
+            "type": "array",
+            "detail": "array readonly $connection",
+            "documentation": "Connection\/session bound",
+            "keys": [
+                {
+                    "name": "remoteip",
+                    "type": "string",
+                    "detail": "string remoteip",
+                    "example": "\"192.168.1.11\"",
+                    "documentation": "IP address of the connected client"
+                },
+                {
+                    "name": "remoteport",
+                    "type": "number",
+                    "detail": "number remoteport",
+                    "example": "41666",
+                    "documentation": "TCP port of connected client"
+                },
+                {
+                    "name": "localip",
+                    "type": "string",
+                    "detail": "string localip",
+                    "example": "\"10.0.0.1\"",
+                    "documentation": "IP address of the server"
+                },
+                {
+                    "name": "localport",
+                    "type": "number",
+                    "detail": "number localport",
+                    "example": "25",
+                    "documentation": "TCP port of the server"
+                },
+                {
+                    "name": "serverid",
+                    "type": "string",
+                    "detail": "string serverid",
+                    "example": "\"inbound\"",
+                    "documentation": "ID of the server"
+                },
+                {
+                    "name": "helo",
+                    "type": "array",
+                    "detail": "array helo",
+                    "documentation": "HELO information (not always available)",
+                    "keys": [
+                        {
+                            "name": "verb",
+                            "type": "string",
+                            "detail": "string verb",
+                            "example": "\"EHLO\"",
+                            "documentation": "HELO or EHLO command"
+                        },
+                        {
+                            "name": "host",
+                            "type": "string",
+                            "detail": "string host",
+                            "example": "\"mail.example.com\"",
+                            "documentation": "HELO hostname"
+                        }
+                    ]
+                },
+                {
+                    "name": "tls",
+                    "type": "array",
+                    "detail": "array tls",
+                    "documentation": "TLS information (if TLS was started)",
+                    "keys": [
+                        {
+                            "name": "protocol",
+                            "type": "string",
+                            "detail": "string protocol",
+                            "example": "\"TLSv1.3\"",
+                            "documentation": "The protocol"
+                        },
+                        {
+                            "name": "cipher",
+                            "type": "string",
+                            "detail": "string cipher",
+                            "example": "\"ECDHE-RSA-AES256-SHA384\"",
+                            "documentation": "The cipher"
+                        },
+                        {
+                            "name": "keysize",
+                            "type": "number",
+                            "detail": "number keysize",
+                            "example": "256",
+                            "documentation": "The keysize"
+                        },
+                        {
+                            "name": "peercert",
+                            "type": "array",
+                            "detail": "array peercert",
+                            "documentation": "The peer certificate (if provided by the client)",
+                            "keys": [
+                                {
+                                    "name": "x509",
+                                    "type": "X509Resource",
+                                    "detail": "X509Resource x509",
+                                    "documentation": "An X509Resource to be used with the  class"
+                                },
+                                {
+                                    "name": "error",
+                                    "type": "number",
+                                    "detail": "number error",
+                                    "example": "18",
+                                    "documentation": "The peer certificate validation error (see OpenSSLs SSL_get_verify_result(3))"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "$transaction",
+            "type": "array",
+            "detail": "array readonly $transaction",
+            "documentation": "Transaction bound",
+            "keys": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "detail": "string id",
+                    "example": "\"18c190a3-93f-47d7-bd...\"",
+                    "documentation": "ID of the transaction"
+                }
+            ]
+        },
+        {
+            "name": "$context",
+            "type": "any",
+            "detail": "any $context",
+            "documentation": "Connection bound user-defined (default none)"
+        },
+        {
             "name": "$senderip",
+            "compat": 1,
             "type": "string",
             "detail": "string readonly $senderip",
             "documentation": "IP address of the connected client",
@@ -145,6 +789,7 @@
         },
         {
             "name": "$senderport",
+            "compat": 1,
             "type": "number",
             "detail": "number readonly $senderport",
             "documentation": "TCP port of connected client",
@@ -152,27 +797,31 @@
         },
         {
             "name": "$serverip",
+            "compat": 1,
             "type": "string",
             "detail": "string readonly $serverip",
-            "documentation": "IP address of the server",
+            "documentation": "IP address of the mailserver",
             "example": "\"10.0.0.1\""
         },
         {
             "name": "$serverport",
+            "compat": 1,
             "type": "number",
             "detail": "number readonly $serverport",
-            "documentation": "TCP port of the server",
+            "documentation": "TCP port of the mailserver",
             "example": "25"
         },
         {
             "name": "$serverid",
+            "compat": 1,
             "type": "string",
             "detail": "string readonly $serverid",
-            "documentation": "ID of the server",
+            "documentation": "ID of the mailserver profile",
             "example": "\"mailserver:1\""
         },
         {
             "name": "$senderhelo",
+            "compat": 1,
             "type": "string",
             "detail": "string readonly $senderhelo",
             "documentation": "HELO message of sender",
@@ -180,26 +829,23 @@
         },
         {
             "name": "$tlsstarted",
+            "compat": 1,
             "type": "boolean",
             "detail": "boolean readonly $tlsstarted",
             "documentation": "Whether or not the SMTP session is using TLS",
             "example": "false"
         },
         {
-            "name": "$context",
-            "type": "any",
-            "detail": "any $context",
-            "documentation": "Connection-bound variable"
-        },
-        {
-            "name": "$transaction",
-            "type": "array",
-            "detail": "array readonly $transaction",
-            "documentation": "Contains the transaction ID",
-            "example": "[\"id\" => \"18c190a3-93f...\""
+            "name": "$messageid",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $messageid",
+            "documentation": "ID of the message",
+            "example": "\"18c190a3-93f-47d7-bd...\""
         },
         {
             "name": "$saslusername",
+            "compat": 1,
             "type": "string",
             "detail": "string readonly $saslusername",
             "documentation": "SASL username",
@@ -207,6 +853,7 @@
         },
         {
             "name": "$saslpassword",
+            "compat": 1,
             "type": "string",
             "detail": "string readonly $saslpassword",
             "documentation": "SASL password",
@@ -214,6 +861,7 @@
         },
         {
             "name": "$saslmechanism",
+            "compat": 1,
             "type": "string",
             "detail": "string readonly $saslmechanism",
             "documentation": "SASL mechanism (always in uppercase)",
@@ -221,6 +869,7 @@
         },
         {
             "name": "$saslstate",
+            "compat": 1,
             "type": "number",
             "detail": "number readonly $saslstate",
             "documentation": "SASL state (incremeted per Reply)",
@@ -231,12 +880,217 @@
             "type": "string",
             "detail": "string readonly $saslresponse",
             "documentation": "SASL response (not used with LOGIN or PLAIN)",
+            "compat": 1,
             "example": "none"
         }
     ],
     "mailfrom": [
         {
+            "name": "$arguments",
+            "type": "array",
+            "detail": "array readonly $arguments",
+            "documentation": "Context\/hook arguments",
+            "keys": [
+                {
+                    "name": "sender",
+                    "type": "string",
+                    "detail": "string sender",
+                    "example": "\"test@example.org\"",
+                    "documentation": "Sender address (envelope), lowercase"
+                },
+                {
+                    "name": "address",
+                    "type": "array",
+                    "detail": "array address",
+                    "example": "[\"localpart\" => \"test\"...]",
+                    "documentation": "Sender address (envelope)",
+                    "keys": [
+                        {
+                            "name": "localpart",
+                            "type": "string",
+                            "detail": "string localpart",
+                            "example": "\"test\"",
+                            "documentation": "Local part of address"
+                        },
+                        {
+                            "name": "domain",
+                            "type": "string",
+                            "detail": "string domain",
+                            "example": "\"example.org\"",
+                            "documentation": "Domain part of address"
+                        }
+                    ]
+                },
+                {
+                    "name": "params",
+                    "type": "array",
+                    "detail": "array params",
+                    "example": "[\"SIZE\" => \"2048\", ... ]",
+                    "documentation": "Sender parameters to the envelope address"
+                }
+            ]
+        },
+        {
+            "name": "$connection",
+            "type": "array",
+            "detail": "array readonly $connection",
+            "documentation": "Connection\/session bound",
+            "keys": [
+                {
+                    "name": "remoteip",
+                    "type": "string",
+                    "detail": "string remoteip",
+                    "example": "\"192.168.1.11\"",
+                    "documentation": "IP address of the connected client"
+                },
+                {
+                    "name": "remoteport",
+                    "type": "number",
+                    "detail": "number remoteport",
+                    "example": "41666",
+                    "documentation": "TCP port of connected client"
+                },
+                {
+                    "name": "localip",
+                    "type": "string",
+                    "detail": "string localip",
+                    "example": "\"10.0.0.1\"",
+                    "documentation": "IP address of the server"
+                },
+                {
+                    "name": "localport",
+                    "type": "number",
+                    "detail": "number localport",
+                    "example": "25",
+                    "documentation": "TCP port of the server"
+                },
+                {
+                    "name": "serverid",
+                    "type": "string",
+                    "detail": "string serverid",
+                    "example": "\"inbound\"",
+                    "documentation": "ID of the server"
+                },
+                {
+                    "name": "helo",
+                    "type": "array",
+                    "detail": "array helo",
+                    "documentation": "HELO information (not always available)",
+                    "keys": [
+                        {
+                            "name": "verb",
+                            "type": "string",
+                            "detail": "string verb",
+                            "example": "\"EHLO\"",
+                            "documentation": "HELO or EHLO command"
+                        },
+                        {
+                            "name": "host",
+                            "type": "string",
+                            "detail": "string host",
+                            "example": "\"mail.example.com\"",
+                            "documentation": "HELO hostname"
+                        }
+                    ]
+                },
+                {
+                    "name": "tls",
+                    "type": "array",
+                    "detail": "array tls",
+                    "documentation": "TLS information (if TLS was started)",
+                    "keys": [
+                        {
+                            "name": "protocol",
+                            "type": "string",
+                            "detail": "string protocol",
+                            "example": "\"TLSv1.3\"",
+                            "documentation": "The protocol"
+                        },
+                        {
+                            "name": "cipher",
+                            "type": "string",
+                            "detail": "string cipher",
+                            "example": "\"ECDHE-RSA-AES256-SHA384\"",
+                            "documentation": "The cipher"
+                        },
+                        {
+                            "name": "keysize",
+                            "type": "number",
+                            "detail": "number keysize",
+                            "example": "256",
+                            "documentation": "The keysize"
+                        },
+                        {
+                            "name": "peercert",
+                            "type": "array",
+                            "detail": "array peercert",
+                            "documentation": "The peer certificate (if provided by the client)",
+                            "keys": [
+                                {
+                                    "name": "x509",
+                                    "type": "X509Resource",
+                                    "detail": "X509Resource x509",
+                                    "documentation": "An X509Resource to be used with the  class"
+                                },
+                                {
+                                    "name": "error",
+                                    "type": "number",
+                                    "detail": "number error",
+                                    "example": "18",
+                                    "documentation": "The peer certificate validation error (see OpenSSLs SSL_get_verify_result(3))"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "auth",
+                    "type": "array",
+                    "detail": "array auth",
+                    "documentation": "AUTH information (not always available)",
+                    "keys": [
+                        {
+                            "name": "mechanism",
+                            "type": "string",
+                            "detail": "string mechanism",
+                            "example": "\"PLAIN\"",
+                            "documentation": "SASL mechanism (always in uppercase)"
+                        },
+                        {
+                            "name": "username",
+                            "type": "string",
+                            "detail": "string username",
+                            "example": "\"mailuser\"",
+                            "documentation": "SASL username (not always available)"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "$transaction",
+            "type": "array",
+            "detail": "array readonly $transaction",
+            "documentation": "Transaction bound",
+            "keys": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "detail": "string id",
+                    "example": "\"18c190a3-93f-47d7-bd...\"",
+                    "documentation": "ID of the transaction"
+                }
+            ]
+        },
+        {
+            "name": "$context",
+            "type": "any",
+            "detail": "any $context",
+            "documentation": "Connection bound user-defined (default none)"
+        },
+        {
             "name": "$senderip",
+            "compat": 1,
             "type": "string",
             "detail": "string readonly $senderip",
             "documentation": "IP address of the connected client",
@@ -244,6 +1098,7 @@
         },
         {
             "name": "$senderport",
+            "compat": 1,
             "type": "number",
             "detail": "number readonly $senderport",
             "documentation": "TCP port of connected client",
@@ -251,27 +1106,31 @@
         },
         {
             "name": "$serverip",
+            "compat": 1,
             "type": "string",
             "detail": "string readonly $serverip",
-            "documentation": "IP address of the server",
+            "documentation": "IP address of the mailserver",
             "example": "\"10.0.0.1\""
         },
         {
             "name": "$serverport",
+            "compat": 1,
             "type": "number",
             "detail": "number readonly $serverport",
-            "documentation": "TCP port of the server",
+            "documentation": "TCP port of the mailserver",
             "example": "25"
         },
         {
             "name": "$serverid",
+            "compat": 1,
             "type": "string",
             "detail": "string readonly $serverid",
-            "documentation": "ID of the server",
+            "documentation": "ID of the mailserver profile",
             "example": "\"mailserver:1\""
         },
         {
             "name": "$senderhelo",
+            "compat": 1,
             "type": "string",
             "detail": "string readonly $senderhelo",
             "documentation": "HELO message of sender",
@@ -279,6 +1138,7 @@
         },
         {
             "name": "$tlsstarted",
+            "compat": 1,
             "type": "boolean",
             "detail": "boolean readonly $tlsstarted",
             "documentation": "Whether or not the SMTP session is using TLS",
@@ -286,6 +1146,7 @@
         },
         {
             "name": "$saslauthed",
+            "compat": 1,
             "type": "boolean",
             "detail": "boolean readonly $saslauthed",
             "documentation": "Whether or not the SMTP session is authenticated (SASL)",
@@ -293,47 +1154,39 @@
         },
         {
             "name": "$saslusername",
+            "compat": 1,
             "type": "string",
             "detail": "string readonly $saslusername",
             "documentation": "SASL username",
             "example": "\"mailuser\""
         },
         {
-            "name": "$context",
-            "type": "any",
-            "detail": "any $context",
-            "documentation": "Connection-bound variable"
-        },
-        {
-            "name": "$transaction",
-            "type": "array",
-            "detail": "array readonly $transaction",
-            "documentation": "Contains the transaction ID",
-            "example": "[\"id\" => \"18c190a3-93f...\""
-        },
-        {
-            "name": "$sender",
+            "name": "$messageid",
+            "compat": 1,
             "type": "string",
-            "detail": "string readonly $sender",
-            "documentation": "Email address of sender (envelope), lowercase",
-            "example": "\"test@example.org\""
-        },
-        {
-            "name": "$senderlocalpart",
-            "type": "string",
-            "detail": "string readonly $senderlocalpart",
-            "documentation": "Local part of sender's address (envelope)",
-            "example": "\"test\""
+            "detail": "string readonly $messageid",
+            "documentation": "ID of the message",
+            "example": "\"18c190a3-93f-47d7-bd...\""
         },
         {
             "name": "$senderdomain",
+            "compat": 1,
             "type": "string",
             "detail": "string readonly $senderdomain",
             "documentation": "Domain part of sender's address (envelope)",
             "example": "\"example.org\""
         },
         {
+            "name": "$sender",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $sender",
+            "documentation": "E-mail address of sender (envelope)",
+            "example": "\"test@example.org\""
+        },
+        {
             "name": "$senderparams",
+            "compat": 1,
             "type": "array",
             "detail": "array readonly $senderparams",
             "documentation": "Sender parameters to the envelope address",
@@ -342,7 +1195,261 @@
     ],
     "rcptto": [
         {
+            "name": "$arguments",
+            "type": "array",
+            "detail": "array readonly $arguments",
+            "documentation": "Context\/hook arguments",
+            "keys": [
+                {
+                    "name": "recipient",
+                    "type": "string",
+                    "detail": "string recipient",
+                    "example": "\"test@example.com\"",
+                    "documentation": "Recipient address (envelope), lowercase"
+                },
+                {
+                    "name": "address",
+                    "type": "array",
+                    "detail": "array address",
+                    "example": "[\"localpart\" => \"test\"...]",
+                    "documentation": "Recipient address (envelope)",
+                    "keys": [
+                        {
+                            "name": "localpart",
+                            "type": "string",
+                            "detail": "string localpart",
+                            "example": "\"test\"",
+                            "documentation": "Local part of address"
+                        },
+                        {
+                            "name": "domain",
+                            "type": "string",
+                            "detail": "string domain",
+                            "example": "\"example.org\"",
+                            "documentation": "Domain part of address"
+                        }
+                    ]
+                },
+                {
+                    "name": "params",
+                    "type": "array",
+                    "detail": "array params",
+                    "example": "[\"NOTIFY\" => \"NEVER\", .. ]",
+                    "documentation": "Recipient parameters to the envelope address"
+                },
+                {
+                    "name": "transportid",
+                    "type": "string",
+                    "detail": "string transportid",
+                    "example": "\"inbound\"",
+                    "documentation": "ID of the transport profile to be used"
+                }
+            ]
+        },
+        {
+            "name": "$connection",
+            "type": "array",
+            "detail": "array readonly $connection",
+            "documentation": "Connection\/session bound",
+            "keys": [
+                {
+                    "name": "remoteip",
+                    "type": "string",
+                    "detail": "string remoteip",
+                    "example": "\"192.168.1.11\"",
+                    "documentation": "IP address of the connected client"
+                },
+                {
+                    "name": "remoteport",
+                    "type": "number",
+                    "detail": "number remoteport",
+                    "example": "41666",
+                    "documentation": "TCP port of connected client"
+                },
+                {
+                    "name": "localip",
+                    "type": "string",
+                    "detail": "string localip",
+                    "example": "\"10.0.0.1\"",
+                    "documentation": "IP address of the server"
+                },
+                {
+                    "name": "localport",
+                    "type": "number",
+                    "detail": "number localport",
+                    "example": "25",
+                    "documentation": "TCP port of the server"
+                },
+                {
+                    "name": "serverid",
+                    "type": "string",
+                    "detail": "string serverid",
+                    "example": "\"inbound\"",
+                    "documentation": "ID of the server"
+                },
+                {
+                    "name": "helo",
+                    "type": "array",
+                    "detail": "array helo",
+                    "documentation": "HELO information (not always available)",
+                    "keys": [
+                        {
+                            "name": "verb",
+                            "type": "string",
+                            "detail": "string verb",
+                            "example": "\"EHLO\"",
+                            "documentation": "HELO or EHLO command"
+                        },
+                        {
+                            "name": "host",
+                            "type": "string",
+                            "detail": "string host",
+                            "example": "\"mail.example.com\"",
+                            "documentation": "HELO hostname"
+                        }
+                    ]
+                },
+                {
+                    "name": "tls",
+                    "type": "array",
+                    "detail": "array tls",
+                    "documentation": "TLS information (if TLS was started)",
+                    "keys": [
+                        {
+                            "name": "protocol",
+                            "type": "string",
+                            "detail": "string protocol",
+                            "example": "\"TLSv1.3\"",
+                            "documentation": "The protocol"
+                        },
+                        {
+                            "name": "cipher",
+                            "type": "string",
+                            "detail": "string cipher",
+                            "example": "\"ECDHE-RSA-AES256-SHA384\"",
+                            "documentation": "The cipher"
+                        },
+                        {
+                            "name": "keysize",
+                            "type": "number",
+                            "detail": "number keysize",
+                            "example": "256",
+                            "documentation": "The keysize"
+                        },
+                        {
+                            "name": "peercert",
+                            "type": "array",
+                            "detail": "array peercert",
+                            "documentation": "The peer certificate (if provided by the client)",
+                            "keys": [
+                                {
+                                    "name": "x509",
+                                    "type": "X509Resource",
+                                    "detail": "X509Resource x509",
+                                    "documentation": "An X509Resource to be used with the  class"
+                                },
+                                {
+                                    "name": "error",
+                                    "type": "number",
+                                    "detail": "number error",
+                                    "example": "18",
+                                    "documentation": "The peer certificate validation error (see OpenSSLs SSL_get_verify_result(3))"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "auth",
+                    "type": "array",
+                    "detail": "array auth",
+                    "documentation": "AUTH information (not always available)",
+                    "keys": [
+                        {
+                            "name": "mechanism",
+                            "type": "string",
+                            "detail": "string mechanism",
+                            "example": "\"PLAIN\"",
+                            "documentation": "SASL mechanism (always in uppercase)"
+                        },
+                        {
+                            "name": "username",
+                            "type": "string",
+                            "detail": "string username",
+                            "example": "\"mailuser\"",
+                            "documentation": "SASL username (not always available)"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "$transaction",
+            "type": "array",
+            "detail": "array readonly $transaction",
+            "documentation": "Transaction bound",
+            "keys": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "detail": "string id",
+                    "example": "\"18c190a3-93f-47d7-bd...\"",
+                    "documentation": "ID of the transaction"
+                },
+                {
+                    "name": "sender",
+                    "type": "string",
+                    "detail": "string sender",
+                    "example": "\"test@example.org\"",
+                    "documentation": "Sender address (envelope), lowercase"
+                },
+                {
+                    "name": "senderaddress",
+                    "type": "array",
+                    "detail": "array senderaddress",
+                    "example": "[\"localpart\" => \"test\"...]",
+                    "documentation": "Sender address (envelope)",
+                    "keys": [
+                        {
+                            "name": "localpart",
+                            "type": "string",
+                            "detail": "string localpart",
+                            "example": "\"test\"",
+                            "documentation": "Local part of address"
+                        },
+                        {
+                            "name": "domain",
+                            "type": "string",
+                            "detail": "string domain",
+                            "example": "\"example.org\"",
+                            "documentation": "Domain part of address"
+                        }
+                    ]
+                },
+                {
+                    "name": "senderparams",
+                    "type": "array",
+                    "detail": "array senderparams",
+                    "example": "[\"SIZE\" => \"2048\", ... ]",
+                    "documentation": "Sender parameters to the envelope address"
+                },
+                {
+                    "name": "recipients",
+                    "type": "array",
+                    "detail": "array recipients",
+                    "documentation": "List of all accepted recipients (envelope), in order of scanning"
+                }
+            ]
+        },
+        {
+            "name": "$context",
+            "type": "any",
+            "detail": "any $context",
+            "documentation": "Connection bound user-defined (default none)"
+        },
+        {
             "name": "$senderip",
+            "compat": 1,
             "type": "string",
             "detail": "string readonly $senderip",
             "documentation": "IP address of the connected client",
@@ -350,6 +1457,7 @@
         },
         {
             "name": "$senderport",
+            "compat": 1,
             "type": "number",
             "detail": "number readonly $senderport",
             "documentation": "TCP port of connected client",
@@ -357,27 +1465,31 @@
         },
         {
             "name": "$serverip",
+            "compat": 1,
             "type": "string",
             "detail": "string readonly $serverip",
-            "documentation": "IP address of the server",
+            "documentation": "IP address of the mailserver",
             "example": "\"10.0.0.1\""
         },
         {
             "name": "$serverport",
+            "compat": 1,
             "type": "number",
             "detail": "number readonly $serverport",
-            "documentation": "TCP port of the server",
+            "documentation": "TCP port of the mailserver",
             "example": "25"
         },
         {
             "name": "$serverid",
+            "compat": 1,
             "type": "string",
             "detail": "string readonly $serverid",
-            "documentation": "ID of the server",
+            "documentation": "ID of the mailserver profile",
             "example": "\"mailserver:1\""
         },
         {
             "name": "$senderhelo",
+            "compat": 1,
             "type": "string",
             "detail": "string readonly $senderhelo",
             "documentation": "HELO message of sender",
@@ -385,6 +1497,7 @@
         },
         {
             "name": "$tlsstarted",
+            "compat": 1,
             "type": "boolean",
             "detail": "boolean readonly $tlsstarted",
             "documentation": "Whether or not the SMTP session is using TLS",
@@ -392,6 +1505,7 @@
         },
         {
             "name": "$saslauthed",
+            "compat": 1,
             "type": "boolean",
             "detail": "boolean readonly $saslauthed",
             "documentation": "Whether or not the SMTP session is authenticated (SASL)",
@@ -399,47 +1513,79 @@
         },
         {
             "name": "$saslusername",
+            "compat": 1,
             "type": "string",
             "detail": "string readonly $saslusername",
             "documentation": "SASL username",
             "example": "\"mailuser\""
         },
         {
-            "name": "$context",
-            "type": "any",
-            "detail": "any $context",
-            "documentation": "Connection-bound variable"
+            "name": "$messageid",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $messageid",
+            "documentation": "ID of the message",
+            "example": "\"18c190a3-93f-47d7-bd...\""
         },
         {
-            "name": "$transaction",
+            "name": "$senderdomain",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $senderdomain",
+            "documentation": "Domain part of sender's address (envelope)",
+            "example": "\"example.org\""
+        },
+        {
+            "name": "$sender",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $sender",
+            "documentation": "E-mail address of sender (envelope)",
+            "example": "\"test@example.org\""
+        },
+        {
+            "name": "$senderparams",
+            "compat": 1,
             "type": "array",
-            "detail": "array readonly $transaction",
-            "documentation": "Contains the transaction ID and envelope data (sender and recipient)",
-            "example": "[...]"
+            "detail": "array readonly $senderparams",
+            "documentation": "Sender parameters to the envelope address",
+            "example": "[\"SIZE\" => \"2048\", ... ]"
         },
         {
-            "name": "$recipient",
-            "type": "string",
-            "detail": "string readonly $recipient",
-            "documentation": "Email address of recipient (envelope), lowercase",
-            "example": "\"test@example.com\""
+            "name": "$recipientdomains",
+            "compat": 1,
+            "type": "array",
+            "detail": "array readonly $recipientdomains",
+            "documentation": "List of all accepted domain part of all recipient addresses (envelope)",
+            "example": "[\"example.com\", ...]"
         },
         {
-            "name": "$recipientlocalpart",
-            "type": "string",
-            "detail": "string readonly $recipientlocalpart",
-            "documentation": "Local part of recipient's address (envelope)",
-            "example": "\"test\""
+            "name": "$recipients",
+            "compat": 1,
+            "type": "array",
+            "detail": "array readonly $recipients",
+            "documentation": "List of all accepted recipient addresses (envelope), in order of scanning",
+            "example": "[\"test@example.com\", ...]"
         },
         {
             "name": "$recipientdomain",
+            "compat": 1,
             "type": "string",
             "detail": "string readonly $recipientdomain",
             "documentation": "Domain part of recipient's address (envelope)",
             "example": "\"example.com\""
         },
         {
+            "name": "$recipient",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $recipient",
+            "documentation": "E-mail address of recipient (envelope)",
+            "example": "\"test@example.com\""
+        },
+        {
             "name": "$recipientparams",
+            "compat": 1,
             "type": "array",
             "detail": "array readonly $recipientparams",
             "documentation": "Recipient parameters to the envelope address",
@@ -447,6 +1593,7 @@
         },
         {
             "name": "$transportid",
+            "compat": 1,
             "type": "string",
             "detail": "string readonly $transportid",
             "documentation": "ID of the transport profile to be used",
@@ -455,80 +1602,219 @@
     ],
     "eodonce": [
         {
-            "name": "$senderip",
-            "type": "string",
-            "detail": "string readonly $senderip",
-            "documentation": "IP address of the connected client",
-            "example": "\"192.168.1.11\""
+            "name": "$arguments",
+            "type": "array",
+            "detail": "array readonly $arguments",
+            "documentation": "Context\/hook arguments",
+            "keys": [
+                {
+                    "name": "mail",
+                    "type": "MailMessage",
+                    "detail": "MailMessage mail",
+                    "documentation": "An instance of the mail message"
+                }
+            ]
         },
         {
-            "name": "$senderport",
-            "type": "number",
-            "detail": "number readonly $senderport",
-            "documentation": "TCP port of connected client",
-            "example": "41666"
-        },
-        {
-            "name": "$serverip",
-            "type": "string",
-            "detail": "string readonly $serverip",
-            "documentation": "IP address of the server",
-            "example": "\"10.0.0.1\""
-        },
-        {
-            "name": "$serverport",
-            "type": "number",
-            "detail": "number readonly $serverport",
-            "documentation": "TCP port of the server",
-            "example": "25"
-        },
-        {
-            "name": "$serverid",
-            "type": "string",
-            "detail": "string readonly $serverid",
-            "documentation": "ID of the server",
-            "example": "\"mailserver:1\""
-        },
-        {
-            "name": "$senderhelo",
-            "type": "string",
-            "detail": "string readonly $senderhelo",
-            "documentation": "HELO message of sender",
-            "example": "\"mail.example.com\""
-        },
-        {
-            "name": "$tlsstarted",
-            "type": "boolean",
-            "detail": "boolean readonly $tlsstarted",
-            "documentation": "Whether or not the SMTP session is using TLS",
-            "example": "false"
-        },
-        {
-            "name": "$saslauthed",
-            "type": "boolean",
-            "detail": "boolean readonly $saslauthed",
-            "documentation": "Whether or not the SMTP session is authenticated (SASL)",
-            "example": "true"
-        },
-        {
-            "name": "$saslusername",
-            "type": "string",
-            "detail": "string readonly $saslusername",
-            "documentation": "SASL username",
-            "example": "\"mailuser\""
-        },
-        {
-            "name": "$context",
-            "type": "any",
-            "detail": "any $context",
-            "documentation": "Connection-bound variable"
+            "name": "$connection",
+            "type": "array",
+            "detail": "array readonly $connection",
+            "documentation": "Connection\/session bound",
+            "keys": [
+                {
+                    "name": "remoteip",
+                    "type": "string",
+                    "detail": "string remoteip",
+                    "example": "\"192.168.1.11\"",
+                    "documentation": "IP address of the connected client"
+                },
+                {
+                    "name": "remoteport",
+                    "type": "number",
+                    "detail": "number remoteport",
+                    "example": "41666",
+                    "documentation": "TCP port of connected client"
+                },
+                {
+                    "name": "localip",
+                    "type": "string",
+                    "detail": "string localip",
+                    "example": "\"10.0.0.1\"",
+                    "documentation": "IP address of the server"
+                },
+                {
+                    "name": "localport",
+                    "type": "number",
+                    "detail": "number localport",
+                    "example": "25",
+                    "documentation": "TCP port of the server"
+                },
+                {
+                    "name": "serverid",
+                    "type": "string",
+                    "detail": "string serverid",
+                    "example": "\"inbound\"",
+                    "documentation": "ID of the server"
+                },
+                {
+                    "name": "helo",
+                    "type": "array",
+                    "detail": "array helo",
+                    "documentation": "HELO information (not always available)",
+                    "keys": [
+                        {
+                            "name": "verb",
+                            "type": "string",
+                            "detail": "string verb",
+                            "example": "\"EHLO\"",
+                            "documentation": "HELO or EHLO command"
+                        },
+                        {
+                            "name": "host",
+                            "type": "string",
+                            "detail": "string host",
+                            "example": "\"mail.example.com\"",
+                            "documentation": "HELO hostname"
+                        }
+                    ]
+                },
+                {
+                    "name": "tls",
+                    "type": "array",
+                    "detail": "array tls",
+                    "documentation": "TLS information (if TLS was started)",
+                    "keys": [
+                        {
+                            "name": "protocol",
+                            "type": "string",
+                            "detail": "string protocol",
+                            "example": "\"TLSv1.3\"",
+                            "documentation": "The protocol"
+                        },
+                        {
+                            "name": "cipher",
+                            "type": "string",
+                            "detail": "string cipher",
+                            "example": "\"ECDHE-RSA-AES256-SHA384\"",
+                            "documentation": "The cipher"
+                        },
+                        {
+                            "name": "keysize",
+                            "type": "number",
+                            "detail": "number keysize",
+                            "example": "256",
+                            "documentation": "The keysize"
+                        },
+                        {
+                            "name": "peercert",
+                            "type": "array",
+                            "detail": "array peercert",
+                            "documentation": "The peer certificate (if provided by the client)",
+                            "keys": [
+                                {
+                                    "name": "x509",
+                                    "type": "X509Resource",
+                                    "detail": "X509Resource x509",
+                                    "documentation": "An X509Resource to be used with the  class"
+                                },
+                                {
+                                    "name": "error",
+                                    "type": "number",
+                                    "detail": "number error",
+                                    "example": "18",
+                                    "documentation": "The peer certificate validation error (see OpenSSLs SSL_get_verify_result(3))"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "auth",
+                    "type": "array",
+                    "detail": "array auth",
+                    "documentation": "AUTH information (not always available)",
+                    "keys": [
+                        {
+                            "name": "mechanism",
+                            "type": "string",
+                            "detail": "string mechanism",
+                            "example": "\"PLAIN\"",
+                            "documentation": "SASL mechanism (always in uppercase)"
+                        },
+                        {
+                            "name": "username",
+                            "type": "string",
+                            "detail": "string username",
+                            "example": "\"mailuser\"",
+                            "documentation": "SASL username (not always available)"
+                        }
+                    ]
+                }
+            ]
         },
         {
             "name": "$transaction",
             "type": "array",
             "detail": "array readonly $transaction",
-            "documentation": "Contains the transaction ID and envelope data (sender and recipient)",
-            "example": "[...]"
+            "documentation": "Transaction bound",
+            "keys": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "detail": "string id",
+                    "example": "\"18c190a3-93f-47d7-bd...\"",
+                    "documentation": "ID of the transaction"
+                },
+                {
+                    "name": "sender",
+                    "type": "string",
+                    "detail": "string sender",
+                    "example": "\"test@example.org\"",
+                    "documentation": "Sender address (envelope), lowercase"
+                },
+                {
+                    "name": "senderaddress",
+                    "type": "array",
+                    "detail": "array senderaddress",
+                    "example": "[\"localpart\" => \"test\"...]",
+                    "documentation": "Sender address (envelope)",
+                    "keys": [
+                        {
+                            "name": "localpart",
+                            "type": "string",
+                            "detail": "string localpart",
+                            "example": "\"test\"",
+                            "documentation": "Local part of address"
+                        },
+                        {
+                            "name": "domain",
+                            "type": "string",
+                            "detail": "string domain",
+                            "example": "\"example.org\"",
+                            "documentation": "Domain part of address"
+                        }
+                    ]
+                },
+                {
+                    "name": "senderparams",
+                    "type": "array",
+                    "detail": "array senderparams",
+                    "example": "[\"SIZE\" => \"2048\", ... ]",
+                    "documentation": "Sender parameters to the envelope address"
+                },
+                {
+                    "name": "recipients",
+                    "type": "array",
+                    "detail": "array recipients",
+                    "documentation": "List of all accepted recipients (envelope), in order of scanning"
+                }
+            ]
+        },
+        {
+            "name": "$context",
+            "type": "any",
+            "detail": "any $context",
+            "documentation": "Connection bound user-defined (default none)"
         }
     ],
     "eodrcpt": [
@@ -536,64 +1822,64 @@
             "name": "$senderip",
             "type": "string",
             "detail": "string readonly $senderip",
-            "documentation": "IP address of the connected client",
-            "example": "\"192.168.1.11\""
+            "example": "\"192.168.1.11\"",
+            "documentation": "IP address of the connected client"
         },
         {
             "name": "$senderport",
             "type": "number",
             "detail": "number readonly $senderport",
-            "documentation": "TCP port of connected client",
-            "example": "41666"
+            "example": "41666",
+            "documentation": "TCP port of connected client"
         },
         {
             "name": "$serverip",
             "type": "string",
             "detail": "string readonly $serverip",
-            "documentation": "IP address of the server",
-            "example": "\"10.0.0.1\""
+            "example": "\"10.0.0.1\"",
+            "documentation": "IP address of the server"
         },
         {
             "name": "$serverport",
             "type": "number",
             "detail": "number readonly $serverport",
-            "documentation": "TCP port of the server",
-            "example": "25"
+            "example": "25",
+            "documentation": "TCP port of the server"
         },
         {
             "name": "$serverid",
             "type": "string",
             "detail": "string readonly $serverid",
-            "documentation": "ID of the server",
-            "example": "\"mailserver:1\""
+            "example": "\"mailserver:1\"",
+            "documentation": "ID of the server"
         },
         {
             "name": "$senderhelo",
             "type": "string",
             "detail": "string readonly $senderhelo",
-            "documentation": "HELO message of sender",
-            "example": "\"mail.example.com\""
+            "example": "\"mail.example.com\"",
+            "documentation": "HELO hostname of sender"
         },
         {
             "name": "$tlsstarted",
             "type": "boolean",
             "detail": "boolean readonly $tlsstarted",
-            "documentation": "Whether or not the SMTP session is using TLS",
-            "example": "false"
+            "example": "false",
+            "documentation": "Whether or not the SMTP session is using TLS"
         },
         {
             "name": "$saslauthed",
             "type": "boolean",
             "detail": "boolean readonly $saslauthed",
-            "documentation": "Whether or not the SMTP session is authenticated (SASL)",
-            "example": "true"
+            "example": "true",
+            "documentation": "Whether or not the SMTP session is authenticated (SASL)"
         },
         {
             "name": "$saslusername",
             "type": "string",
             "detail": "string readonly $saslusername",
-            "documentation": "SASL username",
-            "example": "\"mailuser\""
+            "example": "\"mailuser\"",
+            "documentation": "SASL username"
         },
         {
             "name": "$context",
@@ -602,188 +1888,223 @@
             "documentation": "Connection-bound variable"
         },
         {
-            "name": "$transaction",
-            "type": "array",
-            "detail": "array readonly $transaction",
-            "documentation": "Contains the transaction ID and envelope data (sender and recipient)",
-            "example": "[...]"
-        },
-        {
-            "name": "$recipient",
+            "name": "$messageid",
             "type": "string",
-            "detail": "string readonly $recipient",
-            "documentation": "Email address of recipient (envelope), lowercase",
-            "example": "\"test@example.com\""
-        },
-        {
-            "name": "$recipientlocalpart",
-            "type": "string",
-            "detail": "string readonly $recipientlocalpart",
-            "documentation": "Local part of recipient's address (envelope)",
-            "example": "\"test\""
-        },
-        {
-            "name": "$recipientdomain",
-            "type": "string",
-            "detail": "string readonly $recipientdomain",
-            "documentation": "Domain part of recipient's address (envelope)",
-            "example": "\"example.com\""
-        },
-        {
-            "name": "$transportid",
-            "type": "string",
-            "detail": "string readonly $transportid",
-            "documentation": "ID of the transport profile to be used",
-            "example": "\"mailtransport:1\""
-        },
-        {
-            "name": "$actionid",
-            "type": "number",
-            "detail": "number readonly $actionid",
-            "documentation": "ID; incremented per message action\/recipient (Deliver, Quarantine, etc.)",
-            "example": "1"
-        }
-    ],
-    "predelivery": [
-        {
-            "name": "$receivedtime",
-            "type": "number",
-            "detail": "number readonly $receivedtime",
-            "documentation": "The unix time (in UTC) when the message was received",
-            "example": "1445937340"
-        },
-        {
-            "name": "$sourceip",
-            "type": "string",
-            "detail": "string readonly $sourceip",
-            "documentation": "The delivery source IP (initially defined by the transport profile)",
-            "example": "\"10.0.0.1\""
-        },
-        {
-            "name": "$destination",
-            "type": "string",
-            "detail": "string readonly $destination",
-            "documentation": "The destination host (initially defined by the transport profile)",
-            "example": "\"172.16.1.25\""
-        },
-        {
-            "name": "$destinationport",
-            "type": "number",
-            "detail": "number readonly $destinationport",
-            "documentation": "The destination port (initially defined by the transport profile)",
-            "example": "25"
-        },
-        {
-            "name": "$senderip",
-            "type": "string",
-            "detail": "string readonly $senderip",
-            "documentation": "IP address of the sender",
-            "example": "\"192.168.1.11\""
-        },
-        {
-            "name": "$senderhelo",
-            "type": "string",
-            "detail": "string readonly $senderhelo",
-            "documentation": "HELO message of sender",
-            "example": "\"mail.example.com\""
-        },
-        {
-            "name": "$saslusername",
-            "type": "string",
-            "detail": "string readonly $saslusername",
-            "documentation": "SASL username",
-            "example": "\"mailuser\""
-        },
-        {
-            "name": "$sender",
-            "type": "string",
-            "detail": "string readonly $sender",
-            "documentation": "Email address of sender (envelope), lowercase",
-            "example": "\"test@example.org\""
-        },
-        {
-            "name": "$senderlocalpart",
-            "type": "string",
-            "detail": "string readonly $senderlocalpart",
-            "documentation": "Local part of sender's address (envelope)",
-            "example": "\"test\""
+            "detail": "string readonly $messageid",
+            "example": "\"18c190a3-93f-47d7-bd...\"",
+            "documentation": "ID of the message"
         },
         {
             "name": "$senderdomain",
             "type": "string",
             "detail": "string readonly $senderdomain",
-            "documentation": "Domain part of sender's address (envelope)",
-            "example": "\"example.org\""
+            "example": "\"example.org\"",
+            "documentation": "Domain part of sender's address (envelope)"
+        },
+        {
+            "name": "$sender",
+            "type": "string",
+            "detail": "string readonly $sender",
+            "example": "\"test@example.org\"",
+            "documentation": "E-mail address of sender (envelope)"
+        },
+        {
+            "name": "$senderparams",
+            "type": "array",
+            "detail": "array readonly $senderparams",
+            "example": "[\"SIZE\" => \"2048\", ... ]",
+            "documentation": "Sender parameters to the envelope address"
+        },
+        {
+            "name": "$recipientdomains",
+            "type": "array",
+            "detail": "array readonly $recipientdomains",
+            "example": "[\"example.com\", ...]",
+            "documentation": "List of all domain part of all recipient addresses (envelope)"
+        },
+        {
+            "name": "$recipients",
+            "type": "array",
+            "detail": "array readonly $recipients",
+            "example": "[\"test@example.com\", ...]",
+            "documentation": "List of all recipient addresses (envelope), in order of scanning"
         },
         {
             "name": "$recipient",
             "type": "string",
             "detail": "string readonly $recipient",
-            "documentation": "Email address of recipient (envelope), lowercase",
-            "example": "\"test@example.com\""
+            "example": "\"test@example.com\"",
+            "documentation": "Email address of recipient (envelope), lowercase"
         },
         {
             "name": "$recipientlocalpart",
             "type": "string",
             "detail": "string readonly $recipientlocalpart",
-            "documentation": "Local part of recipient's address (envelope)",
-            "example": "\"test\""
+            "example": "\"test\"",
+            "documentation": "Local part of recipient's address (envelope)"
         },
         {
             "name": "$recipientdomain",
             "type": "string",
             "detail": "string readonly $recipientdomain",
-            "documentation": "Domain part of recipient's address (envelope)",
-            "example": "\"example.com\""
-        },
-        {
-            "name": "$retry",
-            "type": "number",
-            "detail": "number readonly $retry",
-            "documentation": "The current retry count",
-            "example": "3"
-        },
-        {
-            "name": "$retries",
-            "type": "number",
-            "detail": "number readonly $retries",
-            "documentation": "The maximum number of retries for that message",
-            "example": "30"
-        },
-        {
-            "name": "$messageid",
-            "type": "string",
-            "detail": "string readonly $messageid",
-            "documentation": "ID of the message",
-            "example": "\"18c190a3-93f-47d7-bd...\""
-        },
-        {
-            "name": "$actionid",
-            "type": "number",
-            "detail": "number readonly $actionid",
-            "documentation": "Same as $actionid in DATA context",
-            "example": "1"
-        },
-        {
-            "name": "$queueid",
-            "type": "number",
-            "detail": "number readonly $queueid",
-            "documentation": "Queue ID of the message",
-            "example": "12345"
-        },
-        {
-            "name": "$serverid",
-            "type": "string",
-            "detail": "string readonly $serverid",
-            "documentation": "ID of the server the message was recevied on",
-            "example": "\"mailserver:1\""
+            "example": "\"example.com\"",
+            "documentation": "Domain part of recipient's address (envelope)"
         },
         {
             "name": "$transportid",
             "type": "string",
             "detail": "string readonly $transportid",
-            "documentation": "ID of the transport profile assigned",
-            "example": "\"mailtransport:1\""
+            "example": "\"mailtransport:1\"",
+            "documentation": "ID of the transport profile to be used"
+        },
+        {
+            "name": "$actionid",
+            "type": "number",
+            "detail": "number readonly $actionid",
+            "example": "1",
+            "documentation": "ID; incremented per message action\/recipient (Deliver, Quarantine, etc.)"
+        }
+    ],
+    "predelivery": [
+        {
+            "name": "$senderip",
+            "type": "string",
+            "detail": "string readonly $senderip",
+            "example": "\"192.168.1.11\"",
+            "documentation": "IP address of the sender"
+        },
+        {
+            "name": "$serverid",
+            "type": "string",
+            "detail": "string readonly $serverid",
+            "example": "\"mailserver:1\"",
+            "documentation": "ID of the server the message was recevied on"
+        },
+        {
+            "name": "$senderhelo",
+            "type": "string",
+            "detail": "string readonly $senderhelo",
+            "example": "\"mail.example.com\"",
+            "documentation": "HELO hostname of sender"
+        },
+        {
+            "name": "$saslusername",
+            "type": "string",
+            "detail": "string readonly $saslusername",
+            "example": "\"mailuser\"",
+            "documentation": "SASL username"
+        },
+        {
+            "name": "$messageid",
+            "type": "string",
+            "detail": "string readonly $messageid",
+            "example": "\"18c190a3-93f-47d7-bd...\"",
+            "documentation": "ID of the message"
+        },
+        {
+            "name": "$sender",
+            "type": "string",
+            "detail": "string readonly $sender",
+            "example": "\"test@example.org\"",
+            "documentation": "Email address of sender (envelope), lowercase"
+        },
+        {
+            "name": "$senderlocalpart",
+            "type": "string",
+            "detail": "string readonly $senderlocalpart",
+            "example": "\"test\"",
+            "documentation": "Local part of sender's address (envelope)"
+        },
+        {
+            "name": "$senderdomain",
+            "type": "string",
+            "detail": "string readonly $senderdomain",
+            "example": "\"example.org\"",
+            "documentation": "Domain part of sender's address (envelope)"
+        },
+        {
+            "name": "$recipient",
+            "type": "string",
+            "detail": "string readonly $recipient",
+            "example": "\"test@example.com\"",
+            "documentation": "Email address of recipient (envelope), lowercase"
+        },
+        {
+            "name": "$recipientlocalpart",
+            "type": "string",
+            "detail": "string readonly $recipientlocalpart",
+            "example": "\"test\"",
+            "documentation": "Local part of recipient's address (envelope)"
+        },
+        {
+            "name": "$recipientdomain",
+            "type": "string",
+            "detail": "string readonly $recipientdomain",
+            "example": "\"example.com\"",
+            "documentation": "Domain part of recipient's address (envelope)"
+        },
+        {
+            "name": "$receivedtime",
+            "type": "number",
+            "detail": "number readonly $receivedtime",
+            "example": "1445937340",
+            "documentation": "The unix time (in UTC) when the message was received"
+        },
+        {
+            "name": "$actionid",
+            "type": "number",
+            "detail": "number readonly $actionid",
+            "example": "1",
+            "documentation": "Same as $actionid in DATA context"
+        },
+        {
+            "name": "$transportid",
+            "type": "string",
+            "detail": "string readonly $transportid",
+            "example": "\"mailtransport:1\"",
+            "documentation": "ID of the transport profile assigned"
+        },
+        {
+            "name": "$queueid",
+            "type": "number",
+            "detail": "number readonly $queueid",
+            "example": "12345",
+            "documentation": "Queue ID of the message"
+        },
+        {
+            "name": "$retry",
+            "type": "number",
+            "detail": "number readonly $retry",
+            "example": "3",
+            "documentation": "The current retry count"
+        },
+        {
+            "name": "$retries",
+            "type": "number",
+            "detail": "number readonly $retries",
+            "example": "30",
+            "documentation": "The maximum number of retries for that message"
+        },
+        {
+            "name": "$sourceip",
+            "type": "string",
+            "detail": "string readonly $sourceip",
+            "example": "\"10.0.0.1\"",
+            "documentation": "The delivery source IP (initially defined by the transport profile)"
+        },
+        {
+            "name": "$destination",
+            "type": "string",
+            "detail": "string readonly $destination",
+            "example": "\"172.16.1.25\"",
+            "documentation": "The destination host (initially defined by the transport profile)"
+        },
+        {
+            "name": "$destinationport",
+            "type": "number",
+            "detail": "number readonly $destinationport",
+            "example": "25",
+            "documentation": "The destination port (initially defined by the transport profile)"
         },
         {
             "name": "$context",
@@ -794,171 +2115,171 @@
     ],
     "postdelivery": [
         {
-            "name": "$receivedtime",
-            "type": "number",
-            "detail": "number readonly $receivedtime",
-            "documentation": "The unix time (in UTC) when the message was received",
-            "example": "1445937340"
-        },
-        {
-            "name": "$sourceip",
-            "type": "string",
-            "detail": "string readonly $sourceip",
-            "documentation": "The delivery source IP",
-            "example": "\"10.0.0.1\""
-        },
-        {
-            "name": "$serverip",
-            "type": "string",
-            "detail": "string readonly $serverip",
-            "documentation": "IP which we tried to connect to (empty on DNS problems)",
-            "example": "\"172.16.1.25\""
-        },
-        {
-            "name": "$serverport",
-            "type": "number",
-            "detail": "number readonly $serverport",
-            "documentation": "Port which we tried to connect to",
-            "example": "25"
-        },
-        {
             "name": "$senderip",
             "type": "string",
             "detail": "string readonly $senderip",
-            "documentation": "IP address of the sender",
-            "example": "\"192.168.1.11\""
+            "example": "\"192.168.1.11\"",
+            "documentation": "IP address of the sender"
         },
         {
             "name": "$saslusername",
             "type": "string",
             "detail": "string readonly $saslusername",
-            "documentation": "SASL username",
-            "example": "\"mailuser\""
-        },
-        {
-            "name": "$sender",
-            "type": "string",
-            "detail": "string readonly $sender",
-            "documentation": "Email address of sender (envelope), lowercase",
-            "example": "\"test@example.org\""
-        },
-        {
-            "name": "$senderlocalpart",
-            "type": "string",
-            "detail": "string readonly $senderlocalpart",
-            "documentation": "Local part of sender's address (envelope)",
-            "example": "\"test\""
-        },
-        {
-            "name": "$senderdomain",
-            "type": "string",
-            "detail": "string readonly $senderdomain",
-            "documentation": "Domain part of sender's address (envelope)",
-            "example": "\"example.org\""
-        },
-        {
-            "name": "$recipient",
-            "type": "string",
-            "detail": "string readonly $recipient",
-            "documentation": "Email address of recipient (envelope), lowercase",
-            "example": "\"test@example.com\""
-        },
-        {
-            "name": "$recipientlocalpart",
-            "type": "string",
-            "detail": "string readonly $recipientlocalpart",
-            "documentation": "Local part of recipient's address (envelope)",
-            "example": "\"test\""
-        },
-        {
-            "name": "$recipientdomain",
-            "type": "string",
-            "detail": "string readonly $recipientdomain",
-            "documentation": "Domain part of recipient's address (envelope)",
-            "example": "\"example.com\""
-        },
-        {
-            "name": "$retry",
-            "type": "number",
-            "detail": "number readonly $retry",
-            "documentation": "The current retry count",
-            "example": "3"
-        },
-        {
-            "name": "$retries",
-            "type": "number",
-            "detail": "number readonly $retries",
-            "documentation": "The maximum number of retries for that message",
-            "example": "30"
-        },
-        {
-            "name": "$errormsg",
-            "type": "string",
-            "detail": "string readonly $errormsg",
-            "documentation": "The error message from the server",
-            "example": "\"5.7.1... we do not relay\""
-        },
-        {
-            "name": "$errorcode",
-            "type": "number",
-            "detail": "number readonly $errorcode",
-            "documentation": "The error code from the server (A value 0 of indicates network problems)",
-            "example": "550"
-        },
-        {
-            "name": "$errorndr",
-            "type": "string",
-            "detail": "string readonly $errorndr",
-            "documentation": "The NDR code from the server (if available)",
-            "example": "\"5.7.1\""
-        },
-        {
-            "name": "$transfertime",
-            "type": "number",
-            "detail": "number readonly $transfertime",
-            "documentation": "The transfer time for this delivery attempt (seconds)",
-            "example": "0.512"
+            "example": "\"mailuser\"",
+            "documentation": "SASL username"
         },
         {
             "name": "$messageid",
             "type": "string",
             "detail": "string readonly $messageid",
-            "documentation": "ID of the message",
-            "example": "\"18c190a3-93f-47d7-bd...\""
+            "example": "\"18c190a3-93f-47d7-bd...\"",
+            "documentation": "ID of the message"
+        },
+        {
+            "name": "$sender",
+            "type": "string",
+            "detail": "string readonly $sender",
+            "example": "\"test@example.org\"",
+            "documentation": "Email address of sender (envelope), lowercase"
+        },
+        {
+            "name": "$senderlocalpart",
+            "type": "string",
+            "detail": "string readonly $senderlocalpart",
+            "example": "\"test\"",
+            "documentation": "Local part of sender's address (envelope)"
+        },
+        {
+            "name": "$senderdomain",
+            "type": "string",
+            "detail": "string readonly $senderdomain",
+            "example": "\"example.org\"",
+            "documentation": "Domain part of sender's address (envelope)"
+        },
+        {
+            "name": "$recipient",
+            "type": "string",
+            "detail": "string readonly $recipient",
+            "example": "\"test@example.com\"",
+            "documentation": "Email address of recipient (envelope), lowercase"
+        },
+        {
+            "name": "$recipientlocalpart",
+            "type": "string",
+            "detail": "string readonly $recipientlocalpart",
+            "example": "\"test\"",
+            "documentation": "Local part of recipient's address (envelope)"
+        },
+        {
+            "name": "$recipientdomain",
+            "type": "string",
+            "detail": "string readonly $recipientdomain",
+            "example": "\"example.com\"",
+            "documentation": "Domain part of recipient's address (envelope)"
+        },
+        {
+            "name": "$receivedtime",
+            "type": "number",
+            "detail": "number readonly $receivedtime",
+            "example": "1445937340",
+            "documentation": "The unix time (in UTC) when the message was received"
         },
         {
             "name": "$actionid",
             "type": "number",
             "detail": "number readonly $actionid",
-            "documentation": "Same as $actionid in DATA context",
-            "example": "1"
-        },
-        {
-            "name": "$queueid",
-            "type": "number",
-            "detail": "number readonly $queueid",
-            "documentation": "Queue ID of the message",
-            "example": "12345"
+            "example": "1",
+            "documentation": "Same as $actionid in DATA context"
         },
         {
             "name": "$transportid",
             "type": "string",
             "detail": "string readonly $transportid",
-            "documentation": "ID of the transport profile that was used",
-            "example": "\"mailtransport:1\""
+            "example": "\"mailtransport:1\"",
+            "documentation": "ID of the transport profile that was used"
+        },
+        {
+            "name": "$queueid",
+            "type": "number",
+            "detail": "number readonly $queueid",
+            "example": "12345",
+            "documentation": "Queue ID of the message"
+        },
+        {
+            "name": "$retry",
+            "type": "number",
+            "detail": "number readonly $retry",
+            "example": "3",
+            "documentation": "The current retry count"
+        },
+        {
+            "name": "$retries",
+            "type": "number",
+            "detail": "number readonly $retries",
+            "example": "30",
+            "documentation": "The maximum number of retries for that message"
         },
         {
             "name": "$action",
             "type": "string",
             "detail": "string readonly $action",
-            "documentation": "The default action of this execution (\"DELETE\", \"BOUNCE\", \"RETRY\" or \"\")",
-            "example": "\"DELETE\""
+            "example": "\"DELETE\"",
+            "documentation": "The default action of this execution (\"DELETE\", \"BOUNCE\", \"RETRY\" or \"\")"
+        },
+        {
+            "name": "$errormsg",
+            "type": "string",
+            "detail": "string readonly $errormsg",
+            "example": "\"5.7.1... we do not relay\"",
+            "documentation": "The error message from the server"
+        },
+        {
+            "name": "$errorcode",
+            "type": "number",
+            "detail": "number readonly $errorcode",
+            "example": "550",
+            "documentation": "The error code from the server (A value 0 of indicates network problems)"
+        },
+        {
+            "name": "$errorndr",
+            "type": "string",
+            "detail": "string readonly $errorndr",
+            "example": "\"5.7.1\"",
+            "documentation": "The NDR code from the server (if available)"
+        },
+        {
+            "name": "$transfertime",
+            "type": "number",
+            "detail": "number readonly $transfertime",
+            "example": "0.512",
+            "documentation": "The transfer time for this delivery attempt (seconds)"
+        },
+        {
+            "name": "$sourceip",
+            "type": "string",
+            "detail": "string readonly $sourceip",
+            "example": "\"10.0.0.1\"",
+            "documentation": "The delivery source IP"
+        },
+        {
+            "name": "$serverip",
+            "type": "string",
+            "detail": "string readonly $serverip",
+            "example": "\"172.16.1.25\"",
+            "documentation": "IP which we tried to connect to (empty on DNS problems)"
+        },
+        {
+            "name": "$serverport",
+            "type": "number",
+            "detail": "number readonly $serverport",
+            "example": "25",
+            "documentation": "Port which we tried to connect to"
         },
         {
             "name": "$context",
             "type": "any",
             "detail": "any $context",
-            "documentation": "none"
+            "documentation": "This variable is only defined if the pre-delivery context has been executed"
         }
     ],
     "api": [
@@ -966,43 +2287,43 @@
             "name": "$clientip",
             "type": "string",
             "detail": "string readonly $clientip",
-            "documentation": "The IP address of the client",
-            "example": "\"192.168.1.12\""
+            "example": "\"192.168.1.12\"",
+            "documentation": "The IP address of the client"
         },
         {
             "name": "$username",
             "type": "string",
             "detail": "string readonly $username",
-            "documentation": "Username",
-            "example": "\"loginuser\""
+            "example": "\"loginuser\"",
+            "documentation": "Username"
         },
         {
             "name": "$password",
             "type": "string",
             "detail": "string readonly $password",
-            "documentation": "Password",
-            "example": "\"secret\""
+            "example": "\"secret\"",
+            "documentation": "Password"
         },
         {
             "name": "$service",
             "type": "string",
             "detail": "string readonly $service",
-            "documentation": "Eg. \"ssh\", \"ftp\"...",
-            "example": "\"webui\""
+            "example": "\"webui\"",
+            "documentation": "Eg. \"ssh\", \"ftp\"..."
         },
         {
             "name": "$soapcall",
             "type": "string",
             "detail": "string readonly $soapcall",
-            "documentation": "The SOAP function that is executed",
-            "example": "\"configKeySet\""
+            "example": "\"configKeySet\"",
+            "documentation": "The SOAP function that is executed"
         },
         {
             "name": "$soapargs",
             "type": "array",
             "detail": "array readonly $soapargs",
-            "documentation": "The SOAP function arguments (not always available)",
-            "example": "[]"
+            "example": "[]",
+            "documentation": "The SOAP function arguments (not always available)"
         }
     ],
     "firewall": [
@@ -1010,50 +2331,50 @@
             "name": "$family",
             "type": "string",
             "detail": "string readonly $family",
-            "documentation": "IP family of connecting client (\"ipv4\" or \"ipv6\")",
-            "example": "\"ipv4\""
+            "example": "\"ipv4\"",
+            "documentation": "IP family of connecting client (\"ipv4\" or \"ipv6\")"
         },
         {
             "name": "$protocol",
             "type": "string",
             "detail": "string readonly $protocol",
-            "documentation": "IP protocol of local server (\"tcp\" or \"udp\")",
-            "example": "\"tcp\""
+            "example": "\"tcp\"",
+            "documentation": "IP protocol of local server (\"tcp\" or \"udp\")"
         },
         {
             "name": "$service",
             "type": "string",
             "detail": "string readonly $service",
-            "documentation": "Name of local service (\"ssh\", \"snmp\", \"ftp\" or \"httpserver:X\")",
-            "example": "\"ssh\""
+            "example": "\"ssh\"",
+            "documentation": "Name of local service (\"ssh\", \"snmp\", \"ftp\" or \"httpserver:X\")"
         },
         {
             "name": "$senderip",
             "type": "string",
             "detail": "string readonly $senderip",
-            "documentation": "IP address of connecting client",
-            "example": "\"192.168.1.11\""
+            "example": "\"192.168.1.11\"",
+            "documentation": "IP address of connecting client"
         },
         {
             "name": "$senderport",
             "type": "number",
             "detail": "number readonly $senderport",
-            "documentation": "TCP\/UDP port of connecting client",
-            "example": "41666"
+            "example": "41666",
+            "documentation": "TCP\/UDP port of connecting client"
         },
         {
             "name": "$serverip",
             "type": "string",
             "detail": "string readonly $serverip",
-            "documentation": "IP address of local server",
-            "example": "\"10.0.0.1\""
+            "example": "\"10.0.0.1\"",
+            "documentation": "IP address of local server"
         },
         {
             "name": "$serverport",
             "type": "number",
             "detail": "number readonly $serverport",
-            "documentation": "TCP\/UDP port of local server",
-            "example": "22"
+            "example": "22",
+            "documentation": "TCP\/UDP port of local server"
         }
     ]
 }

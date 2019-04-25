@@ -520,6 +520,32 @@
             "link": "[Full documentation]({{ docsurl }}functions.html#ed25519_verify)"
         },
         {
+            "name": "pkcs7_sign",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "message",
+                        "type": "string"
+                    },
+                    {
+                        "name": "certificate",
+                        "type": "string"
+                    }
+                ],
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
+            },
+            "returnType": "string or none (on error)",
+            "detail": "pkcs7_sign(string $message, string $certificate [, array $options]): string or none (on error)",
+            "value": "pkcs7_sign($0)",
+            "documentation": "PKCS7 sign (S\/MIME) a message.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#pkcs7_sign)"
+        },
+        {
             "name": "random_bytes",
             "parameters": {
                 "required": [
@@ -551,7 +577,10 @@
             "detail": "random_number([number $first]): number",
             "value": "random_number($0)",
             "documentation": "Return a random integer between first and last (inclusive) or a random double (decimal) between 0 and 1 (inclusive).",
-            "link": "[Full documentation]({{ docsurl }}functions.html#random_number)"
+            "link": "[Full documentation]({{ docsurl }}functions.html#random_number)",
+            "aliases": [
+                "rand"
+            ]
         },
         {
             "name": "crypt",
@@ -589,7 +618,11 @@
             "detail": "length(any $value): number or none",
             "value": "length($0)",
             "documentation": "Return the length of an array (items) or a string (characters). For all other datatypes none is returned.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#length)"
+            "link": "[Full documentation]({{ docsurl }}functions.html#length)",
+            "aliases": [
+                "count",
+                "strlen"
+            ]
         },
         {
             "name": "array",
@@ -837,11 +870,15 @@
                     {
                         "name": "time",
                         "type": "number"
+                    },
+                    {
+                        "name": "options",
+                        "type": "array"
                     }
                 ]
             },
             "returnType": "string",
-            "detail": "strftime(string $format [, number $time]): string",
+            "detail": "strftime(string $format [, number $time [, array $options]]): string",
             "value": "strftime($0)",
             "documentation": "Format according to the strftime manual.",
             "link": "[Full documentation]({{ docsurl }}functions.html#strftime)"
@@ -859,10 +896,15 @@
                         "type": "string"
                     }
                 ],
-                "optional": []
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
             },
             "returnType": "number",
-            "detail": "strptime(string $datestring, string $format): number",
+            "detail": "strptime(string $datestring, string $format [, array $options]): number",
             "value": "strptime($0)",
             "documentation": "Parse a date string according to the strftime manual with the time without timezone.",
             "link": "[Full documentation]({{ docsurl }}functions.html#strptime)"
@@ -904,7 +946,7 @@
             "link": "[Full documentation]({{ docsurl }}functions.html#uptime)"
         },
         {
-            "name": "dns",
+            "name": "dns_query",
             "parameters": {
                 "required": [
                     {
@@ -920,10 +962,10 @@
                 ]
             },
             "returnType": "array",
-            "detail": "dns(string $host [, array $options]): array",
-            "value": "dns($0)",
+            "detail": "dns_query(string $host [, array $options]): array",
+            "value": "dns_query($0)",
             "documentation": "Query for DNS records of a hostname.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#dns)"
+            "link": "[Full documentation]({{ docsurl }}functions.html#dns_query)"
         },
         {
             "name": "domain_includes",
@@ -944,7 +986,10 @@
             "detail": "domain_includes(string $subdomain, string $domain): boolean",
             "value": "domain_includes($0)",
             "documentation": "Test if subdomain is a subdomain of domain. If the domain starts with a dot . it must be a subdomain of domain, hence it will not even if subdomain == domain.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#domain_includes)"
+            "link": "[Full documentation]({{ docsurl }}functions.html#domain_includes)",
+            "aliases": [
+                "is_subdomain"
+            ]
         },
         {
             "name": "idna_encode",
@@ -1159,6 +1204,84 @@
             "link": "[Full documentation]({{ docsurl }}functions.html#http)"
         },
         {
+            "name": "header_addresslist_extract",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "value",
+                        "type": "string"
+                    }
+                ],
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
+            },
+            "returnType": "array",
+            "detail": "header_addresslist_extract(string $value [, array $options]): array",
+            "value": "header_addresslist_extract($0)",
+            "documentation": "Extract addresses from a header value or field, often used with From, To and CC headers. On error None is returned.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#header_addresslist_extract)"
+        },
+        {
+            "name": "header_dkim_decode",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "value",
+                        "type": "string"
+                    }
+                ],
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
+            },
+            "returnType": "array",
+            "detail": "header_dkim_decode(string $value [, array $options]): array",
+            "value": "header_dkim_decode($0)",
+            "documentation": "Decode a Tag=Value list from a DKIM header value or field, often used with DKIM-Signature or ARC- headers. On error None is returned.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#header_dkim_decode)"
+        },
+        {
+            "name": "xtext_encode",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "text",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "string",
+            "detail": "xtext_encode(string $text): string",
+            "value": "xtext_encode($0)",
+            "documentation": "Encode xtext according to the rfc1891.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#xtext_encode)"
+        },
+        {
+            "name": "xtext_decode",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "text",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "string",
+            "detail": "xtext_decode(string $text): string",
+            "value": "xtext_decode($0)",
+            "documentation": "Decode xtext according to the rfc1891.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#xtext_decode)"
+        },
+        {
             "name": "dnsbl",
             "parameters": {
                 "required": [
@@ -1189,7 +1312,7 @@
             "link": "[Full documentation]({{ docsurl }}functions.html#dnsbl)"
         },
         {
-            "name": "spf",
+            "name": "spf_query",
             "parameters": {
                 "required": [
                     {
@@ -1212,11 +1335,11 @@
                     }
                 ]
             },
-            "returnType": "number",
-            "detail": "spf(string $ip, string $helo, string $domain [, array $options]): number",
-            "value": "spf($0)",
+            "returnType": "array",
+            "detail": "spf_query(string $ip, string $helo, string $domain [, array $options]): array",
+            "value": "spf_query($0)",
             "documentation": "Check the SPF status of the senderdomain.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#spf)"
+            "link": "[Full documentation]({{ docsurl }}functions.html#spf_query)"
         },
         {
             "name": "globalview",
@@ -1465,7 +1588,10 @@
             "detail": "inet_includes(string $ip, string $network): boolean",
             "value": "inet_includes($0)",
             "documentation": "Returns true if ip is in the subnet or range of network. Both IPv4 and IPv6 are supported.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#inet_includes)"
+            "link": "[Full documentation]({{ docsurl }}functions.html#inet_includes)",
+            "aliases": [
+                "in_network"
+            ]
         },
         {
             "name": "inet_ntop",
@@ -1651,62 +1777,6 @@
             "link": "[Full documentation]({{ docsurl }}functions.html#smtp_lookup_auth)"
         },
         {
-            "name": "ldap_search",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "profile",
-                        "type": "string"
-                    },
-                    {
-                        "name": "lookup",
-                        "type": "any"
-                    }
-                ],
-                "optional": [
-                    {
-                        "name": "override",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "array or number",
-            "detail": "ldap_search(string $profile, any $lookup [, array $override]): array or number",
-            "value": "ldap_search($0)",
-            "documentation": "Query an LDAP server for lookup and return all LDAP entries found.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#ldap_search)"
-        },
-        {
-            "name": "ldap_bind",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "profile",
-                        "type": "string"
-                    },
-                    {
-                        "name": "username",
-                        "type": "string"
-                    },
-                    {
-                        "name": "password",
-                        "type": "string"
-                    }
-                ],
-                "optional": [
-                    {
-                        "name": "override",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "number",
-            "detail": "ldap_bind(string $profile, string $username, string $password [, array $override]): number",
-            "value": "ldap_bind($0)",
-            "documentation": "Try to bind (authenticate) against an LDAP server.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#ldap_bind)"
-        },
-        {
             "name": "chr",
             "parameters": {
                 "required": [
@@ -1836,7 +1906,10 @@
             "detail": "str_find(string $string, string $substring [, number $offset = 0]): number",
             "value": "str_find($0)",
             "documentation": "Return the position (starting from zero) of the first occurrence of substring in the string (starting from the offset). If the substring is not found -1 is returned.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#str_find)"
+            "link": "[Full documentation]({{ docsurl }}functions.html#str_find)",
+            "aliases": [
+                "strpos"
+            ]
         },
         {
             "name": "str_rfind",
@@ -1858,7 +1931,10 @@
             "detail": "str_rfind(string $string [, number $offset = 0]): number",
             "value": "str_rfind($0)",
             "documentation": "Return the position (starting from zero) of the last occurrence of substring in the string searching backward (starting from the offset relative to the end). If the substring is not found -1 is returned.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#str_rfind)"
+            "link": "[Full documentation]({{ docsurl }}functions.html#str_rfind)",
+            "aliases": [
+                "strrpos"
+            ]
         },
         {
             "name": "str_lower",
@@ -1875,7 +1951,10 @@
             "detail": "str_lower(string $string): string",
             "value": "str_lower($0)",
             "documentation": "Returns string with all US-ASCII character to lowercased.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#str_lower)"
+            "link": "[Full documentation]({{ docsurl }}functions.html#str_lower)",
+            "aliases": [
+                "strtolower"
+            ]
         },
         {
             "name": "str_upper",
@@ -1892,7 +1971,10 @@
             "detail": "str_upper(string $string): string",
             "value": "str_upper($0)",
             "documentation": "Returns string with all US-ASCII character uppercased.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#str_upper)"
+            "link": "[Full documentation]({{ docsurl }}functions.html#str_upper)",
+            "aliases": [
+                "strtoupper"
+            ]
         },
         {
             "name": "str_slice",
@@ -1918,7 +2000,10 @@
             "detail": "str_slice(string $string, number $offset [, number $length]): string",
             "value": "str_slice($0)",
             "documentation": "Return the substring of string.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#str_slice)"
+            "link": "[Full documentation]({{ docsurl }}functions.html#str_slice)",
+            "aliases": [
+                "substr"
+            ]
         },
         {
             "name": "str_strip",
@@ -1935,7 +2020,10 @@
             "detail": "str_strip(string $string): string",
             "value": "str_strip($0)",
             "documentation": "Returns string with whitespace characters (\\s\\t\\r\\n) removed from the start and end of the string.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#str_strip)"
+            "link": "[Full documentation]({{ docsurl }}functions.html#str_strip)",
+            "aliases": [
+                "trim"
+            ]
         },
         {
             "name": "pcre_match",
@@ -2025,6 +2113,127 @@
             "value": "pcre_replace($0)",
             "documentation": "Perl compatible regular expression data matching and replacing",
             "link": "[Full documentation]({{ docsurl }}functions.html#pcre_replace)"
+        },
+        {
+            "name": "ldap_search",
+            "deprecated": true,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "profile",
+                        "type": "string"
+                    },
+                    {
+                        "name": "lookup",
+                        "type": "any"
+                    }
+                ],
+                "optional": [
+                    {
+                        "name": "override",
+                        "type": "array"
+                    }
+                ]
+            },
+            "returnType": "array or number",
+            "detail": "ldap_search(string $profile, any $lookup [, array $override]): array or number",
+            "value": "ldap_search($0)",
+            "documentation": "Query an LDAP server for lookup and return all LDAP entries found.",
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/4.8-stable\/functions.html#ldap_search)"
+        },
+        {
+            "name": "ldap_bind",
+            "deprecated": true,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "profile",
+                        "type": "string"
+                    },
+                    {
+                        "name": "username",
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "type": "string"
+                    }
+                ],
+                "optional": [
+                    {
+                        "name": "override",
+                        "type": "array"
+                    }
+                ]
+            },
+            "returnType": "number",
+            "detail": "ldap_bind(string $profile, string $username, string $password [, array $override]): number",
+            "value": "ldap_bind($0)",
+            "documentation": "Try to bind (authenticate) against an LDAP server.",
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/4.8-stable\/functions.html#ldap_bind)"
+        },
+        {
+            "name": "file",
+            "deprecated": true,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "filename",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "array",
+            "detail": "file(string $filename): array",
+            "value": "file($0)",
+            "documentation": "Return the content of the filename as an array line by line (without CR\/LF).",
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/4.8-stable\/functions.html#file)"
+        },
+        {
+            "name": "in_file",
+            "deprecated": true,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "needle",
+                        "type": "any"
+                    },
+                    {
+                        "name": "filename",
+                        "type": "string"
+                    }
+                ],
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
+            },
+            "returnType": "array",
+            "detail": "in_file(any $needle, string $filename [, array $options]): array",
+            "value": "in_file($0)",
+            "documentation": "Searches for a needle at the beginning (or at index) of each line in filename. If found, the line is returned as an array separated by the delimiter.",
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/4.8-stable\/functions.html#in_file)"
+        },
+        {
+            "name": "file_get_contents",
+            "deprecated": true,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "filename",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "string",
+            "detail": "file_get_contents(string $filename): string",
+            "value": "file_get_contents($0)",
+            "documentation": "Return the content of the filename as a string.",
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/4.8-stable\/functions.html#file_get_contents)"
         }
     ],
     "connect": [
@@ -2041,28 +2250,8 @@
             },
             "detail": "Accept([array $options])",
             "value": "Accept($0)",
-            "documentation": "Allow SMTP connection to be established.\n                        Optionally change the $senderip and PTR of the accepted client connection, which is written back to the connection context.",
+            "documentation": "Allow the connection to be established.\n                        Optionally change the remoteip and PTR of the accepted client connection, which is written back to the $connection variable.",
             "link": "[Full documentation]({{ docsurl }}connect.html#Accept)"
-        },
-        {
-            "name": "Defer",
-            "parameters": {
-                "required": [],
-                "optional": [
-                    {
-                        "name": "reason",
-                        "type": "string or array"
-                    },
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "detail": "Defer([string or array $reason [, array $options]])",
-            "value": "Defer($0)",
-            "documentation": "Defer the connection with a temporary (421) error.",
-            "link": "[Full documentation]({{ docsurl }}connect.html#Defer)"
         },
         {
             "name": "Reject",
@@ -2081,8 +2270,84 @@
             },
             "detail": "Reject([string or array $reason [, array $options]])",
             "value": "Reject($0)",
-            "documentation": "Reject the connection with a permanent (521) error.",
+            "documentation": "Close the connection with a permanent (521) error.",
             "link": "[Full documentation]({{ docsurl }}connect.html#Reject)"
+        },
+        {
+            "name": "Defer",
+            "parameters": {
+                "required": [],
+                "optional": [
+                    {
+                        "name": "reason",
+                        "type": "string or array"
+                    },
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
+            },
+            "detail": "Defer([string or array $reason [, array $options]])",
+            "value": "Defer($0)",
+            "documentation": "Close the connection with a temporary (421) error.",
+            "link": "[Full documentation]({{ docsurl }}connect.html#Defer)"
+        },
+        {
+            "name": "SetSenderIP",
+            "compat": 1,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "senderip",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "string or none",
+            "detail": "SetSenderIP(string $senderip): string or none",
+            "value": "SetSenderIP($0)",
+            "documentation": "Change the senderip for the current connection.",
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/4.8-stable\/connect.html#SetSenderIP)"
+        }
+    ],
+    "proxy": [
+        {
+            "name": "Pass",
+            "parameters": {
+                "required": [],
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
+            },
+            "detail": "Pass([array $options])",
+            "value": "Pass($0)",
+            "documentation": "Pass the command to the SMTP server's state machine.",
+            "link": "[Full documentation]({{ docsurl }}proxy.html#Pass)"
+        },
+        {
+            "name": "Reply",
+            "parameters": {
+                "required": [],
+                "optional": [
+                    {
+                        "name": "reason",
+                        "type": "string or array"
+                    },
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
+            },
+            "detail": "Reply([string or array $reason [, array $options]])",
+            "value": "Reply($0)",
+            "documentation": "Send a reply to the client (The default is code 250). The command is not passed to the SMTP server's state machine.",
+            "link": "[Full documentation]({{ docsurl }}proxy.html#Reply)"
         }
     ],
     "helo": [
@@ -2099,7 +2364,7 @@
             },
             "detail": "Accept([array $options])",
             "value": "Accept($0)",
-            "documentation": "Accept the HELO or EHLO command.\n                        Optionally change the $senderhelo of the sending client, which is written back to the connection context.",
+            "documentation": "Accept the HELO or EHLO command. Optionally change the host of the sending client, which is written back to the $connection variable.",
             "link": "[Full documentation]({{ docsurl }}helo.html#Accept)"
         },
         {
@@ -2144,6 +2409,7 @@
         },
         {
             "name": "GetExtensions",
+            "deprecated": true,
             "parameters": {
                 "required": [],
                 "optional": []
@@ -2152,10 +2418,11 @@
             "detail": "GetExtensions(): array",
             "value": "GetExtensions()",
             "documentation": "Return the current SMTP service extensions to be sent if the EHLO command was issued.",
-            "link": "[Full documentation]({{ docsurl }}helo.html#GetExtensions)"
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.0-stable\/helo.html#GetExtensions)"
         },
         {
             "name": "GetTLS",
+            "deprecated": true,
             "parameters": {
                 "required": [],
                 "optional": [
@@ -2169,7 +2436,25 @@
             "detail": "GetTLS([array $options]): array",
             "value": "GetTLS($0)",
             "documentation": "Get the TLS information for a connection.",
-            "link": "[Full documentation]({{ docsurl }}helo.html#GetTLS)"
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.0-stable\/helo.html#GetTLS)"
+        },
+        {
+            "name": "SetHELO",
+            "compat": 1,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "senderhelo",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "string or none",
+            "detail": "SetHELO(string $senderhelo): string or none",
+            "value": "SetHELO($0)",
+            "documentation": "Change the HELO hostname for the current connection.",
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/4.8-stable\/helo.html#SetHELO)"
         }
     ],
     "auth": [
@@ -2188,6 +2473,26 @@
             "value": "Accept($0)",
             "documentation": "Authorize the login request.",
             "link": "[Full documentation]({{ docsurl }}auth.html#Accept)"
+        },
+        {
+            "name": "Reject",
+            "parameters": {
+                "required": [],
+                "optional": [
+                    {
+                        "name": "reason",
+                        "type": "string or array"
+                    },
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
+            },
+            "detail": "Reject([string or array $reason [, array $options]])",
+            "value": "Reject($0)",
+            "documentation": "Reject the login request with a permanent (535) error.",
+            "link": "[Full documentation]({{ docsurl }}auth.html#Reject)"
         },
         {
             "name": "Defer",
@@ -2210,26 +2515,6 @@
             "link": "[Full documentation]({{ docsurl }}auth.html#Defer)"
         },
         {
-            "name": "Reject",
-            "parameters": {
-                "required": [],
-                "optional": [
-                    {
-                        "name": "reason",
-                        "type": "string or array"
-                    },
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "detail": "Reject([string or array $reason [, array $options]])",
-            "value": "Reject($0)",
-            "documentation": "Reject the login request.",
-            "link": "[Full documentation]({{ docsurl }}auth.html#Reject)"
-        },
-        {
             "name": "Reply",
             "parameters": {
                 "required": [],
@@ -2250,7 +2535,25 @@
             "link": "[Full documentation]({{ docsurl }}auth.html#Reply)"
         },
         {
+            "name": "GetMailQueueMetric",
+            "parameters": {
+                "required": [],
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
+            },
+            "returnType": "number",
+            "detail": "GetMailQueueMetric([array $options]): number",
+            "value": "GetMailQueueMetric($0)",
+            "documentation": "Return metric information about the mail queue, it can be used to enforce quotas.",
+            "link": "[Full documentation]({{ docsurl }}auth.html#GetMailQueueMetric)"
+        },
+        {
             "name": "GetTLS",
+            "deprecated": true,
             "parameters": {
                 "required": [],
                 "optional": [
@@ -2264,7 +2567,7 @@
             "detail": "GetTLS([array $options]): array",
             "value": "GetTLS($0)",
             "documentation": "Get the TLS information for a connection.",
-            "link": "[Full documentation]({{ docsurl }}auth.html#GetTLS)"
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.0-stable\/auth.html#GetTLS)"
         }
     ],
     "mailfrom": [
@@ -2283,26 +2586,6 @@
             "value": "Accept($0)",
             "documentation": "Accept the MAIL FROM command (sender).\n                        Optionally change the sender accepted, which is written back to $transaction.",
             "link": "[Full documentation]({{ docsurl }}mailfrom.html#Accept)"
-        },
-        {
-            "name": "Defer",
-            "parameters": {
-                "required": [],
-                "optional": [
-                    {
-                        "name": "reason",
-                        "type": "string or array"
-                    },
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "detail": "Defer([string or array $reason [, array $options]])",
-            "value": "Defer($0)",
-            "documentation": "Defer the MAIL FROM command (sender) with a temporary (450) error.",
-            "link": "[Full documentation]({{ docsurl }}mailfrom.html#Defer)"
         },
         {
             "name": "Reject",
@@ -2325,6 +2608,26 @@
             "link": "[Full documentation]({{ docsurl }}mailfrom.html#Reject)"
         },
         {
+            "name": "Defer",
+            "parameters": {
+                "required": [],
+                "optional": [
+                    {
+                        "name": "reason",
+                        "type": "string or array"
+                    },
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
+            },
+            "detail": "Defer([string or array $reason [, array $options]])",
+            "value": "Defer($0)",
+            "documentation": "Defer the MAIL FROM command (sender) with a temporary (450) error.",
+            "link": "[Full documentation]({{ docsurl }}mailfrom.html#Defer)"
+        },
+        {
             "name": "GetMailQueueMetric",
             "parameters": {
                 "required": [],
@@ -2343,6 +2646,7 @@
         },
         {
             "name": "GetTLS",
+            "deprecated": true,
             "parameters": {
                 "required": [],
                 "optional": [
@@ -2356,7 +2660,25 @@
             "detail": "GetTLS([array $options]): array",
             "value": "GetTLS($0)",
             "documentation": "Get the TLS information for a connection.",
-            "link": "[Full documentation]({{ docsurl }}mailfrom.html#GetTLS)"
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.0-stable\/mailfrom.html#GetTLS)"
+        },
+        {
+            "name": "SetSender",
+            "compat": 1,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "sender",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "string or none",
+            "detail": "SetSender(string $sender): string or none",
+            "value": "SetSender($0)",
+            "documentation": "Change the sender of the message.",
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/4.8-stable\/mailfrom.html#SetSender)"
         }
     ],
     "rcptto": [
@@ -2435,6 +2757,7 @@
         },
         {
             "name": "GetTLS",
+            "deprecated": true,
             "parameters": {
                 "required": [],
                 "optional": [
@@ -2448,7 +2771,43 @@
             "detail": "GetTLS([array $options]): array",
             "value": "GetTLS($0)",
             "documentation": "Get the TLS information for a connection.",
-            "link": "[Full documentation]({{ docsurl }}rcptto.html#GetTLS)"
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/4.8-stable\/rcptto.html#GetTLS)"
+        },
+        {
+            "name": "SetSender",
+            "compat": 1,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "sender",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "string or none",
+            "detail": "SetSender(string $sender): string or none",
+            "value": "SetSender($0)",
+            "documentation": "Change the sender of the message.",
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/4.8-stable\/rcptto.html#SetSender)"
+        },
+        {
+            "name": "SetRecipient",
+            "compat": 1,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "recipient",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "string or none",
+            "detail": "SetRecipient(string $recipient): string or none",
+            "value": "SetRecipient($0)",
+            "documentation": "Changes the recipient.",
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/4.8-stable\/rcptto.html#SetRecipient)"
         }
     ],
     "eodonce": [
@@ -2462,26 +2821,6 @@
             "value": "Accept()",
             "documentation": "Accept the DATA command (mail data).",
             "link": "[Full documentation]({{ docsurl }}eodonce.html#Accept)"
-        },
-        {
-            "name": "Defer",
-            "parameters": {
-                "required": [],
-                "optional": [
-                    {
-                        "name": "reason",
-                        "type": "string or array"
-                    },
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "detail": "Defer([string or array $reason [, array $options]])",
-            "value": "Defer($0)",
-            "documentation": "Defer (421) a message. If reason is an array or contains \\n it will be split into a multiline response.",
-            "link": "[Full documentation]({{ docsurl }}eodonce.html#Defer)"
         },
         {
             "name": "Reject",
@@ -2504,30 +2843,24 @@
             "link": "[Full documentation]({{ docsurl }}eodonce.html#Reject)"
         },
         {
-            "name": "Queue",
+            "name": "Defer",
             "parameters": {
-                "required": [
+                "required": [],
+                "optional": [
                     {
-                        "name": "recipient",
+                        "name": "reason",
                         "type": "string or array"
                     },
-                    {
-                        "name": "transportid",
-                        "type": "string"
-                    }
-                ],
-                "optional": [
                     {
                         "name": "options",
                         "type": "array"
                     }
                 ]
             },
-            "returnType": "boolean or none",
-            "detail": "Queue(string or array $recipient, string $transportid [, array $options]): boolean or none",
-            "value": "Queue($0)",
-            "documentation": "Queue the message.",
-            "link": "[Full documentation]({{ docsurl }}eodonce.html#Queue)"
+            "detail": "Defer([string or array $reason [, array $options]])",
+            "value": "Defer($0)",
+            "documentation": "Defer (421) a message. If reason is an array or contains \\n it will be split into a multiline response.",
+            "link": "[Full documentation]({{ docsurl }}eodonce.html#Defer)"
         },
         {
             "name": "History",
@@ -2556,96 +2889,21 @@
             "link": "[Full documentation]({{ docsurl }}eodonce.html#History)"
         },
         {
-            "name": "GetMailFile",
-            "parameters": {
-                "required": [],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "File",
-            "detail": "GetMailFile([array $options]): File",
-            "value": "GetMailFile($0)",
-            "documentation": "Return a File class to the current mail file.",
-            "link": "[Full documentation]({{ docsurl }}eodonce.html#GetMailFile)"
-        },
-        {
             "name": "ScanDMARC",
             "parameters": {
                 "required": [],
-                "optional": []
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
             },
             "returnType": "array or string",
-            "detail": "ScanDMARC(): array or string",
-            "value": "ScanDMARC()",
+            "detail": "ScanDMARC([array $options]): array or string",
+            "value": "ScanDMARC($0)",
             "documentation": "Returns the DMARC policy to apply to the message for the From-address. It will return an associative array containing the domain as result. If the domain cannot be properly extracted or missing an error message will be returned.",
             "link": "[Full documentation]({{ docsurl }}eodonce.html#ScanDMARC)"
-        },
-        {
-            "name": "DKIMSign",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "selector",
-                        "type": "string"
-                    },
-                    {
-                        "name": "domain",
-                        "type": "string"
-                    },
-                    {
-                        "name": "key",
-                        "type": "string"
-                    }
-                ],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "boolean",
-            "detail": "DKIMSign(string $selector, string $domain, string $key [, array $options]): boolean",
-            "value": "DKIMSign($0)",
-            "documentation": "Sign the message using DKIM.",
-            "link": "[Full documentation]({{ docsurl }}eodonce.html#DKIMSign)"
-        },
-        {
-            "name": "DKIMVerify",
-            "parameters": {
-                "required": [],
-                "optional": []
-            },
-            "returnType": "array",
-            "detail": "DKIMVerify(): array",
-            "value": "DKIMVerify()",
-            "documentation": "DKIM verify a DKIM-Signature or ARC-Message-Signature header. The header should include both the header name and value (unmodified).",
-            "link": "[Full documentation]({{ docsurl }}eodonce.html#DKIMVerify)"
-        },
-        {
-            "name": "DKIMSDID",
-            "parameters": {
-                "required": [],
-                "optional": [
-                    {
-                        "name": "explicitdomains",
-                        "type": "array"
-                    },
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "array",
-            "detail": "DKIMSDID([array $explicitdomains [, array $options]]): array",
-            "value": "DKIMSDID($0)",
-            "documentation": "Returns the SDID (Signing Domain IDentifier) status from the DKIM header of the message.",
-            "link": "[Full documentation]({{ docsurl }}eodonce.html#DKIMSDID)"
         },
         {
             "name": "ScanDLP",
@@ -2737,23 +2995,6 @@
             "link": "[Full documentation]({{ docsurl }}eodonce.html#ScanCLAM)"
         },
         {
-            "name": "GetAddressList",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "value",
-                        "type": "string"
-                    }
-                ],
-                "optional": []
-            },
-            "returnType": "array",
-            "detail": "GetAddressList(string $value): array",
-            "value": "GetAddressList($0)",
-            "documentation": "Extract addresses from a header value, often used with From, To and CC headers.",
-            "link": "[Full documentation]({{ docsurl }}eodonce.html#GetAddressList)"
-        },
-        {
             "name": "GetMailQueueMetric",
             "parameters": {
                 "required": [],
@@ -2769,23 +3010,6 @@
             "value": "GetMailQueueMetric($0)",
             "documentation": "Return metric information about the mail queue, it can be used to enforce quotas.",
             "link": "[Full documentation]({{ docsurl }}eodonce.html#GetMailQueueMetric)"
-        },
-        {
-            "name": "GetTLS",
-            "parameters": {
-                "required": [],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "array",
-            "detail": "GetTLS([array $options]): array",
-            "value": "GetTLS($0)",
-            "documentation": "Get the TLS information for a connection.",
-            "link": "[Full documentation]({{ docsurl }}eodonce.html#GetTLS)"
         }
     ],
     "eodrcpt": [
@@ -2806,26 +3030,6 @@
             "link": "[Full documentation]({{ docsurl }}eodrcpt.html#Deliver)"
         },
         {
-            "name": "Defer",
-            "parameters": {
-                "required": [],
-                "optional": [
-                    {
-                        "name": "reason",
-                        "type": "string or array"
-                    },
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "detail": "Defer([string or array $reason [, array $options]])",
-            "value": "Defer($0)",
-            "documentation": "Defer (421) a message. If reason is an array or contains \\n it will be split into a multiline response.",
-            "link": "[Full documentation]({{ docsurl }}eodrcpt.html#Defer)"
-        },
-        {
             "name": "Reject",
             "parameters": {
                 "required": [],
@@ -2844,6 +3048,26 @@
             "value": "Reject($0)",
             "documentation": "Reject (550) a message. If reason is an array or contains \\n it will be split into a multiline response.",
             "link": "[Full documentation]({{ docsurl }}eodrcpt.html#Reject)"
+        },
+        {
+            "name": "Defer",
+            "parameters": {
+                "required": [],
+                "optional": [
+                    {
+                        "name": "reason",
+                        "type": "string or array"
+                    },
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
+            },
+            "detail": "Defer([string or array $reason [, array $options]])",
+            "value": "Defer($0)",
+            "documentation": "Defer (421) a message. If reason is an array or contains \\n it will be split into a multiline response.",
+            "link": "[Full documentation]({{ docsurl }}eodrcpt.html#Defer)"
         },
         {
             "name": "Delete",
@@ -2889,96 +3113,33 @@
             "link": "[Full documentation]({{ docsurl }}eodrcpt.html#Done)"
         },
         {
-            "name": "GetMailFile",
+            "name": "GetMailMessage",
             "parameters": {
                 "required": [],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
+                "optional": []
             },
-            "returnType": "File",
-            "detail": "GetMailFile([array $options]): File",
-            "value": "GetMailFile($0)",
-            "documentation": "Return a File class to the current mail file.",
-            "link": "[Full documentation]({{ docsurl }}eodrcpt.html#GetMailFile)"
+            "returnType": "MailMessage",
+            "detail": "GetMailMessage(): MailMessage",
+            "value": "GetMailMessage()",
+            "documentation": "This is a \"factory function\" which returns a MailMessage object reference to the DATA (message) received as the result of the End-of-DATA command.",
+            "link": "[Full documentation]({{ docsurl }}eodrcpt.html#GetMailMessage)"
         },
         {
             "name": "ScanDMARC",
             "parameters": {
                 "required": [],
-                "optional": []
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
             },
             "returnType": "array or string",
-            "detail": "ScanDMARC(): array or string",
-            "value": "ScanDMARC()",
+            "detail": "ScanDMARC([array $options]): array or string",
+            "value": "ScanDMARC($0)",
             "documentation": "Returns the DMARC policy to apply to the message for the From-address. It will return an associative array containing the domain as result. If the domain cannot be properly extracted or missing an error message will be returned.",
             "link": "[Full documentation]({{ docsurl }}eodrcpt.html#ScanDMARC)"
-        },
-        {
-            "name": "DKIMSign",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "selector",
-                        "type": "string"
-                    },
-                    {
-                        "name": "domain",
-                        "type": "string"
-                    },
-                    {
-                        "name": "key",
-                        "type": "string"
-                    }
-                ],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "boolean",
-            "detail": "DKIMSign(string $selector, string $domain, string $key [, array $options]): boolean",
-            "value": "DKIMSign($0)",
-            "documentation": "Sign the message using DKIM.",
-            "link": "[Full documentation]({{ docsurl }}eodrcpt.html#DKIMSign)"
-        },
-        {
-            "name": "DKIMVerify",
-            "parameters": {
-                "required": [],
-                "optional": []
-            },
-            "returnType": "array",
-            "detail": "DKIMVerify(): array",
-            "value": "DKIMVerify()",
-            "documentation": "DKIM verify a DKIM-Signature or ARC-Message-Signature header. The header should include both the header name and value (unmodified).",
-            "link": "[Full documentation]({{ docsurl }}eodrcpt.html#DKIMVerify)"
-        },
-        {
-            "name": "DKIMSDID",
-            "parameters": {
-                "required": [],
-                "optional": [
-                    {
-                        "name": "explicitdomains",
-                        "type": "array"
-                    },
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "array",
-            "detail": "DKIMSDID([array $explicitdomains [, array $options]]): array",
-            "value": "DKIMSDID($0)",
-            "documentation": "Returns the SDID (Signing Domain IDentifier) status from the DKIM header of the message.",
-            "link": "[Full documentation]({{ docsurl }}eodrcpt.html#DKIMSDID)"
         },
         {
             "name": "ScanDLP",
@@ -3068,23 +3229,6 @@
             "value": "ScanCLAM($0)",
             "documentation": "Scan the message using ClamAV anti-virus.",
             "link": "[Full documentation]({{ docsurl }}eodrcpt.html#ScanCLAM)"
-        },
-        {
-            "name": "GetAddressList",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "value",
-                        "type": "string"
-                    }
-                ],
-                "optional": []
-            },
-            "returnType": "array",
-            "detail": "GetAddressList(string $value): array",
-            "value": "GetAddressList($0)",
-            "documentation": "Extract addresses from a header value, often used with From, To and CC headers.",
-            "link": "[Full documentation]({{ docsurl }}eodrcpt.html#GetAddressList)"
         },
         {
             "name": "GetMailQueueMetric",
@@ -3418,6 +3562,7 @@
         },
         {
             "name": "GetRoute",
+            "deprecated": true,
             "parameters": {
                 "required": [],
                 "optional": [
@@ -3430,10 +3575,11 @@
             "returnType": "array",
             "detail": "GetRoute([boolean $extended_result = false]): array",
             "value": "GetRoute($0)",
-            "link": "[Full documentation]({{ docsurl }}eodrcpt.html#GetRoute)"
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.0-stable\/eodrcpt.html#GetRoute)"
         },
         {
             "name": "GetDSN",
+            "deprecated": true,
             "parameters": {
                 "required": [],
                 "optional": []
@@ -3442,10 +3588,11 @@
             "detail": "GetDSN(): array or false",
             "value": "GetDSN()",
             "documentation": "Parse a DSN message.",
-            "link": "[Full documentation]({{ docsurl }}eodrcpt.html#GetDSN)"
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.0-stable\/eodrcpt.html#GetDSN)"
         },
         {
             "name": "GetDSNHeader",
+            "deprecated": true,
             "parameters": {
                 "required": [
                     {
@@ -3464,7 +3611,7 @@
             "detail": "GetDSNHeader(string $name [, boolean $skip_decode = false]): string",
             "value": "GetDSNHeader($0)",
             "documentation": "Same as GetHeader except it works on attached DSN messages. The name is not case sensitive.",
-            "link": "[Full documentation]({{ docsurl }}eodrcpt.html#GetDSNHeader)"
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.0-stable\/eodrcpt.html#GetDSNHeader)"
         }
     ],
     "predelivery": [
@@ -3541,7 +3688,8 @@
                 ],
                 "optional": []
             },
-            "detail": "CurrentConnections(string $namespace, string $entry, number $max)",
+            "returnType": "boolean",
+            "detail": "CurrentConnections(string $namespace, string $entry, number $max): boolean",
             "value": "CurrentConnections($0)",
             "documentation": "Can be used to limit concurrency. It returns false of the current number of connections with the same entry name in that namespace exceeds max, and true otherwise. The function will also occupy one \"slot\" after being executed, over the duration of its delivery attempt.",
             "link": "[Full documentation]({{ docsurl }}predelivery.html#CurrentConnections)"
