@@ -27,6 +27,8 @@ declare namespace HSL
     detail: string;
     documentation: string;
     example?: string;
+    compat?: number;
+    deprecated?: boolean;
   }
 
   interface Functions {
@@ -51,6 +53,8 @@ declare namespace HSL
     value: string;
     documentation?: string;
     link: string;
+    compat?: number;
+    deprecated?: boolean;
   }
   
   interface Classes {
@@ -74,6 +78,8 @@ declare namespace HSL
     value: string;
     documentation: string;
     link: string;
+    compat?: number;
+    deprecated?: boolean;
   }
   
   interface Parameters {
