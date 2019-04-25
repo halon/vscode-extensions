@@ -10,6 +10,7 @@ export default class Completions implements CompletionItemProvider
 
     for (let item of classes) {
       if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false)) {
+        if (item.name === 'MailMessage' || item.name === 'MIMEPart' || item.name === 'LDAPResult') continue;
         let completionItem = new CompletionItem(item.name, CompletionItemKind.Class);
         completionItem.detail = item.detail;
         completionItem.documentation = new MarkdownString(item.documentation);
