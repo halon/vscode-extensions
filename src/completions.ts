@@ -9,26 +9,32 @@ export default class Completions implements CompletionItemProvider
     const { classes, functions, variables, keywords } = docs(document);
 
     for (let item of classes) {
-      let completionItem = new CompletionItem(item.name, CompletionItemKind.Class);
-      completionItem.detail = item.detail;
-      completionItem.documentation = new MarkdownString(item.documentation);
-      completionItem.insertText = new SnippetString(item.value);
-      completionItems.push(completionItem);
+      if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false)) {
+        let completionItem = new CompletionItem(item.name, CompletionItemKind.Class);
+        completionItem.detail = item.detail;
+        completionItem.documentation = new MarkdownString(item.documentation);
+        completionItem.insertText = new SnippetString(item.value);
+        completionItems.push(completionItem);
+      }
     }
 
     for (let item of functions) {
-      let completionItem = new CompletionItem(item.name, CompletionItemKind.Function);
-      completionItem.detail = item.detail;
-      completionItem.documentation = new MarkdownString(item.documentation);
-      completionItem.insertText = new SnippetString(item.value);
-      completionItems.push(completionItem);
+      if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false)) {
+        let completionItem = new CompletionItem(item.name, CompletionItemKind.Function);
+        completionItem.detail = item.detail;
+        completionItem.documentation = new MarkdownString(item.documentation);
+        completionItem.insertText = new SnippetString(item.value);
+        completionItems.push(completionItem);
+      }
     }
 
     for (let item of variables) {
-      let completionItem = new CompletionItem(item.name, CompletionItemKind.Variable);
-      completionItem.detail = item.detail;
-      completionItem.documentation = new MarkdownString(item.example ? `${item.documentation} \n\n Example: \`${item.example}\`` : item.documentation);
-      completionItems.push(completionItem);
+      if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false)) {
+        let completionItem = new CompletionItem(item.name, CompletionItemKind.Variable);
+        completionItem.detail = item.detail;
+        completionItem.documentation = new MarkdownString(item.example ? `${item.documentation} \n\n Example: \`${item.example}\`` : item.documentation);
+        completionItems.push(completionItem);
+      }
     }
 
     for (let item of keywords) {

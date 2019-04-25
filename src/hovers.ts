@@ -11,35 +11,41 @@ export default class Hovers implements HoverProvider
     const { classes, functions, variables, keywords } = docs(document);
 
     for (let item of classes) {
-      if (item.name === text) {
-        let contents = [
-          new MarkdownString().appendCodeblock(item.detail, 'plaintext'),
-          new MarkdownString(item.documentation),
-          new MarkdownString(item.link.replace('{{ docsurl }}', docsUrl))
-        ];
-        return new Hover(contents);
+      if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false)) {
+        if (item.name === text) {
+          let contents = [
+            new MarkdownString().appendCodeblock(item.detail, 'plaintext'),
+            new MarkdownString(item.documentation),
+            new MarkdownString(item.link.replace('{{ docsurl }}', docsUrl))
+          ];
+          return new Hover(contents);
+        }
       }
     }
 
     for (let item of functions) {
-      if (item.name === text) {
-        let contents = [
-          new MarkdownString().appendCodeblock(item.detail, 'plaintext'),
-          new MarkdownString(item.documentation),
-          new MarkdownString(item.link.replace('{{ docsurl }}', docsUrl))
-        ];
-        return new Hover(contents);
+      if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false)) {
+        if (item.name === text) {
+          let contents = [
+            new MarkdownString().appendCodeblock(item.detail, 'plaintext'),
+            new MarkdownString(item.documentation),
+            new MarkdownString(item.link.replace('{{ docsurl }}', docsUrl))
+          ];
+          return new Hover(contents);
+        }
       }
     }
 
     for (let item of variables) {
-      if (item.name === text) {
-        let contents = [
-          new MarkdownString().appendCodeblock(item.detail, 'plaintext'),
-          new MarkdownString(item.documentation),
-          new MarkdownString('Example: `' + item.example + '`')
-        ];
-        return new Hover(contents);
+      if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false)) {
+        if (item.name === text) {
+          let contents = [
+            new MarkdownString().appendCodeblock(item.detail, 'plaintext'),
+            new MarkdownString(item.documentation),
+            new MarkdownString('Example: `' + item.example + '`')
+          ];
+          return new Hover(contents);
+        }
       }
     }
 
