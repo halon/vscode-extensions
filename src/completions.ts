@@ -42,6 +42,7 @@ export default class Completions implements CompletionItemProvider
       let completionItem = new CompletionItem(item.name, CompletionItemKind.Keyword);
       completionItem.detail = item.detail;
       completionItem.documentation = new MarkdownString(item.documentation);
+      completionItem.insertText = new SnippetString(item.value || item.name);
       completionItems.push(completionItem);
     }
 

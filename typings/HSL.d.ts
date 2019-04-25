@@ -95,6 +95,7 @@ declare namespace HSL
   interface Keyword {
     name: string;
     detail: string;
+    value?: string;
     documentation: string;
     link: string;
   }
