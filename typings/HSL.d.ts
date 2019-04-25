@@ -98,5 +98,12 @@ declare namespace HSL
     value?: string;
     documentation: string;
     link: string;
+    snippets?: Snippet[];
+  }
+
+  interface Snippet {
+    detail: string;
+    documentation?: string;
+    insertText: string[];
   }
 }

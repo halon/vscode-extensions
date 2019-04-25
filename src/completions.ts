@@ -44,6 +44,15 @@ export default class Completions implements CompletionItemProvider
       completionItem.documentation = new MarkdownString(item.documentation);
       completionItem.insertText = new SnippetString(item.value || item.name);
       completionItems.push(completionItem);
+      if (typeof item.snippets !== 'undefined') {
+        for (let snippet of item.snippets) {
+          let completionItem = new CompletionItem(item.name, CompletionItemKind.Snippet);
+          completionItem.detail = snippet.detail;
+          completionItem.documentation = new MarkdownString(snippet.documentation || item.documentation);
+          completionItem.insertText = new SnippetString(snippet.insertText.join('\n'));
+          completionItems.push(completionItem);
+        }
+      }
     }
 
     return completionItems;

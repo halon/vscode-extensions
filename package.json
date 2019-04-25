@@ -47,12 +47,6 @@
         "path": "./syntaxes/hsl.tmLanguage.json"
       }
     ],
-    "snippets": [
-      {
-        "language": "hsl",
-        "path": "./snippets/hsl.json"
-      }
-    ],
     "commands": [
       {
         "command": "halon.init",
