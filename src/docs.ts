@@ -22,8 +22,14 @@ export default (document: TextDocument) => {
 
     if (typeof folder !== 'undefined') {
       if (folder === 'connect') {
+        items.classes = items.classes.concat(classes.connect);
         items.functions = items.functions.concat(functions.connect);
         items.variables = items.variables.concat(variables.connect);
+      }
+      if (folder === 'proxy') {
+        items.classes = items.classes.concat(classes.proxy);
+        items.functions = items.functions.concat(functions.proxy);
+        items.variables = items.variables.concat(variables.proxy);
       }
       if (folder === 'helo') {
         items.classes = items.classes.concat(classes.helo);
