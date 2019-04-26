@@ -76,6 +76,7 @@ declare namespace HSL
     parameters: Parameters;
     detail: string;
     value: string;
+    methods: Function[];
     documentation: string;
     link: string;
     compat?: number;
