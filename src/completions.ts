@@ -1,4 +1,5 @@
 import { CompletionItemProvider, CancellationToken, TextDocument, Position, CompletionContext, CompletionItem, CompletionItemKind, SnippetString, MarkdownString, Range } from 'vscode';
+import { matchVariable, parseVariable } from './variables';
 import docs from './docs';
 
 export default class Completions implements CompletionItemProvider
@@ -99,6 +100,24 @@ export default class Completions implements CompletionItemProvider
                 completionItem.insertText = new SnippetString(method.value);
                 completionItems.push(completionItem);
               }
+            }
+          }
+        }
+      } else if (triggerCharacter === '[' || triggerCharacter === '"') {
+        let variable = parseVariable(document, position, triggerCharacter === '[' ? false : true, []);
+        if (variable) {
+          let keys = matchVariable(variable, variables, true);
+          if (keys) {
+            for (let v of keys) {
+              let value = v.documentation;
+              if (v.example !== undefined)
+                value = value + '\n\n' + 'Example: `' + v.example + '`';
+              let completionItem = new CompletionItem(v.name, CompletionItemKind.Text);
+              completionItem.detail = v.detail;
+              completionItem.documentation = new MarkdownString(value);
+              completionItem.insertText = new SnippetString((triggerCharacter === '[' ? '"' : '') + v.name + '"]');
+              completionItem.range = new Range(position.line, position.character, position.line, position.character + (triggerCharacter === '[' ? 1 : 2));
+              completionItems.push(completionItem);
             }
           }
         }
