@@ -1,6 +1,6 @@
 {
   "name": "vscode-halon",
-  "version": "5.0.5",
+  "version": "5.1.0",
   "publisher": "Halon",
   "engines": {
     "vscode": "^1.28.2"
