@@ -570,11 +570,15 @@
                     {
                         "name": "first",
                         "type": "number"
+                    },
+                    {
+                        "name": "last",
+                        "type": "number"
                     }
                 ]
             },
             "returnType": "number",
-            "detail": "random_number([number $first]): number",
+            "detail": "random_number([number $first [, number $last]]): number",
             "value": "random_number($0)",
             "documentation": "Return a random integer between first and last (inclusive) or a random double (decimal) between 0 and 1 (inclusive).",
             "link": "[Full documentation]({{ docsurl }}functions.html#random_number)",
