@@ -91,6 +91,14 @@
         "url": "./node_modules/@halon/json-schemas/queued-app.schema.json"
       },
       {
+        "fileMatch": "queued-policy.yaml",
+        "url": "./node_modules/@halon/json-schemas/queued-policy.schema.json"
+      },
+      {
+        "fileMatch": "queued-suspend.yaml",
+        "url": "./node_modules/@halon/json-schemas/queued-suspend.schema.json"
+      },
+      {
         "fileMatch": "dlpd.yaml",
         "url": "./node_modules/@halon/json-schemas/dlpd.schema.json"
       },
@@ -162,7 +170,7 @@
   },
   "dependencies": {
     "@halon/cli": "^5.1.1",
-    "@halon/json-schemas": "^5.1.0",
+    "@halon/json-schemas": "github:halon/json-schemas",
     "path-is-inside": "^1.0.2",
     "underscore": "^1.9.1"
   }
