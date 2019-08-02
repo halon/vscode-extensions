@@ -132,7 +132,7 @@
     "watch": "tsc -watch -p ./",
     "postinstall": "node ./node_modules/vscode/bin/install",
     "test": "npm run compile && node ./node_modules/vscode/bin/test",
-    "docs": "npm --prefix node_modules/halon-hsl-docs install && npm --prefix node_modules/halon-hsl-docs run build && cp node_modules/halon-hsl-docs/dist/json/* src/docs/",
+    "docs": "npm --prefix node_modules/@halon/hsl-docs install && npm --prefix node_modules/@halon/hsl-docs run build && cp node_modules/@halon/hsl-docs/dist/json/* src/docs/",
     "vsce": "./node_modules/vsce/out/vsce"
   },
   "bugs": {
@@ -148,13 +148,13 @@
     "redhat.vscode-yaml"
   ],
   "devDependencies": {
+    "@halon/hsl-docs": "github:halon/hsl-docs",
     "@types/fs-readdir-recursive": "^1.0.0",
     "@types/mocha": "^5.2.5",
     "@types/node": "^10.12.0",
     "@types/path-is-inside": "^1.0.0",
     "@types/ssh2": "^0.5.36",
     "@types/underscore": "^1.8.9",
-    "halon-hsl-docs": "github:halon/hsl-docs",
     "tslint": "^5.11.0",
     "typescript": "^3.2.1",
     "vsce": "^1.59.0",

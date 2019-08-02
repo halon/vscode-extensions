@@ -843,6 +843,66 @@
             "value": "X509($0)",
             "documentation": "This class allows you to parse an X509 resource. The X509 class takes a X509Resource.",
             "link": "[Full documentation]({{ docsurl }}functions.html#X509)"
+        },
+        {
+            "name": "FFI",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "path",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "methods": [
+                {
+                    "name": "func",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "name",
+                                "type": "string"
+                            },
+                            {
+                                "name": "arguments",
+                                "type": "FFIType"
+                            },
+                            {
+                                "name": "returntype",
+                                "type": "FFIType"
+                            }
+                        ],
+                        "optional": []
+                    },
+                    "returnType": "FFIFunction",
+                    "detail": "FFI->func(string $name, FFIType $arguments, FFIType $returntype): FFIFunction",
+                    "value": "func($0)",
+                    "documentation": "The name of the function to load, use FFI.type() to define the correct function signature. If the function is not found, None is returned.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#FFI.func)"
+                },
+                {
+                    "name": "symbol",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "name",
+                                "type": "string"
+                            }
+                        ],
+                        "optional": []
+                    },
+                    "returnType": "FFIValue",
+                    "detail": "FFI->symbol(string $name): FFIValue",
+                    "value": "symbol($0)",
+                    "documentation": "Return a pointer to a global symbol in the library (eg. a variable). This function is the equivalent of dlsym(2). If the symbol is not found, None is returned.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#FFI.symbol)"
+                }
+            ],
+            "detail": "FFI(string $path)",
+            "value": "FFI($0)",
+            "documentation": "This class allows you to load a shared object\/library.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#FFI)"
         }
     ],
     "connect": [],

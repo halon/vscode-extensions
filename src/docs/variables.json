@@ -1967,7 +1967,125 @@
     ],
     "predelivery": [
         {
+            "name": "$arguments",
+            "type": "array",
+            "detail": "array readonly $arguments",
+            "documentation": "Context\/hook arguments",
+            "keys": [
+                {
+                    "name": "retry",
+                    "type": "number",
+                    "detail": "number retry",
+                    "example": "3",
+                    "documentation": "The current retry"
+                }
+            ]
+        },
+        {
+            "name": "$message",
+            "type": "array",
+            "detail": "array readonly $message",
+            "documentation": "The queued message",
+            "keys": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "detail": "string id",
+                    "example": "\"18c190a3-93f-47d7-bd...\"",
+                    "documentation": "ID of the transaction"
+                },
+                {
+                    "name": "serverid",
+                    "type": "string",
+                    "detail": "string serverid",
+                    "example": "\"inbound\"",
+                    "documentation": "ID of the server"
+                },
+                {
+                    "name": "sender",
+                    "type": "string",
+                    "detail": "string sender",
+                    "example": "\"test@example.org\"",
+                    "documentation": "Sender address (envelope), lowercase"
+                },
+                {
+                    "name": "senderaddress",
+                    "type": "array",
+                    "detail": "array senderaddress",
+                    "example": "[\"localpart\" => \"test\"...]",
+                    "documentation": "Sender address (envelope)",
+                    "keys": [
+                        {
+                            "name": "localpart",
+                            "type": "string",
+                            "detail": "string localpart",
+                            "example": "\"test\"",
+                            "documentation": "Local part of address"
+                        },
+                        {
+                            "name": "domain",
+                            "type": "string",
+                            "detail": "string domain",
+                            "example": "\"example.org\"",
+                            "documentation": "Domain part of address"
+                        }
+                    ]
+                },
+                {
+                    "name": "recipient",
+                    "type": "string",
+                    "detail": "string recipient",
+                    "example": "\"test@example.org\"",
+                    "documentation": "Recipient address (envelope), lowercase"
+                },
+                {
+                    "name": "recipientaddress",
+                    "type": "array",
+                    "detail": "array recipientaddress",
+                    "example": "[\"localpart\" => \"test\"...]",
+                    "documentation": "Recipient address (envelope)",
+                    "keys": [
+                        {
+                            "name": "localpart",
+                            "type": "string",
+                            "detail": "string localpart",
+                            "example": "\"test\"",
+                            "documentation": "Local part of address"
+                        },
+                        {
+                            "name": "domain",
+                            "type": "string",
+                            "detail": "string domain",
+                            "example": "\"example.org\"",
+                            "documentation": "Domain part of address"
+                        }
+                    ]
+                },
+                {
+                    "name": "transportid",
+                    "type": "string",
+                    "detail": "string transportid",
+                    "example": "\"inbound\"",
+                    "documentation": "ID of the transport profile to be used"
+                },
+                {
+                    "name": "queueid",
+                    "type": "number",
+                    "detail": "number queueid",
+                    "example": "12345",
+                    "documentation": "Queue ID of the message"
+                }
+            ]
+        },
+        {
+            "name": "$context",
+            "type": "any",
+            "detail": "any $context",
+            "documentation": "Delivery attempt-bound variable. It is only passed between pre and post-delivery."
+        },
+        {
             "name": "$senderip",
+            "compat": 2,
             "type": "string",
             "detail": "string readonly $senderip",
             "example": "\"192.168.1.11\"",
@@ -1975,6 +2093,7 @@
         },
         {
             "name": "$serverid",
+            "compat": 2,
             "type": "string",
             "detail": "string readonly $serverid",
             "example": "\"mailserver:1\"",
@@ -1982,6 +2101,7 @@
         },
         {
             "name": "$senderhelo",
+            "compat": 2,
             "type": "string",
             "detail": "string readonly $senderhelo",
             "example": "\"mail.example.com\"",
@@ -1989,6 +2109,7 @@
         },
         {
             "name": "$saslusername",
+            "compat": 2,
             "type": "string",
             "detail": "string readonly $saslusername",
             "example": "\"mailuser\"",
@@ -1996,6 +2117,7 @@
         },
         {
             "name": "$messageid",
+            "compat": 2,
             "type": "string",
             "detail": "string readonly $messageid",
             "example": "\"18c190a3-93f-47d7-bd...\"",
@@ -2003,6 +2125,7 @@
         },
         {
             "name": "$sender",
+            "compat": 2,
             "type": "string",
             "detail": "string readonly $sender",
             "example": "\"test@example.org\"",
@@ -2010,6 +2133,7 @@
         },
         {
             "name": "$senderlocalpart",
+            "compat": 2,
             "type": "string",
             "detail": "string readonly $senderlocalpart",
             "example": "\"test\"",
@@ -2017,6 +2141,7 @@
         },
         {
             "name": "$senderdomain",
+            "compat": 2,
             "type": "string",
             "detail": "string readonly $senderdomain",
             "example": "\"example.org\"",
@@ -2024,6 +2149,7 @@
         },
         {
             "name": "$recipient",
+            "compat": 2,
             "type": "string",
             "detail": "string readonly $recipient",
             "example": "\"test@example.com\"",
@@ -2031,6 +2157,7 @@
         },
         {
             "name": "$recipientlocalpart",
+            "compat": 2,
             "type": "string",
             "detail": "string readonly $recipientlocalpart",
             "example": "\"test\"",
@@ -2038,6 +2165,7 @@
         },
         {
             "name": "$recipientdomain",
+            "compat": 2,
             "type": "string",
             "detail": "string readonly $recipientdomain",
             "example": "\"example.com\"",
@@ -2045,6 +2173,7 @@
         },
         {
             "name": "$receivedtime",
+            "compat": 2,
             "type": "number",
             "detail": "number readonly $receivedtime",
             "example": "1445937340",
@@ -2052,6 +2181,7 @@
         },
         {
             "name": "$actionid",
+            "compat": 2,
             "type": "number",
             "detail": "number readonly $actionid",
             "example": "1",
@@ -2059,6 +2189,7 @@
         },
         {
             "name": "$transportid",
+            "compat": 2,
             "type": "string",
             "detail": "string readonly $transportid",
             "example": "\"mailtransport:1\"",
@@ -2066,6 +2197,7 @@
         },
         {
             "name": "$queueid",
+            "compat": 2,
             "type": "number",
             "detail": "number readonly $queueid",
             "example": "12345",
@@ -2073,6 +2205,7 @@
         },
         {
             "name": "$retry",
+            "compat": 2,
             "type": "number",
             "detail": "number readonly $retry",
             "example": "3",
@@ -2080,6 +2213,7 @@
         },
         {
             "name": "$retries",
+            "compat": 2,
             "type": "number",
             "detail": "number readonly $retries",
             "example": "30",
@@ -2087,6 +2221,7 @@
         },
         {
             "name": "$sourceip",
+            "compat": 2,
             "type": "string",
             "detail": "string readonly $sourceip",
             "example": "\"10.0.0.1\"",
@@ -2094,6 +2229,7 @@
         },
         {
             "name": "$destination",
+            "compat": 2,
             "type": "string",
             "detail": "string readonly $destination",
             "example": "\"172.16.1.25\"",
@@ -2101,21 +2237,305 @@
         },
         {
             "name": "$destinationport",
+            "compat": 2,
             "type": "number",
             "detail": "number readonly $destinationport",
             "example": "25",
             "documentation": "The destination port (initially defined by the transport profile)"
+        }
+    ],
+    "postdelivery": [
+        {
+            "name": "$arguments",
+            "type": "array",
+            "detail": "array readonly $arguments",
+            "documentation": "Context\/hook arguments",
+            "keys": [
+                {
+                    "name": "retry",
+                    "type": "number",
+                    "detail": "number retry",
+                    "example": "3",
+                    "documentation": "The current retry"
+                },
+                {
+                    "name": "action",
+                    "type": "string",
+                    "detail": "string action",
+                    "example": "\"DELETE\"",
+                    "documentation": "The default action of this execution (\"DELETE\", \"BOUNCE\", \"QUEUE\"). Missing on successful deliveries."
+                },
+                {
+                    "name": "attempt",
+                    "type": "array",
+                    "detail": "array attempt",
+                    "example": "[\"result\" => [ \"code\" => 200, ...",
+                    "documentation": "The delivery attempt result (if an attempt was made)",
+                    "keys": [
+                        {
+                            "name": "result",
+                            "type": "array",
+                            "detail": "array result",
+                            "example": "[\"code\" = >250, \"enhanced\" => [1, ...]",
+                            "documentation": "A SMTP protocol response (if available)",
+                            "keys": [
+                                {
+                                    "name": "code",
+                                    "type": "number",
+                                    "detail": "number code",
+                                    "example": "250",
+                                    "documentation": "A SMTP status code"
+                                },
+                                {
+                                    "name": "enhanced",
+                                    "type": "array",
+                                    "detail": "array enhanced",
+                                    "example": "[2, 0, 0]",
+                                    "documentation": "A SMTP enhanced status code"
+                                },
+                                {
+                                    "name": "reason",
+                                    "type": "array",
+                                    "detail": "array reason",
+                                    "example": "[\"Ok: queued as 18c19...\"]",
+                                    "documentation": "A SMTP response text"
+                                },
+                                {
+                                    "name": "state",
+                                    "type": "string",
+                                    "detail": "string state",
+                                    "example": "\"MAIL\"",
+                                    "documentation": "An enum to indicate which issued SMTP command triggerd the result"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "error",
+                            "type": "array",
+                            "detail": "array error",
+                            "example": "[\"temporary\" => true, \"reason\" => ...]",
+                            "documentation": "A generic eror message (if no SMTP result)",
+                            "keys": [
+                                {
+                                    "name": "temporary",
+                                    "type": "boolean",
+                                    "detail": "boolean temporary",
+                                    "example": "true",
+                                    "documentation": "If the error may be transient"
+                                },
+                                {
+                                    "name": "message",
+                                    "type": "message",
+                                    "detail": "message message",
+                                    "example": "\"A generic error\"",
+                                    "documentation": "An error message"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "connection",
+                            "type": "array",
+                            "detail": "array connection",
+                            "example": "[\"localip\" => \"1.2.3.4\", \"remoteip\"...]",
+                            "documentation": "Connection information",
+                            "keys": [
+                                {
+                                    "name": "locaip",
+                                    "type": "string",
+                                    "detail": "string locaip",
+                                    "example": "\"1.2.3.4\"",
+                                    "documentation": "The localip used"
+                                },
+                                {
+                                    "name": "remoteip",
+                                    "type": "string",
+                                    "detail": "string remoteip",
+                                    "example": "\"4.3.2.1\"",
+                                    "documentation": "The remoteip used"
+                                },
+                                {
+                                    "name": "remotemx",
+                                    "type": "string",
+                                    "detail": "string remotemx",
+                                    "example": "\"mail.example.com\"",
+                                    "documentation": "The remotemx used"
+                                },
+                                {
+                                    "name": "tls",
+                                    "type": "array",
+                                    "detail": "array tls",
+                                    "example": "[\"started\" => true, ...]",
+                                    "documentation": "TLS information (if TLS was started)",
+                                    "keys": [
+                                        {
+                                            "name": "started",
+                                            "type": "boolean",
+                                            "detail": "boolean started",
+                                            "example": "true",
+                                            "documentation": "If STARTTLS was successfully started"
+                                        },
+                                        {
+                                            "name": "protocol",
+                                            "type": "string",
+                                            "detail": "string protocol",
+                                            "example": "\"TLSv1.3\"",
+                                            "documentation": "The protocol (if available)"
+                                        },
+                                        {
+                                            "name": "cipher",
+                                            "type": "string",
+                                            "detail": "string cipher",
+                                            "example": "\"ECDHE-RSA-AES256-SHA384\"",
+                                            "documentation": "The cipher (if available)"
+                                        },
+                                        {
+                                            "name": "keysize",
+                                            "type": "number",
+                                            "detail": "number keysize",
+                                            "example": "256",
+                                            "documentation": "The keysize (if available)"
+                                        },
+                                        {
+                                            "name": "peercert",
+                                            "type": "array",
+                                            "detail": "array peercert",
+                                            "documentation": "The peer certificate (if available)",
+                                            "keys": [
+                                                {
+                                                    "name": "x509",
+                                                    "type": "X509Resource",
+                                                    "detail": "X509Resource x509",
+                                                    "documentation": "An X509Resource to be used with the  class"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "tlsrpt",
+                                            "type": "string",
+                                            "detail": "string tlsrpt",
+                                            "example": "\"starttls\"",
+                                            "documentation": "The tlsrpt error (if available)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "duration",
+                            "type": "number",
+                            "detail": "number duration",
+                            "example": "1.012",
+                            "documentation": "The delivery attempt duration"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "$message",
+            "type": "array",
+            "detail": "array readonly $message",
+            "documentation": "The queued message (with modifications from pre-delivery)",
+            "keys": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "detail": "string id",
+                    "example": "\"18c190a3-93f-47d7-bd...\"",
+                    "documentation": "ID of the transaction"
+                },
+                {
+                    "name": "serverid",
+                    "type": "string",
+                    "detail": "string serverid",
+                    "example": "\"inbound\"",
+                    "documentation": "ID of the server"
+                },
+                {
+                    "name": "sender",
+                    "type": "string",
+                    "detail": "string sender",
+                    "example": "\"test@example.org\"",
+                    "documentation": "Sender address (envelope), lowercase"
+                },
+                {
+                    "name": "senderaddress",
+                    "type": "array",
+                    "detail": "array senderaddress",
+                    "example": "[\"localpart\" => \"test\"...]",
+                    "documentation": "Sender address (envelope)",
+                    "keys": [
+                        {
+                            "name": "localpart",
+                            "type": "string",
+                            "detail": "string localpart",
+                            "example": "\"test\"",
+                            "documentation": "Local part of address"
+                        },
+                        {
+                            "name": "domain",
+                            "type": "string",
+                            "detail": "string domain",
+                            "example": "\"example.org\"",
+                            "documentation": "Domain part of address"
+                        }
+                    ]
+                },
+                {
+                    "name": "recipient",
+                    "type": "string",
+                    "detail": "string recipient",
+                    "example": "\"test@example.org\"",
+                    "documentation": "Recipient address (envelope), lowercase"
+                },
+                {
+                    "name": "recipientaddress",
+                    "type": "array",
+                    "detail": "array recipientaddress",
+                    "example": "[\"localpart\" => \"test\"...]",
+                    "documentation": "Recipient address (envelope)",
+                    "keys": [
+                        {
+                            "name": "localpart",
+                            "type": "string",
+                            "detail": "string localpart",
+                            "example": "\"test\"",
+                            "documentation": "Local part of address"
+                        },
+                        {
+                            "name": "domain",
+                            "type": "string",
+                            "detail": "string domain",
+                            "example": "\"example.org\"",
+                            "documentation": "Domain part of address"
+                        }
+                    ]
+                },
+                {
+                    "name": "transportid",
+                    "type": "string",
+                    "detail": "string transportid",
+                    "example": "\"inbound\"",
+                    "documentation": "ID of the transport profile to be used"
+                },
+                {
+                    "name": "queueid",
+                    "type": "number",
+                    "detail": "number queueid",
+                    "example": "12345",
+                    "documentation": "Queue ID of the message"
+                }
+            ]
         },
         {
             "name": "$context",
             "type": "any",
             "detail": "any $context",
-            "documentation": "Delivery attempt-bound variable. It is only passed between pre and post-delivery."
-        }
-    ],
-    "postdelivery": [
+            "documentation": "This variable is only defined if the pre-delivery has been executed"
+        },
         {
             "name": "$senderip",
+            "compat": 2,
             "type": "string",
             "detail": "string readonly $senderip",
             "example": "\"192.168.1.11\"",
@@ -2123,6 +2543,7 @@
         },
         {
             "name": "$saslusername",
+            "compat": 2,
             "type": "string",
             "detail": "string readonly $saslusername",
             "example": "\"mailuser\"",
@@ -2130,6 +2551,7 @@
         },
         {
             "name": "$messageid",
+            "compat": 2,
             "type": "string",
             "detail": "string readonly $messageid",
             "example": "\"18c190a3-93f-47d7-bd...\"",
@@ -2137,6 +2559,7 @@
         },
         {
             "name": "$sender",
+            "compat": 2,
             "type": "string",
             "detail": "string readonly $sender",
             "example": "\"test@example.org\"",
@@ -2144,6 +2567,7 @@
         },
         {
             "name": "$senderlocalpart",
+            "compat": 2,
             "type": "string",
             "detail": "string readonly $senderlocalpart",
             "example": "\"test\"",
@@ -2151,6 +2575,7 @@
         },
         {
             "name": "$senderdomain",
+            "compat": 2,
             "type": "string",
             "detail": "string readonly $senderdomain",
             "example": "\"example.org\"",
@@ -2158,6 +2583,7 @@
         },
         {
             "name": "$recipient",
+            "compat": 2,
             "type": "string",
             "detail": "string readonly $recipient",
             "example": "\"test@example.com\"",
@@ -2165,6 +2591,7 @@
         },
         {
             "name": "$recipientlocalpart",
+            "compat": 2,
             "type": "string",
             "detail": "string readonly $recipientlocalpart",
             "example": "\"test\"",
@@ -2172,6 +2599,7 @@
         },
         {
             "name": "$recipientdomain",
+            "compat": 2,
             "type": "string",
             "detail": "string readonly $recipientdomain",
             "example": "\"example.com\"",
@@ -2179,6 +2607,7 @@
         },
         {
             "name": "$receivedtime",
+            "compat": 2,
             "type": "number",
             "detail": "number readonly $receivedtime",
             "example": "1445937340",
@@ -2186,6 +2615,7 @@
         },
         {
             "name": "$actionid",
+            "compat": 2,
             "type": "number",
             "detail": "number readonly $actionid",
             "example": "1",
@@ -2193,6 +2623,7 @@
         },
         {
             "name": "$transportid",
+            "compat": 2,
             "type": "string",
             "detail": "string readonly $transportid",
             "example": "\"mailtransport:1\"",
@@ -2200,6 +2631,7 @@
         },
         {
             "name": "$queueid",
+            "compat": 2,
             "type": "number",
             "detail": "number readonly $queueid",
             "example": "12345",
@@ -2207,6 +2639,7 @@
         },
         {
             "name": "$retry",
+            "compat": 2,
             "type": "number",
             "detail": "number readonly $retry",
             "example": "3",
@@ -2214,6 +2647,7 @@
         },
         {
             "name": "$retries",
+            "compat": 2,
             "type": "number",
             "detail": "number readonly $retries",
             "example": "30",
@@ -2221,6 +2655,7 @@
         },
         {
             "name": "$action",
+            "compat": 2,
             "type": "string",
             "detail": "string readonly $action",
             "example": "\"DELETE\"",
@@ -2228,6 +2663,7 @@
         },
         {
             "name": "$errormsg",
+            "compat": 2,
             "type": "string",
             "detail": "string readonly $errormsg",
             "example": "\"5.7.1... we do not relay\"",
@@ -2235,6 +2671,7 @@
         },
         {
             "name": "$errorcode",
+            "compat": 2,
             "type": "number",
             "detail": "number readonly $errorcode",
             "example": "550",
@@ -2242,6 +2679,7 @@
         },
         {
             "name": "$errorndr",
+            "compat": 2,
             "type": "string",
             "detail": "string readonly $errorndr",
             "example": "\"5.7.1\"",
@@ -2249,6 +2687,7 @@
         },
         {
             "name": "$transfertime",
+            "compat": 2,
             "type": "number",
             "detail": "number readonly $transfertime",
             "example": "0.512",
@@ -2256,6 +2695,7 @@
         },
         {
             "name": "$sourceip",
+            "compat": 2,
             "type": "string",
             "detail": "string readonly $sourceip",
             "example": "\"10.0.0.1\"",
@@ -2263,6 +2703,7 @@
         },
         {
             "name": "$serverip",
+            "compat": 2,
             "type": "string",
             "detail": "string readonly $serverip",
             "example": "\"172.16.1.25\"",
@@ -2270,16 +2711,11 @@
         },
         {
             "name": "$serverport",
+            "compat": 2,
             "type": "number",
             "detail": "number readonly $serverport",
             "example": "25",
             "documentation": "Port which we tried to connect to"
-        },
-        {
-            "name": "$context",
-            "type": "any",
-            "detail": "any $context",
-            "documentation": "This variable is only defined if the pre-delivery context has been executed"
         }
     ],
     "api": [

@@ -1227,7 +1227,10 @@
             "detail": "header_addresslist_extract(string $value [, array $options]): array",
             "value": "header_addresslist_extract($0)",
             "documentation": "Extract addresses from a header value or field, often used with From, To and CC headers. On error None is returned.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#header_addresslist_extract)"
+            "link": "[Full documentation]({{ docsurl }}functions.html#header_addresslist_extract)",
+            "aliases": [
+                "GetAddressList"
+            ]
         },
         {
             "name": "header_dkim_decode",
@@ -2117,6 +2120,18 @@
             "value": "pcre_replace($0)",
             "documentation": "Perl compatible regular expression data matching and replacing",
             "link": "[Full documentation]({{ docsurl }}functions.html#pcre_replace)"
+        },
+        {
+            "name": "FFIFunction",
+            "parameters": {
+                "required": [],
+                "optional": []
+            },
+            "returnType": " or None (for  or a  returning )",
+            "detail": "FFIFunction():  or None (for  or a  returning )",
+            "value": "FFIFunction()",
+            "documentation": "A callable Function object of type FFIFunction.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#FFIFunction)"
         },
         {
             "name": "ldap_search",
@@ -3030,7 +3045,7 @@
             },
             "detail": "Deliver([array $options])",
             "value": "Deliver($0)",
-            "documentation": "Deliver the message.",
+            "documentation": "Queue or deliver the message.",
             "link": "[Full documentation]({{ docsurl }}eodrcpt.html#Deliver)"
         },
         {
@@ -3102,7 +3117,7 @@
             },
             "detail": "Quarantine(string $quarantineid [, array $options])",
             "value": "Quarantine($0)",
-            "documentation": "Quarantine or archive a message.",
+            "documentation": "Quarantine or archive the message, by putting it in the hold queue.",
             "link": "[Full documentation]({{ docsurl }}eodrcpt.html#Quarantine)"
         },
         {
@@ -3623,12 +3638,33 @@
             "name": "Try",
             "parameters": {
                 "required": [],
-                "optional": []
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
             },
-            "detail": "Try()",
-            "value": "Try()",
+            "detail": "Try([array $options])",
+            "value": "Try($0)",
             "documentation": "Try to deliver the message now. This is the default action.",
             "link": "[Full documentation]({{ docsurl }}predelivery.html#Try)"
+        },
+        {
+            "name": "Queue",
+            "parameters": {
+                "required": [],
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
+            },
+            "detail": "Queue([array $options])",
+            "value": "Queue($0)",
+            "documentation": "Queue the message to be retried later. If the maximum retry count is exceeded; the message is either bounced or deleted depending on the transport's settings.",
+            "link": "[Full documentation]({{ docsurl }}predelivery.html#Queue)"
         },
         {
             "name": "Bounce",
@@ -3651,253 +3687,6 @@
             "value": "Delete()",
             "documentation": "Delete the message from the queue, without generating a DSN (bounce) to the sender.",
             "link": "[Full documentation]({{ docsurl }}predelivery.html#Delete)"
-        },
-        {
-            "name": "Reschedule",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "delay",
-                        "type": "number"
-                    }
-                ],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "detail": "Reschedule(number $delay [, array $options])",
-            "value": "Reschedule($0)",
-            "documentation": "Reschedule the message for delay seconds.",
-            "link": "[Full documentation]({{ docsurl }}predelivery.html#Reschedule)"
-        },
-        {
-            "name": "CurrentConnections",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "namespace",
-                        "type": "string"
-                    },
-                    {
-                        "name": "entry",
-                        "type": "string"
-                    },
-                    {
-                        "name": "max",
-                        "type": "number"
-                    }
-                ],
-                "optional": []
-            },
-            "returnType": "boolean",
-            "detail": "CurrentConnections(string $namespace, string $entry, number $max): boolean",
-            "value": "CurrentConnections($0)",
-            "documentation": "Can be used to limit concurrency. It returns false of the current number of connections with the same entry name in that namespace exceeds max, and true otherwise. The function will also occupy one \"slot\" after being executed, over the duration of its delivery attempt.",
-            "link": "[Full documentation]({{ docsurl }}predelivery.html#CurrentConnections)"
-        },
-        {
-            "name": "SetDestination",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "host",
-                        "type": "string"
-                    }
-                ],
-                "optional": [
-                    {
-                        "name": "port",
-                        "type": "number"
-                    }
-                ]
-            },
-            "returnType": "none",
-            "detail": "SetDestination(string $host [, number $port]): none",
-            "value": "SetDestination($0)",
-            "documentation": "Set the host and port for the current delivery attempt. It is not remembered for the next retry.",
-            "link": "[Full documentation]({{ docsurl }}predelivery.html#SetDestination)"
-        },
-        {
-            "name": "SetProtocol",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "protocol",
-                        "type": "string"
-                    }
-                ],
-                "optional": []
-            },
-            "returnType": "none",
-            "detail": "SetProtocol(string $protocol): none",
-            "value": "SetProtocol($0)",
-            "documentation": "Set the protocol for the current delivery attempt. It is not remembered for the next retry.",
-            "link": "[Full documentation]({{ docsurl }}predelivery.html#SetProtocol)"
-        },
-        {
-            "name": "SetTLS",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ],
-                "optional": []
-            },
-            "returnType": "none",
-            "detail": "SetTLS(array $options): none",
-            "value": "SetTLS($0)",
-            "documentation": "Set the TLS options for the current delivery attempt. It is not remembered for the next retry.",
-            "link": "[Full documentation]({{ docsurl }}predelivery.html#SetTLS)"
-        },
-        {
-            "name": "SetSASL",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "username",
-                        "type": "string"
-                    },
-                    {
-                        "name": "password",
-                        "type": "string"
-                    }
-                ],
-                "optional": []
-            },
-            "returnType": "none",
-            "detail": "SetSASL(string $username, string $password): none",
-            "value": "SetSASL($0)",
-            "documentation": "Set the SASL AUTH username and password for the current delivery attempt. It is not remembered for the next retry.",
-            "link": "[Full documentation]({{ docsurl }}predelivery.html#SetSASL)"
-        },
-        {
-            "name": "SetXCLIENT",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "attributes",
-                        "type": "array"
-                    }
-                ],
-                "optional": []
-            },
-            "returnType": "none",
-            "detail": "SetXCLIENT(array $attributes): none",
-            "value": "SetXCLIENT($0)",
-            "documentation": "Send the following XCLIENT xclient attributes. It is not remembered for the next retry.",
-            "link": "[Full documentation]({{ docsurl }}predelivery.html#SetXCLIENT)"
-        },
-        {
-            "name": "SetHELO",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "hostname",
-                        "type": "string"
-                    }
-                ],
-                "optional": []
-            },
-            "returnType": "none",
-            "detail": "SetHELO(string $hostname): none",
-            "value": "SetHELO($0)",
-            "documentation": "Set the HELO hostname for the current delivery attempt. It is not remembered for the next retry.",
-            "link": "[Full documentation]({{ docsurl }}predelivery.html#SetHELO)"
-        },
-        {
-            "name": "SetSourceIP",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "id",
-                        "type": "string or array"
-                    }
-                ],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "none",
-            "detail": "SetSourceIP(string or array $id [, array $options]): none",
-            "value": "SetSourceIP($0)",
-            "documentation": "This function changes the source IP of the current delivery attempt. It is not remembered for the next retry.",
-            "link": "[Full documentation]({{ docsurl }}predelivery.html#SetSourceIP)"
-        },
-        {
-            "name": "SetSender",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "sender",
-                        "type": "string or array"
-                    }
-                ],
-                "optional": []
-            },
-            "returnType": "none",
-            "detail": "SetSender(string or array $sender): none",
-            "value": "SetSender($0)",
-            "documentation": "Set the sender MAIL FROM for the current delivery attempt. It is not remembered for the next retry.",
-            "link": "[Full documentation]({{ docsurl }}predelivery.html#SetSender)"
-        },
-        {
-            "name": "SetSenderParams",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "params",
-                        "type": "array"
-                    }
-                ],
-                "optional": []
-            },
-            "returnType": "none",
-            "detail": "SetSenderParams(array $params): none",
-            "value": "SetSenderParams($0)",
-            "documentation": "Set the sender MAIL FROM params for the current delivery attempt. It is not remembered for the next retry.",
-            "link": "[Full documentation]({{ docsurl }}predelivery.html#SetSenderParams)"
-        },
-        {
-            "name": "SetRecipient",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "recipient",
-                        "type": "string or array"
-                    }
-                ],
-                "optional": []
-            },
-            "returnType": "none",
-            "detail": "SetRecipient(string or array $recipient): none",
-            "value": "SetRecipient($0)",
-            "documentation": "Set the recipient RCPT TO for the current delivery attempt. It is not remembered for the next retry.",
-            "link": "[Full documentation]({{ docsurl }}predelivery.html#SetRecipient)"
-        },
-        {
-            "name": "SetRecipientParams",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "params",
-                        "type": "array"
-                    }
-                ],
-                "optional": []
-            },
-            "returnType": "none",
-            "detail": "SetRecipientParams(array $params): none",
-            "value": "SetRecipientParams($0)",
-            "documentation": "Set the recipient RCPT TO params for the current delivery attempt. It is not remembered for the next retry.",
-            "link": "[Full documentation]({{ docsurl }}predelivery.html#SetRecipientParams)"
         },
         {
             "name": "SetDSN",
@@ -3963,7 +3752,268 @@
             "link": "[Full documentation]({{ docsurl }}predelivery.html#GetMailQueueMetric)"
         },
         {
+            "name": "CurrentConnections",
+            "deprecated": true,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "namespace",
+                        "type": "string"
+                    },
+                    {
+                        "name": "entry",
+                        "type": "string"
+                    },
+                    {
+                        "name": "max",
+                        "type": "number"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "boolean",
+            "detail": "CurrentConnections(string $namespace, string $entry, number $max): boolean",
+            "value": "CurrentConnections($0)",
+            "documentation": "Can be used to limit concurrency. It returns false of the current number of connections with the same entry name in that namespace exceeds max, and true otherwise. The function will also occupy one \"slot\" after being executed, over the duration of its delivery attempt.",
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.1-stable\/predelivery.html#CurrentConnections)"
+        },
+        {
+            "name": "Reschedule",
+            "compat": 2,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "delay",
+                        "type": "number"
+                    }
+                ],
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
+            },
+            "detail": "Reschedule(number $delay [, array $options])",
+            "value": "Reschedule($0)",
+            "documentation": "Reschedule the message for delay seconds.",
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.1-stable\/predelivery.html#Reschedule)"
+        },
+        {
+            "name": "SetDestination",
+            "compat": 2,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "host",
+                        "type": "string"
+                    }
+                ],
+                "optional": [
+                    {
+                        "name": "port",
+                        "type": "number"
+                    }
+                ]
+            },
+            "returnType": "none",
+            "detail": "SetDestination(string $host [, number $port]): none",
+            "value": "SetDestination($0)",
+            "documentation": "Set the host and port for the current delivery attempt. It is not remembered for the next retry.",
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.1-stable\/predelivery.html#SetDestination)"
+        },
+        {
+            "name": "SetProtocol",
+            "compat": 2,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "protocol",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "none",
+            "detail": "SetProtocol(string $protocol): none",
+            "value": "SetProtocol($0)",
+            "documentation": "Set the protocol for the current delivery attempt. It is not remembered for the next retry.",
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.1-stable\/predelivery.html#SetProtocol)"
+        },
+        {
+            "name": "SetTLS",
+            "compat": 2,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "none",
+            "detail": "SetTLS(array $options): none",
+            "value": "SetTLS($0)",
+            "documentation": "Set the TLS options for the current delivery attempt. It is not remembered for the next retry.",
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.1-stable\/predelivery.html#SetTLS)"
+        },
+        {
+            "name": "SetSASL",
+            "compat": 2,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "username",
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "none",
+            "detail": "SetSASL(string $username, string $password): none",
+            "value": "SetSASL($0)",
+            "documentation": "Set the SASL AUTH username and password for the current delivery attempt. It is not remembered for the next retry.",
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.1-stable\/predelivery.html#SetSASL)"
+        },
+        {
+            "name": "SetXCLIENT",
+            "compat": 2,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "attributes",
+                        "type": "array"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "none",
+            "detail": "SetXCLIENT(array $attributes): none",
+            "value": "SetXCLIENT($0)",
+            "documentation": "Send the following XCLIENT xclient attributes. It is not remembered for the next retry.",
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.1-stable\/predelivery.html#SetXCLIENT)"
+        },
+        {
+            "name": "SetHELO",
+            "compat": 2,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "hostname",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "none",
+            "detail": "SetHELO(string $hostname): none",
+            "value": "SetHELO($0)",
+            "documentation": "Set the HELO hostname for the current delivery attempt. It is not remembered for the next retry.",
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.1-stable\/predelivery.html#SetHELO)"
+        },
+        {
+            "name": "SetSourceIP",
+            "compat": 2,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "id",
+                        "type": "string or array"
+                    }
+                ],
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
+            },
+            "returnType": "none",
+            "detail": "SetSourceIP(string or array $id [, array $options]): none",
+            "value": "SetSourceIP($0)",
+            "documentation": "This function changes the source IP of the current delivery attempt. It is not remembered for the next retry.",
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.1-stable\/predelivery.html#SetSourceIP)"
+        },
+        {
+            "name": "SetSender",
+            "compat": 2,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "sender",
+                        "type": "string or array"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "none",
+            "detail": "SetSender(string or array $sender): none",
+            "value": "SetSender($0)",
+            "documentation": "Set the sender MAIL FROM for the current delivery attempt. It is not remembered for the next retry.",
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.1-stable\/predelivery.html#SetSender)"
+        },
+        {
+            "name": "SetSenderParams",
+            "compat": 2,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "params",
+                        "type": "array"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "none",
+            "detail": "SetSenderParams(array $params): none",
+            "value": "SetSenderParams($0)",
+            "documentation": "Set the sender MAIL FROM params for the current delivery attempt. It is not remembered for the next retry.",
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.1-stable\/predelivery.html#SetSenderParams)"
+        },
+        {
+            "name": "SetRecipient",
+            "compat": 2,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "recipient",
+                        "type": "string or array"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "none",
+            "detail": "SetRecipient(string or array $recipient): none",
+            "value": "SetRecipient($0)",
+            "documentation": "Set the recipient RCPT TO for the current delivery attempt. It is not remembered for the next retry.",
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.1-stable\/predelivery.html#SetRecipient)"
+        },
+        {
+            "name": "SetRecipientParams",
+            "compat": 2,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "params",
+                        "type": "array"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "none",
+            "detail": "SetRecipientParams(array $params): none",
+            "value": "SetRecipientParams($0)",
+            "documentation": "Set the recipient RCPT TO params for the current delivery attempt. It is not remembered for the next retry.",
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.1-stable\/predelivery.html#SetRecipientParams)"
+        },
+        {
             "name": "GetMailFile",
+            "compat": 2,
             "parameters": {
                 "required": [],
                 "optional": [
@@ -3977,10 +4027,26 @@
             "detail": "GetMailFile([array $options]): File",
             "value": "GetMailFile($0)",
             "documentation": "Return a File class to the current mail file.",
-            "link": "[Full documentation]({{ docsurl }}predelivery.html#GetMailFile)"
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.1-stable\/predelivery.html#GetMailFile)"
         }
     ],
     "postdelivery": [
+        {
+            "name": "Queue",
+            "parameters": {
+                "required": [],
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
+            },
+            "detail": "Queue([array $options])",
+            "value": "Queue($0)",
+            "documentation": "Queue the message to be retried later. This is the default action for temporary \/ non-permanent (5XX) errors. If the maximum retry count is exceeded; the message is either bounced or deleted depending on the transport's settings.",
+            "link": "[Full documentation]({{ docsurl }}postdelivery.html#Queue)"
+        },
         {
             "name": "Bounce",
             "parameters": {
@@ -4002,22 +4068,6 @@
             "value": "Delete()",
             "documentation": "Delete the message from the queue, without generating a DSN (bounce) to the sender.",
             "link": "[Full documentation]({{ docsurl }}postdelivery.html#Delete)"
-        },
-        {
-            "name": "Retry",
-            "parameters": {
-                "required": [],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "detail": "Retry([array $options])",
-            "value": "Retry($0)",
-            "documentation": "Retry the message again later. This is the default action for non-permanent (5XX) $errorcode's. If the maximum retry count is exceeded; the message is either bounced or deleted depending on the transport's settings.",
-            "link": "[Full documentation]({{ docsurl }}postdelivery.html#Retry)"
         },
         {
             "name": "SetDSN",
@@ -4054,7 +4104,37 @@
             "link": "[Full documentation]({{ docsurl }}postdelivery.html#SetMetaData)"
         },
         {
+            "name": "GetMetaData",
+            "parameters": {
+                "required": [],
+                "optional": []
+            },
+            "returnType": "array",
+            "detail": "GetMetaData(): array",
+            "value": "GetMetaData()",
+            "documentation": "Get the metadata set by SetMetaData(). If no data was set, an empty array is returned.",
+            "link": "[Full documentation]({{ docsurl }}postdelivery.html#GetMetaData)"
+        },
+        {
+            "name": "Retry",
+            "compat": 2,
+            "parameters": {
+                "required": [],
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
+            },
+            "detail": "Retry([array $options])",
+            "value": "Retry($0)",
+            "documentation": "Retry the message again later. This is the default action for non-permanent (5XX) $errorcode's. If the maximum retry count is exceeded; the message is either bounced or deleted depending on the transport's settings.",
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.1-stable\/postdelivery.html#Retry)"
+        },
+        {
             "name": "GetTLS",
+            "compat": 2,
             "parameters": {
                 "required": [],
                 "optional": [
@@ -4068,22 +4148,11 @@
             "detail": "GetTLS([array $options]): array",
             "value": "GetTLS($0)",
             "documentation": "Get the TLS information for the delivery attempt.",
-            "link": "[Full documentation]({{ docsurl }}postdelivery.html#GetTLS)"
-        },
-        {
-            "name": "GetMetaData",
-            "parameters": {
-                "required": [],
-                "optional": []
-            },
-            "returnType": "array",
-            "detail": "GetMetaData(): array",
-            "value": "GetMetaData()",
-            "documentation": "Get the metadata set by SetMetaData(). If no data was set, an empty array is returned.",
-            "link": "[Full documentation]({{ docsurl }}postdelivery.html#GetMetaData)"
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.1-stable\/postdelivery.html#GetTLS)"
         },
         {
             "name": "GetMailFile",
+            "compat": 2,
             "parameters": {
                 "required": [],
                 "optional": [
@@ -4097,7 +4166,7 @@
             "detail": "GetMailFile([array $options]): File",
             "value": "GetMailFile($0)",
             "documentation": "Return a File class to the current mail file.",
-            "link": "[Full documentation]({{ docsurl }}postdelivery.html#GetMailFile)"
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.1-stable\/postdelivery.html#GetMailFile)"
         }
     ],
     "api": [
