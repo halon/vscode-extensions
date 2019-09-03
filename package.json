@@ -117,10 +117,6 @@
       {
         "fileMatch": "rated-app.yaml",
         "url": "./node_modules/@halon/json-schemas/rated-app.schema.json"
-      },
-      {
-        "fileMatch": "cleanupd.yaml",
-        "url": "./node_modules/@halon/json-schemas/cleanupd.schema.json"
       }
     ]
   },
