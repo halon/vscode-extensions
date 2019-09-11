@@ -27,6 +27,7 @@ export function activate(context: ExtensionContext)
   context.subscriptions.push(languages.registerDocumentLinkProvider('hsl', new Links()));
   context.subscriptions.push(languages.registerCompletionItemProvider('hsl', new Completions()));
   context.subscriptions.push(languages.registerCompletionItemProvider('hsl', new Completions('>'), '>'));
+  context.subscriptions.push(languages.registerCompletionItemProvider('hsl', new Completions(':'), ':'));
   context.subscriptions.push(languages.registerCompletionItemProvider('hsl', new Completions('['), '['));
   context.subscriptions.push(languages.registerCompletionItemProvider('hsl', new Completions('"'), '"'));
   context.subscriptions.push(languages.registerHoverProvider('hsl', new Hovers()));

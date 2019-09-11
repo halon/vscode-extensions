@@ -55,6 +55,7 @@ declare namespace HSL
     link: string;
     compat?: number;
     deprecated?: boolean;
+    static?: boolean;
   }
   
   interface Classes {

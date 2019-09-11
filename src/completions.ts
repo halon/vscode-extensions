@@ -18,22 +18,50 @@ export default class Completions implements CompletionItemProvider
 
     if (!this.triggerCharacters.length) {
       let isMethod = false;
+      let isStaticMethod = false;
       const wordRange = document.getWordRangeAtPosition(position);
       if (wordRange !== undefined) {
         const text = document.getText(wordRange);
         if (text) {
-          isMethod = document.getText(new Range(position.line, wordRange.start.character >= 2 ? wordRange.start.character -2 : 0, position.line, wordRange.start.character)) === '->';
+          let range = new Range(position.line, wordRange.start.character >= 2 ? wordRange.start.character -2 : 0, position.line, wordRange.start.character);
+          isMethod = document.getText(range) === '->';
+          isStaticMethod = document.getText(range) === '::';
         }
       }
       if (isMethod) {
         for (let item of classes) {
           if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false)) {
             for (let method of item.methods) {
-              let completionItem = new CompletionItem(`(${item.name}) ${method.name}`, CompletionItemKind.Method);
-              completionItem.detail = method.detail;
-              completionItem.documentation = new MarkdownString(method.documentation);
-              completionItem.insertText = new SnippetString(method.value);
-              completionItems.push(completionItem);
+              if (typeof method.static === 'undefined' || method.static === false) {
+                let completionItem = new CompletionItem(`(${item.name}) ${method.name}`, CompletionItemKind.Method);
+                completionItem.detail = method.detail;
+                completionItem.documentation = new MarkdownString(method.documentation);
+                completionItem.insertText = new SnippetString(method.value);
+                completionItems.push(completionItem);
+              }
+            }
+          }
+        }
+      } else if (isStaticMethod) {
+        if (wordRange !== undefined) {
+          let classNamePosition = new Position(position.line, wordRange.start.character >= 3 ? wordRange.start.character -3 : 0);
+          let classNameRange = document.getWordRangeAtPosition(classNamePosition);
+          if (classNameRange !== undefined) {
+            let className = document.getText(classNameRange);
+            if (className) {
+              for (let item of classes) {
+                if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false) && item.name === className) {
+                  for (let method of item.methods) {
+                    if (typeof method.static !== 'undefined' && method.static === true) {
+                      let completionItem = new CompletionItem(method.name, CompletionItemKind.Method);
+                      completionItem.detail = method.detail;
+                      completionItem.documentation = new MarkdownString(method.documentation);
+                      completionItem.insertText = new SnippetString(method.value);
+                      completionItems.push(completionItem);
+                    }
+                  }
+                }
+              }
             }
           }
         }
@@ -94,11 +122,36 @@ export default class Completions implements CompletionItemProvider
           for (let item of classes) {
             if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false)) {
               for (let method of item.methods) {
-                let completionItem = new CompletionItem(`(${item.name}) ${method.name}`, CompletionItemKind.Method);
-                completionItem.detail = method.detail;
-                completionItem.documentation = new MarkdownString(method.documentation);
-                completionItem.insertText = new SnippetString(method.value);
-                completionItems.push(completionItem);
+                if (typeof method.static === 'undefined' || method.static === false) {
+                  let completionItem = new CompletionItem(`(${item.name}) ${method.name}`, CompletionItemKind.Method);
+                  completionItem.detail = method.detail;
+                  completionItem.documentation = new MarkdownString(method.documentation);
+                  completionItem.insertText = new SnippetString(method.value);
+                  completionItems.push(completionItem);
+                }
+              }
+            }
+          }
+        }
+      } else if (triggerCharacter === ':') {
+        let isMethod = document.getText(new Range(position.line, position.character >= 2 ? position.character -2 : 0, position.line, position.character)) === '::';
+        if (isMethod) {
+          const wordRange = document.getWordRangeAtPosition(new Position(position.line, position.character >= 3 ? position.character -3 : 0));
+          if (wordRange !== undefined) {
+            const className = document.getText(wordRange);
+            if (className) {
+              for (let item of classes) {
+                if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false) && item.name === className) {
+                  for (let method of item.methods) {
+                    if (typeof method.static !== 'undefined' && method.static === true) {
+                      let completionItem = new CompletionItem(method.name, CompletionItemKind.Method);
+                      completionItem.detail = method.detail;
+                      completionItem.documentation = new MarkdownString(method.documentation);
+                      completionItem.insertText = new SnippetString(method.value);
+                      completionItems.push(completionItem);
+                    }
+                  }
+                }
               }
             }
           }

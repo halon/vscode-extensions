@@ -1,4 +1,4 @@
-import { HoverProvider, TextDocument, Position, CancellationToken, ProviderResult, Hover, MarkdownString } from 'vscode';
+import { HoverProvider, TextDocument, Position, CancellationToken, ProviderResult, Hover, MarkdownString, Range } from 'vscode';
 import { matchVariable, parseVariable } from './variables';
 import docs from './docs';
 
@@ -13,6 +13,7 @@ export default class Hovers implements HoverProvider
 
     if (wordRange) {
       let variable = parseVariable(document, new Position(position.line, wordRange.start.character), true, [text]);
+      let isStaticMethod = document.getText(new Range(position.line, wordRange.start.character >= 2 ? wordRange.start.character -2 : 0, position.line, wordRange.start.character)) === '::';
       if (variable) {
         let key = matchVariable(variable, variables, false);
         if (key) {
@@ -22,6 +23,30 @@ export default class Hovers implements HoverProvider
           ];
           if (key.example) contents.push(new MarkdownString('Example: `' + key.example + '`'))
           return new Hover(contents);
+        }
+      } else if (isStaticMethod) {
+        if (wordRange !== undefined) {
+          let classNamePosition = new Position(position.line, wordRange.start.character >= 3 ? wordRange.start.character -3 : 0);
+          let classNameRange = document.getWordRangeAtPosition(classNamePosition);
+          if (classNameRange !== undefined) {
+            let className = document.getText(classNameRange);
+            if (className) {
+              for (let item of classes) {
+                if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false) && item.name === className) {
+                  for (let method of item.methods) {
+                    if (item.name === className && method.name === text) {
+                      let contents = [
+                        new MarkdownString().appendCodeblock(method.detail, 'plaintext'),
+                        new MarkdownString(method.documentation),
+                        new MarkdownString(method.link.replace('{{ docsurl }}', docsUrl))
+                      ];
+                      return new Hover(contents);
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       } else {
         for (let item of classes) {

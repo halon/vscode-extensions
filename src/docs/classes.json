@@ -97,6 +97,24 @@
                     "value": "getPath()",
                     "documentation": "Get the path of a file. If no path information is available None is returned.",
                     "link": "[Full documentation]({{ docsurl }}functions.html#File.getPath)"
+                },
+                {
+                    "static": true,
+                    "name": "String",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "data",
+                                "type": "string"
+                            }
+                        ],
+                        "optional": []
+                    },
+                    "returnType": "File or None",
+                    "detail": "File::String(string $data): File or None",
+                    "value": "String($0)",
+                    "documentation": "Return a File resource containing the data.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#File.String)"
                 }
             ],
             "detail": "File(string $filename)",
@@ -406,6 +424,68 @@
                     "value": "getpeerx509()",
                     "documentation": "Get the peer certificate (X.509) as a X509 instance.",
                     "link": "[Full documentation]({{ docsurl }}functions.html#LDAP.getpeerx509)"
+                },
+                {
+                    "static": true,
+                    "name": "err2string",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "errno",
+                                "type": "number"
+                            }
+                        ],
+                        "optional": []
+                    },
+                    "returnType": "String",
+                    "detail": "LDAP::err2string(number $errno): String",
+                    "value": "err2string($0)",
+                    "documentation": "Get a descriptive error message, uses OpenLDAP's ldap_err2string().",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#LDAP.err2string)"
+                },
+                {
+                    "static": true,
+                    "name": "filter_escape",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "value",
+                                "type": "string"
+                            }
+                        ],
+                        "optional": []
+                    },
+                    "returnType": "String",
+                    "detail": "LDAP::filter_escape(string $value): String",
+                    "value": "filter_escape($0)",
+                    "documentation": "LDAP escape values to be used in LDAP filters.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#LDAP.filter_escape)"
+                },
+                {
+                    "static": true,
+                    "name": "str2dn",
+                    "parameters": {
+                        "required": [],
+                        "optional": []
+                    },
+                    "returnType": "Array",
+                    "detail": "LDAP::str2dn(): Array",
+                    "value": "str2dn()",
+                    "documentation": "Parses the string representation of a distinguished name str into its components, returning an array of tupels.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#LDAP.str2dn)"
+                },
+                {
+                    "static": true,
+                    "name": "dn2str",
+                    "parameters": {
+                        "required": [],
+                        "optional": []
+                    },
+                    "returnType": "String",
+                    "detail": "LDAP::dn2str(): String",
+                    "value": "dn2str()",
+                    "documentation": "Performs the inverse operation of LDAP.str2dn(), returning a string representation of dn with the necessary escaping.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#LDAP.dn2str)"
                 }
             ],
             "detail": "LDAP(string $uri)",
@@ -597,6 +677,24 @@
                     "value": "shutdown($0)",
                     "documentation": "Shutdown the socket for receiving, sending or both.",
                     "link": "[Full documentation]({{ docsurl }}functions.html#Socket.shutdown)"
+                },
+                {
+                    "static": true,
+                    "name": "AF",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "address",
+                                "type": "string"
+                            }
+                        ],
+                        "optional": []
+                    },
+                    "returnType": "String or None",
+                    "detail": "Socket::AF(string $address): String or None",
+                    "value": "AF($0)",
+                    "documentation": "Return the AF family of an address (either AF_INET or AF_INET6). A utility function helpful when constructing a Socket class.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#Socket.AF)"
                 }
             ],
             "detail": "Socket(string $family, string $type)",
@@ -897,6 +995,280 @@
                     "value": "symbol($0)",
                     "documentation": "Return a pointer to a global symbol in the library (eg. a variable). This function is the equivalent of dlsym(2). If the symbol is not found, None is returned.",
                     "link": "[Full documentation]({{ docsurl }}functions.html#FFI.symbol)"
+                },
+                {
+                    "static": true,
+                    "name": "type",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "name",
+                                "type": "string"
+                            }
+                        ],
+                        "optional": []
+                    },
+                    "returnType": "FFIType",
+                    "detail": "FFI::type(string $name): FFIType",
+                    "value": "type($0)",
+                    "documentation": "A factory function for FFI types. This function is usually used to declare the function signature of an FFIFunction.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#FFI.type)"
+                },
+                {
+                    "static": true,
+                    "name": "cnumber",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "type",
+                                "type": "FFIType"
+                            },
+                            {
+                                "name": "number",
+                                "type": "number"
+                            }
+                        ],
+                        "optional": []
+                    },
+                    "returnType": "FFIValue",
+                    "detail": "FFI::cnumber(FFIType $type, number $number): FFIValue",
+                    "value": "cnumber($0)",
+                    "documentation": "Create an FFIValue containing a C number. It's a basic type, which exists for the lifetime of the returned value and passed by value.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#FFI.cnumber)"
+                },
+                {
+                    "static": true,
+                    "name": "cstring",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "value",
+                                "type": "string"
+                            }
+                        ],
+                        "optional": []
+                    },
+                    "returnType": "FFIValue",
+                    "detail": "FFI::cstring(string $value): FFIValue",
+                    "value": "cstring($0)",
+                    "documentation": "Allocate a null-terminated C string (char *) in memory from a HSL string and return an FFIValue of pointer type pointing to that memory. This memory is owned by the FFIValue resource (use the FFI.detach() function to disclaim ownership). This function is intentionally not binary safe.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#FFI.cstring)"
+                },
+                {
+                    "static": true,
+                    "name": "nullptr",
+                    "parameters": {
+                        "required": [],
+                        "optional": []
+                    },
+                    "returnType": "FFIValue",
+                    "detail": "FFI::nullptr(): FFIValue",
+                    "value": "nullptr()",
+                    "documentation": "Create an FFIValue containing a NULL pointer.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#FFI.nullptr)"
+                },
+                {
+                    "static": true,
+                    "name": "allocate",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "size",
+                                "type": "any"
+                            }
+                        ],
+                        "optional": []
+                    },
+                    "returnType": "FFIValue",
+                    "detail": "FFI::allocate(any $size): FFIValue",
+                    "value": "allocate($0)",
+                    "documentation": "Allocate memory of size in bytes and return an FFIValue of pointer type pointing to that memory. This memory is owned by the FFIValue resource (use the FFI.detach() function to disclaim ownership). The memory is initially filled with zeros.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#FFI.allocate)"
+                },
+                {
+                    "static": true,
+                    "name": "memcpy",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "pointer",
+                                "type": "FFIValue"
+                            },
+                            {
+                                "name": "data",
+                                "type": "string"
+                            }
+                        ],
+                        "optional": []
+                    },
+                    "returnType": "FFIValue",
+                    "detail": "FFI::memcpy(FFIValue $pointer, string $data): FFIValue",
+                    "value": "memcpy($0)",
+                    "documentation": "Copy the binary content of (string) data into memory location pointed to by an FFIValue of pointer type. The caller must make sure the pointer location is of sufficient length.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#FFI.memcpy)"
+                },
+                {
+                    "static": true,
+                    "name": "byref",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "value",
+                                "type": "FFIValue"
+                            }
+                        ],
+                        "optional": []
+                    },
+                    "returnType": "FFIValue",
+                    "detail": "FFI::byref(FFIValue $value): FFIValue",
+                    "value": "byref($0)",
+                    "documentation": "Return an FFIValue of pointer type pointing to the FFIValue value.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#FFI.byref)"
+                },
+                {
+                    "static": true,
+                    "name": "deref",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "value",
+                                "type": "FFIValue"
+                            }
+                        ],
+                        "optional": [
+                            {
+                                "name": "type",
+                                "type": "FFIType"
+                            }
+                        ]
+                    },
+                    "returnType": "FFIValue",
+                    "detail": "FFI::deref(FFIValue $value [, FFIType $type]): FFIValue",
+                    "value": "deref($0)",
+                    "documentation": "Return an FFIValue with FFIType of type with the value at the address pointed at by the FFIValue value. The default type is pointer. If the type is a pointer and dereferenced pointer points to NULL then None is returned.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#FFI.deref)"
+                },
+                {
+                    "static": true,
+                    "name": "offset",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "pointer",
+                                "type": "FFIValue"
+                            },
+                            {
+                                "name": "offset",
+                                "type": "number"
+                            }
+                        ],
+                        "optional": []
+                    },
+                    "returnType": "FFIValue",
+                    "detail": "FFI::offset(FFIValue $pointer, number $offset): FFIValue",
+                    "value": "offset($0)",
+                    "documentation": "Return a new FFIValue of pointer type pointing the same memory with an offset.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#FFI.offset)"
+                },
+                {
+                    "static": true,
+                    "name": "string",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "pointer",
+                                "type": "FFIValue"
+                            }
+                        ],
+                        "optional": [
+                            {
+                                "name": "size",
+                                "type": "number"
+                            }
+                        ]
+                    },
+                    "returnType": "string",
+                    "detail": "FFI::string(FFIValue $pointer [, number $size]): string",
+                    "value": "string($0)",
+                    "documentation": "Copy the binary content of a memory location pointed to by an FFIValue of pointer type to a HSL string. If the size is omitted the memory will be copied up to the first NULL character as a null-terminated C string (char *).",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#FFI.string)"
+                },
+                {
+                    "static": true,
+                    "name": "number",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "value",
+                                "type": "FFIValue"
+                            }
+                        ],
+                        "optional": []
+                    },
+                    "returnType": "number",
+                    "detail": "FFI::number(FFIValue $value): number",
+                    "value": "number($0)",
+                    "documentation": "Convert an FFI value to a HSL number. The number type can safely represent all integers between +\/-9007199254740991 (the equivalent of (2 ** 53) - 1). If you expect to work with greater numbers use FFI.number64().",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#FFI.number)"
+                },
+                {
+                    "static": true,
+                    "name": "number64",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "value",
+                                "type": "FFIValue"
+                            }
+                        ],
+                        "optional": []
+                    },
+                    "returnType": "array of number",
+                    "detail": "FFI::number64(FFIValue $value): array of number",
+                    "value": "number64($0)",
+                    "documentation": "Convert an FFI value (uint64, sint64 or pointer) to a pair of two 32 bit integers ([high, low]). For signed negative numbers a two complement representation is used.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#FFI.number64)"
+                },
+                {
+                    "static": true,
+                    "name": "attach",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "pointer",
+                                "type": "FFIValue"
+                            }
+                        ],
+                        "optional": [
+                            {
+                                "name": "destructor",
+                                "type": "FFIFunction"
+                            }
+                        ]
+                    },
+                    "returnType": "FFIValue",
+                    "detail": "FFI::attach(FFIValue $pointer [, FFIFunction $destructor]): FFIValue",
+                    "value": "attach($0)",
+                    "documentation": "Assign the ownership of the data pointed to by the pointer argument (FFIValue of pointer type). The default destructor is free. An optional destructor FFIFunction (should have one pointer argument) may be given.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#FFI.attach)"
+                },
+                {
+                    "static": true,
+                    "name": "detach",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "pointer",
+                                "type": "FFIValue"
+                            }
+                        ],
+                        "optional": []
+                    },
+                    "returnType": "FFIValue",
+                    "detail": "FFI::detach(FFIValue $pointer): FFIValue",
+                    "value": "detach($0)",
+                    "documentation": "Remove the ownership of the data pointed to by the pointer argument (FFIValue of pointer type).",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#FFI.detach)"
                 }
             ],
             "detail": "FFI(string $path)",
@@ -1038,8 +1410,8 @@
                             }
                         ]
                     },
-                    "returnType": "boolean or none",
-                    "detail": "MailMessage->queue(string or array $sender, string or array $recipient, string $transportid [, array $options]): boolean or none",
+                    "returnType": "none",
+                    "detail": "MailMessage->queue(string or array $sender, string or array $recipient, string $transportid [, array $options]): none",
                     "value": "queue($0)",
                     "documentation": "Queue the message.",
                     "link": "[Full documentation]({{ docsurl }}eodonce.html#MailMessage.queue)"
@@ -1544,8 +1916,8 @@
                             }
                         ]
                     },
-                    "returnType": "boolean or none",
-                    "detail": "MailMessage->queue(string or array $sender, string or array $recipient, string $transportid [, array $options]): boolean or none",
+                    "returnType": "none",
+                    "detail": "MailMessage->queue(string or array $sender, string or array $recipient, string $transportid [, array $options]): none",
                     "value": "queue($0)",
                     "documentation": "Queue the message.",
                     "link": "[Full documentation]({{ docsurl }}eodrcpt.html#MailMessage.queue)"

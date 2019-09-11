@@ -2074,6 +2074,13 @@
                     "detail": "number queueid",
                     "example": "12345",
                     "documentation": "Queue ID of the message"
+                },
+                {
+                    "name": "jobid",
+                    "type": "string",
+                    "detail": "string jobid",
+                    "example": "\"customidentifier1\"",
+                    "documentation": "Job ID of the message"
                 }
             ]
         },
@@ -2340,18 +2347,18 @@
                             "documentation": "Connection information",
                             "keys": [
                                 {
-                                    "name": "locaip",
+                                    "name": "localip",
                                     "type": "string",
-                                    "detail": "string locaip",
+                                    "detail": "string localip",
                                     "example": "\"1.2.3.4\"",
-                                    "documentation": "The localip used"
+                                    "documentation": "The source IP used"
                                 },
                                 {
                                     "name": "remoteip",
                                     "type": "string",
                                     "detail": "string remoteip",
                                     "example": "\"4.3.2.1\"",
-                                    "documentation": "The remoteip used"
+                                    "documentation": "The remote IP connected to"
                                 },
                                 {
                                     "name": "remotemx",
@@ -2524,6 +2531,13 @@
                     "detail": "number queueid",
                     "example": "12345",
                     "documentation": "Queue ID of the message"
+                },
+                {
+                    "name": "jobid",
+                    "type": "string",
+                    "detail": "string jobid",
+                    "example": "\"customidentifier1\"",
+                    "documentation": "Job ID of the message"
                 }
             ]
         },

@@ -1064,6 +1064,28 @@
             "link": "[Full documentation]({{ docsurl }}functions.html#base64_decode)"
         },
         {
+            "name": "csv_encode",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "values",
+                        "type": "array"
+                    }
+                ],
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
+            },
+            "returnType": "array",
+            "detail": "csv_encode(array $values [, array $options]): array",
+            "value": "csv_encode($0)",
+            "documentation": "Encode an array of strings as CSV encoded data.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#csv_encode)"
+        },
+        {
             "name": "csv_decode",
             "parameters": {
                 "required": [
@@ -2132,6 +2154,183 @@
             "value": "FFIFunction()",
             "documentation": "A callable Function object of type FFIFunction.",
             "link": "[Full documentation]({{ docsurl }}functions.html#FFIFunction)"
+        },
+        {
+            "name": "memory_add",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "key",
+                        "type": "string"
+                    },
+                    {
+                        "name": "value",
+                        "type": "any"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "boolean",
+            "detail": "memory_add(string $key, any $value): boolean",
+            "value": "memory_add($0)",
+            "documentation": "Adds the value to the store, but only if the key doesn't already exist.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#memory_add)"
+        },
+        {
+            "name": "memory_dec",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "key",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "number or none",
+            "detail": "memory_dec(string $key): number or none",
+            "value": "memory_dec($0)",
+            "documentation": "Decrements a number value in the store. If the key doesn't exist, it's created and the value is initialized to 0 before the decrement. If the value is not a number, this function fail and will return none.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#memory_dec)"
+        },
+        {
+            "name": "memory_delete",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "key",
+                        "type": "string"
+                    }
+                ],
+                "optional": [
+                    {
+                        "name": "callback",
+                        "type": "function"
+                    }
+                ]
+            },
+            "returnType": "boolean",
+            "detail": "memory_delete(string $key [, function $callback]): boolean",
+            "value": "memory_delete($0)",
+            "documentation": "Deletes a key from the store. If the key existed, the callback (if provided) will be called with the key and value as arguments.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#memory_delete)"
+        },
+        {
+            "name": "memory_exists",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "key",
+                        "type": "string"
+                    }
+                ],
+                "optional": [
+                    {
+                        "name": "callback",
+                        "type": "function"
+                    }
+                ]
+            },
+            "returnType": "boolean",
+            "detail": "memory_exists(string $key [, function $callback]): boolean",
+            "value": "memory_exists($0)",
+            "documentation": "Checks if a key in the store exists. If the key exists the callback (if provided) will be called with the key and value as arguments.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#memory_exists)"
+        },
+        {
+            "name": "memory_fetch",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "key",
+                        "type": "string"
+                    }
+                ],
+                "optional": [
+                    {
+                        "name": "callback",
+                        "type": "function"
+                    }
+                ]
+            },
+            "returnType": "any or none",
+            "detail": "memory_fetch(string $key [, function $callback]): any or none",
+            "value": "memory_fetch($0)",
+            "documentation": "Returns the value of a key in the store. If the entry doesn't exist and no callback is provided, none will be returned. If the entry doesn't exist and a callback is provided, it will be called with the key as argument, and the return value of the callback will be used as return value for this function.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#memory_fetch)"
+        },
+        {
+            "name": "memory_inc",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "key",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "number or none",
+            "detail": "memory_inc(string $key): number or none",
+            "value": "memory_inc($0)",
+            "documentation": "Increments a number value in the store. If the key doesn't exist, it's created and the value is initialized to 0 before the increment. If the value is not a number, this function fail and will return none.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#memory_inc)"
+        },
+        {
+            "name": "memory_store",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "key",
+                        "type": "string"
+                    },
+                    {
+                        "name": "value",
+                        "type": "any"
+                    }
+                ],
+                "optional": [
+                    {
+                        "name": "callback",
+                        "type": "function"
+                    }
+                ]
+            },
+            "returnType": "boolean",
+            "detail": "memory_store(string $key, any $value [, function $callback]): boolean",
+            "value": "memory_store($0)",
+            "documentation": "Update or create the value of key in the store. If the key exists, the callback (if provided) will be called with the key and the current value as arguments in order to know what value was overwritten.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#memory_store)"
+        },
+        {
+            "name": "memory_update",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "key",
+                        "type": "string"
+                    },
+                    {
+                        "name": "value",
+                        "type": "any"
+                    },
+                    {
+                        "name": "callback",
+                        "type": "function"
+                    }
+                ],
+                "optional": [
+                    {
+                        "name": "initial",
+                        "type": "any"
+                    }
+                ]
+            },
+            "returnType": "boolean",
+            "detail": "memory_update(string $key, any $value, function $callback [, any $initial]): boolean",
+            "value": "memory_update($0)",
+            "documentation": "Update the value of key in the store, if it exists. The return value of the callback function\n                        (called with the key, current value and value as argument) will be used as the stored value.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#memory_update)"
         },
         {
             "name": "ldap_search",
@@ -3647,7 +3846,7 @@
             },
             "detail": "Try([array $options])",
             "value": "Try($0)",
-            "documentation": "Try to deliver the message now. This is the default action.",
+            "documentation": "Accept the email into the active queue\n                        (for delivery as soon as the active queue policies allow). This is the default action.",
             "link": "[Full documentation]({{ docsurl }}predelivery.html#Try)"
         },
         {
@@ -3687,6 +3886,56 @@
             "value": "Delete()",
             "documentation": "Delete the message from the queue, without generating a DSN (bounce) to the sender.",
             "link": "[Full documentation]({{ docsurl }}predelivery.html#Delete)"
+        },
+        {
+            "name": "PickupSuspend",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "fields",
+                        "type": "array"
+                    },
+                    {
+                        "name": "ttl",
+                        "type": "number"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "none",
+            "detail": "PickupSuspend(array $fields, number $ttl): none",
+            "value": "PickupSuspend($0)",
+            "documentation": "Add a dynamic queue pickup suspend for the following fields, this will cause no more messages matching this condition to be picked up for delivery during the ttl of the suspend. If a matching suspend already exists only the TTL is updated.",
+            "link": "[Full documentation]({{ docsurl }}predelivery.html#PickupSuspend)"
+        },
+        {
+            "name": "PickupPolicy",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "fields",
+                        "type": "array"
+                    },
+                    {
+                        "name": "condition",
+                        "type": "array"
+                    },
+                    {
+                        "name": "policy",
+                        "type": "array"
+                    },
+                    {
+                        "name": "ttl",
+                        "type": "number"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "none",
+            "detail": "PickupPolicy(array $fields, array $condition, array $policy, number $ttl): none",
+            "value": "PickupPolicy($0)",
+            "documentation": "Add a dynamic queue pickup policy for the specific fields, matching a specific condition. If a matching policy (fields and condtion) already exists the condition and TTL is updated.",
+            "link": "[Full documentation]({{ docsurl }}predelivery.html#PickupPolicy)"
         },
         {
             "name": "SetDSN",
@@ -4068,6 +4317,56 @@
             "value": "Delete()",
             "documentation": "Delete the message from the queue, without generating a DSN (bounce) to the sender.",
             "link": "[Full documentation]({{ docsurl }}postdelivery.html#Delete)"
+        },
+        {
+            "name": "PickupSuspend",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "fields",
+                        "type": "array"
+                    },
+                    {
+                        "name": "ttl",
+                        "type": "number"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "none",
+            "detail": "PickupSuspend(array $fields, number $ttl): none",
+            "value": "PickupSuspend($0)",
+            "documentation": "Add a dynamic queue pickup suspend for the following fields, this will cause no more messages matching this condition to be picked up for delivery during the ttl of the suspend. If a matching suspend already exists only the TTL is updated.",
+            "link": "[Full documentation]({{ docsurl }}postdelivery.html#PickupSuspend)"
+        },
+        {
+            "name": "PickupPolicy",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "fields",
+                        "type": "array"
+                    },
+                    {
+                        "name": "condition",
+                        "type": "array"
+                    },
+                    {
+                        "name": "policy",
+                        "type": "array"
+                    },
+                    {
+                        "name": "ttl",
+                        "type": "number"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "none",
+            "detail": "PickupPolicy(array $fields, array $condition, array $policy, number $ttl): none",
+            "value": "PickupPolicy($0)",
+            "documentation": "Add a dynamic queue pickup policy for the specific fields, matching a specific condition. If a matching policy (fields and condtion) already exists the condition and TTL is updated.",
+            "link": "[Full documentation]({{ docsurl }}postdelivery.html#PickupPolicy)"
         },
         {
             "name": "SetDSN",
