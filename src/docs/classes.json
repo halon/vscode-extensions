@@ -35,7 +35,8 @@
                             }
                         ]
                     },
-                    "detail": "File->read([number $length]): ",
+                    "returnType": "string or None",
+                    "detail": "File->read([number $length]): string or None",
                     "value": "read($0)",
                     "documentation": "Read data from file. On EOF an empty string is returned. On error None is returned.",
                     "link": "[Full documentation]({{ docsurl }}functions.html#File.read)"
@@ -298,8 +299,512 @@
             ],
             "detail": "MIME()",
             "value": "MIME()",
-            "documentation": "This is a MIME \"string builder\" used to construct MIME parts. In the end-of-DATA context there is a similar MIMEPart object as well (however it has other member functions available), which is used to work with a message's MIME parts.",
+            "documentation": "This is a MIME \"string builder\" used to construct MIME parts.",
             "link": "[Full documentation]({{ docsurl }}functions.html#MIME)"
+        },
+        {
+            "name": "MailMessage",
+            "parameters": {
+                "required": [],
+                "optional": []
+            },
+            "methods": [
+                {
+                    "name": "reset",
+                    "parameters": {
+                        "required": [],
+                        "optional": []
+                    },
+                    "returnType": "number",
+                    "detail": "MailMessage->reset(): number",
+                    "value": "reset()",
+                    "documentation": "Undo all changes on the message.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#MailMessage.reset)"
+                },
+                {
+                    "name": "snapshot",
+                    "parameters": {
+                        "required": [],
+                        "optional": []
+                    },
+                    "returnType": "number",
+                    "detail": "MailMessage->snapshot(): number",
+                    "value": "snapshot()",
+                    "documentation": "Take a snapshot of the current state of the MIME object (to be used with MailMessage.restore()).",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#MailMessage.snapshot)"
+                },
+                {
+                    "name": "restore",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "id",
+                                "type": "number"
+                            }
+                        ],
+                        "optional": []
+                    },
+                    "returnType": "boolean",
+                    "detail": "MailMessage->restore(number $id): boolean",
+                    "value": "restore($0)",
+                    "documentation": "Restore to a snapshot (to be used with MailMessage.snapshot()).",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#MailMessage.restore)"
+                },
+                {
+                    "name": "toFile",
+                    "parameters": {
+                        "required": [],
+                        "optional": []
+                    },
+                    "returnType": "File",
+                    "detail": "MailMessage->toFile(): File",
+                    "value": "toFile()",
+                    "documentation": "Return a File class for the current MIME object (with all changes applied).",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#MailMessage.toFile)"
+                },
+                {
+                    "name": "toString",
+                    "parameters": {
+                        "required": [],
+                        "optional": []
+                    },
+                    "returnType": "string",
+                    "detail": "MailMessage->toString(): string",
+                    "value": "toString()",
+                    "documentation": "Return the MailMessage as a string (with all changes applied).",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#MailMessage.toString)"
+                },
+                {
+                    "name": "signDKIM",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "selector",
+                                "type": "string"
+                            },
+                            {
+                                "name": "domain",
+                                "type": "string"
+                            },
+                            {
+                                "name": "key",
+                                "type": "string"
+                            }
+                        ],
+                        "optional": [
+                            {
+                                "name": "options",
+                                "type": "array"
+                            }
+                        ]
+                    },
+                    "returnType": "MailMessage",
+                    "detail": "MailMessage->signDKIM(string $selector, string $domain, string $key [, array $options]): MailMessage",
+                    "value": "signDKIM($0)",
+                    "documentation": "Sign the message using DKIM. On error None is returned.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#MailMessage.signDKIM)"
+                },
+                {
+                    "name": "verifyDKIM",
+                    "parameters": {
+                        "required": [],
+                        "optional": []
+                    },
+                    "returnType": "array",
+                    "detail": "MailMessage->verifyDKIM(): array",
+                    "value": "verifyDKIM()",
+                    "documentation": "DKIM verify a DKIM-Signature or ARC-Message-Signature header. The header should include both the header name and value (unmodified).",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#MailMessage.verifyDKIM)"
+                },
+                {
+                    "name": "send",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "sender",
+                                "type": "string or array"
+                            },
+                            {
+                                "name": "recipients",
+                                "type": "array of (string or array)"
+                            },
+                            {
+                                "name": "server",
+                                "type": "string or array"
+                            }
+                        ],
+                        "optional": []
+                    },
+                    "returnType": "array",
+                    "detail": "MailMessage->send(string or array $sender, array of (string or array) $recipients, string or array $server): array",
+                    "value": "send($0)",
+                    "documentation": "Try to send the message to the server.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#MailMessage.send)"
+                },
+                {
+                    "static": true,
+                    "name": "String",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "data",
+                                "type": "string"
+                            }
+                        ],
+                        "optional": []
+                    },
+                    "returnType": "MailMessage or None",
+                    "detail": "MailMessage::String(string $data): MailMessage or None",
+                    "value": "String($0)",
+                    "documentation": "Return a MailMessage resource containing the data.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#MailMessage.String)"
+                }
+            ],
+            "detail": "MailMessage()",
+            "value": "MailMessage()",
+            "documentation": "This class extends the MIMEPart class, all instances of this class automatically holds a reference to the top level MIMEPart object.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#MailMessage)"
+        },
+        {
+            "name": "MIMEPart",
+            "parameters": {
+                "required": [],
+                "optional": []
+            },
+            "methods": [
+                {
+                    "name": "getID",
+                    "parameters": {
+                        "required": [],
+                        "optional": []
+                    },
+                    "returnType": "string",
+                    "detail": "MIMEPart->getID(): string",
+                    "value": "getID()",
+                    "documentation": "Return the MIME part's ID.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#MIMEPart.getID)"
+                },
+                {
+                    "name": "getSize",
+                    "parameters": {
+                        "required": [],
+                        "optional": []
+                    },
+                    "returnType": "number",
+                    "detail": "MIMEPart->getSize(): number",
+                    "value": "getSize()",
+                    "documentation": "Return the MIME part's size in bytes.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#MIMEPart.getSize)"
+                },
+                {
+                    "name": "getFileName",
+                    "parameters": {
+                        "required": [],
+                        "optional": []
+                    },
+                    "returnType": "string (or none)",
+                    "detail": "MIMEPart->getFileName(): string (or none)",
+                    "value": "getFileName()",
+                    "documentation": "Return the MIME part's file name (if it has one).",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#MIMEPart.getFileName)"
+                },
+                {
+                    "name": "getType",
+                    "parameters": {
+                        "required": [],
+                        "optional": []
+                    },
+                    "returnType": "string (or none)",
+                    "detail": "MIMEPart->getType(): string (or none)",
+                    "value": "getType()",
+                    "documentation": "Return the MIME part's Content-Type's type field (eg. text\/plain).",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#MIMEPart.getType)"
+                },
+                {
+                    "name": "getHeader",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "name",
+                                "type": "string"
+                            }
+                        ],
+                        "optional": [
+                            {
+                                "name": "options",
+                                "type": "array"
+                            }
+                        ]
+                    },
+                    "returnType": "string (or none)",
+                    "detail": "MIMEPart->getHeader(string $name [, array $options]): string (or none)",
+                    "value": "getHeader($0)",
+                    "documentation": "Return the value of a header (if multiple headers with the same name exists, the first will be returned). If no header is found, the type none is returned. The name is not case sensitive.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#MIMEPart.getHeader)"
+                },
+                {
+                    "name": "getHeaders",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "name",
+                                "type": "string"
+                            }
+                        ],
+                        "optional": [
+                            {
+                                "name": "options",
+                                "type": "array"
+                            }
+                        ]
+                    },
+                    "returnType": "array of string",
+                    "detail": "MIMEPart->getHeaders(string $name [, array $options]): array of string",
+                    "value": "getHeaders($0)",
+                    "documentation": "Return a list of header values. If no header is found, an empty list is returned. The name is not case sensitive.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#MIMEPart.getHeaders)"
+                },
+                {
+                    "name": "getHeaderNames",
+                    "parameters": {
+                        "required": [],
+                        "optional": []
+                    },
+                    "returnType": "array of string",
+                    "detail": "MIMEPart->getHeaderNames(): array of string",
+                    "value": "getHeaderNames()",
+                    "documentation": "Return a list of all header names, from the top. The names are in lower case.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#MIMEPart.getHeaderNames)"
+                },
+                {
+                    "name": "setHeader",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "name",
+                                "type": "string"
+                            },
+                            {
+                                "name": "value",
+                                "type": "string"
+                            }
+                        ],
+                        "optional": [
+                            {
+                                "name": "options",
+                                "type": "array"
+                            }
+                        ]
+                    },
+                    "returnType": "number",
+                    "detail": "MIMEPart->setHeader(string $name, string $value [, array $options]): number",
+                    "value": "setHeader($0)",
+                    "documentation": "Overwrite existing header(s) or create a new header. The name is not case sensitive.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#MIMEPart.setHeader)"
+                },
+                {
+                    "name": "addHeader",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "name",
+                                "type": "string"
+                            },
+                            {
+                                "name": "value",
+                                "type": "string"
+                            }
+                        ],
+                        "optional": [
+                            {
+                                "name": "options",
+                                "type": "array"
+                            }
+                        ]
+                    },
+                    "returnType": "none",
+                    "detail": "MIMEPart->addHeader(string $name, string $value [, array $options]): none",
+                    "value": "addHeader($0)",
+                    "documentation": "Add a new header (at the top of the message).",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#MIMEPart.addHeader)"
+                },
+                {
+                    "name": "delHeader",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "name",
+                                "type": "string"
+                            }
+                        ],
+                        "optional": [
+                            {
+                                "name": "options",
+                                "type": "array"
+                            }
+                        ]
+                    },
+                    "returnType": "number",
+                    "detail": "MIMEPart->delHeader(string $name [, array $options]): number",
+                    "value": "delHeader($0)",
+                    "documentation": "Delete all headers by the name. The name is not case sensitive.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#MIMEPart.delHeader)"
+                },
+                {
+                    "name": "remove",
+                    "parameters": {
+                        "required": [],
+                        "optional": []
+                    },
+                    "returnType": "none",
+                    "detail": "MIMEPart->remove(): none",
+                    "value": "remove()",
+                    "documentation": "Remove this MIME part.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#MIMEPart.remove)"
+                },
+                {
+                    "name": "getBody",
+                    "parameters": {
+                        "required": [],
+                        "optional": [
+                            {
+                                "name": "options",
+                                "type": "array"
+                            }
+                        ]
+                    },
+                    "returnType": "string (or none)",
+                    "detail": "MIMEPart->getBody([array $options]): string (or none)",
+                    "value": "getBody($0)",
+                    "documentation": "Get the body (content) of a MIME part. The content will be decoded according to the Content-Transfer-Encoding header.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#MIMEPart.getBody)"
+                },
+                {
+                    "name": "setBody",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "data",
+                                "type": "string"
+                            }
+                        ],
+                        "optional": []
+                    },
+                    "detail": "MIMEPart->setBody(string $data)",
+                    "value": "setBody($0)",
+                    "documentation": "Set the body (content) of a MIME part. If the body argument is bigger than 1 MiB (or an another error occurred), the type none is returned. The MIME parts encoding (Content-Transfer-Encoding) will be changed to the best readable match, that can be either 7bit, quoted-printable or base64 and the data will encoded as such.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#MIMEPart.setBody)"
+                },
+                {
+                    "name": "prependPart",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "part",
+                                "type": "MIME"
+                            }
+                        ],
+                        "optional": [
+                            {
+                                "name": "options",
+                                "type": "array"
+                            }
+                        ]
+                    },
+                    "detail": "MIMEPart->prependPart(MIME $part [, array $options])",
+                    "value": "prependPart($0)",
+                    "documentation": "Add a MIME part before this part.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#MIMEPart.prependPart)"
+                },
+                {
+                    "name": "appendPart",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "part",
+                                "type": "MIME"
+                            }
+                        ],
+                        "optional": [
+                            {
+                                "name": "options",
+                                "type": "array"
+                            }
+                        ]
+                    },
+                    "detail": "MIMEPart->appendPart(MIME $part [, array $options])",
+                    "value": "appendPart($0)",
+                    "documentation": "Add a MIME part after this part.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#MIMEPart.appendPart)"
+                },
+                {
+                    "name": "replacePart",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "part",
+                                "type": "MIME"
+                            }
+                        ],
+                        "optional": []
+                    },
+                    "returnType": "none",
+                    "detail": "MIMEPart->replacePart(MIME $part): none",
+                    "value": "replacePart($0)",
+                    "documentation": "Replace the current MIME part.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#MIMEPart.replacePart)"
+                },
+                {
+                    "name": "findByType",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "type",
+                                "type": "string"
+                            }
+                        ],
+                        "optional": []
+                    },
+                    "returnType": "array of  objects",
+                    "detail": "MIMEPart->findByType(string $type): array of  objects",
+                    "value": "findByType($0)",
+                    "documentation": "Find descendant parts (on any depth) based on their Content-Type.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#MIMEPart.findByType)"
+                },
+                {
+                    "name": "findByFileName",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "filename",
+                                "type": "string"
+                            }
+                        ],
+                        "optional": []
+                    },
+                    "returnType": "array of  objects",
+                    "detail": "MIMEPart->findByFileName(string $filename): array of  objects",
+                    "value": "findByFileName($0)",
+                    "documentation": "Find descendant parts (on any depth) based on their file name.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#MIMEPart.findByFileName)"
+                },
+                {
+                    "name": "getParts",
+                    "parameters": {
+                        "required": [],
+                        "optional": []
+                    },
+                    "returnType": "array of  objects",
+                    "detail": "MIMEPart->getParts(): array of  objects",
+                    "value": "getParts()",
+                    "documentation": "Return child parts.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#MIMEPart.getParts)"
+                }
+            ],
+            "detail": "MIMEPart()",
+            "value": "MIMEPart()",
+            "documentation": "This class represent a MIME part in the MIME tree.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#MIMEPart)"
         },
         {
             "name": "LDAP",
@@ -1285,107 +1790,13 @@
     "rcptto": [],
     "eodonce": [
         {
-            "name": "MailMessage",
+            "name": "EODMailMessage",
+            "documentation": "Test",
             "parameters": {
                 "required": [],
                 "optional": []
             },
             "methods": [
-                {
-                    "name": "reset",
-                    "parameters": {
-                        "required": [],
-                        "optional": []
-                    },
-                    "returnType": "number",
-                    "detail": "MailMessage->reset(): number",
-                    "value": "reset()",
-                    "documentation": "Undo all changes on the message.",
-                    "link": "[Full documentation]({{ docsurl }}eodonce.html#MailMessage.reset)"
-                },
-                {
-                    "name": "snapshot",
-                    "parameters": {
-                        "required": [],
-                        "optional": []
-                    },
-                    "returnType": "number",
-                    "detail": "MailMessage->snapshot(): number",
-                    "value": "snapshot()",
-                    "documentation": "Take a snapshot of the current state of the MIME object (to be used with MailMessage.restore()).",
-                    "link": "[Full documentation]({{ docsurl }}eodonce.html#MailMessage.snapshot)"
-                },
-                {
-                    "name": "restore",
-                    "parameters": {
-                        "required": [
-                            {
-                                "name": "id",
-                                "type": "number"
-                            }
-                        ],
-                        "optional": []
-                    },
-                    "returnType": "boolean",
-                    "detail": "MailMessage->restore(number $id): boolean",
-                    "value": "restore($0)",
-                    "documentation": "Restore to a snapshot (to be used with MailMessage.snapshot()).",
-                    "link": "[Full documentation]({{ docsurl }}eodonce.html#MailMessage.restore)"
-                },
-                {
-                    "name": "toFile",
-                    "parameters": {
-                        "required": [],
-                        "optional": []
-                    },
-                    "returnType": "File",
-                    "detail": "MailMessage->toFile(): File",
-                    "value": "toFile()",
-                    "documentation": "Return a File class for the current MIME object (with all changes applied).",
-                    "link": "[Full documentation]({{ docsurl }}eodonce.html#MailMessage.toFile)"
-                },
-                {
-                    "name": "signDKIM",
-                    "parameters": {
-                        "required": [
-                            {
-                                "name": "selector",
-                                "type": "string"
-                            },
-                            {
-                                "name": "domain",
-                                "type": "string"
-                            },
-                            {
-                                "name": "key",
-                                "type": "string"
-                            }
-                        ],
-                        "optional": [
-                            {
-                                "name": "options",
-                                "type": "array"
-                            }
-                        ]
-                    },
-                    "returnType": "MailMessage",
-                    "detail": "MailMessage->signDKIM(string $selector, string $domain, string $key [, array $options]): MailMessage",
-                    "value": "signDKIM($0)",
-                    "documentation": "Sign the message using DKIM. On error None is returned.",
-                    "link": "[Full documentation]({{ docsurl }}eodonce.html#MailMessage.signDKIM)"
-                },
-                {
-                    "name": "verifyDKIM",
-                    "parameters": {
-                        "required": [],
-                        "optional": []
-                    },
-                    "returnType": "array",
-                    "detail": "MailMessage->verifyDKIM(): array",
-                    "value": "verifyDKIM()",
-                    "documentation": "DKIM verify a DKIM-Signature or ARC-Message-Signature header. The header should include both the header name and value (unmodified).",
-                    "link": "[Full documentation]({{ docsurl }}eodonce.html#MailMessage.verifyDKIM)"
-                },
                 {
                     "name": "queue",
                     "parameters": {
@@ -1411,890 +1822,18 @@
                         ]
                     },
                     "returnType": "none",
-                    "detail": "MailMessage->queue(string or array $sender, string or array $recipient, string $transportid [, array $options]): none",
+                    "detail": "EODMailMessage->queue(string or array $sender, string or array $recipient, string $transportid [, array $options]): none",
                     "value": "queue($0)",
                     "documentation": "Queue the message.",
-                    "link": "[Full documentation]({{ docsurl }}eodonce.html#MailMessage.queue)"
-                },
-                {
-                    "name": "deliver",
-                    "parameters": {
-                        "required": [
-                            {
-                                "name": "sender",
-                                "type": "string or array"
-                            },
-                            {
-                                "name": "recipients",
-                                "type": "array of (string or array)"
-                            },
-                            {
-                                "name": "server",
-                                "type": "string or array"
-                            }
-                        ],
-                        "optional": []
-                    },
-                    "returnType": "array",
-                    "detail": "MailMessage->deliver(string or array $sender, array of (string or array) $recipients, string or array $server): array",
-                    "value": "deliver($0)",
-                    "documentation": "Try to send the message to the server.",
-                    "link": "[Full documentation]({{ docsurl }}eodonce.html#MailMessage.deliver)"
+                    "link": "[Full documentation]({{ docsurl }}eodonce.html#EODMailMessage.queue)"
                 }
             ],
-            "detail": "MailMessage()",
-            "value": "MailMessage()",
-            "documentation": "This class extends the MIMEPart class, all instances of this class automatically holds a reference to the top level MIMEPart object.",
-            "link": "[Full documentation]({{ docsurl }}eodonce.html#MailMessage)"
-        },
-        {
-            "name": "MIMEPart",
-            "parameters": {
-                "required": [],
-                "optional": []
-            },
-            "methods": [
-                {
-                    "name": "getID",
-                    "parameters": {
-                        "required": [],
-                        "optional": []
-                    },
-                    "returnType": "string",
-                    "detail": "MIMEPart->getID(): string",
-                    "value": "getID()",
-                    "documentation": "Return the MIME part's ID.",
-                    "link": "[Full documentation]({{ docsurl }}eodonce.html#MIMEPart.getID)"
-                },
-                {
-                    "name": "getSize",
-                    "parameters": {
-                        "required": [],
-                        "optional": []
-                    },
-                    "returnType": "number",
-                    "detail": "MIMEPart->getSize(): number",
-                    "value": "getSize()",
-                    "documentation": "Return the MIME part's size in bytes.",
-                    "link": "[Full documentation]({{ docsurl }}eodonce.html#MIMEPart.getSize)"
-                },
-                {
-                    "name": "getFileName",
-                    "parameters": {
-                        "required": [],
-                        "optional": []
-                    },
-                    "returnType": "string (or none)",
-                    "detail": "MIMEPart->getFileName(): string (or none)",
-                    "value": "getFileName()",
-                    "documentation": "Return the MIME part's file name (if it has one).",
-                    "link": "[Full documentation]({{ docsurl }}eodonce.html#MIMEPart.getFileName)"
-                },
-                {
-                    "name": "getType",
-                    "parameters": {
-                        "required": [],
-                        "optional": []
-                    },
-                    "returnType": "string (or none)",
-                    "detail": "MIMEPart->getType(): string (or none)",
-                    "value": "getType()",
-                    "documentation": "Return the MIME part's Content-Type's type field (eg. text\/plain).",
-                    "link": "[Full documentation]({{ docsurl }}eodonce.html#MIMEPart.getType)"
-                },
-                {
-                    "name": "getHeader",
-                    "parameters": {
-                        "required": [
-                            {
-                                "name": "name",
-                                "type": "string"
-                            }
-                        ],
-                        "optional": [
-                            {
-                                "name": "options",
-                                "type": "array"
-                            }
-                        ]
-                    },
-                    "returnType": "string (or none)",
-                    "detail": "MIMEPart->getHeader(string $name [, array $options]): string (or none)",
-                    "value": "getHeader($0)",
-                    "documentation": "Return the value of a header (if multiple headers with the same name exists, the first will be returned). If no header is found, the type none is returned. The name is not case sensitive.",
-                    "link": "[Full documentation]({{ docsurl }}eodonce.html#MIMEPart.getHeader)"
-                },
-                {
-                    "name": "getHeaders",
-                    "parameters": {
-                        "required": [
-                            {
-                                "name": "name",
-                                "type": "string"
-                            }
-                        ],
-                        "optional": [
-                            {
-                                "name": "options",
-                                "type": "array"
-                            }
-                        ]
-                    },
-                    "returnType": "array of string",
-                    "detail": "MIMEPart->getHeaders(string $name [, array $options]): array of string",
-                    "value": "getHeaders($0)",
-                    "documentation": "Return a list of header values. If no header is found, an empty list is returned. The name is not case sensitive.",
-                    "link": "[Full documentation]({{ docsurl }}eodonce.html#MIMEPart.getHeaders)"
-                },
-                {
-                    "name": "getHeaderNames",
-                    "parameters": {
-                        "required": [],
-                        "optional": []
-                    },
-                    "returnType": "array of string",
-                    "detail": "MIMEPart->getHeaderNames(): array of string",
-                    "value": "getHeaderNames()",
-                    "documentation": "Return a list of all header names, from the top. The names are in lower case.",
-                    "link": "[Full documentation]({{ docsurl }}eodonce.html#MIMEPart.getHeaderNames)"
-                },
-                {
-                    "name": "setHeader",
-                    "parameters": {
-                        "required": [
-                            {
-                                "name": "name",
-                                "type": "string"
-                            },
-                            {
-                                "name": "value",
-                                "type": "string"
-                            }
-                        ],
-                        "optional": [
-                            {
-                                "name": "options",
-                                "type": "array"
-                            }
-                        ]
-                    },
-                    "returnType": "number",
-                    "detail": "MIMEPart->setHeader(string $name, string $value [, array $options]): number",
-                    "value": "setHeader($0)",
-                    "documentation": "Overwrite existing header(s) or create a new header. The name is not case sensitive.",
-                    "link": "[Full documentation]({{ docsurl }}eodonce.html#MIMEPart.setHeader)"
-                },
-                {
-                    "name": "addHeader",
-                    "parameters": {
-                        "required": [
-                            {
-                                "name": "name",
-                                "type": "string"
-                            },
-                            {
-                                "name": "value",
-                                "type": "string"
-                            }
-                        ],
-                        "optional": [
-                            {
-                                "name": "options",
-                                "type": "array"
-                            }
-                        ]
-                    },
-                    "returnType": "none",
-                    "detail": "MIMEPart->addHeader(string $name, string $value [, array $options]): none",
-                    "value": "addHeader($0)",
-                    "documentation": "Add a new header (at the top of the message).",
-                    "link": "[Full documentation]({{ docsurl }}eodonce.html#MIMEPart.addHeader)"
-                },
-                {
-                    "name": "delHeader",
-                    "parameters": {
-                        "required": [
-                            {
-                                "name": "name",
-                                "type": "string"
-                            }
-                        ],
-                        "optional": [
-                            {
-                                "name": "options",
-                                "type": "array"
-                            }
-                        ]
-                    },
-                    "returnType": "number",
-                    "detail": "MIMEPart->delHeader(string $name [, array $options]): number",
-                    "value": "delHeader($0)",
-                    "documentation": "Delete all headers by the name. The name is not case sensitive.",
-                    "link": "[Full documentation]({{ docsurl }}eodonce.html#MIMEPart.delHeader)"
-                },
-                {
-                    "name": "remove",
-                    "parameters": {
-                        "required": [],
-                        "optional": []
-                    },
-                    "returnType": "none",
-                    "detail": "MIMEPart->remove(): none",
-                    "value": "remove()",
-                    "documentation": "Remove this MIME part.",
-                    "link": "[Full documentation]({{ docsurl }}eodonce.html#MIMEPart.remove)"
-                },
-                {
-                    "name": "getBody",
-                    "parameters": {
-                        "required": [],
-                        "optional": [
-                            {
-                                "name": "options",
-                                "type": "array"
-                            }
-                        ]
-                    },
-                    "returnType": "string (or none)",
-                    "detail": "MIMEPart->getBody([array $options]): string (or none)",
-                    "value": "getBody($0)",
-                    "documentation": "Get the body (content) of a MIME part. The content will be decoded according to the Content-Transfer-Encoding header.",
-                    "link": "[Full documentation]({{ docsurl }}eodonce.html#MIMEPart.getBody)"
-                },
-                {
-                    "name": "setBody",
-                    "parameters": {
-                        "required": [
-                            {
-                                "name": "data",
-                                "type": "string"
-                            }
-                        ],
-                        "optional": []
-                    },
-                    "detail": "MIMEPart->setBody(string $data)",
-                    "value": "setBody($0)",
-                    "documentation": "Set the body (content) of a MIME part. If the body argument is bigger than 1 MiB (or an another error occurred), the type none is returned. The MIME parts encoding (Content-Transfer-Encoding) will be changed to the best readable match, that can be either 7bit, quoted-printable or base64 and the data will encoded as such.",
-                    "link": "[Full documentation]({{ docsurl }}eodonce.html#MIMEPart.setBody)"
-                },
-                {
-                    "name": "prependPart",
-                    "parameters": {
-                        "required": [
-                            {
-                                "name": "part",
-                                "type": "MIME"
-                            }
-                        ],
-                        "optional": [
-                            {
-                                "name": "options",
-                                "type": "array"
-                            }
-                        ]
-                    },
-                    "detail": "MIMEPart->prependPart(MIME $part [, array $options])",
-                    "value": "prependPart($0)",
-                    "documentation": "Add a MIME part before this part.",
-                    "link": "[Full documentation]({{ docsurl }}eodonce.html#MIMEPart.prependPart)"
-                },
-                {
-                    "name": "appendPart",
-                    "parameters": {
-                        "required": [
-                            {
-                                "name": "part",
-                                "type": "MIME"
-                            }
-                        ],
-                        "optional": [
-                            {
-                                "name": "options",
-                                "type": "array"
-                            }
-                        ]
-                    },
-                    "detail": "MIMEPart->appendPart(MIME $part [, array $options])",
-                    "value": "appendPart($0)",
-                    "documentation": "Add a MIME part after this part.",
-                    "link": "[Full documentation]({{ docsurl }}eodonce.html#MIMEPart.appendPart)"
-                },
-                {
-                    "name": "replacePart",
-                    "parameters": {
-                        "required": [
-                            {
-                                "name": "part",
-                                "type": "MIME"
-                            }
-                        ],
-                        "optional": []
-                    },
-                    "returnType": "none",
-                    "detail": "MIMEPart->replacePart(MIME $part): none",
-                    "value": "replacePart($0)",
-                    "documentation": "Replace the current MIME part.",
-                    "link": "[Full documentation]({{ docsurl }}eodonce.html#MIMEPart.replacePart)"
-                },
-                {
-                    "name": "findByType",
-                    "parameters": {
-                        "required": [
-                            {
-                                "name": "type",
-                                "type": "string"
-                            }
-                        ],
-                        "optional": []
-                    },
-                    "returnType": "array of  objects",
-                    "detail": "MIMEPart->findByType(string $type): array of  objects",
-                    "value": "findByType($0)",
-                    "documentation": "Find descendant parts (on any depth) based on their Content-Type.",
-                    "link": "[Full documentation]({{ docsurl }}eodonce.html#MIMEPart.findByType)"
-                },
-                {
-                    "name": "findByFileName",
-                    "parameters": {
-                        "required": [
-                            {
-                                "name": "filename",
-                                "type": "string"
-                            }
-                        ],
-                        "optional": []
-                    },
-                    "returnType": "array of  objects",
-                    "detail": "MIMEPart->findByFileName(string $filename): array of  objects",
-                    "value": "findByFileName($0)",
-                    "documentation": "Find descendant parts (on any depth) based on their file name.",
-                    "link": "[Full documentation]({{ docsurl }}eodonce.html#MIMEPart.findByFileName)"
-                },
-                {
-                    "name": "getParts",
-                    "parameters": {
-                        "required": [],
-                        "optional": []
-                    },
-                    "returnType": "array of  objects",
-                    "detail": "MIMEPart->getParts(): array of  objects",
-                    "value": "getParts()",
-                    "documentation": "Return child parts.",
-                    "link": "[Full documentation]({{ docsurl }}eodonce.html#MIMEPart.getParts)"
-                }
-            ],
-            "detail": "MIMEPart()",
-            "value": "MIMEPart()",
-            "documentation": "This class represent a MIME part in the MIME tree parsed as a result of the End-of-DATA command.",
-            "link": "[Full documentation]({{ docsurl }}eodonce.html#MIMEPart)"
+            "detail": "EODMailMessage()",
+            "value": "EODMailMessage()",
+            "link": "[Full documentation]({{ docsurl }}eodonce.html#EODMailMessage)"
         }
     ],
-    "eodrcpt": [
-        {
-            "name": "MailMessage",
-            "parameters": {
-                "required": [],
-                "optional": []
-            },
-            "methods": [
-                {
-                    "name": "reset",
-                    "parameters": {
-                        "required": [],
-                        "optional": []
-                    },
-                    "returnType": "number",
-                    "detail": "MailMessage->reset(): number",
-                    "value": "reset()",
-                    "documentation": "Undo all changes on the message.",
-                    "link": "[Full documentation]({{ docsurl }}eodrcpt.html#MailMessage.reset)"
-                },
-                {
-                    "name": "snapshot",
-                    "parameters": {
-                        "required": [],
-                        "optional": []
-                    },
-                    "returnType": "number",
-                    "detail": "MailMessage->snapshot(): number",
-                    "value": "snapshot()",
-                    "documentation": "Take a snapshot of the current state of the MIME object (to be used with MailMessage.restore()).",
-                    "link": "[Full documentation]({{ docsurl }}eodrcpt.html#MailMessage.snapshot)"
-                },
-                {
-                    "name": "restore",
-                    "parameters": {
-                        "required": [
-                            {
-                                "name": "id",
-                                "type": "number"
-                            }
-                        ],
-                        "optional": []
-                    },
-                    "returnType": "boolean",
-                    "detail": "MailMessage->restore(number $id): boolean",
-                    "value": "restore($0)",
-                    "documentation": "Restore to a snapshot (to be used with MailMessage.snapshot()).",
-                    "link": "[Full documentation]({{ docsurl }}eodrcpt.html#MailMessage.restore)"
-                },
-                {
-                    "name": "toFile",
-                    "parameters": {
-                        "required": [],
-                        "optional": []
-                    },
-                    "returnType": "File",
-                    "detail": "MailMessage->toFile(): File",
-                    "value": "toFile()",
-                    "documentation": "Return a File class for the current MIME object (with all changes applied).",
-                    "link": "[Full documentation]({{ docsurl }}eodrcpt.html#MailMessage.toFile)"
-                },
-                {
-                    "name": "signDKIM",
-                    "parameters": {
-                        "required": [
-                            {
-                                "name": "selector",
-                                "type": "string"
-                            },
-                            {
-                                "name": "domain",
-                                "type": "string"
-                            },
-                            {
-                                "name": "key",
-                                "type": "string"
-                            }
-                        ],
-                        "optional": [
-                            {
-                                "name": "options",
-                                "type": "array"
-                            }
-                        ]
-                    },
-                    "returnType": "MailMessage",
-                    "detail": "MailMessage->signDKIM(string $selector, string $domain, string $key [, array $options]): MailMessage",
-                    "value": "signDKIM($0)",
-                    "documentation": "Sign the message using DKIM. On error None is returned.",
-                    "link": "[Full documentation]({{ docsurl }}eodrcpt.html#MailMessage.signDKIM)"
-                },
-                {
-                    "name": "verifyDKIM",
-                    "parameters": {
-                        "required": [],
-                        "optional": []
-                    },
-                    "returnType": "array",
-                    "detail": "MailMessage->verifyDKIM(): array",
-                    "value": "verifyDKIM()",
-                    "documentation": "DKIM verify a DKIM-Signature or ARC-Message-Signature header. The header should include both the header name and value (unmodified).",
-                    "link": "[Full documentation]({{ docsurl }}eodrcpt.html#MailMessage.verifyDKIM)"
-                },
-                {
-                    "name": "queue",
-                    "parameters": {
-                        "required": [
-                            {
-                                "name": "sender",
-                                "type": "string or array"
-                            },
-                            {
-                                "name": "recipient",
-                                "type": "string or array"
-                            },
-                            {
-                                "name": "transportid",
-                                "type": "string"
-                            }
-                        ],
-                        "optional": [
-                            {
-                                "name": "options",
-                                "type": "array"
-                            }
-                        ]
-                    },
-                    "returnType": "none",
-                    "detail": "MailMessage->queue(string or array $sender, string or array $recipient, string $transportid [, array $options]): none",
-                    "value": "queue($0)",
-                    "documentation": "Queue the message.",
-                    "link": "[Full documentation]({{ docsurl }}eodrcpt.html#MailMessage.queue)"
-                },
-                {
-                    "name": "deliver",
-                    "parameters": {
-                        "required": [
-                            {
-                                "name": "sender",
-                                "type": "string or array"
-                            },
-                            {
-                                "name": "recipients",
-                                "type": "array of (string or array)"
-                            },
-                            {
-                                "name": "server",
-                                "type": "string or array"
-                            }
-                        ],
-                        "optional": []
-                    },
-                    "returnType": "array",
-                    "detail": "MailMessage->deliver(string or array $sender, array of (string or array) $recipients, string or array $server): array",
-                    "value": "deliver($0)",
-                    "documentation": "Try to send the message to the server.",
-                    "link": "[Full documentation]({{ docsurl }}eodrcpt.html#MailMessage.deliver)"
-                }
-            ],
-            "detail": "MailMessage()",
-            "value": "MailMessage()",
-            "documentation": "This class extends the MIMEPart class, all instances of this class automatically holds a reference to the top level MIMEPart object.",
-            "link": "[Full documentation]({{ docsurl }}eodrcpt.html#MailMessage)"
-        },
-        {
-            "name": "MIMEPart",
-            "parameters": {
-                "required": [],
-                "optional": []
-            },
-            "methods": [
-                {
-                    "name": "getID",
-                    "parameters": {
-                        "required": [],
-                        "optional": []
-                    },
-                    "returnType": "string",
-                    "detail": "MIMEPart->getID(): string",
-                    "value": "getID()",
-                    "documentation": "Return the MIME part's ID.",
-                    "link": "[Full documentation]({{ docsurl }}eodrcpt.html#MIMEPart.getID)"
-                },
-                {
-                    "name": "getSize",
-                    "parameters": {
-                        "required": [],
-                        "optional": []
-                    },
-                    "returnType": "number",
-                    "detail": "MIMEPart->getSize(): number",
-                    "value": "getSize()",
-                    "documentation": "Return the MIME part's size in bytes.",
-                    "link": "[Full documentation]({{ docsurl }}eodrcpt.html#MIMEPart.getSize)"
-                },
-                {
-                    "name": "getFileName",
-                    "parameters": {
-                        "required": [],
-                        "optional": []
-                    },
-                    "returnType": "string (or none)",
-                    "detail": "MIMEPart->getFileName(): string (or none)",
-                    "value": "getFileName()",
-                    "documentation": "Return the MIME part's file name (if it has one).",
-                    "link": "[Full documentation]({{ docsurl }}eodrcpt.html#MIMEPart.getFileName)"
-                },
-                {
-                    "name": "getType",
-                    "parameters": {
-                        "required": [],
-                        "optional": []
-                    },
-                    "returnType": "string (or none)",
-                    "detail": "MIMEPart->getType(): string (or none)",
-                    "value": "getType()",
-                    "documentation": "Return the MIME part's Content-Type's type field (eg. text\/plain).",
-                    "link": "[Full documentation]({{ docsurl }}eodrcpt.html#MIMEPart.getType)"
-                },
-                {
-                    "name": "getHeader",
-                    "parameters": {
-                        "required": [
-                            {
-                                "name": "name",
-                                "type": "string"
-                            }
-                        ],
-                        "optional": [
-                            {
-                                "name": "options",
-                                "type": "array"
-                            }
-                        ]
-                    },
-                    "returnType": "string (or none)",
-                    "detail": "MIMEPart->getHeader(string $name [, array $options]): string (or none)",
-                    "value": "getHeader($0)",
-                    "documentation": "Return the value of a header (if multiple headers with the same name exists, the first will be returned). If no header is found, the type none is returned. The name is not case sensitive.",
-                    "link": "[Full documentation]({{ docsurl }}eodrcpt.html#MIMEPart.getHeader)"
-                },
-                {
-                    "name": "getHeaders",
-                    "parameters": {
-                        "required": [
-                            {
-                                "name": "name",
-                                "type": "string"
-                            }
-                        ],
-                        "optional": [
-                            {
-                                "name": "options",
-                                "type": "array"
-                            }
-                        ]
-                    },
-                    "returnType": "array of string",
-                    "detail": "MIMEPart->getHeaders(string $name [, array $options]): array of string",
-                    "value": "getHeaders($0)",
-                    "documentation": "Return a list of header values. If no header is found, an empty list is returned. The name is not case sensitive.",
-                    "link": "[Full documentation]({{ docsurl }}eodrcpt.html#MIMEPart.getHeaders)"
-                },
-                {
-                    "name": "getHeaderNames",
-                    "parameters": {
-                        "required": [],
-                        "optional": []
-                    },
-                    "returnType": "array of string",
-                    "detail": "MIMEPart->getHeaderNames(): array of string",
-                    "value": "getHeaderNames()",
-                    "documentation": "Return a list of all header names, from the top. The names are in lower case.",
-                    "link": "[Full documentation]({{ docsurl }}eodrcpt.html#MIMEPart.getHeaderNames)"
-                },
-                {
-                    "name": "setHeader",
-                    "parameters": {
-                        "required": [
-                            {
-                                "name": "name",
-                                "type": "string"
-                            },
-                            {
-                                "name": "value",
-                                "type": "string"
-                            }
-                        ],
-                        "optional": [
-                            {
-                                "name": "options",
-                                "type": "array"
-                            }
-                        ]
-                    },
-                    "returnType": "number",
-                    "detail": "MIMEPart->setHeader(string $name, string $value [, array $options]): number",
-                    "value": "setHeader($0)",
-                    "documentation": "Overwrite existing header(s) or create a new header. The name is not case sensitive.",
-                    "link": "[Full documentation]({{ docsurl }}eodrcpt.html#MIMEPart.setHeader)"
-                },
-                {
-                    "name": "addHeader",
-                    "parameters": {
-                        "required": [
-                            {
-                                "name": "name",
-                                "type": "string"
-                            },
-                            {
-                                "name": "value",
-                                "type": "string"
-                            }
-                        ],
-                        "optional": [
-                            {
-                                "name": "options",
-                                "type": "array"
-                            }
-                        ]
-                    },
-                    "returnType": "none",
-                    "detail": "MIMEPart->addHeader(string $name, string $value [, array $options]): none",
-                    "value": "addHeader($0)",
-                    "documentation": "Add a new header (at the top of the message).",
-                    "link": "[Full documentation]({{ docsurl }}eodrcpt.html#MIMEPart.addHeader)"
-                },
-                {
-                    "name": "delHeader",
-                    "parameters": {
-                        "required": [
-                            {
-                                "name": "name",
-                                "type": "string"
-                            }
-                        ],
-                        "optional": [
-                            {
-                                "name": "options",
-                                "type": "array"
-                            }
-                        ]
-                    },
-                    "returnType": "number",
-                    "detail": "MIMEPart->delHeader(string $name [, array $options]): number",
-                    "value": "delHeader($0)",
-                    "documentation": "Delete all headers by the name. The name is not case sensitive.",
-                    "link": "[Full documentation]({{ docsurl }}eodrcpt.html#MIMEPart.delHeader)"
-                },
-                {
-                    "name": "remove",
-                    "parameters": {
-                        "required": [],
-                        "optional": []
-                    },
-                    "returnType": "none",
-                    "detail": "MIMEPart->remove(): none",
-                    "value": "remove()",
-                    "documentation": "Remove this MIME part.",
-                    "link": "[Full documentation]({{ docsurl }}eodrcpt.html#MIMEPart.remove)"
-                },
-                {
-                    "name": "getBody",
-                    "parameters": {
-                        "required": [],
-                        "optional": [
-                            {
-                                "name": "options",
-                                "type": "array"
-                            }
-                        ]
-                    },
-                    "returnType": "string (or none)",
-                    "detail": "MIMEPart->getBody([array $options]): string (or none)",
-                    "value": "getBody($0)",
-                    "documentation": "Get the body (content) of a MIME part. The content will be decoded according to the Content-Transfer-Encoding header.",
-                    "link": "[Full documentation]({{ docsurl }}eodrcpt.html#MIMEPart.getBody)"
-                },
-                {
-                    "name": "setBody",
-                    "parameters": {
-                        "required": [
-                            {
-                                "name": "data",
-                                "type": "string"
-                            }
-                        ],
-                        "optional": []
-                    },
-                    "detail": "MIMEPart->setBody(string $data)",
-                    "value": "setBody($0)",
-                    "documentation": "Set the body (content) of a MIME part. If the body argument is bigger than 1 MiB (or an another error occurred), the type none is returned. The MIME parts encoding (Content-Transfer-Encoding) will be changed to the best readable match, that can be either 7bit, quoted-printable or base64 and the data will encoded as such.",
-                    "link": "[Full documentation]({{ docsurl }}eodrcpt.html#MIMEPart.setBody)"
-                },
-                {
-                    "name": "prependPart",
-                    "parameters": {
-                        "required": [
-                            {
-                                "name": "part",
-                                "type": "MIME"
-                            }
-                        ],
-                        "optional": [
-                            {
-                                "name": "options",
-                                "type": "array"
-                            }
-                        ]
-                    },
-                    "detail": "MIMEPart->prependPart(MIME $part [, array $options])",
-                    "value": "prependPart($0)",
-                    "documentation": "Add a MIME part before this part.",
-                    "link": "[Full documentation]({{ docsurl }}eodrcpt.html#MIMEPart.prependPart)"
-                },
-                {
-                    "name": "appendPart",
-                    "parameters": {
-                        "required": [
-                            {
-                                "name": "part",
-                                "type": "MIME"
-                            }
-                        ],
-                        "optional": [
-                            {
-                                "name": "options",
-                                "type": "array"
-                            }
-                        ]
-                    },
-                    "detail": "MIMEPart->appendPart(MIME $part [, array $options])",
-                    "value": "appendPart($0)",
-                    "documentation": "Add a MIME part after this part.",
-                    "link": "[Full documentation]({{ docsurl }}eodrcpt.html#MIMEPart.appendPart)"
-                },
-                {
-                    "name": "replacePart",
-                    "parameters": {
-                        "required": [
-                            {
-                                "name": "part",
-                                "type": "MIME"
-                            }
-                        ],
-                        "optional": []
-                    },
-                    "returnType": "none",
-                    "detail": "MIMEPart->replacePart(MIME $part): none",
-                    "value": "replacePart($0)",
-                    "documentation": "Replace the current MIME part.",
-                    "link": "[Full documentation]({{ docsurl }}eodrcpt.html#MIMEPart.replacePart)"
-                },
-                {
-                    "name": "findByType",
-                    "parameters": {
-                        "required": [
-                            {
-                                "name": "type",
-                                "type": "string"
-                            }
-                        ],
-                        "optional": []
-                    },
-                    "returnType": "array of  objects",
-                    "detail": "MIMEPart->findByType(string $type): array of  objects",
-                    "value": "findByType($0)",
-                    "documentation": "Find descendant parts (on any depth) based on their Content-Type.",
-                    "link": "[Full documentation]({{ docsurl }}eodrcpt.html#MIMEPart.findByType)"
-                },
-                {
-                    "name": "findByFileName",
-                    "parameters": {
-                        "required": [
-                            {
-                                "name": "filename",
-                                "type": "string"
-                            }
-                        ],
-                        "optional": []
-                    },
-                    "returnType": "array of  objects",
-                    "detail": "MIMEPart->findByFileName(string $filename): array of  objects",
-                    "value": "findByFileName($0)",
-                    "documentation": "Find descendant parts (on any depth) based on their file name.",
-                    "link": "[Full documentation]({{ docsurl }}eodrcpt.html#MIMEPart.findByFileName)"
-                },
-                {
-                    "name": "getParts",
-                    "parameters": {
-                        "required": [],
-                        "optional": []
-                    },
-                    "returnType": "array of  objects",
-                    "detail": "MIMEPart->getParts(): array of  objects",
-                    "value": "getParts()",
-                    "documentation": "Return child parts.",
-                    "link": "[Full documentation]({{ docsurl }}eodrcpt.html#MIMEPart.getParts)"
-                }
-            ],
-            "detail": "MIMEPart()",
-            "value": "MIMEPart()",
-            "documentation": "This class represent a MIME part in the MIME tree parsed as a result of the End-of-DATA command.",
-            "link": "[Full documentation]({{ docsurl }}eodrcpt.html#MIMEPart)"
-        }
-    ],
+    "eodrcpt": [],
     "predelivery": [],
     "postdelivery": [],
     "api": [],

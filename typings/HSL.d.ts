@@ -14,7 +14,8 @@ declare namespace HSL
     auth: Variable[];
     mailfrom: Variable[];
     rcptto: Variable[];
-    data: Variable[];
+    eodonce: Variable[];
+    eodrcpt: Variable[];
     predelivery: Variable[];
     postdelivery: Variable[];
     api: Variable[];
@@ -26,6 +27,7 @@ declare namespace HSL
     type: string;
     detail: string;
     documentation: string;
+    keys?: Variable[];
     example?: string;
     compat?: number;
     deprecated?: boolean;
@@ -38,7 +40,8 @@ declare namespace HSL
     auth: Function[];
     mailfrom: Function[];
     rcptto: Function[];
-    data: Function[];
+    eodonce: Function[];
+    eodrcpt: Function[];
     predelivery: Function[];
     postdelivery: Function[];
     api: Function[];
@@ -65,7 +68,8 @@ declare namespace HSL
     auth: Class[];
     mailfrom: Class[];
     rcptto: Class[];
-    data: Class[];
+    eodonce: Class[];
+    eodrcpt: Class[];
     predelivery: Class[];
     postdelivery: Class[];
     api: Class[];
@@ -78,7 +82,7 @@ declare namespace HSL
     detail: string;
     value: string;
     methods: Function[];
-    documentation: string;
+    documentation?: string;
     link: string;
     compat?: number;
     deprecated?: boolean;

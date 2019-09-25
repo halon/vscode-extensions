@@ -1,9 +1,9 @@
 {
   "name": "vscode-halon",
-  "version": "5.1.0",
+  "version": "5.2.0",
   "publisher": "Halon",
   "engines": {
-    "vscode": "^1.28.2"
+    "vscode": "^1.38.1"
   },
   "license": "ISC",
   "displayName": "Halon",
@@ -153,19 +153,21 @@
   ],
   "devDependencies": {
     "@halon/hsl-docs": "github:halon/hsl-docs",
+    "@types/bluebird": "^3.5.27",
     "@types/fs-readdir-recursive": "^1.0.0",
-    "@types/mocha": "^5.2.5",
-    "@types/node": "^10.12.0",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^10.14.19",
     "@types/path-is-inside": "^1.0.0",
-    "@types/ssh2": "^0.5.36",
-    "@types/underscore": "^1.8.9",
-    "tslint": "^5.11.0",
-    "typescript": "^3.2.1",
-    "vsce": "^1.59.0",
-    "vscode": "^1.1.22"
+    "@types/ssh2": "^0.5.39",
+    "@types/underscore": "^1.9.3",
+    "@types/validator": "^10.11.3",
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.3",
+    "vsce": "^1.66.0",
+    "vscode": "^1.1.36"
   },
   "dependencies": {
-    "@halon/cli": "^5.1.1",
+    "@halon/cli": "^5.2.1",
     "@halon/json-schemas": "github:halon/json-schemas",
     "path-is-inside": "^1.0.2",
     "underscore": "^1.9.1"

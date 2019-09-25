@@ -20,6 +20,8 @@ export default class Connectors
       const settingsPath = path.join(workspaceFolder.uri.fsPath, 'settings.json');
       if (fs.existsSync(settingsPath)) {
         const settings = JSON.parse(fs.readFileSync(settingsPath).toString());
+        if (settings.ssh2 && settings.ssh2.agent && settings.ssh2.agent[0] == '$')
+          settings.ssh2.agent = process.env[settings.ssh2.agent.substr(1)];
         let connector = this.connectors.find(connector => {
           return connector.settingsPath === settingsPath;
         });

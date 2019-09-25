@@ -2329,7 +2329,7 @@
             "returnType": "boolean",
             "detail": "memory_update(string $key, any $value, function $callback [, any $initial]): boolean",
             "value": "memory_update($0)",
-            "documentation": "Update the value of key in the store, if it exists. The return value of the callback function\n                        (called with the key, current value and value as argument) will be used as the stored value.",
+            "documentation": "Update the value of key in the store, if it exists. The return value of the callback function (called with the key, current value and value as argument) will be used as the stored value.",
             "link": "[Full documentation]({{ docsurl }}functions.html#memory_update)"
         },
         {

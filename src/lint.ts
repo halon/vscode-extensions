@@ -36,7 +36,7 @@ export default async (connector: factory.SSH2Connector | factory.UNIXConnector, 
       uris = uris.concat(matches);
     }
 
-    let promises: Promise<{}>[] = [];
+    let promises: Promise<unknown>[] = [];
     for (let uri of uris) {
       let syntaxObject = build.syntax(uri.fsPath);
 

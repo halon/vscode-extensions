@@ -22,6 +22,13 @@
                     "documentation": "TCP port of connected client"
                 },
                 {
+                    "name": "remoteptr",
+                    "type": "string",
+                    "detail": "string remoteptr",
+                    "example": "\"mail.example.org\"",
+                    "documentation": "Reverse DNS (FCrDNS) for remoteip (not always available)"
+                },
+                {
                     "name": "localip",
                     "type": "string",
                     "detail": "string localip",
@@ -162,6 +169,13 @@
                     "detail": "number remoteport",
                     "example": "41666",
                     "documentation": "TCP port of connected client"
+                },
+                {
+                    "name": "remoteptr",
+                    "type": "string",
+                    "detail": "string remoteptr",
+                    "example": "\"mail.example.org\"",
+                    "documentation": "Reverse DNS (FCrDNS) for remoteip (not always available)"
                 },
                 {
                     "name": "localip",
@@ -394,6 +408,13 @@
                     "detail": "number remoteport",
                     "example": "41666",
                     "documentation": "TCP port of connected client"
+                },
+                {
+                    "name": "remoteptr",
+                    "type": "string",
+                    "detail": "string remoteptr",
+                    "example": "\"mail.example.org\"",
+                    "documentation": "Reverse DNS (FCrDNS) for remoteip (not always available)"
                 },
                 {
                     "name": "localip",
@@ -662,6 +683,13 @@
                     "detail": "number remoteport",
                     "example": "41666",
                     "documentation": "TCP port of connected client"
+                },
+                {
+                    "name": "remoteptr",
+                    "type": "string",
+                    "detail": "string remoteptr",
+                    "example": "\"mail.example.org\"",
+                    "documentation": "Reverse DNS (FCrDNS) for remoteip (not always available)"
                 },
                 {
                     "name": "localip",
@@ -949,6 +977,13 @@
                     "detail": "number remoteport",
                     "example": "41666",
                     "documentation": "TCP port of connected client"
+                },
+                {
+                    "name": "remoteptr",
+                    "type": "string",
+                    "detail": "string remoteptr",
+                    "example": "\"mail.example.org\"",
+                    "documentation": "Reverse DNS (FCrDNS) for remoteip (not always available)"
                 },
                 {
                     "name": "localip",
@@ -1265,6 +1300,13 @@
                     "detail": "number remoteport",
                     "example": "41666",
                     "documentation": "TCP port of connected client"
+                },
+                {
+                    "name": "remoteptr",
+                    "type": "string",
+                    "detail": "string remoteptr",
+                    "example": "\"mail.example.org\"",
+                    "documentation": "Reverse DNS (FCrDNS) for remoteip (not always available)"
                 },
                 {
                     "name": "localip",
@@ -1609,8 +1651,8 @@
             "keys": [
                 {
                     "name": "mail",
-                    "type": "MailMessage",
-                    "detail": "MailMessage mail",
+                    "type": "EODMailMessage",
+                    "detail": "EODMailMessage mail",
                     "documentation": "An instance of the mail message"
                 }
             ]
@@ -1634,6 +1676,13 @@
                     "detail": "number remoteport",
                     "example": "41666",
                     "documentation": "TCP port of connected client"
+                },
+                {
+                    "name": "remoteptr",
+                    "type": "string",
+                    "detail": "string remoteptr",
+                    "example": "\"mail.example.org\"",
+                    "documentation": "Reverse DNS (FCrDNS) for remoteip (not always available)"
                 },
                 {
                     "name": "localip",
