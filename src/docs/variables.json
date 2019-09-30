@@ -2038,10 +2038,26 @@
             "keys": [
                 {
                     "name": "id",
-                    "type": "string",
-                    "detail": "string id",
-                    "example": "\"18c190a3-93f-47d7-bd...\"",
-                    "documentation": "ID of the transaction"
+                    "type": "array",
+                    "detail": "array id",
+                    "example": "[\"transaction\" => \"18...\"",
+                    "documentation": "ID of the message",
+                    "keys": [
+                        {
+                            "name": "transaction",
+                            "type": "string",
+                            "detail": "string transaction",
+                            "example": "\"18c190a3-93f-47d7-bd...\"",
+                            "documentation": "ID of the transaction"
+                        },
+                        {
+                            "name": "queue",
+                            "type": "number",
+                            "detail": "number queue",
+                            "example": "1",
+                            "documentation": "Queue ID of the message"
+                        }
+                    ]
                 },
                 {
                     "name": "serverid",
@@ -2116,13 +2132,6 @@
                     "detail": "string transportid",
                     "example": "\"inbound\"",
                     "documentation": "ID of the transport profile to be used"
-                },
-                {
-                    "name": "queueid",
-                    "type": "number",
-                    "detail": "number queueid",
-                    "example": "12345",
-                    "documentation": "Queue ID of the message"
                 },
                 {
                     "name": "jobid",
@@ -2495,10 +2504,26 @@
             "keys": [
                 {
                     "name": "id",
-                    "type": "string",
-                    "detail": "string id",
-                    "example": "\"18c190a3-93f-47d7-bd...\"",
-                    "documentation": "ID of the transaction"
+                    "type": "array",
+                    "detail": "array id",
+                    "example": "[\"transaction\" => \"18...\"",
+                    "documentation": "ID of the message",
+                    "keys": [
+                        {
+                            "name": "transaction",
+                            "type": "string",
+                            "detail": "string transaction",
+                            "example": "\"18c190a3-93f-47d7-bd...\"",
+                            "documentation": "ID of the transaction"
+                        },
+                        {
+                            "name": "queue",
+                            "type": "number",
+                            "detail": "number queue",
+                            "example": "1",
+                            "documentation": "Queue ID of the message"
+                        }
+                    ]
                 },
                 {
                     "name": "serverid",
@@ -2573,13 +2598,6 @@
                     "detail": "string transportid",
                     "example": "\"inbound\"",
                     "documentation": "ID of the transport profile to be used"
-                },
-                {
-                    "name": "queueid",
-                    "type": "number",
-                    "detail": "number queueid",
-                    "example": "12345",
-                    "documentation": "Queue ID of the message"
                 },
                 {
                     "name": "jobid",

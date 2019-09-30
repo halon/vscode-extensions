@@ -290,8 +290,8 @@
                             }
                         ]
                     },
-                    "returnType": "string",
-                    "detail": "MIME->queue(string or array $sender, string or array $recipient, string $transportid [, array $options]): string",
+                    "returnType": "array",
+                    "detail": "MIME->queue(string or array $sender, string or array $recipient, string $transportid [, array $options]): array",
                     "value": "queue($0)",
                     "documentation": "Put the MIME message (email) into the queue.",
                     "link": "[Full documentation]({{ docsurl }}functions.html#MIME.queue)"
@@ -1791,7 +1791,6 @@
     "eodonce": [
         {
             "name": "EODMailMessage",
-            "documentation": "Test",
             "parameters": {
                 "required": [],
                 "optional": []
@@ -1821,8 +1820,8 @@
                             }
                         ]
                     },
-                    "returnType": "none",
-                    "detail": "EODMailMessage->queue(string or array $sender, string or array $recipient, string $transportid [, array $options]): none",
+                    "returnType": "array",
+                    "detail": "EODMailMessage->queue(string or array $sender, string or array $recipient, string $transportid [, array $options]): array",
                     "value": "queue($0)",
                     "documentation": "Queue the message.",
                     "link": "[Full documentation]({{ docsurl }}eodonce.html#EODMailMessage.queue)"
