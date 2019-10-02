@@ -3900,10 +3900,15 @@
                         "type": "number"
                     }
                 ],
-                "optional": []
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
             },
-            "returnType": "none",
-            "detail": "PickupSuspend(array $fields, number $ttl): none",
+            "returnType": "boolean",
+            "detail": "PickupSuspend(array $fields, number $ttl [, array $options]): boolean",
             "value": "PickupSuspend($0)",
             "documentation": "Add a dynamic queue pickup suspend for the following fields, this will cause no more messages matching this condition to be picked up for delivery during the ttl of the suspend. If a matching suspend already exists only the TTL is updated.",
             "link": "[Full documentation]({{ docsurl }}predelivery.html#PickupSuspend)"
@@ -3929,10 +3934,15 @@
                         "type": "number"
                     }
                 ],
-                "optional": []
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
             },
-            "returnType": "none",
-            "detail": "PickupPolicy(array $fields, array $condition, array $policy, number $ttl): none",
+            "returnType": "boolean",
+            "detail": "PickupPolicy(array $fields, array $condition, array $policy, number $ttl [, array $options]): boolean",
             "value": "PickupPolicy($0)",
             "documentation": "Add a dynamic queue pickup policy for the specific fields, matching a specific condition. If a matching policy (fields and condtion) already exists the condition and TTL is updated.",
             "link": "[Full documentation]({{ docsurl }}predelivery.html#PickupPolicy)"
@@ -4331,10 +4341,15 @@
                         "type": "number"
                     }
                 ],
-                "optional": []
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
             },
-            "returnType": "none",
-            "detail": "PickupSuspend(array $fields, number $ttl): none",
+            "returnType": "boolean",
+            "detail": "PickupSuspend(array $fields, number $ttl [, array $options]): boolean",
             "value": "PickupSuspend($0)",
             "documentation": "Add a dynamic queue pickup suspend for the following fields, this will cause no more messages matching this condition to be picked up for delivery during the ttl of the suspend. If a matching suspend already exists only the TTL is updated.",
             "link": "[Full documentation]({{ docsurl }}postdelivery.html#PickupSuspend)"
@@ -4360,10 +4375,15 @@
                         "type": "number"
                     }
                 ],
-                "optional": []
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
             },
-            "returnType": "none",
-            "detail": "PickupPolicy(array $fields, array $condition, array $policy, number $ttl): none",
+            "returnType": "boolean",
+            "detail": "PickupPolicy(array $fields, array $condition, array $policy, number $ttl [, array $options]): boolean",
             "value": "PickupPolicy($0)",
             "documentation": "Add a dynamic queue pickup policy for the specific fields, matching a specific condition. If a matching policy (fields and condtion) already exists the condition and TTL is updated.",
             "link": "[Full documentation]({{ docsurl }}postdelivery.html#PickupPolicy)"

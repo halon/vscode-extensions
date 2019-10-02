@@ -2331,6 +2331,22 @@
                     "documentation": "The default action of this execution (\"DELETE\", \"BOUNCE\", \"QUEUE\"). Missing on successful deliveries."
                 },
                 {
+                    "name": "policy",
+                    "type": "array",
+                    "detail": "array policy",
+                    "example": "[\"tags\" => [\"backoff\"]",
+                    "documentation": "The pickup policy information (if an attempt was made)",
+                    "keys": [
+                        {
+                            "name": "tags",
+                            "type": "array",
+                            "detail": "array tags",
+                            "example": "[\"backoff\", ...]",
+                            "documentation": "The policy tags applied"
+                        }
+                    ]
+                },
+                {
                     "name": "attempt",
                     "type": "array",
                     "detail": "array attempt",
