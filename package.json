@@ -83,20 +83,12 @@
         "url": "./node_modules/@halon/json-schemas/smtpd-app.schema.json"
       },
       {
-        "fileMatch": "queued.yaml",
-        "url": "./node_modules/@halon/json-schemas/queued.schema.json"
+        "fileMatch": "smtpd-policy.yaml",
+        "url": "./node_modules/@halon/json-schemas/smtpd-policy.schema.json"
       },
       {
-        "fileMatch": "queued-app.yaml",
-        "url": "./node_modules/@halon/json-schemas/queued-app.schema.json"
-      },
-      {
-        "fileMatch": "queued-policy.yaml",
-        "url": "./node_modules/@halon/json-schemas/queued-policy.schema.json"
-      },
-      {
-        "fileMatch": "queued-suspend.yaml",
-        "url": "./node_modules/@halon/json-schemas/queued-suspend.schema.json"
+        "fileMatch": "smtpd-suspend.yaml",
+        "url": "./node_modules/@halon/json-schemas/smtpd-suspend.schema.json"
       },
       {
         "fileMatch": "dlpd.yaml",
@@ -168,7 +160,7 @@
   },
   "dependencies": {
     "@halon/cli": "5.2.4",
-    "@halon/json-schemas": "5.2.1",
+    "@halon/json-schemas": "github:halon/json-schemas",
     "path-is-inside": "^1.0.2",
     "underscore": "^1.9.1"
   }
