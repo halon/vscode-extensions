@@ -1,7 +1,9 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { window } from 'vscode';
-import { build, remote, factory } from '@halon/cli';
+import * as build from './build';
+import * as remote from './remote';
+import * as factory from './factory';
 
 export default (connector: factory.SSH2Connector | factory.UNIXConnector, workspacePath: string, command: string) =>
 {

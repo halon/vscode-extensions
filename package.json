@@ -159,9 +159,14 @@
     "vscode": "^1.1.36"
   },
   "dependencies": {
-    "@halon/cli": "5.2.4",
     "@halon/json-schemas": "github:halon/json-schemas",
+    "@halon/protobuf-schemas": "github:halon/protobuf-schemas",
+    "@types/yaml": "^1.2.0",
+    "ajv": "^6.10.2",
     "path-is-inside": "^1.0.2",
-    "underscore": "^1.9.1"
+    "protobufjs": "^6.8.8",
+    "ssh2": "^0.8.7",
+    "underscore": "^1.9.1",
+    "yaml": "^1.7.2"
   }
 }

@@ -7,7 +7,8 @@ import Links from './links';
 import Completions from './completions';
 import Hovers from './hovers';
 import lint from './lint';
-import { init, build } from '@halon/cli';
+import * as init from './init';
+import * as build from './build';
 import livestage from './livestage';
 import Connectors from './connectors';
 

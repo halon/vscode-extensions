@@ -13,7 +13,9 @@ import {
 	Position,
 	DiagnosticRelatedInformation
 } from 'vscode';
-import { build, remote, factory } from '@halon/cli';
+import * as build from './build';
+import * as remote from './remote';
+import * as factory from './factory';
 import pathIsInside from 'path-is-inside';
 
 export default async (connector: factory.SSH2Connector | factory.UNIXConnector, document: TextDocument, diagnosticCollection: DiagnosticCollection) =>

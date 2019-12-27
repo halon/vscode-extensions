@@ -1,7 +1,7 @@
 import fs from 'fs';
 import * as path from 'path';
 import { WorkspaceFolder, Uri } from 'vscode';
-import { factory } from '@halon/cli';
+import * as factory from './factory';
 
 export default class Connectors
 {
