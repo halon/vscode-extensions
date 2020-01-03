@@ -1,6 +1,27 @@
 {
     "core": [
         {
+            "name": "array_every",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "callback",
+                        "type": "function"
+                    },
+                    {
+                        "name": "array",
+                        "type": "array"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "boolean",
+            "detail": "array_every(function $callback, array $array): boolean",
+            "value": "array_every($0)",
+            "documentation": "Returns true if all items in the array are true based on the result of the callback function.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#array_every)"
+        },
+        {
             "name": "array_filter",
             "parameters": {
                 "required": [
@@ -1230,6 +1251,40 @@
             "link": "[Full documentation]({{ docsurl }}functions.html#http)"
         },
         {
+            "name": "envelope_address_parse",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "address",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "array",
+            "detail": "envelope_address_parse(string $address): array",
+            "value": "envelope_address_parse($0)",
+            "documentation": "Parse an email address into localpart and domain. On error None is returned.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#envelope_address_parse)"
+        },
+        {
+            "name": "envelope_localpart_escape",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "address",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "strings",
+            "detail": "envelope_localpart_escape(string $address): strings",
+            "value": "envelope_localpart_escape($0)",
+            "documentation": "Apply escaping to the an email envelope localpart.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#envelope_localpart_escape)"
+        },
+        {
             "name": "header_addresslist_extract",
             "parameters": {
                 "required": [
@@ -2333,6 +2388,78 @@
             "link": "[Full documentation]({{ docsurl }}functions.html#memory_update)"
         },
         {
+            "name": "queue_suspend",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "fields",
+                        "type": "array"
+                    },
+                    {
+                        "name": "ttl",
+                        "type": "number"
+                    }
+                ],
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
+            },
+            "returnType": "boolean",
+            "detail": "queue_suspend(array $fields, number $ttl [, array $options]): boolean",
+            "value": "queue_suspend($0)",
+            "documentation": "Add a dynamic queue pickup suspend for the following fields, this will cause no more messages matching this condition to be picked up for delivery during the ttl of the suspend. If a matching suspend already exists only the TTL is updated.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#queue_suspend)"
+        },
+        {
+            "name": "queue_policy",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "fields",
+                        "type": "array"
+                    },
+                    {
+                        "name": "condition",
+                        "type": "array"
+                    },
+                    {
+                        "name": "policy",
+                        "type": "array"
+                    },
+                    {
+                        "name": "ttl",
+                        "type": "number"
+                    }
+                ],
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
+            },
+            "returnType": "boolean",
+            "detail": "queue_policy(array $fields, array $condition, array $policy, number $ttl [, array $options]): boolean",
+            "value": "queue_policy($0)",
+            "documentation": "Add a dynamic queue pickup policy for the specific fields, matching a specific condition. If a matching policy (fields and condition) already exists the condition and TTL is updated.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#queue_policy)"
+        },
+        {
+            "name": "queue_quota",
+            "parameters": {
+                "required": [],
+                "optional": []
+            },
+            "returnType": "array",
+            "detail": "queue_quota(): array",
+            "value": "queue_quota()",
+            "documentation": "Get the quota usage for a specific quota name.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#queue_quota)"
+        },
+        {
             "name": "ldap_search",
             "deprecated": true,
             "parameters": {
@@ -2753,23 +2880,6 @@
             "link": "[Full documentation]({{ docsurl }}auth.html#Reply)"
         },
         {
-            "name": "GetMailQueueMetric",
-            "parameters": {
-                "required": [],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "number",
-            "detail": "GetMailQueueMetric([array $options]): number",
-            "value": "GetMailQueueMetric($0)",
-            "documentation": "Return metric information about the mail queue, it can be used to enforce quotas.",
-            "link": "[Full documentation]({{ docsurl }}auth.html#GetMailQueueMetric)"
-        },
-        {
             "name": "GetTLS",
             "deprecated": true,
             "parameters": {
@@ -2844,23 +2954,6 @@
             "value": "Defer($0)",
             "documentation": "Defer the MAIL FROM command (sender) with a temporary (450) error.",
             "link": "[Full documentation]({{ docsurl }}mailfrom.html#Defer)"
-        },
-        {
-            "name": "GetMailQueueMetric",
-            "parameters": {
-                "required": [],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "number",
-            "detail": "GetMailQueueMetric([array $options]): number",
-            "value": "GetMailQueueMetric($0)",
-            "documentation": "Return metric information about the mail queue, it can be used to enforce quotas.",
-            "link": "[Full documentation]({{ docsurl }}mailfrom.html#GetMailQueueMetric)"
         },
         {
             "name": "GetTLS",
@@ -2955,23 +3048,6 @@
             "value": "Defer($0)",
             "documentation": "Defer the RCPT TO command (recipient) with a temporary (450) error.",
             "link": "[Full documentation]({{ docsurl }}rcptto.html#Defer)"
-        },
-        {
-            "name": "GetMailQueueMetric",
-            "parameters": {
-                "required": [],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "number",
-            "detail": "GetMailQueueMetric([array $options]): number",
-            "value": "GetMailQueueMetric($0)",
-            "documentation": "Return metric information about the mail queue, it can be used to enforce quotas.",
-            "link": "[Full documentation]({{ docsurl }}rcptto.html#GetMailQueueMetric)"
         },
         {
             "name": "GetTLS",
@@ -3211,23 +3287,6 @@
             "value": "ScanCLAM($0)",
             "documentation": "Scan the message using ClamAV anti-virus.",
             "link": "[Full documentation]({{ docsurl }}eodonce.html#ScanCLAM)"
-        },
-        {
-            "name": "GetMailQueueMetric",
-            "parameters": {
-                "required": [],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "number",
-            "detail": "GetMailQueueMetric([array $options]): number",
-            "value": "GetMailQueueMetric($0)",
-            "documentation": "Return metric information about the mail queue, it can be used to enforce quotas.",
-            "link": "[Full documentation]({{ docsurl }}eodonce.html#GetMailQueueMetric)"
         }
     ],
     "eodrcpt": [
@@ -3447,23 +3506,6 @@
             "value": "ScanCLAM($0)",
             "documentation": "Scan the message using ClamAV anti-virus.",
             "link": "[Full documentation]({{ docsurl }}eodrcpt.html#ScanCLAM)"
-        },
-        {
-            "name": "GetMailQueueMetric",
-            "parameters": {
-                "required": [],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "number",
-            "detail": "GetMailQueueMetric([array $options]): number",
-            "value": "GetMailQueueMetric($0)",
-            "documentation": "Return metric information about the mail queue, it can be used to enforce quotas.",
-            "link": "[Full documentation]({{ docsurl }}eodrcpt.html#GetMailQueueMetric)"
         },
         {
             "name": "GetTLS",
@@ -3888,66 +3930,6 @@
             "link": "[Full documentation]({{ docsurl }}predelivery.html#Delete)"
         },
         {
-            "name": "PickupSuspend",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "fields",
-                        "type": "array"
-                    },
-                    {
-                        "name": "ttl",
-                        "type": "number"
-                    }
-                ],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "boolean",
-            "detail": "PickupSuspend(array $fields, number $ttl [, array $options]): boolean",
-            "value": "PickupSuspend($0)",
-            "documentation": "Add a dynamic queue pickup suspend for the following fields, this will cause no more messages matching this condition to be picked up for delivery during the ttl of the suspend. If a matching suspend already exists only the TTL is updated.",
-            "link": "[Full documentation]({{ docsurl }}predelivery.html#PickupSuspend)"
-        },
-        {
-            "name": "PickupPolicy",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "fields",
-                        "type": "array"
-                    },
-                    {
-                        "name": "condition",
-                        "type": "array"
-                    },
-                    {
-                        "name": "policy",
-                        "type": "array"
-                    },
-                    {
-                        "name": "ttl",
-                        "type": "number"
-                    }
-                ],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "boolean",
-            "detail": "PickupPolicy(array $fields, array $condition, array $policy, number $ttl [, array $options]): boolean",
-            "value": "PickupPolicy($0)",
-            "documentation": "Add a dynamic queue pickup policy for the specific fields, matching a specific condition. If a matching policy (fields and condtion) already exists the condition and TTL is updated.",
-            "link": "[Full documentation]({{ docsurl }}predelivery.html#PickupPolicy)"
-        },
-        {
             "name": "SetDSN",
             "parameters": {
                 "required": [
@@ -3992,23 +3974,6 @@
             "value": "GetMetaData()",
             "documentation": "Get the metadata set by SetMetaData(). If no data was set, an empty array is returned.",
             "link": "[Full documentation]({{ docsurl }}predelivery.html#GetMetaData)"
-        },
-        {
-            "name": "GetMailQueueMetric",
-            "parameters": {
-                "required": [],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "number",
-            "detail": "GetMailQueueMetric([array $options]): number",
-            "value": "GetMailQueueMetric($0)",
-            "documentation": "Return metric information about the mail queue, it can be used to enforce quotas.",
-            "link": "[Full documentation]({{ docsurl }}predelivery.html#GetMailQueueMetric)"
         },
         {
             "name": "CurrentConnections",
@@ -4327,66 +4292,6 @@
             "value": "Delete()",
             "documentation": "Delete the message from the queue, without generating a DSN (bounce) to the sender.",
             "link": "[Full documentation]({{ docsurl }}postdelivery.html#Delete)"
-        },
-        {
-            "name": "PickupSuspend",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "fields",
-                        "type": "array"
-                    },
-                    {
-                        "name": "ttl",
-                        "type": "number"
-                    }
-                ],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "boolean",
-            "detail": "PickupSuspend(array $fields, number $ttl [, array $options]): boolean",
-            "value": "PickupSuspend($0)",
-            "documentation": "Add a dynamic queue pickup suspend for the following fields, this will cause no more messages matching this condition to be picked up for delivery during the ttl of the suspend. If a matching suspend already exists only the TTL is updated.",
-            "link": "[Full documentation]({{ docsurl }}postdelivery.html#PickupSuspend)"
-        },
-        {
-            "name": "PickupPolicy",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "fields",
-                        "type": "array"
-                    },
-                    {
-                        "name": "condition",
-                        "type": "array"
-                    },
-                    {
-                        "name": "policy",
-                        "type": "array"
-                    },
-                    {
-                        "name": "ttl",
-                        "type": "number"
-                    }
-                ],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "boolean",
-            "detail": "PickupPolicy(array $fields, array $condition, array $policy, number $ttl [, array $options]): boolean",
-            "value": "PickupPolicy($0)",
-            "documentation": "Add a dynamic queue pickup policy for the specific fields, matching a specific condition. If a matching policy (fields and condtion) already exists the condition and TTL is updated.",
-            "link": "[Full documentation]({{ docsurl }}postdelivery.html#PickupPolicy)"
         },
         {
             "name": "SetDSN",

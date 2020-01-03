@@ -1815,6 +1815,13 @@
                     "documentation": "ID of the transaction"
                 },
                 {
+                    "name": "ts",
+                    "type": "number",
+                    "detail": "number ts",
+                    "example": "1575558785.1234",
+                    "documentation": "Unix time of transaction"
+                },
+                {
                     "name": "sender",
                     "type": "string",
                     "detail": "string sender",
@@ -1944,18 +1951,25 @@
             "documentation": "ID of the message"
         },
         {
-            "name": "$senderdomain",
-            "type": "string",
-            "detail": "string readonly $senderdomain",
-            "example": "\"example.org\"",
-            "documentation": "Domain part of sender's address (envelope)"
-        },
-        {
             "name": "$sender",
             "type": "string",
             "detail": "string readonly $sender",
             "example": "\"test@example.org\"",
             "documentation": "E-mail address of sender (envelope)"
+        },
+        {
+            "name": "$senderlocalpart",
+            "type": "string",
+            "detail": "string readonly $senderlocalpart",
+            "example": "\"test\"",
+            "documentation": "Local part of sender's address (envelope)"
+        },
+        {
+            "name": "$senderdomain",
+            "type": "string",
+            "detail": "string readonly $senderdomain",
+            "example": "\"example.org\"",
+            "documentation": "Domain part of sender's address (envelope)"
         },
         {
             "name": "$senderparams",
@@ -2060,6 +2074,13 @@
                     ]
                 },
                 {
+                    "name": "ts",
+                    "type": "number",
+                    "detail": "number ts",
+                    "example": "1575558785.1234",
+                    "documentation": "Unix time of transaction"
+                },
+                {
                     "name": "serverid",
                     "type": "string",
                     "detail": "string serverid",
@@ -2139,6 +2160,13 @@
                     "detail": "string jobid",
                     "example": "\"customidentifier1\"",
                     "documentation": "Job ID of the message"
+                },
+                {
+                    "name": "size",
+                    "type": "number",
+                    "detail": "number size",
+                    "example": "412311",
+                    "documentation": "Message size in bytes"
                 }
             ]
         },
@@ -2542,6 +2570,13 @@
                     ]
                 },
                 {
+                    "name": "ts",
+                    "type": "number",
+                    "detail": "number ts",
+                    "example": "1575558785.1234",
+                    "documentation": "Unix time of transaction"
+                },
+                {
                     "name": "serverid",
                     "type": "string",
                     "detail": "string serverid",
@@ -2621,6 +2656,13 @@
                     "detail": "string jobid",
                     "example": "\"customidentifier1\"",
                     "documentation": "Job ID of the message"
+                },
+                {
+                    "name": "size",
+                    "type": "number",
+                    "detail": "number size",
+                    "example": "412311",
+                    "documentation": "Message size in bytes"
                 }
             ]
         },

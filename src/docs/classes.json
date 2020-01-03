@@ -1084,16 +1084,17 @@
                             {
                                 "name": "address",
                                 "type": "string"
-                            },
+                            }
+                        ],
+                        "optional": [
                             {
                                 "name": "port",
                                 "type": "number"
                             }
-                        ],
-                        "optional": []
+                        ]
                     },
                     "returnType": "Socket or None",
-                    "detail": "Socket->connect(string $address, number $port): Socket or None",
+                    "detail": "Socket->connect(string $address [, number $port]): Socket or None",
                     "value": "connect($0)",
                     "documentation": "Connect the socket to address and port. The address must match the Sockets address family.",
                     "link": "[Full documentation]({{ docsurl }}functions.html#Socket.connect)"
