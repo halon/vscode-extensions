@@ -828,13 +828,13 @@
                             },
                             {
                                 "name": "value",
-                                "type": "number"
+                                "type": "any"
                             }
                         ],
                         "optional": []
                     },
                     "returnType": "LDAP or None",
-                    "detail": "LDAP->setoption(string $name, number $value): LDAP or None",
+                    "detail": "LDAP->setoption(string $name, any $value): LDAP or None",
                     "value": "setoption($0)",
                     "documentation": "Set LDAP connection options.",
                     "link": "[Full documentation]({{ docsurl }}functions.html#LDAP.setoption)"
