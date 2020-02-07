@@ -1730,7 +1730,7 @@
             "returnType": "string",
             "detail": "inet_reverse(string $ip [, string $zone]): string",
             "value": "inet_reverse($0)",
-            "documentation": "Converts an IP to a reverse DNS compatible format (to be used with PTR lookups or DNSxL lookups). By default the zone correspons to the ARPA address for each IP family. On error None is returned.",
+            "documentation": "Converts an IPv4 or IPv6 to a reverse DNS compatible format (to be used with PTR lookups or DNSxL lookups). By default the zone correspons to the ARPA address for each IP family. On error None is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#inet_reverse)"
         },
         {
@@ -2098,16 +2098,65 @@
                         "type": "string"
                     }
                 ],
-                "optional": []
+                "optional": [
+                    {
+                        "name": "characters",
+                        "type": "string"
+                    }
+                ]
             },
             "returnType": "string",
-            "detail": "str_strip(string $string): string",
+            "detail": "str_strip(string $string [, string $characters]): string",
             "value": "str_strip($0)",
-            "documentation": "Returns string with whitespace characters (\\s\\t\\r\\n) removed from the start and end of the string.",
+            "documentation": "Returns string with whitespace strip characters (\\s\\t\\r\\n) removed from the start and end of the string.",
             "link": "[Full documentation]({{ docsurl }}functions.html#str_strip)",
             "aliases": [
                 "trim"
             ]
+        },
+        {
+            "name": "str_lstrip",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "string",
+                        "type": "string"
+                    }
+                ],
+                "optional": [
+                    {
+                        "name": "characters",
+                        "type": "string"
+                    }
+                ]
+            },
+            "returnType": "string",
+            "detail": "str_lstrip(string $string [, string $characters]): string",
+            "value": "str_lstrip($0)",
+            "documentation": "Returns string with whitespace strip characters (\\s\\t\\r\\n) removed from the start of the string.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#str_lstrip)"
+        },
+        {
+            "name": "str_rstrip",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "string",
+                        "type": "string"
+                    }
+                ],
+                "optional": [
+                    {
+                        "name": "characters",
+                        "type": "string"
+                    }
+                ]
+            },
+            "returnType": "string",
+            "detail": "str_rstrip(string $string [, string $characters]): string",
+            "value": "str_rstrip($0)",
+            "documentation": "Returns string with whitespace strip characters (\\s\\t\\r\\n) removed from the end of the string.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#str_rstrip)"
         },
         {
             "name": "pcre_match",
@@ -2450,13 +2499,18 @@
         {
             "name": "queue_quota",
             "parameters": {
-                "required": [],
+                "required": [
+                    {
+                        "name": "name",
+                        "type": "string"
+                    }
+                ],
                 "optional": []
             },
             "returnType": "array",
-            "detail": "queue_quota(): array",
-            "value": "queue_quota()",
-            "documentation": "Get the quota usage for a specific quota name.",
+            "detail": "queue_quota(string $name): array",
+            "value": "queue_quota($0)",
+            "documentation": "Get the usage for a specific quota. Messages may be assigned to one or more quotas when calling eg. eodonce.EODMailMessage.queue() which is the incremented accordingly. When the messages is removed from the queue (delivered or not) the quota is decremented.",
             "link": "[Full documentation]({{ docsurl }}functions.html#queue_quota)"
         },
         {

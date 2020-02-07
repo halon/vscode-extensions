@@ -1,6 +1,69 @@
 {
     "core": [
         {
+            "name": "Iconv",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "fromcharset",
+                        "type": "string"
+                    },
+                    {
+                        "name": "tocharset",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "methods": [
+                {
+                    "name": "close",
+                    "parameters": {
+                        "required": [],
+                        "optional": []
+                    },
+                    "returnType": "None",
+                    "detail": "Iconv->close(): None",
+                    "value": "close()",
+                    "documentation": "Close the Iconv resource and destroy the internal resource.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#Iconv.close)"
+                },
+                {
+                    "name": "convert",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "text",
+                                "type": "string"
+                            }
+                        ],
+                        "optional": []
+                    },
+                    "returnType": "string or None",
+                    "detail": "Iconv->convert(string $text): string or None",
+                    "value": "convert($0)",
+                    "documentation": "Convert the text between the two different character sets. On error None is returned and you may call Iconv.errno() to get the error code.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#Iconv.convert)"
+                },
+                {
+                    "name": "errno",
+                    "parameters": {
+                        "required": [],
+                        "optional": []
+                    },
+                    "returnType": "number",
+                    "detail": "Iconv->errno(): number",
+                    "value": "errno()",
+                    "documentation": "Get the latest errno returned from the underlying Iconv API.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#Iconv.errno)"
+                }
+            ],
+            "detail": "Iconv(string $fromcharset, string $tocharset)",
+            "value": "Iconv($0)",
+            "documentation": "This class allows characters set conversions using the Iconv library. Be aware that different versions of Iconv may have subtile differences.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#Iconv)"
+        },
+        {
             "name": "File",
             "parameters": {
                 "required": [
@@ -187,7 +250,7 @@
                     "returnType": "MIME",
                     "detail": "MIME->setBody(string $body): MIME",
                     "value": "setBody($0)",
-                    "documentation": "Set the MIME part body content. In case the MIME part has children (multipart) this will be the MIME parts preamble. The body will be Base64 encoded if no Content-Transfer-Encoding header is added.",
+                    "documentation": "Set the MIME part body content. In case the MIME part has children (multipart) this will be the MIME parts preamble. The body will be encoded as either quoted-printable or base64 depending on the type of data if no Content-Transfer-Encoding header is explicitly added.",
                     "link": "[Full documentation]({{ docsurl }}functions.html#MIME.setBody)"
                 },
                 {
@@ -204,7 +267,7 @@
                     "returnType": "MIME",
                     "detail": "MIME->setType(string $type): MIME",
                     "value": "setType($0)",
-                    "documentation": "Set the type field of the Content-Type header. The default type is text\/plain, and the charset is always utf-8.",
+                    "documentation": "Set the type field of the Content-Type header. The default type is text\/plain, and for text\/... the charset is always utf-8.",
                     "link": "[Full documentation]({{ docsurl }}functions.html#MIME.setType)"
                 },
                 {
