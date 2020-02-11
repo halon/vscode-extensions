@@ -87,9 +87,10 @@ export const setupIPC = (stream: stream.Duplex, resolve: Function, reject: Funct
 
 export const packRequest = (command: string, protobuf?: Buffer): Buffer =>
 {
-	var version = Buffer.alloc(2);
+  // 5.3
+  var version = Buffer.alloc(2);
 	version.writeInt8(5, 0);
-	version.writeInt8(2, 1);
+	version.writeInt8(3, 1);
 
 	if (!protobuf)
 		return Buffer.concat([version, Buffer.from(command)]);
