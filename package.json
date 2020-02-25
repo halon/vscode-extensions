@@ -91,6 +91,10 @@
         "url": "./node_modules/@halon/json-schemas/smtpd-suspend.schema.json"
       },
       {
+        "fileMatch": "smtpd-delivery.yaml",
+        "url": "./node_modules/@halon/json-schemas/smtpd-delivery.schema.json"
+      },
+      {
         "fileMatch": "dlpd.yaml",
         "url": "./node_modules/@halon/json-schemas/dlpd.schema.json"
       },
