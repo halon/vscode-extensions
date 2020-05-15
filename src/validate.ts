@@ -11,7 +11,7 @@ const findJSONSchemasRoot = () : string[] =>
 	}
 }
 
-export const validate = (config: { smtpd?: any, smtpd_app?: any, smtpd_policy?: any, smtpd_suspend?: any, smtpd_delivery?: any, httprd?: any, rated?: any, rated_app?: any, dlpd?: any, dlpd_app?: any }) => 
+export const validate = (config: { smtpd?: any, smtpd_app?: any, smtpd_policy?: any, smtpd_suspend?: any, smtpd_delivery?: any, rated?: any, rated_app?: any, dlpd?: any, dlpd_app?: any }) => 
 {
 	let ajv = new AJV();
 
@@ -38,11 +38,6 @@ export const validate = (config: { smtpd?: any, smtpd_app?: any, smtpd_policy?: 
 	if (config.smtpd_delivery) {
 		let smtpd_delivery = ajv.compile(JSON.parse(fs.readFileSync(path.join(...findJSONSchemasRoot(), "smtpd-delivery.schema.json")).toString()));
 		if (!smtpd_delivery(config.smtpd_delivery)) throw { source: 'smtpd-delivery', errors: smtpd_delivery.errors };
-	}
-
-	if (config.httprd) {
-		let httprd = ajv.compile(JSON.parse(fs.readFileSync(path.join(...findJSONSchemasRoot(), "httprd.schema.json")).toString()));
-		if (!httprd(config.httprd)) throw { source: 'httprd', errors: httprd.errors };
 	}
 
 	if (config.rated) {

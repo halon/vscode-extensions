@@ -103,10 +103,6 @@
         "url": "./node_modules/@halon/json-schemas/dlpd-app.schema.json"
       },
       {
-        "fileMatch": "httprd.yaml",
-        "url": "./node_modules/@halon/json-schemas/httprd.schema.json"
-      },
-      {
         "fileMatch": "rated.yaml",
         "url": "./node_modules/@halon/json-schemas/rated.schema.json"
       },
