@@ -39,7 +39,7 @@
         },
         {
           "name": "keyword.operator.hsl",
-          "match": "(&|\\^|\\||<<|>>|~)"
+          "match": "(&|\\^|\\||<<|>>>|>>|~)"
         },
         {
           "name": "keyword.operator.hsl",
@@ -59,7 +59,7 @@
         },
         {
           "name": "keyword.other.hsl",
-          "match": "\\b(echo|barrier|as|function|global|include|include_once|cache|closure|object|builtin|import|from|with|static|class|constructor|private|readonly)\\b"
+          "match": "\\b(echo|barrier|as|function|global|include|include_once|cache|closure|object|builtin|import|from|with|static|class|constructor|private|readonly|yield)\\b"
         }
       ]
     },
@@ -158,7 +158,7 @@
       "patterns": [
         {
           "name": "invalid.illegal.hsl",
-          "match": "\\b(this|self|public|protected|struct|clone|final|const|goto|namespace|yield|new|catch|try|interface|throw|in|extends|print|trait|assert|finally|lambda|pass|with|delete|destroy|export|use)\\b"
+          "match": "\\b(this|self|public|protected|struct|clone|final|const|goto|namespace|new|catch|try|interface|throw|in|extends|print|trait|assert|finally|lambda|pass|with|delete|destroy|export|use)\\b"
         },
         {
           "name": "invalid.illegal.hsl",
