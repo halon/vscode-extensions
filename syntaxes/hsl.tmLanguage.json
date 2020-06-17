@@ -110,23 +110,23 @@
       "patterns": [
         {
           "name": "constant.numeric.decimal.hsl",
-          "match": "[0-9]+\\.[0-9]+"
+          "match": "([0-9]+(_[0-9]+)*\\.[0-9]+(_[0-9]+)*)"
         },
         {
           "name": "constant.numeric.hex.hsl",
-          "match": "0x[0-9a-fA-F]+"
+          "match": "(0x[0-9a-fA-F]+(_[0-9a-fA-F]+)*)"
         },
         {
           "name": "constant.numeric.octal.hsl",
-          "match": "0o[0-7]+"
+          "match": "(0o[0-7]+(_[0-7]+)*)"
         },
         {
           "name": "constant.numeric.binary.hsl",
-          "match": "0b[0-1]+"
+          "match": "(0b[0-1]+(_[0-1]+)*)"
         },
         {
           "name": "constant.numeric.integer.hsl",
-          "match": "[0-9]+"
+          "match": "([0-9]+(_[0-9]+)*)"
         }
       ]
     },
@@ -162,7 +162,7 @@
         },
         {
           "name": "invalid.illegal.hsl",
-          "match": "([0-9]+\\.[0-9]+\\.[0-9]+)"
+          "match": "([0-9]+(_[0-9]+)*\\.[0-9]+(_[0-9]+)*\\.[0-9]+(_[0-9]+)*)"
         },
         {
           "name": "invalid.illegal.hsl",
