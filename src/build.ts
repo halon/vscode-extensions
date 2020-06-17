@@ -333,6 +333,10 @@ export const generate = (base: string = '.') =>
 		if (file) returnValue.dlpd_app = yaml.parse(file);
 	}
 
-	validate.validate(returnValue);
+  try {
+    validate.validate(returnValue);
+  } catch (err) {
+    throw new Error(`${err.source}: ${JSON.stringify(err.errors)}`);
+  }
 	return returnValue;
 }

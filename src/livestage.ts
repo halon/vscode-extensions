@@ -9,7 +9,13 @@ export default (connector: factory.SSH2Connector | factory.UNIXConnector, worksp
 {
   if (command === 'start')
   {
-    build.run(workspacePath);
+    try {
+      build.run(workspacePath);
+    } catch (error) {
+      window.showErrorMessage(`Live Staging: ${error.message || error}`);
+      return;
+    }
+  
     const config = fs.readFileSync(path.join(workspacePath, "dist", "smtpd-app.yaml")).toString();
     const userSettings = JSON.parse(fs.readFileSync(path.join(workspacePath, "settings.json")).toString());
     const conditions = userSettings.livestage && userSettings.livestage.conditions ? userSettings.livestage.conditions : {};
