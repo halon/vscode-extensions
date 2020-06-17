@@ -1,7 +1,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import yaml from 'yaml';
-import * as validate from './validate'
+import * as validate from './validate';
+import isUtf8 from 'is-utf8';
 
 export const syntax = (file: string) =>
 {
@@ -46,11 +47,19 @@ export const syntax = (file: string) =>
 	for (let i of readdirSyncRecursive(filespath))
 	{
 		if (file == i)
-			continue;
-		result.files.push({
-			id: path.relative(filespath, i),
-			data: fs.readFileSync(i).toString()
-		});
+      continue;
+
+    const buffer = fs.readFileSync(i);
+
+    let item: any = { id: path.relative(filespath, i) };
+    if (isUtf8(buffer)) {
+      item.data = buffer.toString('utf8');
+    } else {
+      item.data = buffer.toString('base64');
+      item.binary = true;
+    }
+
+		result.files.push(item);
 	}
 
 	return result;
@@ -271,12 +280,19 @@ export const generate = (base: string = '.') =>
 					usersettings.smtpd.build &&
 					usersettings.smtpd.build.exclude ? usersettings.smtpd.build.exclude : [];
 				if (exclude.indexOf(path.relative(path.join(base, "src", "files"), i)) != -1)
-					continue;
+          continue;
+        
+        const buffer = fs.readFileSync(i);
 
-				addFile(config, {
-					id: path.relative(path.join(base, "src", "files"), i),
-					data: fs.readFileSync(i).toString()
-				});
+        let item: any = { id: path.relative(path.join(base, "src", "files"), i) };
+        if (isUtf8(buffer)) {
+          item.data = buffer.toString('utf8');
+        } else {
+          item.data = buffer.toString('base64');
+          item.binary = true;
+        }
+
+				addFile(config, item);
 			}
 			returnValue.smtpd_app = config;
 		}

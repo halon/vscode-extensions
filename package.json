@@ -163,6 +163,7 @@
     "@halon/protobuf-schemas": "^5.3.0",
     "@types/yaml": "^1.2.0",
     "ajv": "^6.10.2",
+    "is-utf8": "^0.2.1",
     "path-is-inside": "^1.0.2",
     "protobufjs": "^6.8.8",
     "ssh2": "^0.8.7",
