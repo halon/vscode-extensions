@@ -11,7 +11,8 @@ export default class Links implements DocumentLinkProvider
       const workspacePath = workspaceFolder.uri.fsPath;
 
       let patterns: RegExp[] = [];
-      patterns.push(/(.*?(?:from|include|include_once)\s+\")((?:[a-z0-9]+)(?:[\.\/][a-z0-9]+)*)\"/mg);
+      patterns.push(/(.*?(?:from)\s+\"(?:.*!)?)((([a-z0-9]+)([\.\/][a-z0-9]+)*))\"/mg);
+      patterns.push(/(.*?(?:include|include_once)\s+\")((?:[a-z0-9]+)(?:[\.\/][a-z0-9]+)*)\"/mg);
       patterns.push(/(.*?(?:file|file_get_contents)\(\")((?:[a-z0-9]+)(?:[\.\/][a-z0-9]+)*)\"\)/mg);
 
       const text  = document.getText();
