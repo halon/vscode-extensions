@@ -29,6 +29,13 @@
                     "documentation": "Reverse DNS (FCrDNS) for remoteip (not always available)"
                 },
                 {
+                    "name": "remoteuid",
+                    "type": "number",
+                    "detail": "number remoteuid",
+                    "example": "106",
+                    "documentation": "UNIX socket remote user id (not always available)"
+                },
+                {
                     "name": "localip",
                     "type": "string",
                     "detail": "string localip",
@@ -132,6 +139,170 @@
             "detail": "string readonly $serverid",
             "documentation": "ID of the mailserver profile",
             "example": "\"mailserver:1\""
+        }
+    ],
+    "disconnect": [
+        {
+            "name": "$arguments",
+            "type": "array",
+            "detail": "array readonly $arguments",
+            "documentation": "Context\/hook arguments"
+        },
+        {
+            "name": "$connection",
+            "type": "array",
+            "detail": "array readonly $connection",
+            "documentation": "Connection\/session bound",
+            "keys": [
+                {
+                    "name": "remoteip",
+                    "type": "string",
+                    "detail": "string remoteip",
+                    "example": "\"192.168.1.11\"",
+                    "documentation": "IP address of the connected client"
+                },
+                {
+                    "name": "remoteport",
+                    "type": "number",
+                    "detail": "number remoteport",
+                    "example": "41666",
+                    "documentation": "TCP port of connected client"
+                },
+                {
+                    "name": "remoteptr",
+                    "type": "string",
+                    "detail": "string remoteptr",
+                    "example": "\"mail.example.org\"",
+                    "documentation": "Reverse DNS (FCrDNS) for remoteip (not always available)"
+                },
+                {
+                    "name": "localip",
+                    "type": "string",
+                    "detail": "string localip",
+                    "example": "\"10.0.0.1\"",
+                    "documentation": "IP address of the server"
+                },
+                {
+                    "name": "localport",
+                    "type": "number",
+                    "detail": "number localport",
+                    "example": "25",
+                    "documentation": "TCP port of the server"
+                },
+                {
+                    "name": "serverid",
+                    "type": "string",
+                    "detail": "string serverid",
+                    "example": "\"inbound\"",
+                    "documentation": "ID of the server"
+                },
+                {
+                    "name": "helo",
+                    "type": "array",
+                    "detail": "array helo",
+                    "documentation": "HELO information (not always available)",
+                    "keys": [
+                        {
+                            "name": "verb",
+                            "type": "string",
+                            "detail": "string verb",
+                            "example": "\"EHLO\"",
+                            "documentation": "HELO or EHLO command"
+                        },
+                        {
+                            "name": "host",
+                            "type": "string",
+                            "detail": "string host",
+                            "example": "\"mail.example.com\"",
+                            "documentation": "HELO hostname"
+                        }
+                    ]
+                },
+                {
+                    "name": "tls",
+                    "type": "array",
+                    "detail": "array tls",
+                    "documentation": "TLS information (if TLS was started)",
+                    "keys": [
+                        {
+                            "name": "protocol",
+                            "type": "string",
+                            "detail": "string protocol",
+                            "example": "\"TLSv1.3\"",
+                            "documentation": "The protocol"
+                        },
+                        {
+                            "name": "cipher",
+                            "type": "string",
+                            "detail": "string cipher",
+                            "example": "\"ECDHE-RSA-AES256-SHA384\"",
+                            "documentation": "The cipher"
+                        },
+                        {
+                            "name": "keysize",
+                            "type": "number",
+                            "detail": "number keysize",
+                            "example": "256",
+                            "documentation": "The keysize"
+                        },
+                        {
+                            "name": "peercert",
+                            "type": "array",
+                            "detail": "array peercert",
+                            "documentation": "The peer certificate (if provided by the client)",
+                            "keys": [
+                                {
+                                    "name": "x509",
+                                    "type": "X509Resource",
+                                    "detail": "X509Resource x509",
+                                    "documentation": "An X509Resource to be used with the  class"
+                                },
+                                {
+                                    "name": "error",
+                                    "type": "number",
+                                    "detail": "number error",
+                                    "example": "18",
+                                    "documentation": "The peer certificate validation error (see OpenSSLs SSL_get_verify_result(3))"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "auth",
+                    "type": "array",
+                    "detail": "array auth",
+                    "documentation": "AUTH information (not always available)",
+                    "keys": [
+                        {
+                            "name": "mechanism",
+                            "type": "string",
+                            "detail": "string mechanism",
+                            "example": "\"PLAIN\"",
+                            "documentation": "SASL mechanism (always in uppercase)"
+                        },
+                        {
+                            "name": "username",
+                            "type": "string",
+                            "detail": "string username",
+                            "example": "\"mailuser\"",
+                            "documentation": "SASL username (not always available)"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "$transaction",
+            "type": "array",
+            "detail": "array readonly $transaction",
+            "documentation": "Transaction bound (empty)"
+        },
+        {
+            "name": "$context",
+            "type": "any",
+            "detail": "any $context",
+            "documentation": "Connection bound user-defined (default none)"
         }
     ],
     "proxy": [
@@ -2167,6 +2338,27 @@
                     "detail": "number size",
                     "example": "412311",
                     "documentation": "Message size in bytes"
+                },
+                {
+                    "name": "file",
+                    "type": "array",
+                    "detail": "array file",
+                    "example": "[\"original\" => ...,]",
+                    "documentation": "The message file",
+                    "keys": [
+                        {
+                            "name": "original",
+                            "type": "FileResource",
+                            "detail": "FileResource original",
+                            "documentation": "An FileResource to be used with the  class"
+                        },
+                        {
+                            "name": "modified",
+                            "type": "FileResource",
+                            "detail": "FileResource modified",
+                            "documentation": "An FileResource to be used with the  class"
+                        }
+                    ]
                 }
             ]
         },
@@ -2537,6 +2729,29 @@
                             "documentation": "The delivery attempt duration"
                         }
                     ]
+                },
+                {
+                    "name": "dsn",
+                    "type": "array",
+                    "detail": "array dsn",
+                    "example": "[\"action\"=> \"delayed\", ...]",
+                    "documentation": "The DSN action for (\"BOUNCE\", \"QUEUE\") actions and the DSN message id (if generated). Missing on successful deliveries.",
+                    "keys": [
+                        {
+                            "name": "action",
+                            "type": "string",
+                            "detail": "string action",
+                            "example": "\"delayed\"",
+                            "documentation": "DSN type to be generated ( or )"
+                        },
+                        {
+                            "name": "id",
+                            "type": "array",
+                            "detail": "array id",
+                            "example": "[\"transaction\" => \"18...\"",
+                            "documentation": "ID of the DSN message to be generated"
+                        }
+                    ]
                 }
             ]
         },
@@ -2663,6 +2878,27 @@
                     "detail": "number size",
                     "example": "412311",
                     "documentation": "Message size in bytes"
+                },
+                {
+                    "name": "file",
+                    "type": "array",
+                    "detail": "array file",
+                    "example": "[\"original\" => ...,]",
+                    "documentation": "The message file",
+                    "keys": [
+                        {
+                            "name": "original",
+                            "type": "FileResource",
+                            "detail": "FileResource original",
+                            "documentation": "An FileResource to be used with the  class"
+                        },
+                        {
+                            "name": "modified",
+                            "type": "FileResource",
+                            "detail": "FileResource modified",
+                            "documentation": "An FileResource to be used with the  class"
+                        }
+                    ]
                 }
             ]
         },
@@ -2884,7 +3120,7 @@
             "type": "string",
             "detail": "string readonly $service",
             "example": "\"webui\"",
-            "documentation": "Eg. \"ssh\", \"ftp\"..."
+            "documentation": "Service"
         },
         {
             "name": "$soapcall",

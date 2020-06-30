@@ -47,17 +47,17 @@ export const syntax = (file: string) =>
 	for (let i of readdirSyncRecursive(filespath))
 	{
 		if (file == i)
-      continue;
+			continue;
 
-    const buffer = fs.readFileSync(i);
+		const buffer = fs.readFileSync(i);
 
-    let item: any = { id: path.relative(filespath, i) };
-    if (isUtf8(buffer)) {
-      item.data = buffer.toString('utf8');
-    } else {
-      item.data = buffer.toString('base64');
-      item.binary = true;
-    }
+		let item: any = { id: path.relative(filespath, i) };
+		if (isUtf8(buffer)) {
+			item.data = buffer.toString('utf8');
+		} else {
+			item.data = buffer.toString('base64');
+			item.binary = true;
+		}
 
 		result.files.push(item);
 	}
@@ -143,6 +143,7 @@ const extractHooks = (config: any) =>
 {
 	var hooks: any = {
 		'connect': [],
+		'disconnect': [],
 		'proxy': [],
 		'helo': [],
 		'auth': [],
@@ -156,6 +157,8 @@ const extractHooks = (config: any) =>
 			if (server.phases)
 			{
 				if (server.phases.connect && server.phases.connect.hook)
+					hooks.connect.push(server.phases.connect.hook);
+				if (server.phases.disconnect && server.phases.disconnect.hook)
 					hooks.connect.push(server.phases.connect.hook);
 				if (server.phases.proxy && server.phases.proxy.hook)
 					hooks.proxy.push(server.phases.proxy.hook);
@@ -280,17 +283,17 @@ export const generate = (base: string = '.') =>
 					usersettings.smtpd.build &&
 					usersettings.smtpd.build.exclude ? usersettings.smtpd.build.exclude : [];
 				if (exclude.indexOf(path.relative(path.join(base, "src", "files"), i)) != -1)
-          continue;
-        
-        const buffer = fs.readFileSync(i);
+					continue;
+				
+				const buffer = fs.readFileSync(i);
 
-        let item: any = { id: path.relative(path.join(base, "src", "files"), i) };
-        if (isUtf8(buffer)) {
-          item.data = buffer.toString('utf8');
-        } else {
-          item.data = buffer.toString('base64');
-          item.binary = true;
-        }
+				let item: any = { id: path.relative(path.join(base, "src", "files"), i) };
+				if (isUtf8(buffer)) {
+					item.data = buffer.toString('utf8');
+				} else {
+					item.data = buffer.toString('base64');
+					item.binary = true;
+				}
 
 				addFile(config, item);
 			}
@@ -333,10 +336,10 @@ export const generate = (base: string = '.') =>
 		if (file) returnValue.dlpd_app = yaml.parse(file);
 	}
 
-  try {
-    validate.validate(returnValue);
-  } catch (err) {
-    throw new Error(`${err.source}: ${JSON.stringify(err.errors)}`);
-  }
+	try {
+		validate.validate(returnValue);
+	} catch (err) {
+		throw new Error(`${err.source}: ${JSON.stringify(err.errors)}`);
+	}
 	return returnValue;
 }

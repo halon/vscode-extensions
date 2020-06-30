@@ -26,6 +26,11 @@ export default (document: TextDocument) => {
         items.functions = items.functions.concat(functions.connect);
         items.variables = items.variables.concat(variables.connect);
       }
+      if (folder === 'disconnect') {
+        items.classes = items.classes.concat(classes.disconnect);
+        items.functions = items.functions.concat(functions.disconnect);
+        items.variables = items.variables.concat(variables.disconnect);
+      }
       if (folder === 'proxy') {
         items.classes = items.classes.concat(classes.proxy);
         items.functions = items.functions.concat(functions.proxy);

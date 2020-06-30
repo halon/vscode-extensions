@@ -42,6 +42,8 @@ export const run = (base: string | null = '.', force: boolean = false) =>
 		fs.mkdirSync(path.join(base, "src", "files"));
 	if (!fs.existsSync(path.join(base, "src", "hooks", "connect")))
 		fs.mkdirSync(path.join(base, "src", "hooks", "connect"));
+	if (!fs.existsSync(path.join(base, "src", "hooks", "disconnect")))
+		fs.mkdirSync(path.join(base, "src", "hooks", "disconnect"));
 	if (!fs.existsSync(path.join(base, "src", "hooks", "proxy")))
 		fs.mkdirSync(path.join(base, "src", "hooks", "proxy"));
 	if (!fs.existsSync(path.join(base, "src", "hooks", "helo")))

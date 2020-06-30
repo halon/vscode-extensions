@@ -60,7 +60,7 @@
             "returnType": "any",
             "detail": "array_find(function $callback, array $array): any",
             "value": "array_find($0)",
-            "documentation": "Return the first element that matches in the array.",
+            "documentation": "Return the first element that matches in the array. If no element is found none is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#array_find)"
         },
         {
@@ -263,10 +263,10 @@
                     }
                 ]
             },
-            "returnType": "string or none (on error)",
-            "detail": "aes_decrypt(string $message, string $key, string $mode [, array $options]): string or none (on error)",
+            "returnType": "string or none",
+            "detail": "aes_decrypt(string $message, string $key, string $mode [, array $options]): string or none",
             "value": "aes_decrypt($0)",
-            "documentation": "Decrypt a message using AES.",
+            "documentation": "Decrypt a message using AES. On error none is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#aes_decrypt)"
         },
         {
@@ -293,10 +293,10 @@
                     }
                 ]
             },
-            "returnType": "string or none (on error)",
-            "detail": "aes_encrypt(string $message, string $key, string $mode [, array $options]): string or none (on error)",
+            "returnType": "string or none",
+            "detail": "aes_encrypt(string $message, string $key, string $mode [, array $options]): string or none",
             "value": "aes_encrypt($0)",
-            "documentation": "Encrypt a message using AES.",
+            "documentation": "Encrypt a message using AES. On error none is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#aes_encrypt)"
         },
         {
@@ -458,10 +458,10 @@
                     }
                 ]
             },
-            "returnType": "string or none (on error)",
-            "detail": "rsa_sign(string $message, string $privatekey [, array $options]): string or none (on error)",
+            "returnType": "string or none",
+            "detail": "rsa_sign(string $message, string $privatekey [, array $options]): string or none",
             "value": "rsa_sign($0)",
-            "documentation": "RSA sign a message digest using a hash function.",
+            "documentation": "RSA sign a message digest using a hash function. On error none is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#rsa_sign)"
         },
         {
@@ -488,10 +488,10 @@
                     }
                 ]
             },
-            "returnType": "boolean or none (on error)",
-            "detail": "rsa_verify(string $message, string $signature, string $publickey [, array $options]): boolean or none (on error)",
+            "returnType": "boolean or none",
+            "detail": "rsa_verify(string $message, string $signature, string $publickey [, array $options]): boolean or none",
             "value": "rsa_verify($0)",
-            "documentation": "RSA verify a message digest using a hash function. On error the function return none.",
+            "documentation": "RSA verify a message digest using a hash function. On error none is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#rsa_verify)"
         },
         {
@@ -509,10 +509,10 @@
                 ],
                 "optional": []
             },
-            "returnType": "string or none (on error)",
-            "detail": "ed25519_sign(string $message, string $privatekey): string or none (on error)",
+            "returnType": "string or none",
+            "detail": "ed25519_sign(string $message, string $privatekey): string or none",
             "value": "ed25519_sign($0)",
-            "documentation": "ED25519 sign a message.",
+            "documentation": "ED25519 sign a message. On error none is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#ed25519_sign)"
         },
         {
@@ -534,10 +534,10 @@
                 ],
                 "optional": []
             },
-            "returnType": "boolean or none (on error)",
-            "detail": "ed25519_verify(string $message, string $signature, string $publickey): boolean or none (on error)",
+            "returnType": "boolean or none",
+            "detail": "ed25519_verify(string $message, string $signature, string $publickey): boolean or none",
             "value": "ed25519_verify($0)",
-            "documentation": "ED25519 verify a message.",
+            "documentation": "ED25519 verify a message. On error none is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#ed25519_verify)"
         },
         {
@@ -560,10 +560,10 @@
                     }
                 ]
             },
-            "returnType": "string or none (on error)",
-            "detail": "pkcs7_sign(string $message, string $certificate [, array $options]): string or none (on error)",
+            "returnType": "string or none",
+            "detail": "pkcs7_sign(string $message, string $certificate [, array $options]): string or none",
             "value": "pkcs7_sign($0)",
-            "documentation": "PKCS7 sign (S\/MIME) a message.",
+            "documentation": "PKCS7 sign (S\/MIME) a message. On error none is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#pkcs7_sign)"
         },
         {
@@ -1027,10 +1027,10 @@
                 ],
                 "optional": []
             },
-            "returnType": "string",
-            "detail": "idna_encode(string $domain): string",
+            "returnType": "string or none",
+            "detail": "idna_encode(string $domain): string or none",
             "value": "idna_encode($0)",
-            "documentation": "IDNA encode a domain (to punycode). On error None is returned.",
+            "documentation": "IDNA encode a domain (to punycode). On error none is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#idna_encode)"
         },
         {
@@ -1044,10 +1044,10 @@
                 ],
                 "optional": []
             },
-            "returnType": "string",
-            "detail": "idna_decode(string $domain): string",
+            "returnType": "string or none",
+            "detail": "idna_decode(string $domain): string or none",
             "value": "idna_decode($0)",
-            "documentation": "IDNA decode a domain (to unicode). On error None is returned.",
+            "documentation": "IDNA decode a domain (to unicode). On error none is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#idna_decode)"
         },
         {
@@ -1122,10 +1122,10 @@
                     }
                 ]
             },
-            "returnType": "array",
-            "detail": "csv_decode(string $string [, array $options]): array",
+            "returnType": "array or none",
+            "detail": "csv_decode(string $string [, array $options]): array or none",
             "value": "csv_decode($0)",
-            "documentation": "Parse CSV data as string.",
+            "documentation": "Parse CSV data as string. On error none is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#csv_decode)"
         },
         {
@@ -1144,10 +1144,10 @@
                     }
                 ]
             },
-            "returnType": "string",
-            "detail": "json_encode(any $value [, array $options]): string",
+            "returnType": "string or none",
+            "detail": "json_encode(any $value [, array $options]): string or none",
             "value": "json_encode($0)",
-            "documentation": "JSON encode a HSL data type.",
+            "documentation": "JSON encode a HSL data type. On error none is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#json_encode)"
         },
         {
@@ -1166,10 +1166,10 @@
                     }
                 ]
             },
-            "returnType": "any",
-            "detail": "json_decode(string $string [, array $options]): any",
+            "returnType": "any or none",
+            "detail": "json_decode(string $string [, array $options]): any or none",
             "value": "json_decode($0)",
-            "documentation": "Decodes a JSON string into a HSL data type.",
+            "documentation": "Decodes a JSON string into a HSL data type. On error none is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#json_decode)"
         },
         {
@@ -1188,10 +1188,10 @@
                     }
                 ]
             },
-            "returnType": "string",
-            "detail": "pack(string $format [, any ...$args]): string",
+            "returnType": "string or none",
+            "detail": "pack(string $format [, any ...$args]): string or none",
             "value": "pack($0)",
-            "documentation": "Pack arguments into a binary string. On error None is returned.",
+            "documentation": "Pack arguments into a binary string. On error none is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#pack)"
         },
         {
@@ -1214,10 +1214,10 @@
                     }
                 ]
             },
-            "returnType": "array",
-            "detail": "unpack(string $format, string $data [, number $offset = 0]): array",
+            "returnType": "array or none",
+            "detail": "unpack(string $format, string $data [, number $offset = 0]): array or none",
             "value": "unpack($0)",
-            "documentation": "Unpack data from a binary string. On error None is returned.",
+            "documentation": "Unpack data from a binary string. On error none is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#unpack)"
         },
         {
@@ -1240,12 +1240,12 @@
                     },
                     {
                         "name": "post",
-                        "type": "array or string"
+                        "type": "array, string or function"
                     }
                 ]
             },
-            "returnType": "string or array",
-            "detail": "http(string $url [, array $options [, array $get [, array or string $post]]]): string or array",
+            "returnType": "string, array or none",
+            "detail": "http(string $url [, array $options [, array $get [, array, string or function $post]]]): string, array or none",
             "value": "http($0)",
             "documentation": "Make HTTP\/HTTPS request to a URL and return the content.",
             "link": "[Full documentation]({{ docsurl }}functions.html#http)"
@@ -1261,10 +1261,10 @@
                 ],
                 "optional": []
             },
-            "returnType": "array",
-            "detail": "envelope_address_parse(string $address): array",
+            "returnType": "array or none",
+            "detail": "envelope_address_parse(string $address): array or none",
             "value": "envelope_address_parse($0)",
-            "documentation": "Parse an email address into localpart and domain. On error None is returned.",
+            "documentation": "Parse an email address into localpart and domain. On error none is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#envelope_address_parse)"
         },
         {
@@ -1278,8 +1278,8 @@
                 ],
                 "optional": []
             },
-            "returnType": "strings",
-            "detail": "envelope_localpart_escape(string $address): strings",
+            "returnType": "string",
+            "detail": "envelope_localpart_escape(string $address): string",
             "value": "envelope_localpart_escape($0)",
             "documentation": "Apply escaping to the an email envelope localpart.",
             "link": "[Full documentation]({{ docsurl }}functions.html#envelope_localpart_escape)"
@@ -1300,10 +1300,10 @@
                     }
                 ]
             },
-            "returnType": "array",
-            "detail": "header_addresslist_extract(string $value [, array $options]): array",
+            "returnType": "array or none",
+            "detail": "header_addresslist_extract(string $value [, array $options]): array or none",
             "value": "header_addresslist_extract($0)",
-            "documentation": "Extract addresses from a header value or field, often used with From, To and CC headers. On error None is returned.",
+            "documentation": "Extract addresses from a header value or field, often used with From, To and CC headers. On error none is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#header_addresslist_extract)",
             "aliases": [
                 "GetAddressList"
@@ -1325,10 +1325,10 @@
                     }
                 ]
             },
-            "returnType": "array",
-            "detail": "header_dkim_decode(string $value [, array $options]): array",
+            "returnType": "array or none",
+            "detail": "header_dkim_decode(string $value [, array $options]): array or none",
             "value": "header_dkim_decode($0)",
-            "documentation": "Decode a Tag=Value list from a DKIM header value or field, often used with DKIM-Signature or ARC- headers. On error None is returned.",
+            "documentation": "Decode a Tag=Value list from a DKIM header value or field, often used with DKIM-Signature or ARC- headers. On error none is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#header_dkim_decode)"
         },
         {
@@ -1364,36 +1364,6 @@
             "value": "xtext_decode($0)",
             "documentation": "Decode xtext according to the rfc1891.",
             "link": "[Full documentation]({{ docsurl }}functions.html#xtext_decode)"
-        },
-        {
-            "name": "dnsbl",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "ip",
-                        "type": "string"
-                    },
-                    {
-                        "name": "hostname",
-                        "type": "string"
-                    }
-                ],
-                "optional": [
-                    {
-                        "name": "resolvers",
-                        "type": "array"
-                    },
-                    {
-                        "name": "timeout = 5",
-                        "type": "number"
-                    }
-                ]
-            },
-            "returnType": "array",
-            "detail": "dnsbl(string $ip, string $hostname [, array $resolvers [, number $timeout = 5]]): array",
-            "value": "dnsbl($0)",
-            "documentation": "Query the resolvers for the DNSBL status of an address. If no resolvers are given, the system default is used.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#dnsbl)"
         },
         {
             "name": "spf_query",
@@ -1668,10 +1638,10 @@
                 ],
                 "optional": []
             },
-            "returnType": "boolean",
-            "detail": "inet_includes(string $ip, string $network): boolean",
+            "returnType": "boolean or none",
+            "detail": "inet_includes(string $ip, string $network): boolean or none",
             "value": "inet_includes($0)",
-            "documentation": "Returns true if ip is in the subnet or range of network. Both IPv4 and IPv6 are supported.",
+            "documentation": "Returns true if ip is in the subnet or range of network. Both IPv4 and IPv6 are supported (comparison between different protocols always yields false). On error none is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#inet_includes)",
             "aliases": [
                 "in_network"
@@ -1688,10 +1658,10 @@
                 ],
                 "optional": []
             },
-            "returnType": "string",
-            "detail": "inet_ntop(string $ip): string",
+            "returnType": "string or none",
+            "detail": "inet_ntop(string $ip): string or none",
             "value": "inet_ntop($0)",
-            "documentation": "Converts an IP from a binary string format (4 char for IPv4 and 16 char for IPv6) to a printable string format (eg 10.0.0.1). On error None is returned.",
+            "documentation": "Converts an IP from a binary string format (4 char for IPv4 and 16 char for IPv6) to a printable string format (eg 10.0.0.1). On error none is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#inet_ntop)"
         },
         {
@@ -1705,10 +1675,10 @@
                 ],
                 "optional": []
             },
-            "returnType": "string",
-            "detail": "inet_pton(string $ip): string",
+            "returnType": "string or none",
+            "detail": "inet_pton(string $ip): string or none",
             "value": "inet_pton($0)",
-            "documentation": "Converts an IP from printable string format (eg 10.0.0.1) to a binary string format (4 char for IPv4 and 16 char for IPv6). On error None is returned.",
+            "documentation": "Converts an IP from printable string format (eg 10.0.0.1) to a binary string format (4 char for IPv4 and 16 char for IPv6). On error none is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#inet_pton)"
         },
         {
@@ -1727,10 +1697,10 @@
                     }
                 ]
             },
-            "returnType": "string",
-            "detail": "inet_reverse(string $ip [, string $zone]): string",
+            "returnType": "string or none",
+            "detail": "inet_reverse(string $ip [, string $zone]): string or none",
             "value": "inet_reverse($0)",
-            "documentation": "Converts an IPv4 or IPv6 to a reverse DNS compatible format (to be used with PTR lookups or DNSxL lookups). By default the zone correspons to the ARPA address for each IP family. On error None is returned.",
+            "documentation": "Converts an IPv4 or IPv6 to a reverse DNS compatible format (to be used with PTR lookups or DNSxL lookups). By default the zone correspons to the ARPA address for each IP family. On error none is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#inet_reverse)"
         },
         {
@@ -1761,10 +1731,10 @@
                     }
                 ]
             },
-            "returnType": "number",
-            "detail": "rate(string $namespace, string $entry, number $count, number $interval [, array $options]): number",
+            "returnType": "number or none",
+            "detail": "rate(string $namespace, string $entry, number $count, number $interval [, array $options]): number or none",
             "value": "rate($0)",
-            "documentation": "Check or account for the rate of entry in namespace during the last interval.",
+            "documentation": "Check or account for the rate of entry in namespace during the last interval. On error none is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#rate)"
         },
         {
@@ -2244,7 +2214,7 @@
             "returnType": "string",
             "detail": "pcre_replace(string $pattern, any $replace, string $subject [, number $limit = 0]): string",
             "value": "pcre_replace($0)",
-            "documentation": "Perl compatible regular expression data matching and replacing",
+            "documentation": "Perl compatible regular expression data matching and replacing.",
             "link": "[Full documentation]({{ docsurl }}functions.html#pcre_replace)"
         },
         {
@@ -2253,8 +2223,8 @@
                 "required": [],
                 "optional": []
             },
-            "returnType": " or None (for  or a  returning )",
-            "detail": "FFIFunction():  or None (for  or a  returning )",
+            "returnType": "FFIValue or none (for void or a pointer returning NULL)",
+            "detail": "FFIFunction(): FFIValue or none (for void or a pointer returning NULL)",
             "value": "FFIFunction()",
             "documentation": "A callable Function object of type FFIFunction.",
             "link": "[Full documentation]({{ docsurl }}functions.html#FFIFunction)"
@@ -2357,8 +2327,8 @@
                     }
                 ]
             },
-            "returnType": "any or none",
-            "detail": "memory_fetch(string $key [, function $callback]): any or none",
+            "returnType": "any",
+            "detail": "memory_fetch(string $key [, function $callback]): any",
             "value": "memory_fetch($0)",
             "documentation": "Returns the value of a key in the store. If the entry doesn't exist and no callback is provided, none will be returned. If the entry doesn't exist and a callback is provided, it will be called with the key as argument, and the return value of the callback will be used as return value for this function.",
             "link": "[Full documentation]({{ docsurl }}functions.html#memory_fetch)"
@@ -2510,7 +2480,7 @@
             "returnType": "array",
             "detail": "queue_quota(string $name): array",
             "value": "queue_quota($0)",
-            "documentation": "Get the usage for a specific quota. Messages may be assigned to one or more quotas when calling eg. eodonce.EODMailMessage.queue() which is the incremented accordingly. When the messages is removed from the queue (delivered or not) the quota is decremented.",
+            "documentation": "Get the usage for a specific quota. Messages may be assigned to one or more quotas when calling eg. eodonce.EODMailMessage.queue() which is then incremented accordingly. When the messages is removed from the queue (delivered or not) the quota is decremented.",
             "link": "[Full documentation]({{ docsurl }}functions.html#queue_quota)"
         },
         {
@@ -2633,6 +2603,37 @@
             "value": "file_get_contents($0)",
             "documentation": "Return the content of the filename as a string.",
             "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/4.8-stable\/functions.html#file_get_contents)"
+        },
+        {
+            "name": "dnsbl",
+            "deprecated": true,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "ip",
+                        "type": "string"
+                    },
+                    {
+                        "name": "hostname",
+                        "type": "string"
+                    }
+                ],
+                "optional": [
+                    {
+                        "name": "resolvers",
+                        "type": "array"
+                    },
+                    {
+                        "name": "timeout = 5",
+                        "type": "number"
+                    }
+                ]
+            },
+            "returnType": "array",
+            "detail": "dnsbl(string $ip, string $hostname [, array $resolvers [, number $timeout = 5]]): array",
+            "value": "dnsbl($0)",
+            "documentation": "Query the resolvers for the DNSBL status of an address. If no resolvers are given, the system default is used.",
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.2-stable\/functions.html#dnsbl)"
         }
     ],
     "connect": [
@@ -2694,7 +2695,7 @@
         },
         {
             "name": "SetSenderIP",
-            "compat": 1,
+            "deprecated": true,
             "parameters": {
                 "required": [
                     {
@@ -2709,6 +2710,19 @@
             "value": "SetSenderIP($0)",
             "documentation": "Change the senderip for the current connection.",
             "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/4.8-stable\/connect.html#SetSenderIP)"
+        }
+    ],
+    "disconnect": [
+        {
+            "name": "Pass",
+            "parameters": {
+                "required": [],
+                "optional": []
+            },
+            "detail": "Pass()",
+            "value": "Pass()",
+            "documentation": "Terminate the disconnect script.",
+            "link": "[Full documentation]({{ docsurl }}disconnect.html#Pass)"
         }
     ],
     "proxy": [
@@ -2839,7 +2853,7 @@
         },
         {
             "name": "SetHELO",
-            "compat": 1,
+            "deprecated": true,
             "parameters": {
                 "required": [
                     {
@@ -3187,7 +3201,7 @@
             },
             "detail": "Reject([string or array $reason [, array $options]])",
             "value": "Reject($0)",
-            "documentation": "Reject (550) a message. If reason is an array or contains \\n it will be split into a multiline response.",
+            "documentation": "Reject (550) a message.",
             "link": "[Full documentation]({{ docsurl }}eodonce.html#Reject)"
         },
         {
@@ -3207,7 +3221,7 @@
             },
             "detail": "Defer([string or array $reason [, array $options]])",
             "value": "Defer($0)",
-            "documentation": "Defer (421) a message. If reason is an array or contains \\n it will be split into a multiline response.",
+            "documentation": "Defer (421) a message.",
             "link": "[Full documentation]({{ docsurl }}eodonce.html#Defer)"
         },
         {
@@ -3377,7 +3391,7 @@
             },
             "detail": "Reject([string or array $reason [, array $options]])",
             "value": "Reject($0)",
-            "documentation": "Reject (550) a message. If reason is an array or contains \\n it will be split into a multiline response.",
+            "documentation": "Reject (550) a message.",
             "link": "[Full documentation]({{ docsurl }}eodrcpt.html#Reject)"
         },
         {
@@ -3397,7 +3411,7 @@
             },
             "detail": "Defer([string or array $reason [, array $options]])",
             "value": "Defer($0)",
-            "documentation": "Defer (421) a message. If reason is an array or contains \\n it will be split into a multiline response.",
+            "documentation": "Defer (421) a message.",
             "link": "[Full documentation]({{ docsurl }}eodrcpt.html#Defer)"
         },
         {
@@ -3942,7 +3956,7 @@
             },
             "detail": "Try([array $options])",
             "value": "Try($0)",
-            "documentation": "Accept the email into the active queue\n                        (for delivery as soon as the active queue policies allow). This is the default action.",
+            "documentation": "Accept the email into the active queue (for delivery as soon as the active queue policies allow). This is the default action.",
             "link": "[Full documentation]({{ docsurl }}predelivery.html#Try)"
         },
         {
@@ -3958,7 +3972,7 @@
             },
             "detail": "Queue([array $options])",
             "value": "Queue($0)",
-            "documentation": "Queue the message to be retried later. If the maximum retry count is exceeded; the message is either bounced or deleted depending on the transport's settings.",
+            "documentation": "Queue the message to be retried later.",
             "link": "[Full documentation]({{ docsurl }}predelivery.html#Queue)"
         },
         {
@@ -3969,7 +3983,7 @@
             },
             "detail": "Bounce()",
             "value": "Bounce()",
-            "documentation": "Delete the message from the queue, and generate a DSN (bounce) to the sender.",
+            "documentation": "Skip the delivery attempt and execute the post-delivery context with $arguments[\"action\"] set to BOUNCE. By default this will delete the message from the queue, and generate a DSN (bounce) to the sender.",
             "link": "[Full documentation]({{ docsurl }}predelivery.html#Bounce)"
         },
         {
@@ -3980,25 +3994,8 @@
             },
             "detail": "Delete()",
             "value": "Delete()",
-            "documentation": "Delete the message from the queue, without generating a DSN (bounce) to the sender.",
+            "documentation": "Skip the delivery attempt and execute the post-delivery context with $arguments[\"action\"] set to DELETE. By default this will delete the message from the queue, without generating a DSN (bounce) to the sender.",
             "link": "[Full documentation]({{ docsurl }}predelivery.html#Delete)"
-        },
-        {
-            "name": "SetDSN",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ],
-                "optional": []
-            },
-            "returnType": "none",
-            "detail": "SetDSN(array $options): none",
-            "value": "SetDSN($0)",
-            "documentation": "Set the DSN options for the current delivery attempt if a DSN were to be created. It is not remembered for the next retry.",
-            "link": "[Full documentation]({{ docsurl }}predelivery.html#SetDSN)"
         },
         {
             "name": "SetMetaData",
@@ -4014,7 +4011,7 @@
             "returnType": "none",
             "detail": "SetMetaData(array $metadata): none",
             "value": "SetMetaData($0)",
-            "documentation": "This function updates the queued message's metadata in the database. It is consequentially remembered for the next retry.\n                        The metadata must be an array with both string keys and values.",
+            "documentation": "This function updates the queued message's metadata the hqf file. It is consequentially remembered for the next retry.\n                        The metadata must be an array with both string keys and values.",
             "link": "[Full documentation]({{ docsurl }}predelivery.html#SetMetaData)"
         },
         {
@@ -4030,30 +4027,22 @@
             "link": "[Full documentation]({{ docsurl }}predelivery.html#GetMetaData)"
         },
         {
-            "name": "CurrentConnections",
+            "name": "GetMailFile",
             "deprecated": true,
             "parameters": {
-                "required": [
+                "required": [],
+                "optional": [
                     {
-                        "name": "namespace",
-                        "type": "string"
-                    },
-                    {
-                        "name": "entry",
-                        "type": "string"
-                    },
-                    {
-                        "name": "max",
-                        "type": "number"
+                        "name": "options",
+                        "type": "array"
                     }
-                ],
-                "optional": []
+                ]
             },
-            "returnType": "boolean",
-            "detail": "CurrentConnections(string $namespace, string $entry, number $max): boolean",
-            "value": "CurrentConnections($0)",
-            "documentation": "Can be used to limit concurrency. It returns false of the current number of connections with the same entry name in that namespace exceeds max, and true otherwise. The function will also occupy one \"slot\" after being executed, over the duration of its delivery attempt.",
-            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.1-stable\/predelivery.html#CurrentConnections)"
+            "returnType": "File",
+            "detail": "GetMailFile([array $options]): File",
+            "value": "GetMailFile($0)",
+            "documentation": "Return a File class to the current mail file.",
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.1-stable\/predelivery.html#GetMailFile)"
         },
         {
             "name": "Reschedule",
@@ -4288,24 +4277,6 @@
             "value": "SetRecipientParams($0)",
             "documentation": "Set the recipient RCPT TO params for the current delivery attempt. It is not remembered for the next retry.",
             "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.1-stable\/predelivery.html#SetRecipientParams)"
-        },
-        {
-            "name": "GetMailFile",
-            "compat": 2,
-            "parameters": {
-                "required": [],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "File",
-            "detail": "GetMailFile([array $options]): File",
-            "value": "GetMailFile($0)",
-            "documentation": "Return a File class to the current mail file.",
-            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.1-stable\/predelivery.html#GetMailFile)"
         }
     ],
     "postdelivery": [
@@ -4322,17 +4293,22 @@
             },
             "detail": "Queue([array $options])",
             "value": "Queue($0)",
-            "documentation": "Queue the message to be retried later. This is the default action for temporary \/ non-permanent (5XX) errors. If the maximum retry count is exceeded; the message is either bounced or deleted depending on the transport's settings.",
+            "documentation": "Queue the message to be retried later. This is the default action for temporary \/ non-permanent (5XX) errors while the retry count isn't exceeded.",
             "link": "[Full documentation]({{ docsurl }}postdelivery.html#Queue)"
         },
         {
             "name": "Bounce",
             "parameters": {
                 "required": [],
-                "optional": []
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
             },
-            "detail": "Bounce()",
-            "value": "Bounce()",
+            "detail": "Bounce([array $options])",
+            "value": "Bounce($0)",
             "documentation": "Delete the message from the queue, and generating a DSN (bounce) to the sender.",
             "link": "[Full documentation]({{ docsurl }}postdelivery.html#Bounce)"
         },
@@ -4348,21 +4324,15 @@
             "link": "[Full documentation]({{ docsurl }}postdelivery.html#Delete)"
         },
         {
-            "name": "SetDSN",
+            "name": "Default",
             "parameters": {
-                "required": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ],
+                "required": [],
                 "optional": []
             },
-            "returnType": "none",
-            "detail": "SetDSN(array $options): none",
-            "value": "SetDSN($0)",
-            "documentation": "Set the DSN options for the current delivery attempt if a DSN were to be created. It is not remembered for the next retry.",
-            "link": "[Full documentation]({{ docsurl }}postdelivery.html#SetDSN)"
+            "detail": "Default()",
+            "value": "Default()",
+            "documentation": "Run the default action pending the current $arguments[\"action\"]. This is the default action if not calling Queue(), Bounce() or Delete(). If the message was delivered no action will be taken and the script will terminate.",
+            "link": "[Full documentation]({{ docsurl }}postdelivery.html#Default)"
         },
         {
             "name": "SetMetaData",
@@ -4378,7 +4348,7 @@
             "returnType": "none",
             "detail": "SetMetaData(array $metadata): none",
             "value": "SetMetaData($0)",
-            "documentation": "This function updates the queued message's metadata in the database. It is consequentially remembered for the next retry.\n                        The metadata must be an array with both string keys and values.",
+            "documentation": "This function updates the queued message's metadata in the hqf file. It is consequentially remembered for the next retry.\n                        The metadata must be an array with both string keys and values.",
             "link": "[Full documentation]({{ docsurl }}postdelivery.html#SetMetaData)"
         },
         {
@@ -4392,6 +4362,24 @@
             "value": "GetMetaData()",
             "documentation": "Get the metadata set by SetMetaData(). If no data was set, an empty array is returned.",
             "link": "[Full documentation]({{ docsurl }}postdelivery.html#GetMetaData)"
+        },
+        {
+            "name": "GetMailFile",
+            "deprecated": true,
+            "parameters": {
+                "required": [],
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
+            },
+            "returnType": "File",
+            "detail": "GetMailFile([array $options]): File",
+            "value": "GetMailFile($0)",
+            "documentation": "Return a File class to the current mail file.",
+            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.1-stable\/postdelivery.html#GetMailFile)"
         },
         {
             "name": "Retry",
@@ -4427,24 +4415,6 @@
             "value": "GetTLS($0)",
             "documentation": "Get the TLS information for the delivery attempt.",
             "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.1-stable\/postdelivery.html#GetTLS)"
-        },
-        {
-            "name": "GetMailFile",
-            "compat": 2,
-            "parameters": {
-                "required": [],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "File",
-            "detail": "GetMailFile([array $options]): File",
-            "value": "GetMailFile($0)",
-            "documentation": "Return a File class to the current mail file.",
-            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.1-stable\/postdelivery.html#GetMailFile)"
         }
     ],
     "api": [

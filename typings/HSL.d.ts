@@ -10,6 +10,7 @@ declare namespace HSL
   interface Variables {
     core: Variable[]
     connect: Variable[];
+    disconnect: Variable[];
     helo: Variable[];
     auth: Variable[];
     mailfrom: Variable[];
@@ -36,6 +37,7 @@ declare namespace HSL
   interface Functions {
     core: Function[];
     connect: Function[];
+    disconnect: Function[];
     helo: Function[];
     auth: Function[];
     mailfrom: Function[];
@@ -64,6 +66,7 @@ declare namespace HSL
   interface Classes {
     core: Class[];
     connect: Class[];
+    disconnect: Class[];
     helo: Class[];
     auth: Class[];
     mailfrom: Class[];
