@@ -1,17 +1,17 @@
 import * as path from 'path';
 import {
-	window,
-	workspace,
-	Uri,
-	DiagnosticCollection,
-	Range,
-	Diagnostic,
-	DiagnosticSeverity,
-	TextDocument,
-	RelativePattern,
-	Location,
-	Position,
-	DiagnosticRelatedInformation
+  window,
+  workspace,
+  Uri,
+  DiagnosticCollection,
+  Range,
+  Diagnostic,
+  DiagnosticSeverity,
+  TextDocument,
+  RelativePattern,
+  Location,
+  Position,
+  DiagnosticRelatedInformation
 } from 'vscode';
 import * as build from './build';
 import * as remote from './remote';
@@ -22,7 +22,7 @@ export default async (connector: factory.SSH2Connector | factory.UNIXConnector, 
 {
   const workspaceFolder = workspace.getWorkspaceFolder(document.uri);
 
-	if (typeof workspaceFolder !== 'undefined') {
+  if (typeof workspaceFolder !== 'undefined') {
     let uris: Uri[] = [];
 
     let filesPath = path.join(workspaceFolder.uri.fsPath, 'src', 'files');
