@@ -158,7 +158,7 @@
       "patterns": [
         {
           "name": "invalid.illegal.hsl",
-          "match": "\\b(this|self|public|protected|struct|clone|final|const|goto|namespace|new|catch|try|interface|throw|in|extends|print|trait|assert|finally|lambda|pass|with|delete|destroy|export|use)\\b"
+          "match": "\\b(this|self|public|protected|struct|clone|final|const|goto|namespace|new|catch|try|interface|throw|in|extends|print|trait|assert|finally|lambda|pass|delete|destroy|export|use)\\b"
         },
         {
           "name": "invalid.illegal.hsl",
