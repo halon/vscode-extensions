@@ -126,7 +126,7 @@
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "docs": "npm --prefix node_modules/@halon/hsl-docs install && npm --prefix node_modules/@halon/hsl-docs run build && cp node_modules/@halon/hsl-docs/dist/json/* src/docs/",
+    "docs": "npm install @halon/hsl-docs && npm --prefix node_modules/@halon/hsl-docs install && npm --prefix node_modules/@halon/hsl-docs run build && cp node_modules/@halon/hsl-docs/dist/json/* src/docs/",
     "vsce": "./node_modules/vsce/out/vsce"
   },
   "bugs": {
