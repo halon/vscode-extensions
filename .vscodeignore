@@ -3,4 +3,5 @@ typings/**
 src/**
 **/*.map
 .gitignore
+.editorconfig
 tsconfig.json
