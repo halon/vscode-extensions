@@ -1173,6 +1173,23 @@
             "link": "[Full documentation]({{ docsurl }}functions.html#json_decode)"
         },
         {
+            "name": "yaml_decode",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "string",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "any or none",
+            "detail": "yaml_decode(string $string): any or none",
+            "value": "yaml_decode($0)",
+            "documentation": "Decodes a YAML string into a HSL data type. On error none is returned.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#yaml_decode)"
+        },
+        {
             "name": "pack",
             "parameters": {
                 "required": [

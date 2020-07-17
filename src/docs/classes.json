@@ -1410,6 +1410,18 @@
                     "link": "[Full documentation]({{ docsurl }}functions.html#Socket.shutdown)"
                 },
                 {
+                    "name": "toFFIValue",
+                    "parameters": {
+                        "required": [],
+                        "optional": []
+                    },
+                    "returnType": "FFIValue or none",
+                    "detail": "Socket->toFFIValue(): FFIValue or none",
+                    "value": "toFFIValue()",
+                    "documentation": "Return the file descriptor representing the current socket. On error none is returned.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#Socket.toFFIValue)"
+                },
+                {
                     "static": true,
                     "name": "AF",
                     "parameters": {
