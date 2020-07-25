@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 5.4.0
+* Sync with 5.4 release of the MTA
+
 ## Version 5.3.0
 * Sync with 5.3 release of the MTA
 
