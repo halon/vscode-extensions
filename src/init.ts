@@ -64,7 +64,7 @@ export const run = (base: string | null = '.', force: boolean = false) =>
     fs.mkdirSync(path.join(base, "src", "hooks", "queue"));
 
   var smtpd_app = {
-    version: '5.3',
+    version: '5.4',
     servers: [
       {
         id: 'inbound',

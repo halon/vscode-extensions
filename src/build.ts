@@ -9,7 +9,7 @@ export const syntax = (file: string) =>
   var fileparse = path.parse(file);
   const filepath = fileparse.dir.split(path.sep);
   var result = {
-    version: "5.3",
+    version: "5.4",
     phase: "",
     data: "",
     files: <any>[]
