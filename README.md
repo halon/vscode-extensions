@@ -2,6 +2,8 @@
 
 A [Visual Studio Code](https://code.visualstudio.com/) [extension](https://docs.halon.io/go/vscodeplugin) with support for the [Halon Scripting Language](http://docs.halon.se/hsl).
 
+**Note: This extension currently only works with the [componentized package](https://docs.halon.io/manual/comp.html) of the Halon MTA, not the [integrated package](https://docs.halon.io/manual/integrated.html).**
+
 ## Features
 
 ### Scripting
