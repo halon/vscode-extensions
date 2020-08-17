@@ -9,7 +9,7 @@ gulp.task('clean', () => {
 });
 
 gulp.task('webpack-production', function() {
-  const config = require('./webpack.config.js');
+  let config = require('./webpack.config.js');
   config.mode = 'production';
   return gulp.src('src/extension.ts')
     .pipe(webpack(config))
@@ -17,7 +17,7 @@ gulp.task('webpack-production', function() {
 });
 
 gulp.task('webpack-development', function() {
-  const config = require('./webpack.config.js');
+  let config = require('./webpack.config.js');
   config.mode = 'development';
   config.devtool = 'source-map';
   return gulp.src('src/extension.ts')
