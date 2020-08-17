@@ -20,12 +20,12 @@
     "halon",
     "hsl"
   ],
-  "icon": "images/icon.png",
+  "icon": "dist/images/icon.png",
   "galleryBanner": {
     "color": "#062B36",
     "theme": "dark"
   },
-  "main": "./out/extension",
+  "main": "./dist/extension",
   "contributes": {
     "languages": [
       {
@@ -37,14 +37,14 @@
         "extensions": [
           ".hsl"
         ],
-        "configuration": "./language-configuration.json"
+        "configuration": "./dist/language/language-configuration.json"
       }
     ],
     "grammars": [
       {
         "language": "hsl",
         "scopeName": "source.hsl",
-        "path": "./syntaxes/hsl.tmLanguage.json"
+        "path": "./dist/language/hsl.tmLanguage.json"
       }
     ],
     "commands": [
@@ -76,39 +76,39 @@
     "yamlValidation": [
       {
         "fileMatch": "smtpd.yaml",
-        "url": "./node_modules/@halon/json-schemas/smtpd.schema.json"
+        "url": "./dist/json-schemas/smtpd.schema.json"
       },
       {
         "fileMatch": "smtpd-app.yaml",
-        "url": "./node_modules/@halon/json-schemas/smtpd-app.schema.json"
+        "url": "./dist/json-schemas/smtpd-app.schema.json"
       },
       {
         "fileMatch": "smtpd-policy.yaml",
-        "url": "./node_modules/@halon/json-schemas/smtpd-policy.schema.json"
+        "url": "./dist/json-schemas/smtpd-policy.schema.json"
       },
       {
         "fileMatch": "smtpd-suspend.yaml",
-        "url": "./node_modules/@halon/json-schemas/smtpd-suspend.schema.json"
+        "url": "./dist/json-schemas/smtpd-suspend.schema.json"
       },
       {
         "fileMatch": "smtpd-delivery.yaml",
-        "url": "./node_modules/@halon/json-schemas/smtpd-delivery.schema.json"
+        "url": "./dist/json-schemas/smtpd-delivery.schema.json"
       },
       {
         "fileMatch": "dlpd.yaml",
-        "url": "./node_modules/@halon/json-schemas/dlpd.schema.json"
+        "url": "./dist/json-schemas/dlpd.schema.json"
       },
       {
         "fileMatch": "dlpd-app.yaml",
-        "url": "./node_modules/@halon/json-schemas/dlpd-app.schema.json"
+        "url": "./dist/json-schemas/dlpd-app.schema.json"
       },
       {
         "fileMatch": "rated.yaml",
-        "url": "./node_modules/@halon/json-schemas/rated.schema.json"
+        "url": "./dist/json-schemas/rated.schema.json"
       },
       {
         "fileMatch": "rated-app.yaml",
-        "url": "./node_modules/@halon/json-schemas/rated-app.schema.json"
+        "url": "./dist/json-schemas/rated-app.schema.json"
       }
     ]
   },
@@ -123,9 +123,9 @@
   ],
   "qna": "marketplace",
   "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
+    "vscode:prepublish": "gulp production",
+    "build": "gulp development",
+    "watch": "gulp watch",
     "docs": "npm install @halon/hsl-docs && npm --prefix node_modules/@halon/hsl-docs install && npm --prefix node_modules/@halon/hsl-docs run build && cp node_modules/@halon/hsl-docs/dist/json/* src/docs/",
     "vsce": "./node_modules/vsce/out/vsce"
   },
@@ -149,8 +149,14 @@
     "@types/ssh2": "^0.5.39",
     "@types/underscore": "^1.9.3",
     "@types/vscode": "^1.46.0",
+    "del": "^5.1.0",
+    "gulp": "^4.0.2",
+    "ts-loader": "^8.0.2",
     "typescript": "^3.9.6",
-    "vsce": "^1.77.0"
+    "vsce": "^1.77.0",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-stream": "^5.2.1"
   },
   "dependencies": {
     "@halon/json-schemas": "github:halon/json-schemas",

@@ -1,7 +1,7 @@
-.vscode/**
-typings/**
+.vscode
+node_modules
 src/**
-**/*.map
-.gitignore
-.editorconfig
+package-json.lock
 tsconfig.json
+webpack.config.js
+.editorconfig

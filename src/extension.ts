@@ -1,6 +1,5 @@
 'use strict';
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
+
 import { ExtensionContext, languages, window, workspace, TextDocument, TextEditor, Uri, TextEditorSelectionChangeEvent, commands } from 'vscode';
 import { debounce } from 'underscore';
 import Links from './links';
@@ -12,12 +11,8 @@ import * as build from './build';
 import livestage from './livestage';
 import Connectors from './connectors';
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
 export function activate(context: ExtensionContext)
 {
-  // Use the console to output diagnostic information (console.log) and errors (console.error)
-  // This line of code will only be executed once when your extension is activated
   const connectors = new Connectors();
 
   const settingsFileSystemWatcher = workspace.createFileSystemWatcher('**/settings.json', true);
@@ -153,5 +148,4 @@ export function activate(context: ExtensionContext)
   }));
 }
 
-// this method is called when your extension is deactivated
 export function deactivate() {}
