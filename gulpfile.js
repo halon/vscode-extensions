@@ -3,9 +3,9 @@ const del = require('del');
 const webpack = require('webpack-stream');
 
 gulp.task('clean', () => {
-	return del([
+  return del([
     'dist/**/*'
-	]);
+  ]);
 });
 
 gulp.task('webpack-production', function() {
@@ -26,18 +26,18 @@ gulp.task('webpack-development', function() {
 });
 
 gulp.task('images', () => {
-	return gulp.src('src/images/**/*')
-		.pipe(gulp.dest('dist/images'));
+  return gulp.src('src/images/**/*')
+    .pipe(gulp.dest('dist/images'));
 });
 
 gulp.task('json-schemas', () => {
-	return gulp.src('node_modules/@halon/json-schemas/*.schema.json')
-		.pipe(gulp.dest('dist/json-schemas'));
+  return gulp.src('node_modules/@halon/json-schemas/*.schema.json')
+    .pipe(gulp.dest('dist/json-schemas'));
 });
 
 gulp.task('language', () => {
-	return gulp.src('src/language/**/*')
-		.pipe(gulp.dest('dist/language'));
+  return gulp.src('src/language/**/*')
+    .pipe(gulp.dest('dist/language'));
 });
 
 gulp.task('watch', () => {
