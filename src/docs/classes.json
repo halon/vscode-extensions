@@ -1,6 +1,241 @@
 {
     "core": [
         {
+            "name": "Map",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "keytype",
+                        "type": "string"
+                    },
+                    {
+                        "name": "valuetype",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "methods": [
+                {
+                    "name": "set",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "key",
+                                "type": "string"
+                            },
+                            {
+                                "name": "value",
+                                "type": "string"
+                            }
+                        ],
+                        "optional": []
+                    },
+                    "returnType": "boolean",
+                    "detail": "Map->set(string $key, string $value): boolean",
+                    "value": "set($0)",
+                    "documentation": "Add or update the key with the value.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#Map.set)"
+                },
+                {
+                    "name": "has",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "key",
+                                "type": "string"
+                            }
+                        ],
+                        "optional": []
+                    },
+                    "returnType": "boolean",
+                    "detail": "Map->has(string $key): boolean",
+                    "value": "has($0)",
+                    "documentation": "Check if the key exists.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#Map.has)"
+                },
+                {
+                    "name": "get",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "key",
+                                "type": "string"
+                            }
+                        ],
+                        "optional": []
+                    },
+                    "returnType": "any",
+                    "detail": "Map->get(string $key): any",
+                    "value": "get($0)",
+                    "documentation": "Get the value of key or none if it doesn't exists.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#Map.get)"
+                },
+                {
+                    "name": "delete",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "key",
+                                "type": "string"
+                            }
+                        ],
+                        "optional": []
+                    },
+                    "returnType": "boolean",
+                    "detail": "Map->delete(string $key): boolean",
+                    "value": "delete($0)",
+                    "documentation": "Delete the key from the map.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#Map.delete)"
+                },
+                {
+                    "name": "size",
+                    "parameters": {
+                        "required": [],
+                        "optional": []
+                    },
+                    "returnType": "number",
+                    "detail": "Map->size(): number",
+                    "value": "size()",
+                    "documentation": "Get number of keys in the map.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#Map.size)"
+                },
+                {
+                    "name": "clear",
+                    "parameters": {
+                        "required": [],
+                        "optional": []
+                    },
+                    "returnType": "none",
+                    "detail": "Map->clear(): none",
+                    "value": "clear()",
+                    "documentation": "Delete all keys in the map.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#Map.clear)"
+                },
+                {
+                    "name": "entries",
+                    "parameters": {
+                        "required": [],
+                        "optional": []
+                    },
+                    "returnType": "Iterator",
+                    "detail": "Map->entries(): Iterator",
+                    "value": "entries()",
+                    "documentation": "Iterator to all keys and values in the map in no specific order.\n                                The iterators value will be an array containg the [0=&gt;key, 1=&gt;value].\n                                If iterating the map with foreach, the key and value will be mapped accordingly.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#Map.entries)"
+                }
+            ],
+            "detail": "Map(string $keytype, string $valuetype)",
+            "value": "Map($0)",
+            "documentation": "The Map class maps keys to values. Keys are unique and may only point to a single value.\n                        This map is strongly-typed, meaning you have to define which data types you intend to store in it.\n                        There is a limited number of key types, but they are optimized for performance.\n                        As for value you may choose to use the any type to support all data types and also mixed in the map,\n                        but it is more memory efficent to use a specific type.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#Map)"
+        },
+        {
+            "name": "Set",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "keytype",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "methods": [
+                {
+                    "name": "add",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "key",
+                                "type": "string"
+                            }
+                        ],
+                        "optional": []
+                    },
+                    "returnType": "boolean",
+                    "detail": "Set->add(string $key): boolean",
+                    "value": "add($0)",
+                    "documentation": "Add the key to the set.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#Set.add)"
+                },
+                {
+                    "name": "has",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "key",
+                                "type": "string"
+                            }
+                        ],
+                        "optional": []
+                    },
+                    "returnType": "boolean",
+                    "detail": "Set->has(string $key): boolean",
+                    "value": "has($0)",
+                    "documentation": "Check if the key exists.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#Set.has)"
+                },
+                {
+                    "name": "delete",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "key",
+                                "type": "string"
+                            }
+                        ],
+                        "optional": []
+                    },
+                    "returnType": "boolean",
+                    "detail": "Set->delete(string $key): boolean",
+                    "value": "delete($0)",
+                    "documentation": "Delete the key from the set.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#Set.delete)"
+                },
+                {
+                    "name": "size",
+                    "parameters": {
+                        "required": [],
+                        "optional": []
+                    },
+                    "returnType": "number",
+                    "detail": "Set->size(): number",
+                    "value": "size()",
+                    "documentation": "Get number of keys in the set.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#Set.size)"
+                },
+                {
+                    "name": "clear",
+                    "parameters": {
+                        "required": [],
+                        "optional": []
+                    },
+                    "returnType": "none",
+                    "detail": "Set->clear(): none",
+                    "value": "clear()",
+                    "documentation": "Delete all keys in the set.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#Set.clear)"
+                },
+                {
+                    "name": "values",
+                    "parameters": {
+                        "required": [],
+                        "optional": []
+                    },
+                    "returnType": "Iterator",
+                    "detail": "Set->values(): Iterator",
+                    "value": "values()",
+                    "documentation": "Iterator to all keys in the set in no specific order.\n                                If iterating the set with foreach, the key (in the set) will be mapped to the value in the foreach statement.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#Set.values)"
+                }
+            ],
+            "detail": "Set(string $keytype)",
+            "value": "Set($0)",
+            "documentation": "The Set class holds keys in a unique collection.\n                        This set is strongly-typed, meaning you have to define which data types you intend to store in it.\n                        There is a limited number of key types, but they are optimized for performance.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#Set)"
+        },
+        {
             "name": "Iconv",
             "parameters": {
                 "required": [
