@@ -159,7 +159,7 @@ const extractHooks = (config: any) =>
         if (server.phases.connect && server.phases.connect.hook)
           hooks.connect.push(server.phases.connect.hook);
         if (server.phases.disconnect && server.phases.disconnect.hook)
-          hooks.connect.push(server.phases.connect.hook);
+          hooks.disconnect.push(server.phases.disconnect.hook);
         if (server.phases.proxy && server.phases.proxy.hook)
           hooks.proxy.push(server.phases.proxy.hook);
         if (server.phases.helo && server.phases.helo.hook)
