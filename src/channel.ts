@@ -17,7 +17,7 @@ export const startLiveStage = (stream: stream.Duplex, buffer: Buffer) =>
   return sendAndWait(stream, packRequest('a', buffer));
 }
 
-const sendAndWait = async(stream: stream.Duplex, data: Buffer) =>
+const sendAndWait = (stream: stream.Duplex, data: Buffer) =>
 {
   return new Promise<Buffer>((resolve, reject) => {
     var buffer = Buffer.alloc(0);
