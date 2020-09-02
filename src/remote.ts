@@ -1,12 +1,12 @@
-import yaml from "yaml";
+import yaml from 'yaml';
 import * as pb from './protobuf';
 import * as channel from './channel';
 import { IConnector } from './factory';
 
-const smtpd_socket = "/var/run/halon/smtpd.ctl";
-const hsllint_program = "/opt/halon/bin/hsl-lint";
+const smtpd_socket = '/var/run/halon/smtpd.ctl';
+const hsllint_program = '/opt/halon/bin/hsl-lint';
 
-export const syntax = async (connector: IConnector, syntax: any) =>
+export const syntax = (connector: IConnector, syntax: any) =>
 {
   return new Promise(async (resolve, reject) => {
     var stderr = Buffer.alloc(0);
@@ -16,7 +16,7 @@ export const syntax = async (connector: IConnector, syntax: any) =>
       {
         case 0: resolve(undefined); break;
         case 1: resolve(yaml.parse(stderr.toString())); break;
-        default: reject(Error("hsl-lint exited with code: " + code + ", stderr: " + stderr.toString()));
+        default: reject(new Error('hsl-lint exited with code: ' + code + ', stderr: ' + stderr.toString()));
       }
     });
     program.on('data', (data: Buffer) => {
@@ -31,7 +31,7 @@ export const syntax = async (connector: IConnector, syntax: any) =>
 
 export const startLiveStage = async (connector: IConnector, id: string, conditions: any, config: string) =>
 {
-  const buffer = await pb.protobufPacker("smtpd.proto", "smtpd.ConfigGreenDeployRequest", { id: id, conditions: conditions, config: config });
+  const buffer = await pb.protobufPacker('smtpd.proto', 'smtpd.ConfigGreenDeployRequest', { id: id, conditions: conditions, config: config });
 
   return new Promise(async (resolve, reject) => {
     var s = await connector.openChannel(smtpd_socket);

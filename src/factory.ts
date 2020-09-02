@@ -81,9 +81,15 @@ export class SSH2Connector implements IConnector
     if (!this.conn || !this.connected)
       this.conn = await this.connect(this.settings);
     return new Promise<ClientChannel>((resolve, reject) => {
-      if (!this.conn) reject('No open connection');
-      else this.conn.openssh_forwardOutStreamLocal(path, (err, stream) => {
-        if (err) reject(err);
+      if (!this.conn) {
+        reject('No open connection');
+        return;
+      }
+      this.conn.openssh_forwardOutStreamLocal(path, (err, stream) => {
+        if (err) {
+          reject(err);
+          return;
+        }
         resolve(stream);
       });
     });
@@ -93,9 +99,15 @@ export class SSH2Connector implements IConnector
     if (!this.conn || !this.connected)
       this.conn = await this.connect(this.settings);
     return new Promise<ExecProgram>((resolve, reject) => {
-      if (!this.conn) reject('No open connection');
-      else this.conn.exec(program + " " + argv.join(" "), (err, stream) => {
-        if (err) reject(err);
+      if (!this.conn) {
+        reject('No open connection');
+        return;
+      }
+      this.conn.exec(program + ' ' + argv.join(' '), (err, stream) => {
+        if (err) {
+          reject(err);
+          return;
+        }
         resolve(stream);
       });
     });

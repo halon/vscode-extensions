@@ -1,35 +1,34 @@
-import protobuf from "protobufjs";
-import path from "path";
-import fs from "fs";
+import protobuf from 'protobufjs';
+import path from 'path';
 
-export const findProtobufRoot = () : string[] =>
-{
-  if (fs.existsSync(path.join(__dirname, "..", "node_modules", "@halon", "protobuf-schemas"))) {
-    return [__dirname, "..", "node_modules", "@halon", "protobuf-schemas"];
-  } else {
-    return [__dirname, "..", "..", "protobuf-schemas"];
-  }
-}
-
-export const protobufPacker = async (file: string, type: string, payload: any) =>
+export const protobufPacker = (file: string, type: string, payload: any) =>
 {
   return new Promise<Buffer>((resolve, reject) => {
-    protobuf.load(path.join(...findProtobufRoot(), file), (err, root: any) => {
-      if (err) reject(err);
+    protobuf.load(path.join(__dirname, '/protobuf-schemas/', file), (err, root: any) => {
+      if (err) {
+        reject(err);
+        return;
+      }
       const pbuftype = root.lookupType(type);
       const errMsg = pbuftype.verify(payload);
-      if (errMsg) reject(errMsg);
+      if (errMsg) {
+        reject(errMsg);
+        return;
+      }
       const message = pbuftype.create(payload);
       resolve(pbuftype.encode(message).finish());
     });
   });
 }
 
-export const protobufLoader = async (file: string, type: string, payload: any) =>
+export const protobufLoader = (file: string, type: string, payload: any) =>
 {
   return new Promise<any>((resolve, reject) => {
-    protobuf.load(path.join(...findProtobufRoot(), file), (err, root: any) => {
-      if (err) reject(err);
+    protobuf.load(path.join(__dirname, '/protobuf-schemas/', file), (err, root: any) => {
+      if (err) {
+        reject(err);
+        return;
+      }
       const pbuftype = root.lookupType(type);
       const message = pbuftype.decode(payload);
       resolve(pbuftype.toObject(message, {
