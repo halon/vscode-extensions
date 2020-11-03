@@ -126,7 +126,7 @@
     "vscode:prepublish": "gulp production",
     "build": "gulp development",
     "watch": "gulp watch",
-    "docs": "npm install @halon/hsl-docs && npm --prefix node_modules/@halon/hsl-docs install && npm --prefix node_modules/@halon/hsl-docs run build && cp node_modules/@halon/hsl-docs/dist/json/* src/docs/",
+    "docs": "npm --prefix node_modules/@halon/hsl-docs install && npm --prefix node_modules/@halon/hsl-docs run build && cp node_modules/@halon/hsl-docs/dist/json/* src/docs/",
     "vsce": "./node_modules/vsce/out/vsce"
   },
   "bugs": {
@@ -142,7 +142,7 @@
     "redhat.vscode-yaml"
   ],
   "devDependencies": {
-    "@halon/hsl-docs": "github:halon/hsl-docs#ea6d15ef3f162a4fe37d950edc1878c7794b74cb",
+    "@halon/hsl-docs": "github:halon/hsl-docs#87d2bcdc7170e894bb29b06ed14e5b53887a1ec3",
     "@types/fs-readdir-recursive": "^1.0.0",
     "@types/node": "^14.0.14",
     "@types/path-is-inside": "^1.0.0",
@@ -160,8 +160,8 @@
     "webpack-stream": "^5.2.1"
   },
   "dependencies": {
-    "@halon/json-schemas": "github:halon/json-schemas#7c028795047880fe225f8a114a5d540223aee549",
-    "@halon/protobuf-schemas": "github:halon/protobuf-schemas#c7d7dc5b7644783f8629aec2938a49edfe78a7fd",
+    "@halon/json-schemas": "github:halon/json-schemas#3aecd884760046919e883e7e922c68dd6017c00f",
+    "@halon/protobuf-schemas": "github:halon/protobuf-schemas#fc90d52e484159f23551653ffd3029c501f78ba3",
     "ajv": "^6.10.2",
     "is-utf8": "^0.2.1",
     "path-is-inside": "^1.0.2",

@@ -513,7 +513,7 @@
                     "type": "array",
                     "detail": "array senderparams",
                     "example": "[\"SIZE\" => \"2048\", ... ]",
-                    "documentation": "Sender parameters to the envelope address"
+                    "documentation": "Sender parameters to the envelope address (keys will always be in uppercase)"
                 },
                 {
                     "name": "recipients",
@@ -1125,7 +1125,7 @@
                     "type": "array",
                     "detail": "array params",
                     "example": "[\"SIZE\" => \"2048\", ... ]",
-                    "documentation": "Sender parameters to the envelope address"
+                    "documentation": "Sender parameters to the envelope address (keys will always be in uppercase)"
                 }
             ]
         },
@@ -1441,7 +1441,7 @@
                     "type": "array",
                     "detail": "array params",
                     "example": "[\"NOTIFY\" => \"NEVER\", .. ]",
-                    "documentation": "Recipient parameters to the envelope address"
+                    "documentation": "Recipient parameters to the envelope address (keys will always be in uppercase)"
                 },
                 {
                     "name": "transportid",
@@ -1644,7 +1644,7 @@
                     "type": "array",
                     "detail": "array senderparams",
                     "example": "[\"SIZE\" => \"2048\", ... ]",
-                    "documentation": "Sender parameters to the envelope address"
+                    "documentation": "Sender parameters to the envelope address (keys will always be in uppercase)"
                 },
                 {
                     "name": "recipients",
@@ -2027,7 +2027,7 @@
                     "type": "array",
                     "detail": "array senderparams",
                     "example": "[\"SIZE\" => \"2048\", ... ]",
-                    "documentation": "Sender parameters to the envelope address"
+                    "documentation": "Sender parameters to the envelope address (keys will always be in uppercase)"
                 },
                 {
                     "name": "recipients",
@@ -2147,7 +2147,7 @@
             "type": "array",
             "detail": "array readonly $senderparams",
             "example": "[\"SIZE\" => \"2048\", ... ]",
-            "documentation": "Sender parameters to the envelope address"
+            "documentation": "Sender parameters to the envelope address (keys will always be in uppercase)"
         },
         {
             "name": "$recipientdomains",
@@ -2183,6 +2183,13 @@
             "detail": "string readonly $recipientdomain",
             "example": "\"example.com\"",
             "documentation": "Domain part of recipient's address (envelope)"
+        },
+        {
+            "name": "$recipientparams",
+            "type": "array",
+            "detail": "array readonly $recipientparams",
+            "example": "[\"NOTIFY\" => \"NEVER\", .. ]",
+            "documentation": "Recipient parameters to the envelope address (keys will always be in uppercase)"
         },
         {
             "name": "$transportid",
@@ -2359,6 +2366,43 @@
                             "documentation": "An FileResource to be used with the  class"
                         }
                     ]
+                },
+                {
+                    "name": "dsn",
+                    "type": "array",
+                    "detail": "array dsn",
+                    "example": "[\"envid\" => ...,]",
+                    "documentation": "The message DSN options",
+                    "keys": [
+                        {
+                            "name": "envid",
+                            "type": "string",
+                            "detail": "string envid",
+                            "example": "\"\"",
+                            "documentation": "The DSN ENVID"
+                        },
+                        {
+                            "name": "ret",
+                            "type": "string",
+                            "detail": "string ret",
+                            "example": "\"HDRS\"",
+                            "documentation": "The DSN RET ( or )"
+                        },
+                        {
+                            "name": "notify",
+                            "type": "array",
+                            "detail": "array notify",
+                            "example": "\"SUCCESS,FAILURE\"",
+                            "documentation": "The DSN NOTIFY options (, ,  or )"
+                        },
+                        {
+                            "name": "orcpt",
+                            "type": "string",
+                            "detail": "string orcpt",
+                            "example": "\"\"",
+                            "documentation": "The DSN ORCPT recipient address"
+                        }
+                    ]
                 }
             ]
         },
@@ -2382,7 +2426,7 @@
             "type": "string",
             "detail": "string readonly $serverid",
             "example": "\"mailserver:1\"",
-            "documentation": "ID of the server the message was recevied on"
+            "documentation": "ID of the server the message was received on"
         },
         {
             "name": "$senderhelo",
@@ -2735,14 +2779,14 @@
                     "type": "array",
                     "detail": "array dsn",
                     "example": "[\"action\"=> \"delayed\", ...]",
-                    "documentation": "The DSN action for (\"BOUNCE\", \"QUEUE\") actions and the DSN message id (if generated). Missing on successful deliveries.",
+                    "documentation": "The DSN action and a DSN message id (if generated).",
                     "keys": [
                         {
                             "name": "action",
                             "type": "string",
                             "detail": "string action",
                             "example": "\"delayed\"",
-                            "documentation": "DSN type to be generated ( or )"
+                            "documentation": "DSN type to be generated (, ,  or )"
                         },
                         {
                             "name": "id",
@@ -2897,6 +2941,43 @@
                             "type": "FileResource",
                             "detail": "FileResource modified",
                             "documentation": "An FileResource to be used with the  class"
+                        }
+                    ]
+                },
+                {
+                    "name": "dsn",
+                    "type": "array",
+                    "detail": "array dsn",
+                    "example": "[\"envid\" => ...,]",
+                    "documentation": "The message DSN options",
+                    "keys": [
+                        {
+                            "name": "envid",
+                            "type": "string",
+                            "detail": "string envid",
+                            "example": "\"\"",
+                            "documentation": "The DSN ENVID"
+                        },
+                        {
+                            "name": "ret",
+                            "type": "string",
+                            "detail": "string ret",
+                            "example": "\"HDRS\"",
+                            "documentation": "The DSN RET ( or )"
+                        },
+                        {
+                            "name": "notify",
+                            "type": "array",
+                            "detail": "array notify",
+                            "example": "\"SUCCESS,FAILURE\"",
+                            "documentation": "The DSN NOTIFY options (, ,  or )"
+                        },
+                        {
+                            "name": "orcpt",
+                            "type": "string",
+                            "detail": "string orcpt",
+                            "example": "\"\"",
+                            "documentation": "The DSN ORCPT recipient address"
                         }
                     ]
                 }

@@ -1051,6 +1051,40 @@
             "link": "[Full documentation]({{ docsurl }}functions.html#idna_decode)"
         },
         {
+            "name": "base32_encode",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "string",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "string",
+            "detail": "base32_encode(string $string): string",
+            "value": "base32_encode($0)",
+            "documentation": "Base32 encode the string (RFC 4648).",
+            "link": "[Full documentation]({{ docsurl }}functions.html#base32_encode)"
+        },
+        {
+            "name": "base32_decode",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "string",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "string",
+            "detail": "base32_decode(string $string): string",
+            "value": "base32_decode($0)",
+            "documentation": "Base32 decode the string (RFC 4648).",
+            "link": "[Full documentation]({{ docsurl }}functions.html#base32_decode)"
+        },
+        {
             "name": "base64_encode",
             "parameters": {
                 "required": [
@@ -1171,6 +1205,40 @@
             "value": "json_decode($0)",
             "documentation": "Decodes a JSON string into a HSL data type. On error none is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#json_decode)"
+        },
+        {
+            "name": "url_encode",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "string",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "string",
+            "detail": "url_encode(string $string): string",
+            "value": "url_encode($0)",
+            "documentation": "URL encode the string (RFC 3986).",
+            "link": "[Full documentation]({{ docsurl }}functions.html#url_encode)"
+        },
+        {
+            "name": "url_decode",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "string",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "string",
+            "detail": "url_decode(string $string): string",
+            "value": "url_decode($0)",
+            "documentation": "URL decode the string (RFC 3986).",
+            "link": "[Full documentation]({{ docsurl }}functions.html#url_decode)"
         },
         {
             "name": "yaml_decode",
@@ -1411,23 +1479,6 @@
             "value": "spf_query($0)",
             "documentation": "Check the SPF status of the senderdomain.",
             "link": "[Full documentation]({{ docsurl }}functions.html#spf_query)"
-        },
-        {
-            "name": "globalview",
-            "parameters": {
-                "required": [
-                    {
-                        "name": "ip",
-                        "type": "string"
-                    }
-                ],
-                "optional": []
-            },
-            "returnType": "string",
-            "detail": "globalview(string $ip): string",
-            "value": "globalview($0)",
-            "documentation": "Query the embedded Cyren IP reputation, ctipd.\n                        This function is only available in the full system distribution (virtual machine) package.\n                        All connectors are available in the script library.",
-            "link": "[Full documentation]({{ docsurl }}functions.html#globalview)"
         },
         {
             "name": "abs",
@@ -1989,6 +2040,10 @@
                     {
                         "name": "string",
                         "type": "string"
+                    },
+                    {
+                        "name": "substring",
+                        "type": "string"
                     }
                 ],
                 "optional": [
@@ -1999,7 +2054,7 @@
                 ]
             },
             "returnType": "number",
-            "detail": "str_rfind(string $string [, number $offset = 0]): number",
+            "detail": "str_rfind(string $string, string $substring [, number $offset = 0]): number",
             "value": "str_rfind($0)",
             "documentation": "Return the position (starting from zero) of the last occurrence of substring in the string searching backward (starting from the offset relative to the end). If the substring is not found -1 is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#str_rfind)",
@@ -2651,6 +2706,23 @@
             "value": "dnsbl($0)",
             "documentation": "Query the resolvers for the DNSBL status of an address. If no resolvers are given, the system default is used.",
             "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.2-stable\/functions.html#dnsbl)"
+        },
+        {
+            "name": "globalview",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "ip",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "string",
+            "detail": "globalview(string $ip): string",
+            "value": "globalview($0)",
+            "documentation": "Query the embedded Cyren IP reputation, ctipd.",
+            "link": "[Full documentation]({{ docsurl }}integrations.html#globalview)"
         }
     ],
     "connect": [
@@ -3320,7 +3392,7 @@
             "detail": "ScanRPD([array $options]): number, string or array",
             "value": "ScanRPD($0)",
             "documentation": "Scan the message using Cyren; anti-spam ctasd (RPD and LocalView) and zero-hour malware detection (VOD). It runs in either inbound or outbound mode, and it's important to configure this correctly with the outbound option.",
-            "link": "[Full documentation]({{ docsurl }}eodonce.html#ScanRPD)"
+            "link": "[Full documentation]({{ docsurl }}integrations.html#ScanRPD)"
         },
         {
             "name": "ScanSA",
@@ -3337,7 +3409,7 @@
             "detail": "ScanSA([array $options]): number or array",
             "value": "ScanSA($0)",
             "documentation": "Scan the message using SpamAssassin.",
-            "link": "[Full documentation]({{ docsurl }}eodonce.html#ScanSA)"
+            "link": "[Full documentation]({{ docsurl }}integrations.html#ScanSA)"
         },
         {
             "name": "ScanKAV",
@@ -3354,7 +3426,7 @@
             "detail": "ScanKAV([array $options]): array",
             "value": "ScanKAV($0)",
             "documentation": "Scan the message using the Sophos anti-virus.",
-            "link": "[Full documentation]({{ docsurl }}eodonce.html#ScanKAV)"
+            "link": "[Full documentation]({{ docsurl }}integrations.html#ScanKAV)"
         },
         {
             "name": "ScanCLAM",
@@ -3371,7 +3443,7 @@
             "detail": "ScanCLAM([array $options]): array",
             "value": "ScanCLAM($0)",
             "documentation": "Scan the message using ClamAV anti-virus.",
-            "link": "[Full documentation]({{ docsurl }}eodonce.html#ScanCLAM)"
+            "link": "[Full documentation]({{ docsurl }}integrations.html#ScanCLAM)"
         }
     ],
     "eodrcpt": [
@@ -3523,74 +3595,6 @@
             "value": "ScanDLP($0)",
             "documentation": "Scan a message using the builtin DLP engine.",
             "link": "[Full documentation]({{ docsurl }}eodrcpt.html#ScanDLP)"
-        },
-        {
-            "name": "ScanRPD",
-            "parameters": {
-                "required": [],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "number, string or array",
-            "detail": "ScanRPD([array $options]): number, string or array",
-            "value": "ScanRPD($0)",
-            "documentation": "Scan the message using Cyren; anti-spam ctasd (RPD and LocalView) and zero-hour malware detection (VOD). It runs in either inbound or outbound mode, and it's important to configure this correctly with the outbound option.",
-            "link": "[Full documentation]({{ docsurl }}eodrcpt.html#ScanRPD)"
-        },
-        {
-            "name": "ScanSA",
-            "parameters": {
-                "required": [],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "number or array",
-            "detail": "ScanSA([array $options]): number or array",
-            "value": "ScanSA($0)",
-            "documentation": "Scan the message using SpamAssassin.",
-            "link": "[Full documentation]({{ docsurl }}eodrcpt.html#ScanSA)"
-        },
-        {
-            "name": "ScanKAV",
-            "parameters": {
-                "required": [],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "array",
-            "detail": "ScanKAV([array $options]): array",
-            "value": "ScanKAV($0)",
-            "documentation": "Scan the message using the Sophos anti-virus.",
-            "link": "[Full documentation]({{ docsurl }}eodrcpt.html#ScanKAV)"
-        },
-        {
-            "name": "ScanCLAM",
-            "parameters": {
-                "required": [],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "array",
-            "detail": "ScanCLAM([array $options]): array",
-            "value": "ScanCLAM($0)",
-            "documentation": "Scan the message using ClamAV anti-virus.",
-            "link": "[Full documentation]({{ docsurl }}eodrcpt.html#ScanCLAM)"
         },
         {
             "name": "GetTLS",
@@ -3957,6 +3961,74 @@
             "value": "GetDSNHeader($0)",
             "documentation": "Same as GetHeader except it works on attached DSN messages. The name is not case sensitive.",
             "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.0-stable\/eodrcpt.html#GetDSNHeader)"
+        },
+        {
+            "name": "ScanRPD",
+            "parameters": {
+                "required": [],
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
+            },
+            "returnType": "number, string or array",
+            "detail": "ScanRPD([array $options]): number, string or array",
+            "value": "ScanRPD($0)",
+            "documentation": "Scan the message using Cyren; anti-spam ctasd (RPD and LocalView) and zero-hour malware detection (VOD). It runs in either inbound or outbound mode, and it's important to configure this correctly with the outbound option.",
+            "link": "[Full documentation]({{ docsurl }}integrations.html#ScanRPD)"
+        },
+        {
+            "name": "ScanSA",
+            "parameters": {
+                "required": [],
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
+            },
+            "returnType": "number or array",
+            "detail": "ScanSA([array $options]): number or array",
+            "value": "ScanSA($0)",
+            "documentation": "Scan the message using SpamAssassin.",
+            "link": "[Full documentation]({{ docsurl }}integrations.html#ScanSA)"
+        },
+        {
+            "name": "ScanKAV",
+            "parameters": {
+                "required": [],
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
+            },
+            "returnType": "array",
+            "detail": "ScanKAV([array $options]): array",
+            "value": "ScanKAV($0)",
+            "documentation": "Scan the message using the Sophos anti-virus.",
+            "link": "[Full documentation]({{ docsurl }}integrations.html#ScanKAV)"
+        },
+        {
+            "name": "ScanCLAM",
+            "parameters": {
+                "required": [],
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
+            },
+            "returnType": "array",
+            "detail": "ScanCLAM([array $options]): array",
+            "value": "ScanCLAM($0)",
+            "documentation": "Scan the message using ClamAV anti-virus.",
+            "link": "[Full documentation]({{ docsurl }}integrations.html#ScanCLAM)"
         }
     ],
     "predelivery": [
@@ -4310,7 +4382,7 @@
             },
             "detail": "Queue([array $options])",
             "value": "Queue($0)",
-            "documentation": "Queue the message to be retried later. This is the default action for temporary \/ non-permanent (5XX) errors while the retry count isn't exceeded.",
+            "documentation": "Queue the message to be retried later. This is the default action for non-permanent (temporary) errors while the retry count isn't exceeded.\n                        Permanent errors include 5xx SMTP responses, permanent DNS failures, etc.",
             "link": "[Full documentation]({{ docsurl }}postdelivery.html#Queue)"
         },
         {
