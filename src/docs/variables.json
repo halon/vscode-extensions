@@ -255,7 +255,7 @@
                                     "name": "x509",
                                     "type": "X509Resource",
                                     "detail": "X509Resource x509",
-                                    "documentation": "An X509Resource to be used with the  class"
+                                    "documentation": "An X509Resource to be used with the X509 class"
                                 },
                                 {
                                     "name": "error",
@@ -428,7 +428,7 @@
                                     "name": "x509",
                                     "type": "X509Resource",
                                     "detail": "X509Resource x509",
-                                    "documentation": "An X509Resource to be used with the  class"
+                                    "documentation": "An X509Resource to be used with the X509 class"
                                 },
                                 {
                                     "name": "error",
@@ -645,7 +645,7 @@
                                     "name": "x509",
                                     "type": "X509Resource",
                                     "detail": "X509Resource x509",
-                                    "documentation": "An X509Resource to be used with the  class"
+                                    "documentation": "An X509Resource to be used with the X509 class"
                                 },
                                 {
                                     "name": "error",
@@ -942,7 +942,7 @@
                                     "name": "x509",
                                     "type": "X509Resource",
                                     "detail": "X509Resource x509",
-                                    "documentation": "An X509Resource to be used with the  class"
+                                    "documentation": "An X509Resource to be used with the X509 class"
                                 },
                                 {
                                     "name": "error",
@@ -1236,7 +1236,7 @@
                                     "name": "x509",
                                     "type": "X509Resource",
                                     "detail": "X509Resource x509",
-                                    "documentation": "An X509Resource to be used with the  class"
+                                    "documentation": "An X509Resource to be used with the X509 class"
                                 },
                                 {
                                     "name": "error",
@@ -1559,7 +1559,7 @@
                                     "name": "x509",
                                     "type": "X509Resource",
                                     "detail": "X509Resource x509",
-                                    "documentation": "An X509Resource to be used with the  class"
+                                    "documentation": "An X509Resource to be used with the X509 class"
                                 },
                                 {
                                     "name": "error",
@@ -1935,7 +1935,7 @@
                                     "name": "x509",
                                     "type": "X509Resource",
                                     "detail": "X509Resource x509",
-                                    "documentation": "An X509Resource to be used with the  class"
+                                    "documentation": "An X509Resource to be used with the X509 class"
                                 },
                                 {
                                     "name": "error",
@@ -2357,13 +2357,13 @@
                             "name": "original",
                             "type": "FileResource",
                             "detail": "FileResource original",
-                            "documentation": "An FileResource to be used with the  class"
+                            "documentation": "An FileResource to be used with the File class"
                         },
                         {
                             "name": "modified",
                             "type": "FileResource",
                             "detail": "FileResource modified",
-                            "documentation": "An FileResource to be used with the  class"
+                            "documentation": "An FileResource to be used with the File class"
                         }
                     ]
                 },
@@ -2386,14 +2386,14 @@
                             "type": "string",
                             "detail": "string ret",
                             "example": "\"HDRS\"",
-                            "documentation": "The DSN RET ( or )"
+                            "documentation": "The DSN RET (HDRS or FULL)"
                         },
                         {
                             "name": "notify",
                             "type": "array",
                             "detail": "array notify",
                             "example": "\"SUCCESS,FAILURE\"",
-                            "documentation": "The DSN NOTIFY options (, ,  or )"
+                            "documentation": "The DSN NOTIFY options (NEVER, SUCCESS, FAILURE or DELAY)"
                         },
                         {
                             "name": "orcpt",
@@ -2750,7 +2750,7 @@
                                                     "name": "x509",
                                                     "type": "X509Resource",
                                                     "detail": "X509Resource x509",
-                                                    "documentation": "An X509Resource to be used with the  class"
+                                                    "documentation": "An X509Resource to be used with the X509 class"
                                                 }
                                             ]
                                         },
@@ -2786,7 +2786,7 @@
                             "type": "string",
                             "detail": "string action",
                             "example": "\"delayed\"",
-                            "documentation": "DSN type to be generated (, ,  or )"
+                            "documentation": "DSN type to be generated (delayed, failed, relayed or delivered)"
                         },
                         {
                             "name": "id",
@@ -2934,13 +2934,13 @@
                             "name": "original",
                             "type": "FileResource",
                             "detail": "FileResource original",
-                            "documentation": "An FileResource to be used with the  class"
+                            "documentation": "An FileResource to be used with the File class"
                         },
                         {
                             "name": "modified",
                             "type": "FileResource",
                             "detail": "FileResource modified",
-                            "documentation": "An FileResource to be used with the  class"
+                            "documentation": "An FileResource to be used with the File class"
                         }
                     ]
                 },
@@ -2963,14 +2963,14 @@
                             "type": "string",
                             "detail": "string ret",
                             "example": "\"HDRS\"",
-                            "documentation": "The DSN RET ( or )"
+                            "documentation": "The DSN RET (HDRS or FULL)"
                         },
                         {
                             "name": "notify",
                             "type": "array",
                             "detail": "array notify",
                             "example": "\"SUCCESS,FAILURE\"",
-                            "documentation": "The DSN NOTIFY options (, ,  or )"
+                            "documentation": "The DSN NOTIFY options (NEVER, SUCCESS, FAILURE or DELAY)"
                         },
                         {
                             "name": "orcpt",

@@ -142,7 +142,7 @@
     "redhat.vscode-yaml"
   ],
   "devDependencies": {
-    "@halon/hsl-docs": "github:halon/hsl-docs#87d2bcdc7170e894bb29b06ed14e5b53887a1ec3",
+    "@halon/hsl-docs": "github:halon/hsl-docs#59f771707a8e749cbf4f112fa177c53fa6589e3f",
     "@types/fs-readdir-recursive": "^1.0.0",
     "@types/node": "^14.0.14",
     "@types/path-is-inside": "^1.0.0",
