@@ -49,9 +49,14 @@ export const syntax = (file: string) =>
     if (file == i)
       continue;
 
+    const id = path.relative(filespath, i);
+    const hidden = id.split('/').filter(i => i.charAt(0) === '.');
+    if (hidden.length > 0)
+      continue;
+
     const buffer = fs.readFileSync(i);
 
-    let item: any = { id: path.relative(filespath, i) };
+    let item: any = { id: id };
     if (isUtf8(buffer)) {
       item.data = buffer.toString('utf8');
     } else {
@@ -278,16 +283,21 @@ export const generate = (base: string = '.') =>
 
       for (let i of readdirSyncRecursive(path.join(base, "src", "files")))
       {
+        const id = path.relative(path.join(base, "src", "files"), i);
+        const hidden = id.split('/').filter(i => i.charAt(0) === '.');
+        if (hidden.length > 0)
+          continue;
+
         var exclude: string[] = usersettings &&
           usersettings.smtpd &&
           usersettings.smtpd.build &&
           usersettings.smtpd.build.exclude ? usersettings.smtpd.build.exclude : [];
-        if (exclude.indexOf(path.relative(path.join(base, "src", "files"), i)) != -1)
+        if (exclude.indexOf(id) != -1)
           continue;
         
         const buffer = fs.readFileSync(i);
 
-        let item: any = { id: path.relative(path.join(base, "src", "files"), i) };
+        let item: any = { id: id };
         if (isUtf8(buffer)) {
           item.data = buffer.toString('utf8');
         } else {
