@@ -55,10 +55,10 @@ const sendAndWait = (stream: stream.Duplex, data: Buffer) =>
 
 export const packRequest = (command: string, protobuf?: Buffer): Buffer =>
 {
-  // 5.4
+  // 5.5
   var version = Buffer.alloc(2);
   version.writeInt8(5, 0);
-  version.writeInt8(4, 1);
+  version.writeInt8(5, 1);
 
   if (!protobuf)
     return Buffer.concat([version, Buffer.from(command)]);
