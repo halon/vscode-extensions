@@ -2,7 +2,9 @@
 
 A [Visual Studio Code](https://code.visualstudio.com/) [extension](https://docs.halon.io/go/vscodeplugin) with support for the [Halon Scripting Language](http://docs.halon.se/hsl).
 
-**Note: This extension currently only works with the [componentized package](https://docs.halon.io/manual/comp.html) of the Halon MTA, not the [integrated package](https://docs.halon.io/manual/integrated.html).**
+**This extension currently only works with the [componentized package](https://docs.halon.io/manual/comp.html) of the Halon MTA, not the [integrated package](https://docs.halon.io/manual/integrated.html).**
+
+**Not running the latest Halon version? See [this](https://github.com/microsoft/vscode/issues/12764#issuecomment-442370545) link for information on how you can install an older version of the extension compatible with your Halon version.**
 
 ## Features
 
