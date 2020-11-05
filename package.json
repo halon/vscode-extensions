@@ -161,7 +161,7 @@
   },
   "dependencies": {
     "@halon/json-schemas": "github:halon/json-schemas#3aecd884760046919e883e7e922c68dd6017c00f",
-    "@halon/protobuf-schemas": "github:halon/protobuf-schemas#fc90d52e484159f23551653ffd3029c501f78ba3",
+    "@halon/protobuf-schemas": "github:halon/protobuf-schemas#a5172ecf15109b8c2b54ff22bde36b82d9b8d5ca",
     "ajv": "^6.10.2",
     "is-utf8": "^0.2.1",
     "path-is-inside": "^1.0.2",
