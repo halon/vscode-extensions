@@ -32,10 +32,10 @@ export const protobufLoader = (file: string, type: string, payload: any) =>
       const pbuftype = root.lookupType(type);
       const message = pbuftype.decode(payload);
       resolve(pbuftype.toObject(message, {
-          longs: Number,
-          enums: String,
-          defaults: true
-        }));
+        longs: Number,
+        enums: String,
+        defaults: true
+      }));
     });
   });
 }
