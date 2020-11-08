@@ -33,7 +33,7 @@ const sendAndWait = (stream: stream.Duplex, data: Buffer) =>
             }
             if (buffer.length > len + 9) {
               reject(new Error('Too much data in response'));
-              return
+              return;
             }
             if (buffer.length == len + 9) {
               if (buffer[0] == 'E'.charCodeAt(0)) {
