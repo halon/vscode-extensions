@@ -72,8 +72,20 @@
       {
         "command": "halon.livestageCancel",
         "title": "Halon: Live Staging (Cancel)"
+      },
+      {
+        "command": "halon.runScript",
+        "title": "Halon: Run Script"
       }
     ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "halon.runScript",
+          "when": "editorLangId == hsl"
+        }
+      ]
+    },
     "yamlValidation": [
       {
         "fileMatch": "smtpd.yaml",
@@ -120,7 +132,8 @@
     "onCommand:halon.build",
     "onCommand:halon.livestageStart",
     "onCommand:halon.livestageStatus",
-    "onCommand:halon.livestageCancel"
+    "onCommand:halon.livestageCancel",
+    "onCommand:halon.runScript"
   ],
   "qna": "marketplace",
   "scripts": {

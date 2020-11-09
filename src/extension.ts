@@ -8,6 +8,7 @@ import Hovers from './hovers';
 import lint from './lint';
 import * as init from './init';
 import * as build from './build';
+import run from './run';
 import livestage from './livestage';
 import Connectors from './connectors';
 
@@ -144,6 +145,16 @@ export function activate(context: ExtensionContext)
       const workspaceFolder = workspace.workspaceFolders[0];
       const connector = connectors.getConnector(workspaceFolder);
       if (typeof connector !== 'undefined') livestage(connector, workspaceFolder.uri.fsPath, 'cancel');
+    }
+  }));
+
+  context.subscriptions.push(commands.registerCommand('halon.runScript', () => {
+    if (typeof window.activeTextEditor !== 'undefined') {
+      const workspaceFolder = workspace.getWorkspaceFolder(window.activeTextEditor.document.uri);
+      if (typeof workspaceFolder !== 'undefined') {
+        const connector = connectors.getConnector(workspaceFolder);
+        if (typeof connector !== 'undefined') run(connector, window.activeTextEditor.document, workspaceFolder.uri.fsPath);
+      }
     }
   }));
 }

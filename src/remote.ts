@@ -1,10 +1,11 @@
 import yaml from 'yaml';
 import * as pb from './protobuf';
 import * as channel from './channel';
-import { IConnector } from './factory';
+import { IConnector, ExecProgram } from './factory';
 
 const smtpd_socket = '/var/run/halon/smtpd.ctl';
 const hsllint_program = '/opt/halon/bin/hsl-lint';
+const hsh_program = "/opt/halon/bin/hsh";
 
 export const syntax = (connector: IConnector, syntax: any) =>
 {
@@ -64,6 +65,29 @@ export const statusLiveStage = (connector: IConnector) =>
         stream.end();
         reject(error);
       });
+    }).catch(reject);
+  });
+}
+
+export const run = (connector: IConnector, smtpd_app: any, callback: Function) =>
+{
+  return new Promise(async (resolve, reject) => {
+    let args = ["-A", "-", "-"];
+    connector.exec(hsh_program, args).then((program: ExecProgram) => {
+      program.on('close', (code: number, signal: string) => {
+        resolve(code);
+      });
+      program.stdout.on('data', (data: Buffer) => {
+        callback(data.toString());
+      });
+      program.stderr.on('data', (data: Buffer) => {
+        callback(data.toString());
+      });
+      try {
+        program.stdin.end(yaml.stringify(smtpd_app));
+      } catch (e) {
+        reject(e);
+      }
     }).catch(reject);
   });
 }

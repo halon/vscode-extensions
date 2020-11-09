@@ -12,6 +12,7 @@ A [Visual Studio Code](https://code.visualstudio.com/) [extension](https://docs.
 * Syntax highlighting
 * Code completion
 * Real-time linting
+* Run scripts
 
 ### Configuration
 * YAML packer
