@@ -34,6 +34,7 @@ export default (connector: factory.SSH2Connector | factory.UNIXConnector, docume
     return;
   }
 
+  let finished = false;
   const writeEmitter = new EventEmitter<string>();
   const closeEmitter = new EventEmitter<number | void>();
   const pty: Pseudoterminal = {
@@ -49,6 +50,7 @@ export default (connector: factory.SSH2Connector | factory.UNIXConnector, docume
         } else {
           writeEmitter.fire('\x1b[31mFinished unsuccessfully, press any key to close terminal\x1b[0m');
         }
+        finished = true;
       }).catch((error) => {
         window.showErrorMessage(`Run Script: ${error.message || error}`);
         closeEmitter.fire();
@@ -56,7 +58,7 @@ export default (connector: factory.SSH2Connector | factory.UNIXConnector, docume
     },
     close: () => {},
     handleInput: (data) => {
-      closeEmitter.fire();
+      if (finished) closeEmitter.fire();
     }
   };
   
