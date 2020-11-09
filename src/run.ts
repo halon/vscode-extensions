@@ -45,9 +45,9 @@ export default (connector: factory.SSH2Connector | factory.UNIXConnector, docume
         writeEmitter.fire(data.replace(/\n/g, '\r\n'));
       }).then((code) => {
         if (code === 0) {
-          writeEmitter.fire('\x1b[32mFinished successfully, press "q" to close terminal\x1b[0m');
+          writeEmitter.fire('\x1b[32mFinished successfully, press any key to close terminal\x1b[0m');
         } else {
-          writeEmitter.fire('\x1b[31mFinished unsuccessfully, press "q" to close terminal\x1b[0m');
+          writeEmitter.fire('\x1b[31mFinished unsuccessfully, press any key to close terminal\x1b[0m');
         }
       }).catch((error) => {
         window.showErrorMessage(`Run Script: ${error.message || error}`);
@@ -56,7 +56,7 @@ export default (connector: factory.SSH2Connector | factory.UNIXConnector, docume
     },
     close: () => {},
     handleInput: (data) => {
-      if (data === 'q') closeEmitter.fire();
+      closeEmitter.fire();
     }
   };
   
