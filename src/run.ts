@@ -42,7 +42,7 @@ export default (connector: factory.SSH2Connector | factory.UNIXConnector, docume
     open: () => {
       writeEmitter.fire(`\x1b[36mRunning script file ${id}...\x1b[0m\r\n`);
       remote.run(connector, config.smtpd_app, (data: string) => {
-        writeEmitter.fire(data.replace('\n', '\r\n'));
+        writeEmitter.fire(data.replace(/\n/g, '\r\n'));
       }).then((code) => {
         if (code === 0) {
           writeEmitter.fire('\x1b[32mFinished successfully, press "q" to close terminal\x1b[0m');
