@@ -1,4 +1,4 @@
-import { Client, ClientChannel } from 'ssh2';
+import { Client, ClientChannel, ExecOptions } from 'ssh2';
 import net from 'net';
 import * as stream from 'stream';
 import { EventEmitter } from 'events';
@@ -103,7 +103,18 @@ export class SSH2Connector implements IConnector
         reject('No open connection');
         return;
       }
-      this.conn.exec(program + ' ' + argv.join(' '), (err, stream) => {
+
+      let options: ExecOptions = {};
+      if (program === "/opt/halon/bin/hsh") {
+        options.pty = {
+          modes: {
+            ECHO: 0,
+            ICANON: 0
+          }
+        };
+      }
+
+      this.conn.exec(program + ' ' + argv.join(' '), options, (err, stream) => {
         if (err) {
           reject(err);
           return;
