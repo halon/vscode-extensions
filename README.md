@@ -25,7 +25,7 @@ A [Visual Studio Code](https://code.visualstudio.com/) [extension](https://docs.
 2. Run the `Halon: Init` command to generate a configuration boilerplate
 3. Edit the SSH settings in the `settings.yaml` file to point to your Halon installation
     * We also support using a `settings.json` file instead as long as it uses the same config format
-    * If you want to authenticate using a SSH key instead of a password you can replace the `password` key with `"agent": "$SSH_AUTH_SOCK"`
+    * If you want to authenticate using a SSH key instead of a password you can replace the `password` key with `agent: $SSH_AUTH_SOCK`
 5. Run the `Halon: Build` command to generate the packaged YAML file(s)
 
 ## Commands
