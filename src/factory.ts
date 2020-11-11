@@ -22,8 +22,8 @@ export interface IConnector
 
 export const ConnectorFactory = (settings: any) =>
 {
-  if (settings.ssh2)
-    return new SSH2Connector(settings.ssh2);
+  if (settings.ssh)
+    return new SSH2Connector(settings.ssh);
   return new UNIXConnector();
 }
 

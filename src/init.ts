@@ -21,7 +21,7 @@ export const run = (base: string | null = '.', force: boolean = false) =>
         smtpd: {
           build: { excludes: [] }
         },
-        ssh2: {
+        ssh: {
           host: "192.168.0.1",
           port: 22,
           username: "admin",

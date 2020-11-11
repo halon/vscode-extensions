@@ -33,8 +33,12 @@ export default class Connectors
       }
 
       if (settings && settingsPath) {
-        if (settings.ssh2 && settings.ssh2.agent && settings.ssh2.agent[0] == '$')
-          settings.ssh2.agent = process.env[settings.ssh2.agent.substr(1)];
+        if (settings.ssh2) {
+          settings.ssh = settings.ssh2;
+          delete settings.ssh2;
+        }
+        if (settings.ssh && settings.ssh.agent && settings.ssh.agent[0] == '$')
+          settings.ssh.agent = process.env[settings.ssh.agent.substr(1)];
         let connector = this.connectors.find(connector => {
           return connector.settingsPath === settingsPath;
         });
