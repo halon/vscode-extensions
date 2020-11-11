@@ -15,8 +15,8 @@ export const run = (base: string | null = '.', force: boolean = false) =>
 
   if (!fs.existsSync(path.join(base, "dist")))
     fs.mkdirSync(path.join(base, "dist"));
-  if (force || !fs.existsSync(path.join(base, "settings.json")))
-    fs.writeFileSync(path.join(base, "settings.json"), JSON.stringify(
+  if (force || !fs.existsSync(path.join(base, "settings.yaml")))
+    fs.writeFileSync(path.join(base, "settings.yaml"), yaml.stringify(
       {
         smtpd: {
           build: { excludes: [] }
@@ -32,7 +32,7 @@ export const run = (base: string | null = '.', force: boolean = false) =>
           conditions: {
           }
         }
-      }, null, 4));
+      }));
 
   if (!fs.existsSync(path.join(base, "src")))
     fs.mkdirSync(path.join(base, "src"));

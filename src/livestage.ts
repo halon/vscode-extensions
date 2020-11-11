@@ -4,6 +4,7 @@ import { window } from 'vscode';
 import * as build from './build';
 import * as remote from './remote';
 import * as factory from './factory';
+import yaml from 'yaml';
 
 export default (connector: factory.SSH2Connector | factory.UNIXConnector, workspacePath: string, command: string) =>
 {
@@ -17,9 +18,20 @@ export default (connector: factory.SSH2Connector | factory.UNIXConnector, worksp
     }
   
     const config = fs.readFileSync(path.join(workspacePath, "dist", "smtpd-app.yaml")).toString();
-    const userSettings = JSON.parse(fs.readFileSync(path.join(workspacePath, "settings.json")).toString());
-    const conditions = userSettings.livestage && userSettings.livestage.conditions ? userSettings.livestage.conditions : {};
-    const id = userSettings.livestage && userSettings.livestage.id ? userSettings.livestage.id : "abcd";
+
+    const yamlSettingsPath = path.join(workspacePath, "settings.yaml");
+    const jsonSettingsPath = path.join(workspacePath, "settings.json");
+  
+    let settings: any = null;
+  
+    if (fs.existsSync(yamlSettingsPath)) {
+      settings = yaml.parse(fs.readFileSync(yamlSettingsPath).toString());
+    } else if (fs.existsSync(jsonSettingsPath)) {
+      settings = JSON.parse(fs.readFileSync(jsonSettingsPath).toString());
+    }
+
+    const conditions = settings.livestage && settings.livestage.conditions ? settings.livestage.conditions : {};
+    const id = settings.livestage && settings.livestage.id ? settings.livestage.id : "abcd";
 
     remote.startLiveStage(connector, id, conditions, config).then(() => {
       window.showInformationMessage('Live Staging: Started');

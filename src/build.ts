@@ -237,7 +237,17 @@ export const run = (base: string = '.') =>
 export const generate = (base: string = '.') =>
 {
   let returnValue: { smtpd?: any, smtpd_app?: any, smtpd_policy?: any, smtpd_suspend?: any, smtpd_delivery?: any, rated?: any, rated_app?: any, dlpd?: any, dlpd_app?: any } = {};
-  const usersettings = JSON.parse(fs.readFileSync(path.join(base, "settings.json")).toString());
+
+  const yamlSettingsPath = path.join(base, "settings.yaml");
+  const jsonSettingsPath = path.join(base, "settings.json");
+
+  let settings: any = null;
+
+  if (fs.existsSync(yamlSettingsPath)) {
+    settings = yaml.parse(fs.readFileSync(yamlSettingsPath).toString());
+  } else if (fs.existsSync(jsonSettingsPath)) {
+    settings = JSON.parse(fs.readFileSync(jsonSettingsPath).toString());
+  }
 
   if (fs.existsSync(path.join(base, "src", "config", "smtpd.yaml"))) {
     const file = fs.readFileSync(path.join(base, "src", "config", "smtpd.yaml"), 'utf-8');
@@ -288,10 +298,10 @@ export const generate = (base: string = '.') =>
         if (hidden.length > 0)
           continue;
 
-        var exclude: string[] = usersettings &&
-          usersettings.smtpd &&
-          usersettings.smtpd.build &&
-          usersettings.smtpd.build.exclude ? usersettings.smtpd.build.exclude : [];
+        var exclude: string[] = settings &&
+                                settings.smtpd &&
+                                settings.smtpd.build &&
+                                settings.smtpd.build.exclude ? settings.smtpd.build.exclude : [];
         if (exclude.indexOf(id) != -1)
           continue;
         

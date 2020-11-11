@@ -16,7 +16,7 @@ export function activate(context: ExtensionContext)
 {
   const connectors = new Connectors();
 
-  const settingsFileSystemWatcher = workspace.createFileSystemWatcher('**/settings.json', true);
+  const settingsFileSystemWatcher = workspace.createFileSystemWatcher('**/settings.{yaml,json}', true);
   context.subscriptions.push(settingsFileSystemWatcher.onDidChange((uri: Uri) => {
     connectors.removeConnector(uri);
   }));
