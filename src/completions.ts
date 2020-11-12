@@ -1,6 +1,8 @@
-import { CompletionItemProvider, CancellationToken, TextDocument, Position, CompletionContext, CompletionItem, CompletionItemKind, SnippetString, MarkdownString, Range } from 'vscode';
+import * as path from 'path';
+import { workspace, CompletionItemProvider, CancellationToken, TextDocument, Position, CompletionContext, CompletionItem, CompletionItemKind, SnippetString, MarkdownString, Range } from 'vscode';
 import { matchVariable, parseVariable } from './variables';
 import docs from './docs';
+import { readdirSyncRecursive } from './build';
 
 export default class Completions implements CompletionItemProvider
 {
@@ -171,6 +173,23 @@ export default class Completions implements CompletionItemProvider
               completionItem.insertText = new SnippetString((triggerCharacter === '[' ? '"' : '') + v.name + '"]');
               completionItem.range = new Range(position.line, position.character, position.line, position.character + (triggerCharacter === '[' ? 1 : 2));
               completionItems.push(completionItem);
+            }
+          }
+        }
+        if (triggerCharacter === '"') {
+          const isImport = document.getText(new Range(position.line, position.character >= 7 ? position.character -7 : 0, position.line, position.character)) === ' from "';
+          const isInclude = document.getText(new Range(position.line, position.character >= 9 ? position.character -9 : 0, position.line, position.character)) === 'include "';
+          const isIncludeOnce = document.getText(new Range(position.line, position.character >= 14 ? position.character -14 : 0, position.line, position.character)) === 'include_once "';
+          if (isImport || isInclude || isIncludeOnce) {
+            const workspaceFolder = workspace.getWorkspaceFolder(document.uri);
+            if (workspaceFolder !== undefined) {
+              for (let i of readdirSyncRecursive(path.join(workspaceFolder.uri.fsPath, "src", "files"))) {
+                const id = path.relative(path.join(workspaceFolder.uri.fsPath, "src", "files"), i);
+                let completionItem = new CompletionItem(id, CompletionItemKind.File);
+                completionItem.insertText = new SnippetString(id + '";');
+                completionItem.range = new Range(position.line, position.character, position.line, position.character + 2);
+                completionItems.push(completionItem);
+              }
             }
           }
         }

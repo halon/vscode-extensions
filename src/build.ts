@@ -109,7 +109,7 @@ export const syntaxAll = (base: string = '.') =>
   return syntaxes;
 }
 
-const readdirSyncRecursive = (dir: string) =>
+export const readdirSyncRecursive = (dir: string) =>
 {
   var results: string[] = [];
   var list = fs.readdirSync(dir);
