@@ -185,6 +185,9 @@ export default class Completions implements CompletionItemProvider
             if (workspaceFolder !== undefined) {
               for (let i of readdirSyncRecursive(path.join(workspaceFolder.uri.fsPath, "src", "files"))) {
                 const id = path.relative(path.join(workspaceFolder.uri.fsPath, "src", "files"), i);
+                const hidden = id.split('/').filter(i => i.charAt(0) === '.');
+                if (hidden.length > 0)
+                  continue;
                 let completionItem = new CompletionItem(id, CompletionItemKind.File);
                 completionItem.insertText = new SnippetString(id + '";');
                 completionItem.range = new Range(position.line, position.character, position.line, position.character + 2);
