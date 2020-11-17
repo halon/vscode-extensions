@@ -104,7 +104,7 @@ export class SSH2Connector implements IConnector
         return;
       }
 
-      let options: ExecOptions = {};
+      let options: any = {};
       if (program === "/opt/halon/bin/hsh") {
         options.pty = {
           modes: {
