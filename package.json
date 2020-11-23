@@ -4,7 +4,7 @@
   "private": true,
   "publisher": "Halon",
   "engines": {
-    "vscode": "^1.47.2"
+    "vscode": "^1.51.1"
   },
   "license": "ISC",
   "displayName": "Halon",
