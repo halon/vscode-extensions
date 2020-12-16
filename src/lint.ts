@@ -40,7 +40,7 @@ export default async (connector: factory.SSH2Connector | factory.UNIXConnector, 
 
     let promises: Promise<unknown>[] = [];
     for (let uri of uris) {
-      let syntaxObject = build.syntax(uri.fsPath);
+      let syntaxObject = build.syntax(uri.fsPath, workspaceFolder.uri.fsPath);
 
       const dirtyScripts = workspace.textDocuments.filter((document) => document.languageId === 'hsl' && document.isDirty);
       for (let dirtyScript of dirtyScripts) {

@@ -4,24 +4,29 @@ import yaml from 'yaml';
 import * as validate from './validate';
 import isUtf8 from 'is-utf8';
 
-export const syntax = (file: string) =>
+export const syntax = (file: string, workspaceFolder: string) =>
 {
   var fileparse = path.parse(file);
   const filepath = fileparse.dir.split(path.sep);
-  var result = {
+  var result: {
+    version: string,
+    phase: string,
+    data: string,
+    files: Array<any>
+    scripting?: any
+    plugins?: any
+  } = {
     version: "5.5",
     phase: "",
     data: "",
-    files: <any>[]
+    files: []
   };
-  var filespath = "";
   if (filepath.length > 2 && filepath.slice(-2, -1)[0] == "hooks")
   {
     if (filepath.slice(-1)[0] == 'queue')
       result.phase = fileparse.name;
     else
       result.phase = filepath.slice(-1)[0];
-    filespath = path.join(fileparse.root, ...filepath.slice(0, -2), 'files');
   }
   else if (filepath.length > 3 && filepath.slice(-3, -2)[0] == "hooks")
   {
@@ -29,85 +34,87 @@ export const syntax = (file: string) =>
       result.phase = 'eodrcpt';
     else
       throw Error('Unknown hooks directory in path');
-    filespath = path.join(fileparse.root, ...filepath.slice(0, -3), 'files');
-  }
-  else
-  {
-    var index = filepath.findIndex((element, index, array) => {
-      if (element == "src" && array[index + 1] == "files")
-        return true;
-      return false;
-    });
-    if (index == -1)
-      throw Error('Could not find a src/files directory in path');
-    filespath = path.join(fileparse.root, ...filepath.slice(0, index + 2));
   }
   result.data = fs.readFileSync(file).toString();
 
-  for (let i of readdirSyncRecursive(filespath))
-  {
-    if (file == i)
-      continue;
-
-    const id = path.relative(filespath, i);
-    const hidden = id.split('/').filter(i => i.charAt(0) === '.');
-    if (hidden.length > 0)
-      continue;
-
-    const buffer = fs.readFileSync(i);
-
-    let item: any = { id: id };
-    if (isUtf8(buffer)) {
-      item.data = buffer.toString('utf8');
-    } else {
-      item.data = buffer.toString('base64');
-      item.binary = true;
+  const filespath = path.join(workspaceFolder, 'src', 'files');
+  if (fs.existsSync(filespath)) {
+    for (let i of readdirSyncRecursive(filespath))
+    {
+      if (file == i)
+        continue;
+  
+      const id = path.relative(filespath, i);
+      const hidden = id.split('/').filter(i => i.charAt(0) === '.');
+      if (hidden.length > 0)
+        continue;
+  
+      const buffer = fs.readFileSync(i);
+  
+      let item: any = { id: id };
+      if (isUtf8(buffer)) {
+        item.data = buffer.toString('utf8');
+      } else {
+        item.data = buffer.toString('base64');
+        item.binary = true;
+      }
+  
+      result.files.push(item);
     }
+  }
 
-    result.files.push(item);
+  const smtpdpath = path.join(workspaceFolder, 'src', 'config', 'smtpd.yaml');
+  if (fs.existsSync(smtpdpath)) {
+    try {
+      const smtpd = yaml.parse(fs.readFileSync(smtpdpath).toString());
+      if (smtpd.scripting !== undefined)
+        result.scripting = smtpd.scripting;
+      if (smtpd.plugins !== undefined)
+        result.plugins = smtpd.plugins;
+    } catch (err) {}
   }
 
   return result;
 }
 
-export const syntaxAll = (base: string = '.') =>
-{
-  let syntaxes: any = [];
-  let smtpdapp = path.join(base, "src", "config", "smtpd-app.yaml");
-  if (!fs.existsSync(smtpdapp))
-    throw new Error("Missing " + smtpdapp);
-  const file = fs.readFileSync(smtpdapp, 'utf-8');
-  if (!file)
-    throw new Error("Cannot open " + smtpdapp);
-  let config = yaml.parse(file);
-  const hooks = extractHooks(config);
+// export const syntaxAll = (base: string = '.') =>
+// {
+//   let syntaxes: any = [];
+//   let smtpdapp = path.join(base, "src", "config", "smtpd-app.yaml");
+//   if (!fs.existsSync(smtpdapp))
+//     throw new Error("Missing " + smtpdapp);
+//   const file = fs.readFileSync(smtpdapp, 'utf-8');
+//   if (!file)
+//     throw new Error("Cannot open " + smtpdapp);
+//   let config = yaml.parse(file);
+//   const hooks = extractHooks(config);
 
-  var entries: any = Object.entries(hooks);
-  for (let [type, value] of entries)
-  {
-    for (let id of value)
-    {
-      var hookfolder = [type];
-      if (type == "eodrcpt")
-        hookfolder = ["eod", "rcpt"];
-      const filePath = path.join(base, "src", "hooks", ...hookfolder, id + ".hsl");
-      syntaxes[filePath] = syntax(filePath);
-    }
-  }
+//   var entries: any = Object.entries(hooks);
+//   for (let [type, value] of entries)
+//   {
+//     for (let id of value)
+//     {
+//       var hookfolder = [type];
+//       if (type == "eodrcpt")
+//         hookfolder = ["eod", "rcpt"];
+//       const filePath = path.join(base, "src", "hooks", ...hookfolder, id + ".hsl");
+//       syntaxes[filePath] = syntax(filePath);
+//     }
+//   }
 
-  var filePath = path.join(base, "src", "hooks", "queue", "predelivery.hsl");
-  if (fs.existsSync(filePath))
-  {
-    syntaxes[filePath] = syntax(filePath);
-  }
+//   var filePath = path.join(base, "src", "hooks", "queue", "predelivery.hsl");
+//   if (fs.existsSync(filePath))
+//   {
+//     syntaxes[filePath] = syntax(filePath);
+//   }
 
-  filePath = path.join(base, "src", "hooks", "queue", "postdelivery.hsl");
-  if (fs.existsSync(filePath))
-  {
-    syntaxes[filePath] = syntax(filePath);
-  }
-  return syntaxes;
-}
+//   filePath = path.join(base, "src", "hooks", "queue", "postdelivery.hsl");
+//   if (fs.existsSync(filePath))
+//   {
+//     syntaxes[filePath] = syntax(filePath);
+//   }
+//   return syntaxes;
+// }
 
 export const readdirSyncRecursive = (dir: string) =>
 {
