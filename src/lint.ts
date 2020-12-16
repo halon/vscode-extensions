@@ -38,7 +38,7 @@ export default async (connector: factory.SSH2Connector | factory.UNIXConnector, 
       uris = uris.concat(matches);
     }
 
-    let promises: Promise<unknown>[] = [];
+    let syntaxErrors: Array<any> = [];
     for (let uri of uris) {
       let syntaxObject = build.syntax(uri.fsPath, workspaceFolder.uri.fsPath);
 
@@ -55,36 +55,37 @@ export default async (connector: factory.SSH2Connector | factory.UNIXConnector, 
         }
       }
 
-      promises.push(remote.syntax(connector, syntaxObject));
+      try {
+        const syntaxError = await remote.syntax(connector, syntaxObject);
+        syntaxErrors.push(syntaxError);
+      } catch (error) {
+        diagnosticCollection.clear();
+        window.showWarningMessage(`Linter: ${error.message || error}`);
+      }
     }
 
-    Promise.all(promises).then((syntaxErrors: any[]) => {
-      diagnosticCollection.delete(document.uri);
+    diagnosticCollection.delete(document.uri);
 
-      for (const [uriIndex, syntaxError] of syntaxErrors.entries()) {
-        diagnosticCollection.delete(uris[uriIndex]);
-        if (syntaxError) {
-          const filePath = syntaxError.file ? path.join(workspaceFolder.uri.toString(), 'src', 'files', syntaxError.file) : uris[uriIndex].toString();
-          const range = new Range(syntaxError.line - 1, syntaxError.column - 1, syntaxError.line - 1, 5000);
-          const diagnostic = new Diagnostic(range, syntaxError.message, DiagnosticSeverity.Error);
-          if (syntaxError.path) {
-            let related: DiagnosticRelatedInformation[] = [];
-            for (const [itemIndex, item] of syntaxError.path.entries()) {
-              const uri = item.file ? Uri.file(path.join(filesPath, item.file)) : uris[uriIndex];
-              related.push({
-                location: new Location(uri, new Position(item.line - 1, item.column - 1)),
-                message: item.file ? `Include chain (#${syntaxError.path.length - itemIndex - 1})` : 'The hook entry point'
-              });
-            }
-            diagnostic.relatedInformation = related;
-            diagnosticCollection.delete(Uri.parse(filePath));
+    for (const [uriIndex, syntaxError] of syntaxErrors.entries()) {
+      diagnosticCollection.delete(uris[uriIndex]);
+      if (syntaxError) {
+        const filePath = syntaxError.file ? path.join(workspaceFolder.uri.toString(), 'src', 'files', syntaxError.file) : uris[uriIndex].toString();
+        const range = new Range(syntaxError.line - 1, syntaxError.column - 1, syntaxError.line - 1, 5000);
+        const diagnostic = new Diagnostic(range, syntaxError.message, DiagnosticSeverity.Error);
+        if (syntaxError.path) {
+          let related: DiagnosticRelatedInformation[] = [];
+          for (const [itemIndex, item] of syntaxError.path.entries()) {
+            const uri = item.file ? Uri.file(path.join(filesPath, item.file)) : uris[uriIndex];
+            related.push({
+              location: new Location(uri, new Position(item.line - 1, item.column - 1)),
+              message: item.file ? `Include chain (#${syntaxError.path.length - itemIndex - 1})` : 'The hook entry point'
+            });
           }
-          diagnosticCollection.set(Uri.parse(filePath), [diagnostic]);
+          diagnostic.relatedInformation = related;
+          diagnosticCollection.delete(Uri.parse(filePath));
         }
+        diagnosticCollection.set(Uri.parse(filePath), [diagnostic]);
       }
-    }).catch(error => {
-      diagnosticCollection.clear();
-      window.showWarningMessage(`Linter: ${error.message || error}`);
-    });
+    }
   }
 }
