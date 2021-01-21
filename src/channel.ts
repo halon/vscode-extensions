@@ -21,6 +21,9 @@ const sendAndWait = (stream: stream.Duplex, data: Buffer) =>
 {
   return new Promise<Buffer>((resolve, reject) => {
     var buffer = Buffer.alloc(0);
+    stream.on('error', (error) => {
+      reject(error);
+    });
     stream.on('data', (data: Buffer) => {
       buffer = Buffer.concat([buffer, data]);
       if (buffer.length > 0) {
