@@ -126,6 +126,10 @@
       {
         "fileMatch": "api.yaml",
         "url": "./dist/json-schemas/api.schema.json"
+      },
+      {
+        "fileMatch": "web.yaml",
+        "url": "./dist/json-schemas/web.schema.json"
       }
     ]
   },
@@ -178,7 +182,7 @@
     "webpack-stream": "^5.2.1"
   },
   "dependencies": {
-    "@halon/json-schemas": "github:halon/json-schemas#b8260806b243fb7c31ebfef0facbbbdd82c6c381",
+    "@halon/json-schemas": "github:halon/json-schemas#f89c3498b3a124602e5efe12192157d71fb77951",
     "@halon/protobuf-schemas": "github:halon/protobuf-schemas#a5172ecf15109b8c2b54ff22bde36b82d9b8d5ca",
     "ajv": "^6.10.2",
     "is-utf8": "^0.2.1",

@@ -240,11 +240,12 @@ export const run = (base: string = '.') =>
   if (config.dlpd) fs.writeFileSync(path.join(base, "dist", "dlpd.yaml"), yaml.stringify(config.dlpd));
   if (config.dlpd_app) fs.writeFileSync(path.join(base, "dist", "dlpd-app.yaml"), yaml.stringify(config.dlpd_app));
   if (config.api) fs.writeFileSync(path.join(base, "dist", "api.yaml"), yaml.stringify(config.api));
+  if (config.web) fs.writeFileSync(path.join(base, "dist", "web.yaml"), yaml.stringify(config.web));
 }
 
 export const generate = (base: string = '.') =>
 {
-  let returnValue: { smtpd?: any, smtpd_app?: any, smtpd_policy?: any, smtpd_suspend?: any, smtpd_delivery?: any, rated?: any, rated_app?: any, dlpd?: any, dlpd_app?: any, api?: any } = {};
+  let returnValue: { smtpd?: any, smtpd_app?: any, smtpd_policy?: any, smtpd_suspend?: any, smtpd_delivery?: any, rated?: any, rated_app?: any, dlpd?: any, dlpd_app?: any, api?: any, web?: any } = {};
 
   const yamlSettingsPath = path.join(base, "settings.yaml");
   const jsonSettingsPath = path.join(base, "settings.json");
@@ -367,6 +368,11 @@ export const generate = (base: string = '.') =>
   if (fs.existsSync(path.join(base, "src", "config", "api.yaml"))) {
     const file = fs.readFileSync(path.join(base, "src", "config", "api.yaml"), 'utf-8');
     if (file) returnValue.api = yaml.parse(file);
+  }
+
+  if (fs.existsSync(path.join(base, "src", "config", "web.yaml"))) {
+    const file = fs.readFileSync(path.join(base, "src", "config", "web.yaml"), 'utf-8');
+    if (file) returnValue.web = yaml.parse(file);
   }
 
   try {
