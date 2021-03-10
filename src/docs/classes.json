@@ -405,7 +405,7 @@
                     "returnType": "FFIValue or none",
                     "detail": "File->toFFIValue(): FFIValue or none",
                     "value": "toFFIValue()",
-                    "documentation": "Return a shared pointer to a C++ std::istream representing the current File content and position. On error none is returned.",
+                    "documentation": "Return a shared pointer to a C FILE* representing the current File content and position. On error none is returned.",
                     "link": "[Full documentation]({{ docsurl }}functions.html#File.toFFIValue)"
                 },
                 {

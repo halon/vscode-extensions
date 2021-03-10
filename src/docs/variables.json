@@ -146,7 +146,83 @@
             "name": "$arguments",
             "type": "array",
             "detail": "array readonly $arguments",
-            "documentation": "Context\/hook arguments"
+            "documentation": "Context\/hook arguments",
+            "keys": [
+                {
+                    "name": "close",
+                    "type": "string",
+                    "detail": "string close",
+                    "example": "\"local\"",
+                    "documentation": "Who initialized the disconnect (local or remote)"
+                },
+                {
+                    "name": "reply",
+                    "type": "array",
+                    "detail": "array reply",
+                    "example": "[\"code\" => 250, \"enhanced\" => [1, ...]",
+                    "documentation": "A SMTP protocol response (if available)",
+                    "keys": [
+                        {
+                            "name": "code",
+                            "type": "number",
+                            "detail": "number code",
+                            "example": "221",
+                            "documentation": "A SMTP status code"
+                        },
+                        {
+                            "name": "enhanced",
+                            "type": "array",
+                            "detail": "array enhanced",
+                            "example": "[2, 5, 0]",
+                            "documentation": "A SMTP enhanced status code"
+                        },
+                        {
+                            "name": "reason",
+                            "type": "array",
+                            "detail": "array reason",
+                            "example": "[\"Bye\"]",
+                            "documentation": "A SMTP response text"
+                        },
+                        {
+                            "name": "state",
+                            "type": "string",
+                            "detail": "string state",
+                            "example": "\"QUIT\"",
+                            "documentation": "An enum to indicate which issued SMTP command triggerd the disconnect"
+                        }
+                    ]
+                },
+                {
+                    "name": "error",
+                    "type": "array",
+                    "detail": "array error",
+                    "example": "[\"reply\" => \"....",
+                    "documentation": "If an error occurred (if available)",
+                    "keys": [
+                        {
+                            "name": "reason",
+                            "type": "string",
+                            "detail": "string reason",
+                            "example": "\"Connection reset by peer\"",
+                            "documentation": "The error message"
+                        },
+                        {
+                            "name": "type",
+                            "type": "string",
+                            "detail": "string type",
+                            "example": "\"socket\"",
+                            "documentation": "The type of error (if avilable, socket or tls)"
+                        },
+                        {
+                            "name": "code",
+                            "type": "number",
+                            "detail": "number code",
+                            "example": "54",
+                            "documentation": "The error code (for socket it's an errno and for tls it's an OpenSSL error code)"
+                        }
+                    ]
+                }
+            ]
         },
         {
             "name": "$connection",
@@ -2621,7 +2697,7 @@
                             "name": "result",
                             "type": "array",
                             "detail": "array result",
-                            "example": "[\"code\" = >250, \"enhanced\" => [1, ...]",
+                            "example": "[\"code\" => 250, \"enhanced\" => [1, ...]",
                             "documentation": "A SMTP protocol response (if available)",
                             "keys": [
                                 {

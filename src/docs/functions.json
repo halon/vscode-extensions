@@ -312,10 +312,15 @@
                         "type": "string"
                     }
                 ],
-                "optional": []
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
             },
             "returnType": "string",
-            "detail": "hmac_md5(string $key, string $message): string",
+            "detail": "hmac_md5(string $key, string $message [, array $options]): string",
             "value": "hmac_md5($0)",
             "documentation": "Return the HMAC MD5 hash of message with the key.",
             "link": "[Full documentation]({{ docsurl }}functions.html#hmac_md5)"
@@ -333,10 +338,15 @@
                         "type": "string"
                     }
                 ],
-                "optional": []
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
             },
             "returnType": "string",
-            "detail": "hmac_sha1(string $key, string $message): string",
+            "detail": "hmac_sha1(string $key, string $message [, array $options]): string",
             "value": "hmac_sha1($0)",
             "documentation": "Return the HMAC SHA1 hash of message with the key.",
             "link": "[Full documentation]({{ docsurl }}functions.html#hmac_sha1)"
@@ -358,10 +368,15 @@
                         "type": "number"
                     }
                 ],
-                "optional": []
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
             },
             "returnType": "string",
-            "detail": "hmac_sha2(string $key, string $message, number $hashsize): string",
+            "detail": "hmac_sha2(string $key, string $message, number $hashsize [, array $options]): string",
             "value": "hmac_sha2($0)",
             "documentation": "Return the HMAC SHA2 hash of message with the key.",
             "link": "[Full documentation]({{ docsurl }}functions.html#hmac_sha2)"
@@ -375,10 +390,15 @@
                         "type": "string"
                     }
                 ],
-                "optional": []
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
             },
             "returnType": "string",
-            "detail": "md5(string $message): string",
+            "detail": "md5(string $message [, array $options]): string",
             "value": "md5($0)",
             "documentation": "Return the MD5 hash of message.",
             "link": "[Full documentation]({{ docsurl }}functions.html#md5)"
@@ -392,10 +412,15 @@
                         "type": "string"
                     }
                 ],
-                "optional": []
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
             },
             "returnType": "string",
-            "detail": "sha1(string $message): string",
+            "detail": "sha1(string $message [, array $options]): string",
             "value": "sha1($0)",
             "documentation": "Return the SHA1 hash of message.",
             "link": "[Full documentation]({{ docsurl }}functions.html#sha1)"
@@ -413,10 +438,15 @@
                         "type": "number"
                     }
                 ],
-                "optional": []
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
             },
             "returnType": "string",
-            "detail": "sha2(string $message, number $hashsize): string",
+            "detail": "sha2(string $message, number $hashsize [, array $options]): string",
             "value": "sha2($0)",
             "documentation": "Return the SHA2 hash of message.",
             "link": "[Full documentation]({{ docsurl }}functions.html#sha2)"
