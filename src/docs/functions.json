@@ -2528,10 +2528,10 @@
                     }
                 ]
             },
-            "returnType": "boolean",
-            "detail": "queue_suspend(array $fields, number $ttl [, array $options]): boolean",
+            "returnType": "array",
+            "detail": "queue_suspend(array $fields, number $ttl [, array $options]): array",
             "value": "queue_suspend($0)",
-            "documentation": "Add a dynamic queue pickup suspend for the following fields, this will cause no more messages matching this condition to be picked up for delivery during the ttl of the suspend. If a matching suspend already exists only the TTL is updated.",
+            "documentation": "Add a dynamic queue pickup suspend for the following fields, this will cause no more messages matching this condition to be picked up for delivery during the ttl of the suspend. If a matching suspend already exists only the TTL is updated. On error none is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#queue_suspend)"
         },
         {
@@ -2562,10 +2562,10 @@
                     }
                 ]
             },
-            "returnType": "boolean",
-            "detail": "queue_policy(array $fields, array $condition, array $policy, number $ttl [, array $options]): boolean",
+            "returnType": "array",
+            "detail": "queue_policy(array $fields, array $condition, array $policy, number $ttl [, array $options]): array",
             "value": "queue_policy($0)",
-            "documentation": "Add a dynamic queue pickup policy for the specific fields, matching a specific condition. If a matching policy (fields and condition) already exists the condition and TTL is updated.",
+            "documentation": "Add a dynamic queue pickup policy for the specific fields, matching a specific condition. If a matching policy (fields and condition) already exists the condition and TTL is updated. On error none is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#queue_policy)"
         },
         {
