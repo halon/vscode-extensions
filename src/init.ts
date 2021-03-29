@@ -19,7 +19,7 @@ export const run = (base: string | null = '.', force: boolean = false) =>
     fs.writeFileSync(path.join(base, "settings.yaml"), yaml.stringify(
       {
         smtpd: {
-          build: { excludes: [] }
+          build: { exclude: [] }
         },
         ssh: {
           host: "192.168.0.1",
