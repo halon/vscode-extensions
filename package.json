@@ -138,7 +138,6 @@
     "onCommand:halon.init",
     "onCommand:halon.initForce",
     "onCommand:halon.build",
-    "onCommand:halon.deploy",
     "onCommand:halon.livestageStart",
     "onCommand:halon.livestageStatus",
     "onCommand:halon.livestageCancel",
