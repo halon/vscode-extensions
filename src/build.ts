@@ -16,7 +16,7 @@ export const syntax = (file: string, workspaceFolder: string) =>
     scripting?: any
     plugins?: any
   } = {
-    version: "5.5",
+    version: "5.6",
     phase: "",
     data: "",
     files: []

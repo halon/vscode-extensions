@@ -1,6 +1,6 @@
 {
   "name": "vscode-halon",
-  "version": "5.5.1",
+  "version": "5.6.0",
   "private": true,
   "publisher": "Halon",
   "engines": {
@@ -138,6 +138,7 @@
     "onCommand:halon.init",
     "onCommand:halon.initForce",
     "onCommand:halon.build",
+    "onCommand:halon.deploy",
     "onCommand:halon.livestageStart",
     "onCommand:halon.livestageStatus",
     "onCommand:halon.livestageCancel",
