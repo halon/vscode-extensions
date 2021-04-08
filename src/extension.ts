@@ -97,6 +97,8 @@ export function activate(context: ExtensionContext)
       } catch (error) {
         window.showErrorMessage(`Init: ${error.message || error}`);
       }
+    } else {
+      window.showErrorMessage(`Init: You need to have a workspace folder open to run this command`);
     }
   }));
 
@@ -109,6 +111,8 @@ export function activate(context: ExtensionContext)
       } catch (error) {
         window.showErrorMessage(`Init: ${error.message || error}`);
       }
+    } else {
+      window.showErrorMessage(`Init: You need to have a workspace folder open to run this command`);
     }
   }));
 
@@ -121,6 +125,8 @@ export function activate(context: ExtensionContext)
       } catch (error) {
         window.showErrorMessage(`Build: ${error.message || error}`);
       }
+    } else {
+      window.showErrorMessage(`Build: You need to have a workspace folder open to run this command`);
     }
   }));
 
@@ -129,6 +135,8 @@ export function activate(context: ExtensionContext)
       const workspaceFolder = workspace.workspaceFolders[0];
       const connector = connectors.getConnector(workspaceFolder);
       if (typeof connector !== 'undefined') livestage(connector, workspaceFolder.uri.fsPath, 'start');
+    } else {
+      window.showErrorMessage(`Live Staging: You need to have a workspace folder open to run this command`);
     }
   }));
 
@@ -137,6 +145,8 @@ export function activate(context: ExtensionContext)
       const workspaceFolder = workspace.workspaceFolders[0];
       const connector = connectors.getConnector(workspaceFolder);
       if (typeof connector !== 'undefined') livestage(connector, workspaceFolder.uri.fsPath, 'status');
+    } else {
+      window.showErrorMessage(`Live Staging: You need to have a workspace folder open to run this command`);
     }
   }));
 
@@ -145,6 +155,8 @@ export function activate(context: ExtensionContext)
       const workspaceFolder = workspace.workspaceFolders[0];
       const connector = connectors.getConnector(workspaceFolder);
       if (typeof connector !== 'undefined') livestage(connector, workspaceFolder.uri.fsPath, 'cancel');
+    } else {
+      window.showErrorMessage(`Live Staging: You need to have a workspace folder open to run this command`);
     }
   }));
 
@@ -154,6 +166,8 @@ export function activate(context: ExtensionContext)
       if (typeof workspaceFolder !== 'undefined') {
         const connector = connectors.getConnector(workspaceFolder);
         if (typeof connector !== 'undefined') run(connector, window.activeTextEditor.document, workspaceFolder.uri.fsPath);
+      } else {
+        window.showErrorMessage(`Run Script: You need to have a workspace folder open to run this command`);
       }
     }
   }));
