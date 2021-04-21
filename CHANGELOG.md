@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 5.6.0
+* Sync with 5.6 release of the MTA
+
 ## Version 5.5.1
 * Fix issue with linting
 
