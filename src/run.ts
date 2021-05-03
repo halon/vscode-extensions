@@ -15,7 +15,7 @@ export default (connector: factory.SSH2Connector | factory.UNIXConnector, docume
     return;
   }
 
-  const id = path.relative(path.join(workspacePath, "src", "files"), document.uri.fsPath);
+  const id = path.relative(path.join(workspacePath, "src", "files"), document.uri.fsPath).split(path.sep).join(path.posix.sep);
   let config: any = {};
   try {
     config = build.generate(workspacePath);

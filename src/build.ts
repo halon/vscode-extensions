@@ -44,8 +44,8 @@ export const syntax = (file: string, workspaceFolder: string) =>
       if (file == i)
         continue;
   
-      const id = path.relative(filespath, i);
-      const hidden = id.split('/').filter(i => i.charAt(0) === '.');
+      const id = path.relative(filespath, i).split(path.sep).join(path.posix.sep);
+      const hidden = id.split(path.posix.sep).filter(i => i.charAt(0) === '.');
       if (hidden.length > 0)
         continue;
   
@@ -302,8 +302,8 @@ export const generate = (base: string = '.') =>
 
       for (let i of readdirSyncRecursive(path.join(base, "src", "files")))
       {
-        const id = path.relative(path.join(base, "src", "files"), i);
-        const hidden = id.split('/').filter(i => i.charAt(0) === '.');
+        const id = path.relative(path.join(base, "src", "files"), i).split(path.sep).join(path.posix.sep);
+        const hidden = id.split(path.posix.sep).filter(i => i.charAt(0) === '.');
         if (hidden.length > 0)
           continue;
 
