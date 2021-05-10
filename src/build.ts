@@ -300,31 +300,34 @@ export const generate = (base: string = '.') =>
         config.scripting.hooks.postdelivery = fs.readFileSync(filePath).toString();
       }
 
-      for (let i of readdirSyncRecursive(path.join(base, "src", "files")))
-      {
-        const id = path.relative(path.join(base, "src", "files"), i).split(path.sep).join(path.posix.sep);
-        const hidden = id.split(path.posix.sep).filter(i => i.charAt(0) === '.');
-        if (hidden.length > 0)
-          continue;
-
-        var exclude: string[] = settings &&
-                                settings.smtpd &&
-                                settings.smtpd.build &&
-                                settings.smtpd.build.exclude ? settings.smtpd.build.exclude : [];
-        if (exclude.indexOf(id) != -1)
-          continue;
-        
-        const buffer = fs.readFileSync(i);
-
-        let item: any = { id: id };
-        if (isUtf8(buffer)) {
-          item.data = buffer.toString('utf8');
-        } else {
-          item.data = buffer.toString('base64');
-          item.binary = true;
+      const filespath = path.join(base, "src", "files");
+      if (fs.existsSync(filespath)) {
+        for (let i of readdirSyncRecursive(filespath))
+        {
+          const id = path.relative(filespath, i).split(path.sep).join(path.posix.sep);
+          const hidden = id.split(path.posix.sep).filter(i => i.charAt(0) === '.');
+          if (hidden.length > 0)
+            continue;
+  
+          var exclude: string[] = settings &&
+                                  settings.smtpd &&
+                                  settings.smtpd.build &&
+                                  settings.smtpd.build.exclude ? settings.smtpd.build.exclude : [];
+          if (exclude.indexOf(id) != -1)
+            continue;
+          
+          const buffer = fs.readFileSync(i);
+  
+          let item: any = { id: id };
+          if (isUtf8(buffer)) {
+            item.data = buffer.toString('utf8');
+          } else {
+            item.data = buffer.toString('base64');
+            item.binary = true;
+          }
+  
+          addFile(config, item);
         }
-
-        addFile(config, item);
       }
       returnValue.smtpd_app = config;
     }
