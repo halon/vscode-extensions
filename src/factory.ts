@@ -57,7 +57,7 @@ export class SSH2Connector implements IConnector
       conn.connect(settings);
     });
   }
-  async openServerChannel(path: string, callback: (stream: stream.Duplex) => void)
+  openServerChannel(path: string, callback: (stream: stream.Duplex) => void)
   {
     return new Promise<any>(async (resolve, reject) => {
       if (!this.conn || !this.connected)
@@ -76,11 +76,11 @@ export class SSH2Connector implements IConnector
     if (this.conn && this.connected)
       this.conn.openssh_unforwardInStreamLocal(server);
   }
-  async openChannel(path: string)
+  openChannel(path: string)
   {
-    if (!this.conn || !this.connected)
-      this.conn = await this.connect(this.settings);
-    return new Promise<ClientChannel>((resolve, reject) => {
+    return new Promise<ClientChannel>(async (resolve, reject) => {
+      if (!this.conn || !this.connected)
+        this.conn = await this.connect(this.settings);
       if (!this.conn) {
         reject('No open connection');
         return;

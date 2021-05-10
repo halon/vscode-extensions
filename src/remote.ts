@@ -31,11 +31,10 @@ export const syntax = (connector: IConnector, syntax: any) =>
   });
 }
 
-export const startLiveStage = async (connector: IConnector, id: string, conditions: any, config: string) =>
+export const startLiveStage = (connector: IConnector, id: string, conditions: any, config: string) =>
 {
-  const buffer = await pb.protobufPacker('smtpd.proto', 'smtpd.ConfigGreenDeployRequest', { id: id, conditions: conditions, config: config });
-
   return new Promise(async (resolve, reject) => {
+    const buffer = await pb.protobufPacker('smtpd.proto', 'smtpd.ConfigGreenDeployRequest', { id: id, conditions: conditions, config: config });
     var s = await connector.openChannel(smtpd_socket);
     channel.startLiveStage(s, buffer).then(() => {
       s.end();
