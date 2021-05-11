@@ -139,6 +139,9 @@ export class UNIXConnector implements IConnector
       const client = net.createConnection({ path: path }, async () => {
         resolve(client);
       });
+      client.on('error', (err) => {
+        reject(err);
+      });
     });
   }
   openServerChannel(path: string, callback: (stream: stream.Duplex) => void)
