@@ -34,8 +34,13 @@ export const syntax = (connector: IConnector, syntax: any) =>
 export const startLiveStage = (connector: IConnector, id: string, conditions: any, config: string) =>
 {
   return new Promise(async (resolve, reject) => {
-    const buffer = await pb.protobufPacker('smtpd.proto', 'smtpd.ConfigGreenDeployRequest', { id: id, conditions: conditions, config: config });
-    var s = await connector.openChannel(smtpd_socket);
+    try {
+      var buffer = await pb.protobufPacker('smtpd.proto', 'smtpd.ConfigGreenDeployRequest', { id: id, conditions: conditions, config: config });
+      var s = await connector.openChannel(smtpd_socket);
+    } catch (err) {
+      reject(err);
+      return;
+    }
     channel.startLiveStage(s, buffer).then(() => {
       s.end();
       resolve(undefined);
