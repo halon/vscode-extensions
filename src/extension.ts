@@ -1,6 +1,8 @@
 'use strict';
 
 import { ExtensionContext, languages, window, workspace, TextDocument, TextEditor, Uri, TextEditorSelectionChangeEvent, commands } from 'vscode';
+import * as fs from 'fs';
+import * as path from 'path';
 import { debounce } from 'underscore';
 import Links from './links';
 import Completions from './completions';
@@ -117,46 +119,66 @@ export function activate(context: ExtensionContext)
   }));
 
   context.subscriptions.push(commands.registerCommand('halon.build', () => {
-    if (typeof workspace.workspaceFolders !== 'undefined') {
-      const workspaceFolder = workspace.workspaceFolders[0];
-      try {
-        build.run(workspaceFolder.uri.fsPath);
-        window.showInformationMessage('Build: Completed');
-      } catch (error) {
-        window.showErrorMessage(`Build: ${error.message || error}`);
-      }
-    } else {
-      window.showErrorMessage(`Build: You need to have a workspace folder open to run this command`);
+    try {
+      if (typeof workspace.workspaceFolders === 'undefined')
+        throw new Error('You need to have a workspace folder open to run this command');
+      const workspaceFolder = workspace.workspaceFolders.find((workspaceFolder) => {
+        return fs.existsSync(path.join(workspaceFolder.uri.fsPath, 'src', 'config', 'smtpd-app.yaml'));
+      });
+      if (!workspaceFolder)
+        throw new Error('No compatible workspace folder was found');
+      build.run(workspaceFolder.uri.fsPath);
+      window.showInformationMessage('Build: Completed');
+    } catch (error) {
+      window.showErrorMessage(`Build: ${error.message || error}`);
     }
   }));
 
   context.subscriptions.push(commands.registerCommand('halon.livestageStart', () => {
-    if (typeof workspace.workspaceFolders !== 'undefined') {
-      const workspaceFolder = workspace.workspaceFolders[0];
+    try {
+      if (typeof workspace.workspaceFolders === 'undefined')
+        throw new Error('You need to have a workspace folder open to run this command');
+      const workspaceFolder = workspace.workspaceFolders.find((workspaceFolder) => {
+        return fs.existsSync(path.join(workspaceFolder.uri.fsPath, 'src', 'config', 'smtpd-app.yaml'));
+      });
+      if (!workspaceFolder)
+        throw new Error('No compatible workspace folder was found');
       const connector = connectors.getConnector(workspaceFolder);
       if (typeof connector !== 'undefined') livestage(connector, workspaceFolder.uri.fsPath, 'start');
-    } else {
-      window.showErrorMessage(`Live Staging: You need to have a workspace folder open to run this command`);
+    } catch (error) {
+      window.showErrorMessage(`Live Staging: ${error.message || error}`);
     }
   }));
 
   context.subscriptions.push(commands.registerCommand('halon.livestageStatus', () => {
-    if (typeof workspace.workspaceFolders !== 'undefined') {
-      const workspaceFolder = workspace.workspaceFolders[0];
+    try {
+      if (typeof workspace.workspaceFolders === 'undefined')
+        throw new Error('You need to have a workspace folder open to run this command');
+      const workspaceFolder = workspace.workspaceFolders.find((workspaceFolder) => {
+        return fs.existsSync(path.join(workspaceFolder.uri.fsPath, 'src', 'config', 'smtpd-app.yaml'));
+      });
+      if (!workspaceFolder)
+        throw new Error('No compatible workspace folder was found');
       const connector = connectors.getConnector(workspaceFolder);
       if (typeof connector !== 'undefined') livestage(connector, workspaceFolder.uri.fsPath, 'status');
-    } else {
-      window.showErrorMessage(`Live Staging: You need to have a workspace folder open to run this command`);
+    } catch (error) {
+      window.showErrorMessage(`Live Staging: ${error.message || error}`);
     }
   }));
 
   context.subscriptions.push(commands.registerCommand('halon.livestageCancel', () => {
-    if (typeof workspace.workspaceFolders !== 'undefined') {
-      const workspaceFolder = workspace.workspaceFolders[0];
+    try {
+      if (typeof workspace.workspaceFolders === 'undefined')
+        throw new Error('You need to have a workspace folder open to run this command');
+      const workspaceFolder = workspace.workspaceFolders.find((workspaceFolder) => {
+        return fs.existsSync(path.join(workspaceFolder.uri.fsPath, 'src', 'config', 'smtpd-app.yaml'));
+      });
+      if (!workspaceFolder)
+        throw new Error('No compatible workspace folder was found');
       const connector = connectors.getConnector(workspaceFolder);
       if (typeof connector !== 'undefined') livestage(connector, workspaceFolder.uri.fsPath, 'cancel');
-    } else {
-      window.showErrorMessage(`Live Staging: You need to have a workspace folder open to run this command`);
+    } catch (error) {
+      window.showErrorMessage(`Live Staging: ${error.message || error}`);
     }
   }));
 
