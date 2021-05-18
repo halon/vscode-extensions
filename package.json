@@ -4,7 +4,7 @@
   "private": true,
   "publisher": "Halon",
   "engines": {
-    "vscode": "^1.51.1"
+    "vscode": "^1.56.2"
   },
   "license": "ISC",
   "displayName": "Halon",
@@ -170,13 +170,13 @@
     "@types/path-is-inside": "^1.0.0",
     "@types/ssh2": "^0.5.45",
     "@types/underscore": "^1.9.3",
-    "@types/vscode": "^1.51.0",
+    "@types/vscode": "^1.56.0",
     "del": "^5.1.0",
     "gulp": "^4.0.2",
     "gulp-cli": "^2.3.0",
     "ts-loader": "^8.0.2",
     "typescript": "^3.9.6",
-    "vsce": "^1.87.1",
+    "vsce": "^1.88.0",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
     "webpack-stream": "^5.2.1"
