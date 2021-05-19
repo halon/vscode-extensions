@@ -1,6 +1,6 @@
 {
   "name": "vscode-halon",
-  "version": "5.6.2",
+  "version": "5.6.3",
   "private": true,
   "publisher": "Halon",
   "engines": {
@@ -22,32 +22,8 @@
     "hsl"
   ],
   "icon": "dist/images/icon.png",
-  "galleryBanner": {
-    "color": "#062B36",
-    "theme": "dark"
-  },
   "main": "./dist/extension",
   "contributes": {
-    "languages": [
-      {
-        "id": "hsl",
-        "aliases": [
-          "Halon Scripting Language",
-          "hsl"
-        ],
-        "extensions": [
-          ".hsl"
-        ],
-        "configuration": "./dist/language/language-configuration.json"
-      }
-    ],
-    "grammars": [
-      {
-        "language": "hsl",
-        "scopeName": "source.hsl",
-        "path": "./dist/language/hsl.tmLanguage.json"
-      }
-    ],
     "commands": [
       {
         "command": "halon.init",
@@ -143,7 +119,7 @@
     "onCommand:halon.livestageCancel",
     "onCommand:halon.runScript"
   ],
-  "qna": "marketplace",
+  "qna": false,
   "scripts": {
     "vscode:prepublish": "gulp production",
     "build": "gulp development",
@@ -152,16 +128,17 @@
     "vsce": "./node_modules/vsce/out/vsce"
   },
   "bugs": {
-    "url": "https://github.com/halon/vscode-extension/issues",
+    "url": "https://github.com/halon/vscode-extensions/issues",
     "email": "support@halon.io"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/halon/vscode-extension"
+    "url": "https://github.com/halon/vscode-extensions"
   },
-  "homepage": "https://github.com/halon/vscode-extension",
+  "homepage": "https://github.com/halon/vscode-extensions",
   "extensionDependencies": [
-    "redhat.vscode-yaml"
+    "redhat.vscode-yaml",
+    "Halon.hsl-syntax"
   ],
   "devDependencies": {
     "@halon/hsl-docs": "github:halon/hsl-docs#b200ab9a7553f47d9ac8e0846c8970bc29b741b5",

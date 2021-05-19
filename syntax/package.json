@@ -1,0 +1,64 @@
+{
+  "private": true,
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "*"
+  },
+  "name": "hsl-syntax",
+  "displayName": "Halon Scripting Language Syntax",
+  "publisher": "Halon",
+  "description": "Halon Scripting Language Syntax",
+  "author": {
+    "name": "Halon Security AB"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "keywords": [
+    "halon",
+    "hsl"
+  ],
+  "icon": "icon.png",
+  "galleryBanner": {
+    "color": "#062B36",
+    "theme": "dark"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "hsl",
+        "aliases": [
+          "Halon Scripting Language",
+          "hsl"
+        ],
+        "extensions": [
+          ".hsl"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "hsl",
+        "scopeName": "source.hsl",
+        "path": "./hsl.tmLanguage.json"
+      }
+    ]
+  },
+  "qna": false,
+  "scripts": {
+    "vsce": "./node_modules/vsce/out/vsce"
+  },
+  "bugs": {
+    "url": "https://github.com/halon/vscode-extensions/issues",
+    "email": "support@halon.io"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/halon/vscode-extensions"
+  },
+  "homepage": "https://github.com/halon/vscode-extensions",
+  "devDependencies": {
+    "vsce": "^1.88.0"
+  }
+}

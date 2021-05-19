@@ -40,17 +40,11 @@ gulp.task('protobuf-schemas', () => {
     .pipe(gulp.dest('dist/protobuf-schemas'));
 });
 
-gulp.task('language', () => {
-  return gulp.src('src/language/**/*')
-    .pipe(gulp.dest('dist/language'));
-});
-
 gulp.task('watch', () => {
-  gulp.watch(['src/**/*.ts', 'src/**/*.json', '!src/language/**/*'], gulp.series('webpack-development'));
+  gulp.watch(['src/**/*.ts', 'src/**/*.json'], gulp.series('webpack-development'));
   gulp.watch('src/images/**/*', gulp.series('images'));
   gulp.watch('node_modules/@halon/json-schemas/*.schema.json', gulp.series('json-schemas'));
-  gulp.watch('src/language/**/*', gulp.series('language'));
 });
 
-gulp.task('production', gulp.series('clean', gulp.parallel('webpack-production', 'images', 'json-schemas', 'protobuf-schemas', 'language')));
-gulp.task('development', gulp.series('clean', gulp.parallel('webpack-development', 'images', 'json-schemas', 'protobuf-schemas', 'language')));
+gulp.task('production', gulp.series('clean', gulp.parallel('webpack-production', 'images', 'json-schemas', 'protobuf-schemas')));
+gulp.task('development', gulp.series('clean', gulp.parallel('webpack-development', 'images', 'json-schemas', 'protobuf-schemas')));
