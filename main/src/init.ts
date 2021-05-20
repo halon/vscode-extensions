@@ -173,7 +173,9 @@ command=/opt/halon/sbin/smtpd`
 2. Install [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension
 3. Copy \`halon-5.6.1-ubuntu-20.04-x86_64.deb\` to the \`.devcontainer\` folder
 4. [Reopen this folder in the container](https://code.visualstudio.com/docs/remote/containers#_quick-start-open-an-existing-folder-in-a-container)
-5. If you need to restart \`smtpd\` you can run \`supervisorctl restart smtpd\`
+
+By default port 25 will be forwarded from the container to the local machine, click on the *Ports* tab to see which randomized destination port you should use to connect to it.
+If you need to restart \`smtpd\` you can run \`supervisorctl restart smtpd\`.
 
 ## Important information
 Note that this docker container is not configured to be production-ready and should only be used during development.
