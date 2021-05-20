@@ -174,7 +174,7 @@ command=/opt/halon/sbin/smtpd`
 3. Copy \`halon-5.6.1-ubuntu-20.04-x86_64.deb\` to the \`.devcontainer\` folder
 4. [Reopen this folder in the container](https://code.visualstudio.com/docs/remote/containers#_quick-start-open-an-existing-folder-in-a-container)
 
-By default port 25 will be forwarded from the container to the local machine, click on the *Ports* tab to see which randomized destination port you should use to connect to it.
+By default port 25 will be forwarded from the container to the local machine, click on the *PORTS* tab to see which randomized destination port you should use to connect to it.
 If you need to restart \`smtpd\` you can run \`supervisorctl restart smtpd\`.
 
 ## Important information
