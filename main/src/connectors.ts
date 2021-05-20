@@ -7,6 +7,7 @@ import yaml from 'yaml';
 export default class Connectors
 {
   connectors: {
+    type: string,
     settingsPath: string,
     connector: factory.SSH2Connector | factory.UNIXConnector
   }[];
@@ -43,14 +44,15 @@ export default class Connectors
           return connector.settingsPath === settingsPath;
         });
         if (connector) {
-          return connector.connector;
+          return connector;
         } else {
           connector = {
+            type: settings.ssh ? 'ssh' : 'unix',
             settingsPath: settingsPath,
             connector: factory.ConnectorFactory(settings)
           };
           this.connectors.push(connector);
-          return connector.connector;
+          return connector;
         }
       }
     }

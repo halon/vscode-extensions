@@ -46,7 +46,7 @@ export function activate(context: ExtensionContext)
       const workspaceFolder = workspace.getWorkspaceFolder(document.uri);
       if (typeof workspaceFolder !== 'undefined') {
         const connector = connectors.getConnector(workspaceFolder);
-        if (typeof connector !== 'undefined') lint(connector, document, diagnosticCollection);
+        if (typeof connector !== 'undefined' && connector.type === 'ssh') lint(connector.connector, document, diagnosticCollection);
       }
     }
   }));
@@ -58,7 +58,7 @@ export function activate(context: ExtensionContext)
       const workspaceFolder = workspace.getWorkspaceFolder(document.uri);
       if (typeof workspaceFolder !== 'undefined') {
         const connector = connectors.getConnector(workspaceFolder);
-        if (typeof connector !== 'undefined') lint(connector, document, diagnosticCollection);
+        if (typeof connector !== 'undefined' && connector.type === 'ssh') lint(connector.connector, document, diagnosticCollection);
       }
     }
   }, 500)));
@@ -70,7 +70,7 @@ export function activate(context: ExtensionContext)
         const workspaceFolder = workspace.getWorkspaceFolder(document.uri);
         if (typeof workspaceFolder !== 'undefined') {
           const connector = connectors.getConnector(workspaceFolder);
-          if (typeof connector !== 'undefined') lint(connector, document, diagnosticCollection);
+          if (typeof connector !== 'undefined' && connector.type === 'ssh') lint(connector.connector, document, diagnosticCollection);
         }
       }
     }
@@ -81,7 +81,7 @@ export function activate(context: ExtensionContext)
       const workspaceFolder = workspace.getWorkspaceFolder(window.activeTextEditor.document.uri);
       if (typeof workspaceFolder !== 'undefined') {
         const connector = connectors.getConnector(workspaceFolder);
-        if (typeof connector !== 'undefined') lint(connector, window.activeTextEditor.document, diagnosticCollection);
+        if (typeof connector !== 'undefined' && connector.type === 'ssh') lint(connector.connector, window.activeTextEditor.document, diagnosticCollection);
       }
     }
   }
@@ -140,7 +140,7 @@ export function activate(context: ExtensionContext)
       if (!workspaceFolder)
         throw new Error('No compatible workspace folder was found');
       const connector = connectors.getConnector(workspaceFolder);
-      if (typeof connector !== 'undefined') livestage(connector, workspaceFolder.uri.fsPath, 'start');
+      if (typeof connector !== 'undefined') livestage(connector.connector, workspaceFolder.uri.fsPath, 'start');
     } catch (error) {
       window.showErrorMessage(`Live Staging: ${error.message || error}`);
     }
@@ -156,7 +156,7 @@ export function activate(context: ExtensionContext)
       if (!workspaceFolder)
         throw new Error('No compatible workspace folder was found');
       const connector = connectors.getConnector(workspaceFolder);
-      if (typeof connector !== 'undefined') livestage(connector, workspaceFolder.uri.fsPath, 'status');
+      if (typeof connector !== 'undefined') livestage(connector.connector, workspaceFolder.uri.fsPath, 'status');
     } catch (error) {
       window.showErrorMessage(`Live Staging: ${error.message || error}`);
     }
@@ -172,7 +172,7 @@ export function activate(context: ExtensionContext)
       if (!workspaceFolder)
         throw new Error('No compatible workspace folder was found');
       const connector = connectors.getConnector(workspaceFolder);
-      if (typeof connector !== 'undefined') livestage(connector, workspaceFolder.uri.fsPath, 'cancel');
+      if (typeof connector !== 'undefined') livestage(connector.connector, workspaceFolder.uri.fsPath, 'cancel');
     } catch (error) {
       window.showErrorMessage(`Live Staging: ${error.message || error}`);
     }
@@ -183,7 +183,7 @@ export function activate(context: ExtensionContext)
       const workspaceFolder = workspace.getWorkspaceFolder(window.activeTextEditor.document.uri);
       if (typeof workspaceFolder !== 'undefined') {
         const connector = connectors.getConnector(workspaceFolder);
-        if (typeof connector !== 'undefined') run(connector, window.activeTextEditor.document, workspaceFolder.uri.fsPath);
+        if (typeof connector !== 'undefined') run(connector.connector, window.activeTextEditor.document, workspaceFolder.uri.fsPath);
       } else {
         window.showErrorMessage(`Run Script: You need to have a workspace folder open to run this command`);
       }
