@@ -1,6 +1,6 @@
 {
   "name": "vscode-halon",
-  "version": "5.6.5",
+  "version": "5.6.6",
   "private": true,
   "publisher": "Halon",
   "engines": {
@@ -28,10 +28,6 @@
       {
         "command": "halon.init",
         "title": "Halon: Init"
-      },
-      {
-        "command": "halon.initForce",
-        "title": "Halon: Init (Force)"
       },
       {
         "command": "halon.build",
@@ -112,7 +108,6 @@
   "activationEvents": [
     "onLanguage:hsl",
     "onCommand:halon.init",
-    "onCommand:halon.initForce",
     "onCommand:halon.build",
     "onCommand:halon.livestageStart",
     "onCommand:halon.livestageStatus",

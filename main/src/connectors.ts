@@ -17,10 +17,10 @@ export default class Connectors
     this.connectors = [];
   }
 
-  getConnector(workspaceFolder: WorkspaceFolder) {
-    if (typeof workspaceFolder !== 'undefined') {
-      const yamlSettingsPath = path.join(workspaceFolder.uri.fsPath, 'settings.yaml');
-      const jsonSettingsPath = path.join(workspaceFolder.uri.fsPath, 'settings.json');
+  getConnector(workspaceFolderPath: string) {
+    if (typeof workspaceFolderPath !== 'undefined') {
+      const yamlSettingsPath = path.join(workspaceFolderPath, 'settings.yaml');
+      const jsonSettingsPath = path.join(workspaceFolderPath, 'settings.json');
 
       let settings = null;
       let settingsPath: string | null = null;
