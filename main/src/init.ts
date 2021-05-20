@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { Uri, workspace, window } from 'vscode';
+import { Uri, workspace, window, commands } from 'vscode';
 import yaml from 'yaml';
 
 export const run = (base: string | null = '.', type = 'none') =>
@@ -185,8 +185,23 @@ command=/opt/halon/sbin/smtpd -f`
 * If you need to see the text logs you can run \`supervisorctl tail -f smtpd stderr\`
 `
     );
-    workspace.openTextDocument(Uri.file(path.join(base, "README.md"))).then((document) => {
-      window.showTextDocument(document);
-    });
+    commands.executeCommand('markdown.showPreview', Uri.file(path.join(base, "README.md")))
+  }
+
+  if (type === 'ssh') {
+    fs.writeFileSync(path.join(base, "README.md"),
+`# Halon configuration template (ssh)
+
+## Getting started
+
+1. Install \`halon-5.6.1-ubuntu-20.04-x86_64.deb\` on the remote machine
+2. Move this folder to the remote machine (You don't need to have it on your local machine)
+3. Install [Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) extension
+4. [Connect to the remote machine](https://code.visualstudio.com/docs/remote/ssh#_connect-to-a-remote-host) using the [Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) extension
+5. [Install](https://code.visualstudio.com/docs/remote/ssh#_managing-extensions) [Halon](https://marketplace.visualstudio.com/items?itemName=Halon.vscode-halon) extension and [Halon Scripting Language Linter](https://marketplace.visualstudio.com/items?itemName=Halon.hsl-linter) extension on the remote machine (if they are not already installed)
+6. [Open this folder on the remote machine](https://code.visualstudio.com/docs/remote/ssh#_connect-to-a-remote-host)
+`
+    );
+    commands.executeCommand('markdown.showPreview', Uri.file(path.join(base, "README.md")))
   }
 }

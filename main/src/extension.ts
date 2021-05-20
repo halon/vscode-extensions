@@ -100,6 +100,10 @@ export function activate(context: ExtensionContext)
             label: 'container',
             description: 'Remote development using a Docker container',
             detail: 'This template includes configuration for remote development using a Docker container'
+          }, {
+            label: 'ssh',
+            description: 'Remote development using a SSH connection',
+            detail: 'This template includes configuration for remote development using a SSH connection'
           }], {
             title: 'Choose configuration template'
           }).then((type) => {
