@@ -25,7 +25,10 @@ export const run = (base: string | null = '.', type = 'none') =>
       forwardPorts: [25],
       // appPort: [25],
       overrideCommand: false,
-      extensions: ['Halon.vscode-halon', 'Halon.hsl-linter']
+      extensions: ['Halon.vscode-halon', 'Halon.hsl-linter'],
+      "mounts": [
+        "source=${localWorkspaceFolder}/dist,target=/etc/halon,type=bind,consistency=cached"
+      ]
     }, undefined, 2));
 
     fs.writeFileSync(path.join(base, ".devcontainer", "Dockerfile"),
@@ -37,7 +40,6 @@ RUN apt-get update && apt install -y /halon-5.6.1-ubuntu-20.04-x86_64.deb && rm 
 
 RUN /usr/bin/install -d /var/run/halon
 ENV LD_LIBRARY_PATH=/opt/halon/lib/:$LD_LIBRARY_PATH
-COPY dist/*.yaml /etc/halon/
 
 RUN apt-get install -y git
 
