@@ -1,0 +1,72 @@
+{
+  "private": true,
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.56.2"
+  },
+  "name": "hsl-linter",
+  "displayName": "Halon Scripting Language Linter",
+  "publisher": "Halon",
+  "description": "Halon Scripting Language Linter",
+  "author": {
+    "name": "Halon Security AB"
+  },
+  "categories": [
+    "Linters"
+  ],
+  "keywords": [
+    "halon",
+    "hsl"
+  ],
+  "icon": "icon.png",
+  "galleryBanner": {
+    "color": "#062B36",
+    "theme": "dark"
+  },
+  "activationEvents": [
+    "onLanguage:hsl"
+  ],
+  "qna": false,
+  "scripts": {
+    "vscode:prepublish": "npm run package-ext",
+    "compile": "tsc -p ./",
+    "lint": "eslint src --ext ts",
+    "watch": "webpack --watch --devtool nosources-source-map --info-verbosity verbose --config ./webpack.config.js",
+    "watch2": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "package": "vsce package",
+    "publish": "vsce publish",
+    "package-ext": "webpack --mode production --config ./webpack.config.js"
+  },
+  "bugs": {
+    "url": "https://github.com/halon/vscode-extensions/issues",
+    "email": "support@halon.io"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/halon/vscode-extensions"
+  },
+  "homepage": "https://github.com/halon/vscode-extensions",
+  "devDependencies": {
+    "@types/is-utf8": "^0.2.0",
+    "@types/node": "^14.17.0",
+    "@types/path-is-inside": "^1.0.0",
+    "@types/vscode": "^1.55.0",
+    "@typescript-eslint/eslint-plugin": "^4.21.0",
+    "@typescript-eslint/parser": "^4.21.0",
+    "eslint": "^7.23.0",
+    "ts-loader": "^8.1.0",
+    "typescript": "^4.2.3",
+    "vsce": "^1.87.1",
+    "webpack": "^4.46.0",
+    "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {
+    "@types/underscore": "^1.11.2",
+    "is-utf8": "^0.2.1",
+    "path-is-inside": "^1.0.2",
+    "underscore": "^1.13.1",
+    "yaml": "^1.10.2"
+  },
+  "main": "./dist/extension.js"
+}
