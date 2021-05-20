@@ -26,8 +26,8 @@ export const run = (base: string | null = '.', type = 'none') =>
       // appPort: [25],
       overrideCommand: false,
       extensions: ['Halon.vscode-halon', 'Halon.hsl-linter'],
-      "mounts": [
-        "source=${localWorkspaceFolder}/dist,target=/etc/halon,type=bind,consistency=cached"
+      mounts: [
+        'source=${localWorkspaceFolder}/dist,target=/etc/halon,type=bind,consistency=cached'
       ]
     }, undefined, 2));
 
