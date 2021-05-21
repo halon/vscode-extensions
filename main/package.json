@@ -1,28 +1,22 @@
 {
-  "name": "vscode-halon",
-  "version": "5.6.6",
   "private": true,
-  "publisher": "Halon",
+  "version": "5.6.7",
   "engines": {
     "vscode": "^1.56.2"
   },
-  "license": "ISC",
-  "displayName": "Halon",
-  "description": "Halon extension for Visual Studio Code",
+  "name": "vscode-halon",
+  "displayName": "Halon Configuration Packer",
+  "publisher": "Halon",
+  "description": "Halon Configuration Packer",
   "author": {
     "name": "Halon Security AB"
   },
-  "categories": [
-    "Programming Languages",
-    "Snippets",
-    "Linters"
-  ],
+  "categories": [],
   "keywords": [
     "halon",
     "hsl"
   ],
   "icon": "dist/images/icon.png",
-  "main": "./dist/extension",
   "contributes": {
     "commands": [
       {
@@ -163,5 +157,6 @@
     "ssh2": "^0.8.9",
     "underscore": "^1.9.1",
     "yaml": "^1.10.0"
-  }
+  },
+  "main": "./dist/extension"
 }

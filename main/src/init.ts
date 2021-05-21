@@ -198,7 +198,7 @@ command=/opt/halon/sbin/smtpd -f`
 2. Move this folder to the remote machine (You don't need to have it on your local machine)
 3. Install [Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) extension
 4. [Connect to the remote machine](https://code.visualstudio.com/docs/remote/ssh#_connect-to-a-remote-host) using the [Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) extension
-5. [Install](https://code.visualstudio.com/docs/remote/ssh#_managing-extensions) [Halon](https://marketplace.visualstudio.com/items?itemName=Halon.vscode-halon) extension and [Halon Scripting Language Linter](https://marketplace.visualstudio.com/items?itemName=Halon.hsl-linter) extension on the remote machine (if they are not already installed)
+5. [Install](https://code.visualstudio.com/docs/remote/ssh#_managing-extensions) [Halon Configuration Packer](https://marketplace.visualstudio.com/items?itemName=Halon.vscode-halon) extension and [Halon Scripting Language Linter](https://marketplace.visualstudio.com/items?itemName=Halon.hsl-linter) extension on the remote machine (if they are not already installed)
 6. [Open this folder on the remote machine](https://code.visualstudio.com/docs/remote/ssh#_connect-to-a-remote-host)
 `
     );
