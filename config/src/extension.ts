@@ -1,8 +1,4 @@
-'use strict';
-
 import { ExtensionContext, languages, window, workspace, TextDocument, TextEditor, Uri, TextEditorSelectionChangeEvent, commands } from 'vscode';
-import * as fs from 'fs';
-import * as path from 'path';
 import { debounce } from 'underscore';
 import Links from './links';
 import Completions from './completions';
