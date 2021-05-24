@@ -21,7 +21,7 @@ export let matchVariable = (variable: any, variables: any, returnKeys: any): any
 export let parseVariable = (document: TextDocument, position: Position, quote = false, keys: any): any => {
   const steps = quote === true ? 2 : 1;
   const startBracket = document.getText(new Range(position.line, position.character >= steps ? position.character - steps : 0, position.line, position.character)) === (quote === true ? '["' : '[');
-  let endBracket = null;
+  let endBracket: boolean | null = null;
 
   if (keys.length > 0) {
     const wordRange = document.getWordRangeAtPosition(position);

@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { Uri, workspace, window, commands } from 'vscode';
+import { Uri, commands } from 'vscode';
 import yaml from 'yaml';
 
 export const run = (base: string | null = '.', type = 'none') =>

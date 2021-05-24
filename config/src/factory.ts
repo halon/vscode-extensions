@@ -1,4 +1,4 @@
-import { Client, ClientChannel, ExecOptions } from 'ssh2';
+import { Client, ClientChannel } from 'ssh2';
 import net from 'net';
 import * as stream from 'stream';
 import { EventEmitter } from 'events';

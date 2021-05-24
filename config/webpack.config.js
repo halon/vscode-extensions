@@ -1,41 +1,46 @@
 //@ts-check
-
 'use strict';
+
+//@ts-check
+/** @typedef {import('webpack').Configuration} WebpackConfig **/
 
 const path = require('path');
 
-/**@type {import('webpack').Configuration}*/
-const config = {
+module.exports = /** @type WebpackConfig */ {
+  mode: 'none',
   target: 'node',
-  node: {
-    __dirname: false
-  },
-  entry: './src/extension.ts',
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'extension.js',
-    libraryTarget: 'commonjs2',
-    devtoolModuleFilenameTemplate: '../[resource-path]'
-  },
-  externals: {
-    vscode: 'commonjs vscode'
+  entry: {
+    extension: './src/extension.ts'
   },
   resolve: {
     extensions: ['.ts', '.js']
   },
+  node: {
+    __dirname: false,
+  },
   module: {
-    rules: [
-      {
-        test: /\.ts$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: 'ts-loader'
+    rules: [{
+      test: /\.ts$/,
+      exclude: /node_modules/,
+      use: [{
+        loader: 'ts-loader',
+        options: {
+          compilerOptions: {
+            'sourceMap': true,
+            'declaration': false
           }
-        ]
-      }
-    ]
-  }
-};
-
-module.exports = config;
+        }
+      }]
+    }]
+  },
+  externals: {
+    vscode: "commonjs vscode"
+  },
+  output: {
+    filename: 'extension.js',
+    path: path.resolve(__dirname, './dist'),
+    libraryTarget: 'commonjs2',
+    devtoolModuleFilenameTemplate: "./../[resource-path]"
+  },
+  devtool: 'source-map'
+}

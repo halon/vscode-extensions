@@ -1,7 +1,8 @@
-.vscode
+.vscode/**/*
+.gitignore
+src/**/*
+**/*.js.map
+build
 node_modules
-src/**
-package-json.lock
 tsconfig.json
-webpack.config.js
-.editorconfig
+out

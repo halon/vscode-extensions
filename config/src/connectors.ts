@@ -1,6 +1,6 @@
 import fs from 'fs';
 import * as path from 'path';
-import { WorkspaceFolder, Uri } from 'vscode';
+import { Uri } from 'vscode';
 import * as factory from './factory';
 import yaml from 'yaml';
 
@@ -22,7 +22,7 @@ export default class Connectors
       const yamlSettingsPath = path.join(workspaceFolderPath, 'settings.yaml');
       const jsonSettingsPath = path.join(workspaceFolderPath, 'settings.json');
 
-      let settings = null;
+      let settings: any = null;
       let settingsPath: string | null = null;
 
       if (fs.existsSync(yamlSettingsPath)) {
