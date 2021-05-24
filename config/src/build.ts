@@ -77,45 +77,6 @@ export const syntax = (file: string, workspaceFolder: string) =>
   return result;
 }
 
-// export const syntaxAll = (base: string = '.') =>
-// {
-//   let syntaxes: any = [];
-//   let smtpdapp = path.join(base, "src", "config", "smtpd-app.yaml");
-//   if (!fs.existsSync(smtpdapp))
-//     throw new Error("Missing " + smtpdapp);
-//   const file = fs.readFileSync(smtpdapp, 'utf-8');
-//   if (!file)
-//     throw new Error("Cannot open " + smtpdapp);
-//   let config = yaml.parse(file);
-//   const hooks = extractHooks(config);
-
-//   var entries: any = Object.entries(hooks);
-//   for (let [type, value] of entries)
-//   {
-//     for (let id of value)
-//     {
-//       var hookfolder = [type];
-//       if (type == "eodrcpt")
-//         hookfolder = ["eod", "rcpt"];
-//       const filePath = path.join(base, "src", "hooks", ...hookfolder, id + ".hsl");
-//       syntaxes[filePath] = syntax(filePath);
-//     }
-//   }
-
-//   var filePath = path.join(base, "src", "hooks", "queue", "predelivery.hsl");
-//   if (fs.existsSync(filePath))
-//   {
-//     syntaxes[filePath] = syntax(filePath);
-//   }
-
-//   filePath = path.join(base, "src", "hooks", "queue", "postdelivery.hsl");
-//   if (fs.existsSync(filePath))
-//   {
-//     syntaxes[filePath] = syntax(filePath);
-//   }
-//   return syntaxes;
-// }
-
 export const readdirSyncRecursive = (dir: string) =>
 {
   var results: string[] = [];
