@@ -21,27 +21,33 @@
     "commands": [
       {
         "command": "halon.init",
-        "title": "Halon: Init"
+        "title": "Init",
+        "category": "Halon"
       },
       {
         "command": "halon.build",
-        "title": "Halon: Build"
+        "title": "Build",
+        "category": "Halon"
       },
       {
         "command": "halon.livestageStart",
-        "title": "Halon: Live Staging (Start)"
+        "title": "Live Staging (Start)",
+        "category": "Halon"
       },
       {
         "command": "halon.livestageStatus",
-        "title": "Halon: Live Staging (Status)"
+        "title": "Live Staging (Status)",
+        "category": "Halon"
       },
       {
         "command": "halon.livestageCancel",
-        "title": "Halon: Live Staging (Cancel)"
+        "title": "Live Staging (Cancel)",
+        "category": "Halon"
       },
       {
         "command": "halon.runScript",
-        "title": "Halon: Run Script"
+        "title": "Run Script",
+        "category": "Halon"
       }
     ],
     "menus": {
