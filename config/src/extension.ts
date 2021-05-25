@@ -204,6 +204,11 @@ export function activate(context: ExtensionContext)
       }
     }
   }));
+
+  // 'export' public api-surface
+  return {
+    build: build
+  };
 }
 
 export function deactivate() {}
