@@ -19,15 +19,10 @@ gulp.task('webpack-production', function() {
 gulp.task('webpack-development', function() {
   let config = require('./webpack.config.js');
   config.mode = 'development';
-  config.devtool = 'source-map';
+  config.devtool = 'nosources-source-map';
   return gulp.src('src/extension.ts')
     .pipe(webpack(config))
     .pipe(gulp.dest('dist/'));
-});
-
-gulp.task('images', () => {
-  return gulp.src('src/images/**/*')
-    .pipe(gulp.dest('dist/images'));
 });
 
 gulp.task('json-schemas', () => {
@@ -42,9 +37,9 @@ gulp.task('protobuf-schemas', () => {
 
 gulp.task('watch', () => {
   gulp.watch(['src/**/*.ts', 'src/**/*.json'], gulp.series('webpack-development'));
-  gulp.watch('src/images/**/*', gulp.series('images'));
   gulp.watch('node_modules/@halon/json-schemas/*.schema.json', gulp.series('json-schemas'));
+  gulp.watch('node_modules/@halon/protobuf-schemas/*.proto', gulp.series('protobuf-schemas'));
 });
 
-gulp.task('production', gulp.series('clean', gulp.parallel('webpack-production', 'images', 'json-schemas', 'protobuf-schemas')));
-gulp.task('development', gulp.series('clean', gulp.parallel('webpack-development', 'images', 'json-schemas', 'protobuf-schemas')));
+gulp.task('production', gulp.series('clean', gulp.parallel('webpack-production', 'json-schemas', 'protobuf-schemas')));
+gulp.task('development', gulp.series('clean', gulp.parallel('webpack-development', 'json-schemas', 'protobuf-schemas')));

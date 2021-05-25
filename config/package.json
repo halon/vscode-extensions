@@ -16,7 +16,7 @@
     "halon",
     "hsl"
   ],
-  "icon": "dist/images/icon.png",
+  "icon": "icon.png",
   "contributes": {
     "commands": [
       {
