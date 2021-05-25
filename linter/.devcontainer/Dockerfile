@@ -9,6 +9,7 @@ ENV LD_LIBRARY_PATH=/opt/halon/lib/:$LD_LIBRARY_PATH
 
 RUN apt-get install -y git
 
+RUN apt-get install -y curl
 RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
 RUN apt-get install -y nodejs
 
