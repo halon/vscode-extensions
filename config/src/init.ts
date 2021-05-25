@@ -181,7 +181,8 @@ command=/opt/halon/sbin/smtpd -f`
 
 * This docker container is not configured to be production-ready and should only be used during development
 * By default port 25 will be forwarded from the container to the local machine, click on the *PORTS* tab to see which randomized destination port you should use to connect to it
-* If you need to restart \`smtpd\` after building a new configuration you can run \`supervisorctl restart smtpd\`
+* If you need to restart \`smtpd\` after building a new startup configuration (\`smtpd.yaml\`) you can run \`supervisorctl restart smtpd\`
+* If you need to reload \`smtpd\` after building a new running configuration (\`smtpd-app.yaml\`) you can run \`halonctl config reload -P smtpd\`
 * If you need to see the text logs you can run \`supervisorctl tail -f smtpd stderr\`
 `
     );
