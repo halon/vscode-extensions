@@ -116,11 +116,16 @@
   ],
   "qna": false,
   "scripts": {
-    "vscode:prepublish": "gulp production",
-    "build": "gulp development",
+    "vscode:prepublish": "npm run package-ext",
+    "compile": "gulp development",
+    "lint": "eslint src --ext ts",
     "watch": "gulp watch",
-    "docs": "npm --prefix node_modules/@halon/hsl-docs install && npm --prefix node_modules/@halon/hsl-docs run build && cp node_modules/@halon/hsl-docs/dist/json/* src/docs/",
-    "vsce": "./node_modules/vsce/out/vsce"
+    "watch2": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "package": "vsce package",
+    "publish": "vsce publish",
+    "package-ext": "gulp production",
+    "docs": "npm --prefix node_modules/@halon/hsl-docs install && npm --prefix node_modules/@halon/hsl-docs run build && cp node_modules/@halon/hsl-docs/dist/json/* src/docs/"
   },
   "bugs": {
     "url": "https://github.com/halon/vscode-extensions/issues",
@@ -143,7 +148,10 @@
     "@types/ssh2": "^0.5.45",
     "@types/underscore": "^1.9.3",
     "@types/vscode": "^1.56.0",
+    "@typescript-eslint/eslint-plugin": "^4.25.0",
+    "@typescript-eslint/parser": "^4.25.0",
     "del": "^5.1.0",
+    "eslint": "^7.27.0",
     "gulp": "^4.0.2",
     "gulp-cli": "^2.3.0",
     "ts-loader": "^8.0.2",
