@@ -1,0 +1,12 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "hsl",
+      "request": "launch",
+      "name": "Debug test.hsl",
+      "program": "${workspaceFolder}/src/files/test.hsl",
+      "trace": false
+    }
+  ]
+}

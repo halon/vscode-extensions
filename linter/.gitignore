@@ -1,6 +1,7 @@
 out
-dist
+/dist
 node_modules
 npm-debug.log
 *.vsix
 .DS_Store
+*.deb
