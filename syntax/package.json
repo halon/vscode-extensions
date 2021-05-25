@@ -47,7 +47,8 @@
   },
   "qna": false,
   "scripts": {
-    "vsce": "./node_modules/vsce/out/vsce"
+    "package": "vsce package",
+    "publish": "vsce publish"
   },
   "bugs": {
     "url": "https://github.com/halon/vscode-extensions/issues",
