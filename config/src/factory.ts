@@ -14,7 +14,7 @@ export interface ExecProgram extends EventEmitter
 export interface IConnector
 {
   openChannel: (path: string) => Promise<stream.Duplex>
-  openServerChannel: (path: string, callback: (stream: stream.Duplex) => void) => any
+  openServerChannel: (path: string, callback: (stream: stream.Duplex) => void) => Promise<any>
   closeServerChannel: (server: any) => void
   exec: (program: string, argv: string[]) => Promise<ExecProgram>
   dispose: () => void
