@@ -120,7 +120,6 @@
     "compile": "gulp development",
     "lint": "eslint src --ext ts",
     "watch": "gulp watch",
-    "watch2": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "package": "vsce package",
     "publish": "vsce publish",
