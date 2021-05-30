@@ -1,12 +1,6 @@
-//@ts-check
-'use strict';
-
-//@ts-check
-/** @typedef {import('webpack').Configuration} WebpackConfig **/
-
 const path = require('path');
 
-module.exports = /** @type WebpackConfig */ {
+module.exports = {
   mode: 'none',
   target: 'node',
   entry: {
@@ -16,7 +10,7 @@ module.exports = /** @type WebpackConfig */ {
     extensions: ['.ts', '.js']
   },
   node: {
-    __dirname: false,
+    __dirname: false
   },
   module: {
     rules: [{
