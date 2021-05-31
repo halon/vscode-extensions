@@ -1,10 +1,9 @@
-import * as vscode from 'vscode';
-import { window, workspace, languages, TextEditor, TextDocument, TextEditorSelectionChangeEvent, Uri } from 'vscode';
+import { window, workspace, languages, TextEditor, TextDocument, TextEditorSelectionChangeEvent, Uri, ExtensionContext } from 'vscode';
 import { debounce } from 'underscore';
 import * as factory from './factory';
 import lint from './lint';
 
-export function activate(context: vscode.ExtensionContext) {
+export function activate(context: ExtensionContext) {
   const diagnosticCollection = languages.createDiagnosticCollection('hsl');
   context.subscriptions.push(diagnosticCollection);
 
