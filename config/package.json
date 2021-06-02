@@ -136,8 +136,7 @@
   },
   "homepage": "https://github.com/halon/vscode-extensions",
   "extensionDependencies": [
-    "redhat.vscode-yaml",
-    "Halon.hsl-syntax"
+    "redhat.vscode-yaml"
   ],
   "devDependencies": {
     "@halon/hsl-docs": "github:halon/hsl-docs#b200ab9a7553f47d9ac8e0846c8970bc29b741b5",
