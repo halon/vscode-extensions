@@ -1,0 +1,16 @@
+include "functions.hsl";
+
+$string = "string";
+$number = 0;
+$array1 = ["string", 0, ["string", 0]];
+$array2 = ["string" => "string", "number" => 0, "object" => ["string" => "string", "number" => 0]];
+
+$function1 = foo;
+$function2 = foo();
+$class1 = MIME;
+$class2 = MIME();
+$bytes = random_bytes(1000);
+
+for ($i = 1; $i <= 5; $i++) {
+    echo $i;
+}

@@ -1,0 +1,10 @@
+version: "5.6"
+servers:
+  - id: inbound
+    transport: inbound
+transportgroups:
+  - id: default
+    transports:
+      - id: inbound
+        connection:
+          server: 192.168.0.2

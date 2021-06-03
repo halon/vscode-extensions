@@ -1,0 +1,15 @@
+version: "5.6"
+servers:
+  - id: inbound
+    listeners:
+      - port: 25
+environment:
+  uuid:
+    version: 4
+  controlsocket:
+    group: staff
+    chmod: "0660"
+  privdrop:
+    user: halon
+    group: halon
+  umask: "0027"

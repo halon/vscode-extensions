@@ -1,0 +1,6 @@
+smtpd:
+  build:
+    exclude: []
+livestage:
+  id: abcd
+  conditions: {}
