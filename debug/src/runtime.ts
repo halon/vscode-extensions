@@ -114,12 +114,9 @@ export class HSLRuntime extends EventEmitter {
       this._pid = null;
       this.sendEvent('end');
     }, (error) => {
-      this.sendEvent('output', `\x1b[31m${error.message || error}\x1b[0m\n`);
-      if (this._pid) {
-        kill(this._pid, 'SIGINT');
-        this._pid = null;
+      if (error.message !== 'No breakpoint' && error.code !== 'EPIPE' && error.code !== 'ECONNRESET') {
+        this.sendEvent('output', `\x1b[31m${error.message || error}\x1b[0m\n`);
       }
-      this.sendEvent('end');
     }, (pid) => {
       this._pid = pid;
     }, (bp) => {

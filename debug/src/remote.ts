@@ -27,9 +27,7 @@ export const run = (connector: IConnector, smtpd_app: any, onData: (data: string
           onError(error);
         }
       }, (error: any) => {
-        if (error.message !== 'No breakpoint' && error.code !== 'EPIPE' && error.code !== 'ECONNRESET') {
-          onError(error);
-        }
+        onError(error);
       });
       debugChannel.write(channel.packRequest('e'));
       resolve(() => {
