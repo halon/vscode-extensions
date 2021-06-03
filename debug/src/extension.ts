@@ -12,10 +12,9 @@ export function activate(context: vscode.ExtensionContext) {
         name: 'Run File',
         type: 'hsl',
         request: 'launch',
-        program: targetResource.fsPath
-      },
-      { noDebug: true }
-      );
+        program: targetResource.fsPath,
+        debug: false
+      });
     }
   }));
 
@@ -29,7 +28,8 @@ export function activate(context: vscode.ExtensionContext) {
         name: 'Debug File',
         type: 'hsl',
         request: 'launch',
-        program: targetResource.fsPath
+        program: targetResource.fsPath,
+        debug: true
       });
     }
   }));

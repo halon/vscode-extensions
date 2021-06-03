@@ -16,7 +16,7 @@ interface HSLBreakpoint extends DebugProtocol.Breakpoint {
 export class HSLRuntime extends EventEmitter {
   private _pid: number | null = null;
   private _continue: { () : void } | null = null;
-  private _noDebug = false;
+  private _debug = true;
   private _currentFile: string = '';
   private _currentLine = 0;
   private _currentColumn = 0;
@@ -32,8 +32,8 @@ export class HSLRuntime extends EventEmitter {
     super();
   }
   
-  public async start(program: string, noDebug: boolean): Promise<void> {
-    this._noDebug = noDebug;
+  public async start(program: string, debug: boolean): Promise<void> {
+    this._debug = debug;
     this._currentFile = program;
 
     let extension = extensions.getExtension('Halon.vscode-halon');
@@ -64,7 +64,7 @@ export class HSLRuntime extends EventEmitter {
       if (typeof config.smtpd_app === 'undefined') {
         throw new Error();
       }
-      if (!this._noDebug) {
+      if (this._debug) {
         config.smtpd_app.scripting.files = config.smtpd_app.scripting.files.map((file: any) => {
           const filePath = path.join(workspaceFolder.uri.fsPath, 'src', 'files', file.id.split(path.posix.sep).join(path.sep));
           const bps = this._breakPoints.get(filePath);
@@ -233,7 +233,7 @@ export class HSLRuntime extends EventEmitter {
   }
   
   private async verifyBreakpoints(path: string): Promise<void> {
-    if (this._noDebug) {
+    if (!this._debug) {
       return;
     }
     

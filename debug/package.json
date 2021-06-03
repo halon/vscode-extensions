@@ -81,10 +81,53 @@
               "program": {
                 "type": "string",
                 "description": "Absolute path to the program."
+              },
+              "debug": {
+                "type": "boolean",
+                "description": "If debugging should be enabled.",
+                "default": true
               }
             }
           }
-        }
+        },
+        "initialConfigurations": [
+          {
+            "name": "Debug File",
+            "type": "hsl",
+            "request": "launch",
+            "program": "${file}",
+            "debug": true
+          },
+          {
+            "name": "Run File",
+            "type": "hsl",
+            "request": "launch",
+            "program": "${file}",
+            "debug": false
+          }
+        ],
+        "configurationSnippets": [
+          {
+            "label": "Halon Scripting Language: Debug File",
+            "body": {
+              "name": "Debug File",
+              "type": "hsl",
+              "request": "launch",
+              "program": "${file}",
+              "debug": true
+            }
+          },
+          {
+            "label": "Halon Scripting Language: Run File",
+            "body": {
+              "name": "Run File",
+              "type": "hsl",
+              "request": "launch",
+              "program": "${file}",
+              "debug": false
+            }
+          }
+        ]
       }
     ]
   },

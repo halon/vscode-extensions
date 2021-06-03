@@ -10,7 +10,7 @@ import { Subject } from 'await-notify';
 
 interface HSLLaunchRequestArguments extends DebugProtocol.LaunchRequestArguments {
   program: string;
-  noDebug?: boolean;
+  debug?: boolean;
 }
 
 export class HSLLoggingDebugSession extends DebugSession {
@@ -66,7 +66,7 @@ export class HSLLoggingDebugSession extends DebugSession {
   
   protected async launchRequest(response: DebugProtocol.LaunchResponse, args: HSLLaunchRequestArguments) {
     await this._configurationDone.wait(1000);
-    await this._runtime.start(args.program, !!args.noDebug);
+    await this._runtime.start(args.program, !!args.debug);
     this.sendResponse(response);
   }
   
