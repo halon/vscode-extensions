@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "5.6.8",
+  "version": "5.6.9",
   "engines": {
     "vscode": "^1.56.2"
   },
@@ -43,21 +43,8 @@
         "command": "halon.livestageCancel",
         "title": "Live Staging (Cancel)",
         "category": "Halon"
-      },
-      {
-        "command": "halon.runScript",
-        "title": "Run Script",
-        "category": "Halon"
       }
     ],
-    "menus": {
-      "commandPalette": [
-        {
-          "command": "halon.runScript",
-          "when": "editorLangId == hsl"
-        }
-      ]
-    },
     "yamlValidation": [
       {
         "fileMatch": "smtpd.yaml",
@@ -111,8 +98,7 @@
     "onCommand:halon.build",
     "onCommand:halon.livestageStart",
     "onCommand:halon.livestageStatus",
-    "onCommand:halon.livestageCancel",
-    "onCommand:halon.runScript"
+    "onCommand:halon.livestageCancel"
   ],
   "qna": false,
   "scripts": {

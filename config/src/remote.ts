@@ -1,12 +1,10 @@
 import yaml from 'yaml';
 import * as pb from './protobuf';
 import * as channel from './channel';
-import { IConnector, ExecProgram } from './factory';
-import * as stream from 'stream';
+import { IConnector } from './factory';
 
 const smtpd_socket = '/var/run/halon/smtpd.ctl';
 const hsllint_program = '/opt/halon/bin/hsl-lint';
-const hsh_program = "/opt/halon/bin/hsh";
 
 export const syntax = (connector: IConnector, syntax: any) =>
 {
@@ -70,34 +68,6 @@ export const statusLiveStage = (connector: IConnector) =>
         stream.end();
         reject(error);
       });
-    }).catch(reject);
-  });
-}
-
-export const run = (connector: IConnector, smtpd_app: any, onData: (data: string, err: boolean) => void, getStdin: (stdin: stream.Writable) => void) =>
-{
-  return new Promise<{ code: number, signal: string }>(async (resolve, reject) => {
-    let args = ["-A", "-", "-"];
-    connector.exec(hsh_program, args).then((program: ExecProgram) => {
-      getStdin(program.stdin);
-
-      program.on('close', (code: number, signal: string) => {
-        resolve({ code: code, signal: signal });
-      });
-
-      program.stdout.on('data', (data: Buffer) => {
-        onData(data.toString(), false);
-      });
-
-      program.stderr.on('data', (data: Buffer) => {
-        onData(data.toString(), true);
-      });
-
-      try {
-        program.stdin.write(yaml.stringify(smtpd_app) + '\x04');
-      } catch (e) {
-        reject(e);
-      }
     }).catch(reject);
   });
 }

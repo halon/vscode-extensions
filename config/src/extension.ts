@@ -6,7 +6,6 @@ import Hovers from './hovers';
 import lint from './lint';
 import * as init from './init';
 import * as build from './build';
-import run from './run';
 import livestage from './livestage';
 import Connectors from './connectors';
 
@@ -190,18 +189,6 @@ export function activate(context: ExtensionContext)
       });
     } else {
       window.showErrorMessage(`Live Staging: You need to have a workspace folder open to run this command`);
-    }
-  }));
-
-  context.subscriptions.push(commands.registerCommand('halon.runScript', () => {
-    if (typeof window.activeTextEditor !== 'undefined') {
-      const workspaceFolder = workspace.getWorkspaceFolder(window.activeTextEditor.document.uri);
-      if (typeof workspaceFolder !== 'undefined') {
-        const connector = connectors.getConnector(workspaceFolder.uri.fsPath);
-        if (typeof connector !== 'undefined') run(connector.connector, window.activeTextEditor.document, workspaceFolder.uri.fsPath);
-      } else {
-        window.showErrorMessage(`Run Script: You need to have a workspace folder open to run this command`);
-      }
     }
   }));
 
