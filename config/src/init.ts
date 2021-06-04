@@ -62,6 +62,29 @@ command=/opt/halon/sbin/dlpd
 [program:smtpd]
 command=/opt/halon/sbin/smtpd -f`
     );
+
+    if (!fs.existsSync(path.join(base, ".vscode")))
+      fs.mkdirSync(path.join(base, ".vscode"));
+
+    fs.writeFileSync(path.join(base, ".vscode", "launch.json"), JSON.stringify({
+      version: "0.2.0",
+      configurations: [
+        {
+          name: "Debug File",
+          type: "hsl",
+          request: "launch",
+          program: "${file}",
+          debug: true
+        },
+        {
+          name: "Run File",
+          type: "hsl",
+          request: "launch",
+          program: "${file}",
+          debug: false
+        }
+      ]
+    }, undefined, 2));
   }
 
   let settings: any = {
