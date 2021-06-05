@@ -62,7 +62,7 @@ export class HSLRuntime extends EventEmitter {
     try {
       config = build.generate(workspaceFolder.uri.fsPath);
       if (typeof config.smtpd_app === 'undefined') {
-        throw new Error();
+        throw new Error('Missing running configuration');
       }
       if (this._debug) {
         config.smtpd_app.scripting.files = config.smtpd_app.scripting.files.map((file: any) => {
