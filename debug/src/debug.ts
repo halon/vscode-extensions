@@ -66,7 +66,7 @@ export class HSLLoggingDebugSession extends DebugSession {
   
   protected async launchRequest(response: DebugProtocol.LaunchResponse, args: HSLLaunchRequestArguments) {
     await this._configurationDone.wait(1000);
-    await this._runtime.start(args.program, !!args.debug);
+    await this._runtime.start(args.program, args.debug);
     this.sendResponse(response);
   }
   

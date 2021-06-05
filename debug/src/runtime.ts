@@ -32,7 +32,7 @@ export class HSLRuntime extends EventEmitter {
     super();
   }
   
-  public async start(program: string, debug: boolean): Promise<void> {
+  public async start(program: string, debug: boolean = true): Promise<void> {
     this._debug = debug;
     this._currentFile = program;
 
