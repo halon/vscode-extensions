@@ -32,7 +32,7 @@ export class HSLRuntime extends EventEmitter {
     super();
   }
   
-  public async start(program: string, debug: boolean = true): Promise<void> {
+  public async start(program: string, debug: boolean = true, plugins: string[] = [], configPath: string | undefined): Promise<void> {
     this._debug = debug;
     this._currentFile = program;
 
@@ -98,8 +98,12 @@ export class HSLRuntime extends EventEmitter {
       return;
     }
 
+    if (configPath === undefined && config.smtpd !== undefined) {
+      configPath = path.join(workspaceFolder.uri.fsPath, 'src', 'config', 'smtpd.yaml');
+    }
+
     const connector = factory.ConnectorFactory();
-    remote.run(connector, config.smtpd_app, (data: string, err: boolean) => {
+    remote.run(connector, configPath, config.smtpd_app, plugins, (data: string, err: boolean) => {
       this.sendEvent('output', err ? `\x1b[31m${data}\x1b[0m` : data);
     }, (code: number, signal: string) => {
       if (code !== null) {

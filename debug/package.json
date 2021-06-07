@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "1.0.2",
+  "version": "1.0.3",
   "engines": {
     "vscode": "^1.56.2"
   },
@@ -84,8 +84,18 @@
               },
               "debug": {
                 "type": "boolean",
-                "description": "If debugging should be enabled.",
-                "default": true
+                "description": "If debugging should be enabled."
+              },
+              "plugins": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "The plugins that should be enabled."
+              },
+              "config": {
+                "type": "string",
+                "description": "Absolute path to the startup configuration that should be used."
               }
             }
           }

@@ -5,8 +5,17 @@ import * as pb from './protobuf';
 
 const hsh_program = '/opt/halon/bin/hsh';
 
-export const run = (connector: IConnector, smtpd_app: any, onData: (data: string, error: boolean) => void, onDone: (code: number, signal: string) => void, onError: (error: any) => void, getPid: (pid: number) => void, getBreakPoint: (bp: any) => void) =>
-{
+export const run = (
+  connector: IConnector,
+  configPath: string | undefined,
+  appConfig: any,
+  plugins: string[],
+  onData: (data: string, error: boolean) => void,
+  onDone: (code: number, signal: string) => void,
+  onError: (error: any) => void,
+  getPid: (pid: number) => void,
+  getBreakPoint: (bp: any) => void
+) => {
   return new Promise<() => void>(async (resolve, reject) => {
     const debugsocket = '/tmp/hsh-debug.' + (new Date()).getTime();
     connector.openServerChannel(debugsocket, (debugChannel) => {
@@ -36,6 +45,13 @@ export const run = (connector: IConnector, smtpd_app: any, onData: (data: string
       });
     }).then((s: any) => {
       let args = ['-C', debugsocket, '-A', '-', '-'];
+      if (configPath) {
+        args.push('-c', configPath);
+      }
+      for (const plugin of plugins) {
+        args.push('-p', plugin);
+      }
+
       connector.exec(hsh_program, args).then((program: ExecProgram) => {
         getPid(program.pid);
 
@@ -53,7 +69,7 @@ export const run = (connector: IConnector, smtpd_app: any, onData: (data: string
         });
 
         try {
-          program.stdin.end(yaml.stringify(smtpd_app));
+          program.stdin.end(yaml.stringify(appConfig));
         } catch (error) {
           onError(error);
         }
