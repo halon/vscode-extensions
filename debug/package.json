@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "1.0.3",
+  "version": "1.0.4",
   "engines": {
     "vscode": "^1.56.2"
   },
@@ -24,42 +24,6 @@
     "theme": "dark"
   },
   "contributes": {
-    "menus": {
-      "editor/title/run": [
-        {
-          "command": "halon.runEditorContents",
-          "when": "resourceLangId == hsl"
-        },
-        {
-          "command": "halon.debugEditorContents",
-          "when": "resourceLangId == hsl"
-        }
-      ],
-      "commandPalette": [
-        {
-          "command": "halon.debugEditorContents",
-          "when": "resourceLangId == hsl"
-        },
-        {
-          "command": "halon.runEditorContents",
-          "when": "resourceLangId == hsl"
-        }
-      ]
-    },
-    "commands": [
-      {
-        "command": "halon.debugEditorContents",
-        "title": "Debug File",
-        "category": "Halon",
-        "enablement": "!inDebugMode"
-      },
-      {
-        "command": "halon.runEditorContents",
-        "title": "Run File",
-        "category": "Halon",
-        "enablement": "!inDebugMode"
-      }
-    ],
     "breakpoints": [
       {
         "language": "hsl"
@@ -142,9 +106,7 @@
     ]
   },
   "activationEvents": [
-    "onDebugResolve:hsl",
-    "onCommand:halon.runEditorContents",
-    "onCommand:halon.debugEditorContents"
+    "onDebugResolve:hsl"
   ],
   "qna": false,
   "scripts": {
