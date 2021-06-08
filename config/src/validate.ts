@@ -9,8 +9,23 @@ import rated_app_schema from '@halon/json-schemas/rated-app.schema.json';
 import dlpd_schema from '@halon/json-schemas/dlpd.schema.json';
 import dlpd_app_schema from '@halon/json-schemas/dlpd-app.schema.json';
 import api_schema from '@halon/json-schemas/api.schema.json';
+import web_schema from '@halon/json-schemas/web.schema.json';
 
-export const validate = (config: { smtpd?: any, smtpd_app?: any, smtpd_policy?: any, smtpd_suspend?: any, smtpd_delivery?: any, rated?: any, rated_app?: any, dlpd?: any, dlpd_app?: any, api?: any }) => 
+export const validate = (
+  config: {
+    smtpd?: any,
+    smtpd_app?: any,
+    smtpd_policy?: any,
+    smtpd_suspend?: any,
+    smtpd_delivery?: any,
+    rated?: any,
+    rated_app?: any,
+    dlpd?: any,
+    dlpd_app?: any,
+    api?: any,
+    web?: any
+  }
+) => 
 {
   let ajv = new AJV();
 
@@ -62,5 +77,10 @@ export const validate = (config: { smtpd?: any, smtpd_app?: any, smtpd_policy?: 
   if (config.api) {
     let api = ajv.compile(api_schema);
     if (!api(config.api)) throw { source: 'api', errors: api.errors };
+  }
+
+  if (config.web) {
+    let web = ajv.compile(web_schema);
+    if (!web(config.web)) throw { source: 'web', errors: web.errors };
   }
 }
