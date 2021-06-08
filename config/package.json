@@ -130,7 +130,7 @@
     "@types/node": "^14.0.14",
     "@types/path-is-inside": "^1.0.0",
     "@types/ssh2": "^0.5.45",
-    "@types/underscore": "^1.9.3",
+    "@types/underscore": "^1.11.2",
     "@types/vscode": "^1.56.0",
     "@typescript-eslint/eslint-plugin": "^4.25.0",
     "@typescript-eslint/parser": "^4.25.0",
@@ -140,10 +140,10 @@
     "gulp-cli": "^2.3.0",
     "ts-loader": "^8.0.2",
     "typescript": "^3.9.6",
-    "vsce": "^1.88.0",
-    "webpack": "^4.44.1",
+    "vsce": "^1.93.0",
+    "webpack": "^5.38.1",
     "webpack-cli": "^3.3.12",
-    "webpack-stream": "^5.2.1"
+    "webpack-stream": "^6.1.2"
   },
   "dependencies": {
     "@halon/json-schemas": "github:halon/json-schemas#95ef93809e99f500d58463d977ed168f60cdfd94",
@@ -153,7 +153,7 @@
     "path-is-inside": "^1.0.2",
     "protobufjs": "^6.8.8",
     "ssh2": "^0.8.9",
-    "underscore": "^1.9.1",
+    "underscore": "^1.13.1",
     "yaml": "^1.10.0"
   },
   "main": "./dist/extension"
