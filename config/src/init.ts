@@ -3,7 +3,7 @@ import * as path from 'path';
 import { Uri, commands } from 'vscode';
 import yaml from 'yaml';
 
-export const run = (base: string | null = '.', type = 'none') =>
+export const run = (base: string | null = '.', template = 'minimal', development = 'none') =>
 {
   if (base === null)
     base = '.';
@@ -14,7 +14,7 @@ export const run = (base: string | null = '.', type = 'none') =>
   if (!fs.existsSync(path.join(base, "dist")))
     fs.mkdirSync(path.join(base, "dist"));
 
-  if (type === 'container') {
+  if (development === 'container') {
     if (!fs.existsSync(path.join(base, ".devcontainer")))
       fs.mkdirSync(path.join(base, ".devcontainer"));
 
@@ -92,13 +92,6 @@ command=/opt/halon/sbin/smtpd -f`
       build: { exclude: [] }
     },
   };
-  if (type === 'container') {
-    settings.livestage = {
-      id: 'abcd',
-      conditions: {
-      }
-    }
-  }
   fs.writeFileSync(path.join(base, "settings.yaml"), yaml.stringify(settings));
 
   if (!fs.existsSync(path.join(base, "src")))
@@ -134,36 +127,57 @@ command=/opt/halon/sbin/smtpd -f`
     version: '5.6',
     servers: [
       {
-        id: 'inbound',
-        transport: 'inbound'
+        id: 'default',
+        transport: 'mx'
       }
     ],
     transportgroups: [
       {
         id: 'default',
+        retry: {
+          count: 30,
+          intervals: [
+            { interval: 60 },
+            { interval: 900 },
+            { interval: 3600, notify: true },
+            { interval: 7200 },
+            { interval: 10800 }
+          ]
+        },
+        dsn: {
+          transport: 'mx'
+        },
         transports: [
           {
-            id: 'inbound',
-            connection: {
-              server: '192.168.0.2'
+            id: 'mx',
+            session: {
+              tls: {
+                mode: 'dane'
+              }
             }
           }
         ]
       }
-    ]
+    ],
+    resolver: {
+      cache: {
+        size: 10000
+      }
+    }
   };
   fs.writeFileSync(path.join(base, "src", "config", "smtpd-app.yaml"), yaml.stringify(smtpd_app));
-  if (type === 'container')
+  if (development === 'container')
     fs.writeFileSync(path.join(base, "dist", "smtpd-app.yaml"), yaml.stringify(smtpd_app));
 
-  if (type === 'container') {
+  if (development === 'container') {
     const smtpd = {
       version: '5.6',
       servers: [
         {
-          id: 'inbound',
+          id: 'default',
           listeners: [{
-            port: 25
+            port: 25,
+            address: '127.0.0.1'
           }]
         }
       ],
@@ -179,17 +193,20 @@ command=/opt/halon/sbin/smtpd -f`
           user: 'halon',
           group: 'halon'
         },
-        umask: "0027"
+        umask: "0027",
+        rlimit: {
+          nofile: 70000
+        }
       }
     };
     fs.writeFileSync(path.join(base, "src", "config", "smtpd.yaml"), yaml.stringify(smtpd));
     fs.writeFileSync(path.join(base, "dist", "smtpd.yaml"), yaml.stringify(smtpd));
   }
 
-  fs.writeFileSync(path.join(base, "src", "hooks", "queue", "predelivery.hsl"), 'echo "Do";');
-  fs.writeFileSync(path.join(base, "src", "hooks", "queue", "postdelivery.hsl"), 'echo "Done";');
+  fs.writeFileSync(path.join(base, "src", "hooks", "queue", "predelivery.hsl"), "");
+  fs.writeFileSync(path.join(base, "src", "hooks", "queue", "postdelivery.hsl"), "");
 
-  if (type === 'container') {
+  if (development === 'container') {
     fs.writeFileSync(path.join(base, "README.md"),
 `# Halon configuration template (container)
 
@@ -212,7 +229,7 @@ command=/opt/halon/sbin/smtpd -f`
     commands.executeCommand('markdown.showPreview', Uri.file(path.join(base, "README.md")))
   }
 
-  if (type === 'ssh') {
+  if (development === 'ssh') {
     fs.writeFileSync(path.join(base, "README.md"),
 `# Halon configuration template (ssh)
 

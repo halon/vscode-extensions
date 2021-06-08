@@ -86,27 +86,39 @@ export function activate(context: ExtensionContext)
       window.showQuickPick(workspace.workspaceFolders.map((workspaceFolder) => workspaceFolder.uri.fsPath), {
         title: 'Select workspace folder'
       }).then((workspaceFolderPath) => {
-        if (typeof workspaceFolderPath !== 'undefined') {
+        if (workspaceFolderPath !== undefined) {
           window.showQuickPick([{
-            label: 'none',
-            description: 'No remote development',
-            detail: 'This template does not include configuration for remote development'
-          }, {
-            label: 'container',
-            description: 'Remote development using a Docker container',
-            detail: 'This template includes configuration for remote development using a Docker container'
-          }, {
-            label: 'ssh',
-            description: 'Remote development using a SSH connection',
-            detail: 'This template includes configuration for remote development using a SSH connection'
+            label: 'minimal',
+            description: 'Minimal configuration',
+            detail: 'Includes only a minimal amount of configuration'
           }], {
             title: 'Choose configuration template'
-          }).then((type) => {
-            try {
-              init.run(workspaceFolderPath, type?.label);
-              window.showInformationMessage('Init: Completed');
-            } catch (error) {
-              window.showErrorMessage(`Init: ${error.message || error}`);
+          }).then((template) => {
+            if (template !== undefined) {
+              window.showQuickPick([{
+                label: 'none',
+                description: 'No remote development',
+                detail: 'Does not include any configuration for remote development'
+              }, {
+                label: 'container',
+                description: 'Remote development using a Docker container',
+                detail: 'Includes configuration for remote development using a Docker container'
+              }, {
+                label: 'ssh',
+                description: 'Remote development using a SSH connection',
+                detail: 'Includes configuration for remote development using a SSH connection'
+              }], {
+                title: 'Setup remote development'
+              }).then((development) => {
+                if (development !== undefined) {
+                  try {
+                    init.run(workspaceFolderPath, template?.label, development?.label);
+                    window.showInformationMessage('Init: Completed');
+                  } catch (error) {
+                    window.showErrorMessage(`Init: ${error.message || error}`);
+                  }
+                }
+              });
             }
           });
         }

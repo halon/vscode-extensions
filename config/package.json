@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "5.6.10",
+  "version": "5.6.11",
   "engines": {
     "vscode": "^1.56.2"
   },
