@@ -249,7 +249,7 @@ export class HSLRuntime extends EventEmitter {
         const contents = Buffer.from(bytes).toString('utf8');
         this._sourceLines.set(path, contents.split(/\r?\n/));
       }
-      bps.forEach(bp => {
+      for (const bp of bps) {
         const srcLines = this._sourceLines.get(path);
         if (srcLines) {
           if (!bp.verified && bp.line !== undefined && bp.line < srcLines.length && bp.logMessage === undefined && bp.condition === undefined && bp.hitCondition === undefined) {
@@ -257,7 +257,7 @@ export class HSLRuntime extends EventEmitter {
             this.sendEvent('breakpointValidated', bp);
           }
         }
-      });
+      }
     }
   }
 
