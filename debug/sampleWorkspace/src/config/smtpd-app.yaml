@@ -1,10 +1,28 @@
 version: "5.6"
 servers:
-  - id: inbound
-    transport: inbound
+  - id: default
+    transport: mx
+    phases:
+      connect:
+        hook: default
 transportgroups:
   - id: default
+    retry:
+      count: 30
+      intervals:
+        - interval: 60
+        - interval: 900
+        - interval: 3600
+          notify: true
+        - interval: 7200
+        - interval: 10800
+    dsn:
+      transport: mx
     transports:
-      - id: inbound
-        connection:
-          server: 192.168.0.2
+      - id: mx
+        session:
+          tls:
+            mode: dane
+resolver:
+  cache:
+    size: 10000
