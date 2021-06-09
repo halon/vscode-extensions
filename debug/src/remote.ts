@@ -5,7 +5,7 @@ import * as pb from './protobuf';
 
 const hshPath = '/opt/halon/bin/hsh';
 
-export const run = (
+export const hsh = (
   connector: IConnector,
   configPath: string | undefined,
   appConfig: any,

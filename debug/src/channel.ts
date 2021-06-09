@@ -38,7 +38,7 @@ export const setupIPC = (stream: stream.Duplex, onData: Function, onError: Funct
   });
 }
 
-export const sendAndWait = (stream: stream.Duplex, data: Buffer) =>
+export const sendAndWait = (stream: stream.Duplex, data: Uint8Array) =>
 {
   return new Promise<Buffer>((resolve, reject) => {
     var buffer = Buffer.alloc(0);
@@ -77,7 +77,7 @@ export const sendAndWait = (stream: stream.Duplex, data: Buffer) =>
   });
 }
 
-export const packRequest = (command: string, protobuf?: Buffer): Buffer =>
+export const packRequest = (command: string, protobuf?: Uint8Array): Buffer =>
 {
   // 5.6
   var version = Buffer.alloc(2);

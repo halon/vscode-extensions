@@ -103,7 +103,7 @@ export class HSLRuntime extends EventEmitter {
     }
 
     const connector = factory.ConnectorFactory();
-    remote.run(connector, configPath, config.smtpd_app, plugins, (data: string, err: boolean) => {
+    remote.hsh(connector, configPath, config.smtpd_app, plugins, (data: string, err: boolean) => {
       this.sendEvent('output', err ? `\x1b[31m${data}\x1b[0m` : data);
     }, (code: number, signal: string) => {
       if (code !== null) {
