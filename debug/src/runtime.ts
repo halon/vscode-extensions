@@ -14,7 +14,7 @@ interface HSLBreakpoint extends DebugProtocol.Breakpoint {
 }
 
 export class HSLRuntime extends EventEmitter {
-  private _pid: number | null = null;
+  private _pid: number | null | undefined = null;
   private _continue: { () : void } | null = null;
   private _debug = true;
   private _currentFile: string = '';

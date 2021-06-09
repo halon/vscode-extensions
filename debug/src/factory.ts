@@ -8,7 +8,7 @@ export interface ExecProgram extends EventEmitter
   stdin: stream.Writable
   stdout: stream.Readable
   stderr: stream.Readable,
-  pid: number
+  pid?: number | null
 }
 
 export interface IConnector

@@ -13,7 +13,7 @@ export const hsh = (
   onData: (data: string, error: boolean) => void,
   onDone: (code: number, signal: string) => void,
   onError: (error: any) => void,
-  getPid: (pid: number) => void,
+  getPid: (pid?: number | null) => void,
   getBreakPoint: (bp: any) => void
 ) => {
   return new Promise<() => void>(async (resolve, reject) => {
