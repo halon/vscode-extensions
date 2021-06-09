@@ -3,7 +3,7 @@ import { IConnector, ExecProgram } from './factory';
 import * as channel from './channel';
 import * as pb from './protobuf';
 
-const hsh_program = '/opt/halon/bin/hsh';
+const hshPath = '/opt/halon/bin/hsh';
 
 export const run = (
   connector: IConnector,
@@ -52,7 +52,7 @@ export const run = (
         args.push('-p', plugin);
       }
 
-      connector.exec(hsh_program, args).then((program: ExecProgram) => {
+      connector.exec(hshPath, args).then((program: ExecProgram) => {
         getPid(program.pid);
 
         program.on('close', (code: number, signal: string) => {
@@ -76,4 +76,4 @@ export const run = (
       }).catch((error) => onError(error));
     }).catch((error) => onError(error));
   });
-}
+};
