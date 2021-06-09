@@ -17,10 +17,10 @@ export const hsh = (
   getBreakPoint: (bp: any) => void
 ) => {
   return new Promise<() => void>(async (resolve, reject) => {
-    const debugsocket = '/tmp/hsh-debug.' + (new Date()).getTime();
-    connector.openServerChannel(debugsocket, (debugChannel) => {
+    const debugPath = '/tmp/hsh-debug.' + (new Date()).getTime();
+    connector.openServerChannel(debugPath, (stream) => {
       var cmd = 'e';
-      channel.setupIPC(debugChannel, async (response: any) => {
+      channel.setupIPC(stream, async (response: any) => {
         try {
           if (cmd === 'e') {
             if (!response) {
@@ -30,7 +30,7 @@ export const hsh = (
             getBreakPoint(bp);
           } else if (cmd === 'f') {
             cmd = 'e';
-            debugChannel.write(channel.packRequest('e'));
+            stream.write(channel.packRequest('e'));
           }
         } catch (error) {
           onError(error);
@@ -38,13 +38,13 @@ export const hsh = (
       }, (error: any) => {
         onError(error);
       });
-      debugChannel.write(channel.packRequest('e'));
+      stream.write(channel.packRequest('e'));
       resolve(() => {
         cmd = 'f';
-        debugChannel.write(channel.packRequest('f'));
+        stream.write(channel.packRequest('f'));
       });
-    }).then((s: any) => {
-      let args = ['-C', debugsocket, '-A', '-', '-'];
+    }).then((server: any) => {
+      let args = ['-C', debugPath, '-A', '-', '-'];
       if (configPath) {
         args.push('-c', configPath);
       }
@@ -56,7 +56,7 @@ export const hsh = (
         getPid(program.pid);
 
         program.on('close', (code: number, signal: string) => {
-          connector.closeServerChannel(s);
+          connector.closeServerChannel(server);
           onDone(code, signal);
         });
 
