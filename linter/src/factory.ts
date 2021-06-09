@@ -5,18 +5,18 @@ import * as child_process from 'child_process';
 
 export interface ExecProgram extends EventEmitter
 {
-  stdin: stream.Writable
-  stdout: stream.Readable
-  stderr: stream.Readable
+  stdin: stream.Writable;
+  stdout: stream.Readable;
+  stderr: stream.Readable;
 }
 
 export interface IConnector
 {
-  openChannel: (path: string) => Promise<stream.Duplex>
-  openServerChannel: (path: string, callback: (stream: stream.Duplex) => void) => Promise<any>
-  closeServerChannel: (server: any) => void
-  exec: (program: string, argv: string[]) => Promise<ExecProgram>
-  dispose: () => void
+  openChannel: (path: string) => Promise<stream.Duplex>;
+  openServerChannel: (path: string, callback: (stream: stream.Duplex) => void) => Promise<any>;
+  closeServerChannel: (server: any) => void;
+  exec: (program: string, argv: string[]) => Promise<ExecProgram>;
+  dispose: () => void;
 }
 
 export const ConnectorFactory = () =>
