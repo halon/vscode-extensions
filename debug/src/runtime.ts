@@ -64,27 +64,33 @@ export class HSLRuntime extends EventEmitter {
         throw new Error('Missing running configuration');
       }
       if (this._debug) {
+        for (const hook of Object.keys(config.smtpd_app.scripting.hooks)) {
+          if (hook === 'predelivery' || hook === 'postdelivery') {
+            const filePath = path.join(workspaceFolder.uri.fsPath, 'src', 'hooks', 'queue', `${hook}.hsl`);
+            const bps = this._breakPoints.get(filePath);
+            const srcLines = this._sourceLines.get(filePath);
+            if (bps && srcLines) {
+              config.smtpd_app.scripting.hooks[hook] = this.applyBreakPoints(bps, srcLines);
+            }
+          } else {
+            config.smtpd_app.scripting.hooks[hook] = config.smtpd_app.scripting.hooks[hook].map((file: any) => {
+              const filePath = path.join(workspaceFolder.uri.fsPath, 'src', 'hooks', hook, file.id.split(path.posix.sep).join(path.sep) + '.hsl');
+              const bps = this._breakPoints.get(filePath);
+              const srcLines = this._sourceLines.get(filePath);
+              if (bps && srcLines) {
+                return { ...file, data: this.applyBreakPoints(bps, srcLines) };
+              } else {
+                return file;
+              }
+            });
+          }
+        }
         config.smtpd_app.scripting.files = config.smtpd_app.scripting.files.map((file: any) => {
           const filePath = path.join(workspaceFolder.uri.fsPath, 'src', 'files', file.id.split(path.posix.sep).join(path.sep));
           const bps = this._breakPoints.get(filePath);
-          if (bps) {
-            const srcLines = this._sourceLines.get(filePath);
-            if (srcLines) {
-              const lines = [...srcLines];
-              if (bps) {
-                for (const bp of bps) {
-                  if (bp.verified && bp.line !== undefined) {
-                    lines[bp.line] = `__debug ["", "${bp.id}"] ${lines[bp.line]}`;
-                  }
-                }
-              }
-              return {
-                ...file,
-                data: lines.join('\n')
-              };
-            } else {
-              return file;
-            }
+          const srcLines = this._sourceLines.get(filePath);
+          if (bps && srcLines) {
+            return { ...file, data: this.applyBreakPoints(bps, srcLines) };
           } else {
             return file;
           }
@@ -258,6 +264,16 @@ export class HSLRuntime extends EventEmitter {
         }
       }
     }
+  }
+
+  private applyBreakPoints(bps: HSLBreakpoint[], srcLines: string[]) {
+    const lines = [...srcLines];
+    for (const bp of bps) {
+      if (bp.verified && bp.line !== undefined) {
+        lines[bp.line] = `__debug ["", "${bp.id}"] ${lines[bp.line]}`;
+      }
+    }
+    return lines.join('\n');
   }
 
   private parseValue(value: any) {
