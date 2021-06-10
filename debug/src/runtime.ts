@@ -15,7 +15,7 @@ interface HSLBreakpoint extends DebugProtocol.Breakpoint {
 
 export class HSLRuntime extends EventEmitter {
   private _debugId: string | undefined;
-  private _debug: boolean | undefined;
+  private _debug: boolean = true;
   private _currentFile: string | undefined;
   private _currentLine = 0;
   private _currentColumn = 0;
@@ -35,7 +35,7 @@ export class HSLRuntime extends EventEmitter {
   
   public async start(args: HSLLaunchRequestArguments): Promise<void> {
     this._debugId = args.debugId;
-    this._debug = args.debug;
+    this._debug = args.debug !== undefined ? args.debug : this._debug;
     this._currentFile = args.program;
 
     let extension = extensions.getExtension('Halon.vscode-halon');
