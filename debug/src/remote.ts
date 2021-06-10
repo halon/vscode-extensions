@@ -8,7 +8,7 @@ export const hsh = (
   connector: IConnector,
   configPath: string | undefined,
   appConfig: any,
-  plugins: string[],
+  plugins: string[] = [],
   onData: (data: string, error: boolean) => void,
   onDone: (code: number, signal: string) => void,
   onError: (error: any) => void,

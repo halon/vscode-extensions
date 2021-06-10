@@ -8,8 +8,9 @@ import { DebugProtocol } from 'vscode-debugprotocol';
 import { HSLRuntime } from './runtime';
 import { Subject } from 'await-notify';
 
-interface HSLLaunchRequestArguments extends DebugProtocol.LaunchRequestArguments {
+export interface HSLLaunchRequestArguments extends DebugProtocol.LaunchRequestArguments {
   program: string;
+  debugId?: string;
   debug?: boolean;
   plugins?: string[];
   config?: string;
@@ -68,7 +69,7 @@ export class HSLLoggingDebugSession extends DebugSession {
   
   protected async launchRequest(response: DebugProtocol.LaunchResponse, args: HSLLaunchRequestArguments) {
     await this._configurationDone.wait(1000);
-    await this._runtime.start('', args.program, args.debug, args.plugins, args.config);
+    await this._runtime.start(args);
     this.sendResponse(response);
   }
   

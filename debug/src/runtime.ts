@@ -5,6 +5,7 @@ import { EventEmitter } from 'events';
 import { DebugProtocol } from 'vscode-debugprotocol';
 import * as remote from './remote';
 import * as factory from './factory';
+import { HSLLaunchRequestArguments } from './debug';
 
 interface HSLBreakpoint extends DebugProtocol.Breakpoint {
   logMessage?: string;
@@ -13,11 +14,9 @@ interface HSLBreakpoint extends DebugProtocol.Breakpoint {
 }
 
 export class HSLRuntime extends EventEmitter {
-  private _debugId: string = '';
-  private _terminate: { () : void } | null = null;
-  private _continue: { () : void } | null = null;
-  private _debug = true;
-  private _currentFile: string = '';
+  private _debugId: string | undefined;
+  private _debug: boolean | undefined;
+  private _currentFile: string | undefined;
   private _currentLine = 0;
   private _currentColumn = 0;
   private _currentEndColumn = 0;
@@ -27,15 +26,17 @@ export class HSLRuntime extends EventEmitter {
   private _variables = new Map<number, DebugProtocol.Variable[]>();
   private _variablesReference = 1;
   private _stackFrames = new Array<DebugProtocol.StackFrame>();
+  private _terminate: { () : void } | null = null;
+  private _continue: { () : void } | null = null;
   
   constructor() {
     super();
   }
   
-  public async start(debugId: string, program: string, debug: boolean = true, plugins: string[] = [], configPath: string | undefined): Promise<void> {
-    this._debugId = debugId;
-    this._debug = debug;
-    this._currentFile = program;
+  public async start(args: HSLLaunchRequestArguments): Promise<void> {
+    this._debugId = args.debugId;
+    this._debug = args.debug;
+    this._currentFile = args.program;
 
     let extension = extensions.getExtension('Halon.vscode-halon');
     if (!extension) {
@@ -44,7 +45,7 @@ export class HSLRuntime extends EventEmitter {
     }
     const build = extension.exports.build;
 
-    const workspaceFolder = workspace.getWorkspaceFolder(Uri.file(program));
+    const workspaceFolder = workspace.getWorkspaceFolder(Uri.file(args.program));
     if (typeof workspaceFolder === 'undefined') {
       this.sendEvent('output', '\x1b[31mYou need to have a workspace folder open\x1b[0m\n');
       this.sendEvent('end');
@@ -52,13 +53,13 @@ export class HSLRuntime extends EventEmitter {
     }
 
     const filesPath = path.join(workspaceFolder.uri.fsPath, 'src', 'files');
-    if (!pathIsInside(program, filesPath)) {
+    if (!pathIsInside(args.program, filesPath)) {
       this.sendEvent('output', '\x1b[31mOnly files inside the "files" directory can be run\x1b[0m\n');
       this.sendEvent('end');
       return;
     }
     
-    const id = path.relative(filesPath, program).split(path.sep).join(path.posix.sep);
+    const id = path.relative(filesPath, args.program).split(path.sep).join(path.posix.sep);
     let config: any = {};
     try {
       config = build.generate(workspaceFolder.uri.fsPath);
@@ -105,12 +106,13 @@ export class HSLRuntime extends EventEmitter {
       return;
     }
 
+    let configPath = args.config;
     if (configPath === undefined && config.smtpd !== undefined) {
       configPath = path.join(workspaceFolder.uri.fsPath, 'src', 'config', 'smtpd.yaml');
     }
 
     const connector = factory.ConnectorFactory();
-    remote.hsh(connector, configPath, config.smtpd_app, plugins, (data: string, err: boolean) => {
+    remote.hsh(connector, configPath, config.smtpd_app, args.plugins, (data: string, err: boolean) => {
       this.sendEvent('output', err ? `\x1b[31m${data}\x1b[0m` : data);
     }, (code: number, signal: string) => {
       if (code !== null) {
@@ -152,10 +154,10 @@ export class HSLRuntime extends EventEmitter {
       this.stop(parseInt(bp.id));
 
       this._stackFrames = [];
-      const srcLine = this._sourceLines.get(this._currentFile);
+      const srcLine = this._currentFile ? this._sourceLines.get(this._currentFile) : '';
       const stackFrame: DebugProtocol.StackFrame = {
         id: 0,
-        name: srcLine ? srcLine[this._currentLine].substring(this._currentColumn, this._currentEndColumn) :  '',
+        name: srcLine ? srcLine[this._currentLine].substring(this._currentColumn, this._currentEndColumn) : '',
         source: { path: this._currentFile },
         line: this._currentLine,
         column: this._currentColumn,
