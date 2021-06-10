@@ -122,8 +122,6 @@ export class HSLRuntime extends EventEmitter {
       } else if (signal !== undefined) {
         this.sendEvent('output', `\x1b[31mTerminated with ${signal}\x1b[0m\n`);
       }
-      this._terminate = null;
-      this._continue = null;
       this.sendEvent('end');
     }, (error) => {
       if (error.message !== 'No breakpoint' && error.code !== 'EPIPE' && error.code !== 'ECONNRESET') {
@@ -204,9 +202,7 @@ export class HSLRuntime extends EventEmitter {
   public terminate() {
     if (this._terminate) {
       this._terminate();
-      this._terminate = null;
     }
-    this._continue = null;
     this.sendEvent('end');
   }
 
