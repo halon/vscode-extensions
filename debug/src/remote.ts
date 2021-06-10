@@ -16,7 +16,7 @@ export const hsh = (
   onError: (error: any) => void,
   getBreakPoint: (bp: any) => void
 ) => {
-  return new Promise<{ continue: () => void, stop: () => void }>(async (resolve, reject) => {
+  return new Promise<{ terminate: () => void, continue: () => void }>(async (resolve, reject) => {
     let pid: number | null | undefined = null;
     const debugPath = '/tmp/hsh-debug.' + (new Date()).getTime();
     connector.openServerChannel(debugPath, (stream) => {
@@ -45,7 +45,7 @@ export const hsh = (
           cmd = 'f';
           stream.write(channel.packRequest('f'));
         },
-        stop: () => {
+        terminate: () => {
           if (pid) {
             kill(pid, 'SIGINT');
           }
