@@ -13,6 +13,7 @@ interface HSLBreakpoint extends DebugProtocol.Breakpoint {
 }
 
 export class HSLRuntime extends EventEmitter {
+  private _debugId: string = '';
   private _terminate: { () : void } | null = null;
   private _continue: { () : void } | null = null;
   private _debug = true;
@@ -31,7 +32,8 @@ export class HSLRuntime extends EventEmitter {
     super();
   }
   
-  public async start(program: string, debug: boolean = true, plugins: string[] = [], configPath: string | undefined): Promise<void> {
+  public async start(debugId: string, program: string, debug: boolean = true, plugins: string[] = [], configPath: string | undefined): Promise<void> {
+    this._debugId = debugId;
     this._debug = debug;
     this._currentFile = program;
 
@@ -270,7 +272,7 @@ export class HSLRuntime extends EventEmitter {
     const lines = [...srcLines];
     for (const bp of bps) {
       if (bp.verified && bp.line !== undefined) {
-        lines[bp.line] = `__debug ["", "${bp.id}"] ${lines[bp.line]}`;
+        lines[bp.line] = `__debug ["${this._debugId}", "${bp.id}"] ${lines[bp.line]}`;
       }
     }
     return lines.join('\n');
