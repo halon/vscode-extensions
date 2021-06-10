@@ -4,8 +4,6 @@ import * as channel from './channel';
 import * as pb from './protobuf';
 import kill from 'tree-kill';
 
-const hshPath = '/opt/halon/bin/hsh';
-
 export const hsh = (
   connector: IConnector,
   configPath: string | undefined,
@@ -17,6 +15,7 @@ export const hsh = (
   getBreakPoint: (bp: any) => void
 ) => {
   return new Promise<{ terminate: () => void, continue: () => void }>(async (resolve, reject) => {
+    const hshPath = '/opt/halon/bin/hsh';
     let pid: number | null | undefined = null;
     const debugPath = '/tmp/hsh-debug.' + (new Date()).getTime();
     connector.openServerChannel(debugPath, (stream) => {
