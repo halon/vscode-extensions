@@ -3,7 +3,6 @@ import pathIsInside from 'path-is-inside';
 import { extensions, workspace, Uri } from 'vscode';
 import { EventEmitter } from 'events';
 import { DebugProtocol } from 'vscode-debugprotocol';
-import kill from 'tree-kill';
 import * as remote from './remote';
 import * as factory from './factory';
 
@@ -14,8 +13,8 @@ interface HSLBreakpoint extends DebugProtocol.Breakpoint {
 }
 
 export class HSLRuntime extends EventEmitter {
-  private _pid: number | null | undefined = null;
   private _continue: { () : void } | null = null;
+  private _stop: { () : void } | null = null;
   private _debug = true;
   private _currentFile: string = '';
   private _currentLine = 0;
@@ -115,14 +114,13 @@ export class HSLRuntime extends EventEmitter {
       } else if (signal !== undefined) {
         this.sendEvent('output', `\x1b[31mTerminated with ${signal}\x1b[0m\n`);
       }
-      this._pid = null;
+      this._continue = null;
+      this._stop = null;
       this.sendEvent('end');
     }, (error) => {
       if (error.message !== 'No breakpoint' && error.code !== 'EPIPE' && error.code !== 'ECONNRESET') {
         this.sendEvent('output', `\x1b[31m${error.message || error}\x1b[0m\n`);
       }
-    }, (pid) => {
-      this._pid = pid;
     }, (bp) => {
       this._variables.clear();
       this._variablesReference = 1;
@@ -169,8 +167,9 @@ export class HSLRuntime extends EventEmitter {
           this._stackFrames.push(stackFrame);
         }
       }
-    }).then((c) => {
-      this._continue = c;
+    }).then((commands) => {
+      this._continue = commands.continue;
+      this._stop = commands.stop;
     });
   }
 
@@ -195,12 +194,12 @@ export class HSLRuntime extends EventEmitter {
   }
 
   public terminate() {
-    if (this._pid) {
-      kill(this._pid, 'SIGINT');
-      this._pid = null;
-    } else {
-      this.sendEvent('end');
+    if (this._stop) {
+      this._stop();
+      this._stop = null;
+      this._continue = null;
     }
+    this.sendEvent('end');
   }
 
   public getVariables(variablesReference: number) {
@@ -229,7 +228,7 @@ export class HSLRuntime extends EventEmitter {
 
     this._breakPoints.set(path, newBps);
     
-    if (!this._pid) {
+    if (!this._continue) {
       await this.verifyBreakpoints(path);
     }
     

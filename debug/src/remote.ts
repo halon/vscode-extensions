@@ -2,6 +2,7 @@ import yaml from 'yaml';
 import { IConnector, ExecProgram } from './factory';
 import * as channel from './channel';
 import * as pb from './protobuf';
+import kill from 'tree-kill';
 
 const hshPath = '/opt/halon/bin/hsh';
 
@@ -13,10 +14,10 @@ export const hsh = (
   onData: (data: string, error: boolean) => void,
   onDone: (code: number, signal: string) => void,
   onError: (error: any) => void,
-  getPid: (pid?: number | null) => void,
   getBreakPoint: (bp: any) => void
 ) => {
-  return new Promise<() => void>(async (resolve, reject) => {
+  return new Promise<{ continue: () => void, stop: () => void }>(async (resolve, reject) => {
+    let pid: number | null | undefined = null;
     const debugPath = '/tmp/hsh-debug.' + (new Date()).getTime();
     connector.openServerChannel(debugPath, (stream) => {
       var cmd = 'e';
@@ -39,9 +40,16 @@ export const hsh = (
         onError(error);
       });
       stream.write(channel.packRequest('e'));
-      resolve(() => {
-        cmd = 'f';
-        stream.write(channel.packRequest('f'));
+      resolve({
+        continue: () => {
+          cmd = 'f';
+          stream.write(channel.packRequest('f'));
+        },
+        stop: () => {
+          if (pid) {
+            kill(pid, 'SIGINT');
+          }
+        }
       });
     }).then((server: any) => {
       let args = ['-C', debugPath, '-A', '-', '-'];
@@ -53,7 +61,7 @@ export const hsh = (
       }
 
       connector.exec(hshPath, args).then((program: ExecProgram) => {
-        getPid(program.pid);
+        pid = program.pid;
 
         program.on('close', (code: number, signal: string) => {
           connector.closeServerChannel(server);
