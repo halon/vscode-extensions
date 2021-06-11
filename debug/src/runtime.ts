@@ -52,8 +52,8 @@ export class HSLRuntime extends EventEmitter {
     const build = extension.exports.build;
 
     const workspaceFolder = workspace.getWorkspaceFolder(Uri.file(args.program));
-    if (typeof workspaceFolder === 'undefined') {
-      this.sendEvent('output', '\x1b[31mYou need to have a workspace folder open\x1b[0m\n');
+    if (workspaceFolder === undefined) {
+      this.sendEvent('output', '\x1b[31mThe file is not inside a workspace folder\x1b[0m\n');
       this.sendEvent('end');
       return;
     }
