@@ -14,8 +14,8 @@ interface HSLBreakpoint extends DebugProtocol.Breakpoint {
 }
 
 export class HSLRuntime extends EventEmitter {
-  private _debugId: string = '';
   private _debug: boolean = true;
+  private _debugId: string | undefined;
   private _currentFile: string | undefined;
   private _currentLine = 0;
   private _currentColumn = 0;
@@ -40,13 +40,13 @@ export class HSLRuntime extends EventEmitter {
       return;
     }
 
-    this._debugId = args.debugId || '';
     this._debug = args.debug !== undefined ? args.debug : this._debug;
+    this._debugId = args.debugId || '';
 
     let workspaceFolder: WorkspaceFolder | undefined;
 
     if (args.type === 'hsl') {
-      workspaceFolder = workspace.getWorkspaceFolder(Uri.file(args.program));
+      workspaceFolder = workspace.getWorkspaceFolder(Uri.file(args.program as string));
     }
 
     if (workspaceFolder === undefined) {
@@ -57,7 +57,7 @@ export class HSLRuntime extends EventEmitter {
 
     if (args.type === 'hsl') {
       const filesPath = path.join(workspaceFolder.uri.fsPath, 'src', 'files');
-      if (!pathIsInside(args.program, filesPath)) {
+      if (!pathIsInside(args.program as string, filesPath)) {
         this.sendEvent('output', '\x1b[31mOnly files inside the "files" directory can be run\x1b[0m\n');
         this.sendEvent('end');
         return;
@@ -76,7 +76,7 @@ export class HSLRuntime extends EventEmitter {
 
     if (args.type === 'hsl') {
       const filesPath = path.join(workspaceFolder.uri.fsPath, 'src', 'files');
-      const id = path.relative(filesPath, args.program).split(path.sep).join(path.posix.sep);
+      const id = path.relative(filesPath, args.program as string).split(path.sep).join(path.posix.sep);
       config.smtpd_app.__entrypoint = 'include "' + id + '";';
     }
 
