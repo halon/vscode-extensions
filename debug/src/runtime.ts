@@ -130,51 +130,9 @@ export class HSLRuntime extends EventEmitter {
         this.sendEvent('output', `\x1b[31m${error.message || error}\x1b[0m\n`);
       }
     }, (bp) => {
-      this._variables.clear();
-      this._variablesReference = 1;
-      const variablesReference = this._variablesReference;
-      const variables: DebugProtocol.Variable[] = [];
-      const values: any = Object.entries(JSON.parse(bp.values));
-      for (const [index, _value] of values) {
-        this._variablesReference = this._variablesReference += 1;
-        const value = _value.format === 'json' ? JSON.parse(_value.value) : Buffer.from(_value.value, 'base64').toString('binary');
-        const variable = {
-          name: index,
-          type: value === null ? 'null' : typeof value,
-          value: JSON.stringify(value),
-          variablesReference: value !== null && typeof value === 'object' ? this._variablesReference : 0
-        };
-        variables.push(variable);
-        this.parseValue(value);
-      }
-      this._variables.set(variablesReference, variables);
-      this._currentLine = bp.location.beginline - 1;
-      this._currentColumn = bp.location.begincolumn - 1;
-      this._currentEndColumn = bp.location.endcolumn - 1;
+      this.parseBreakPoint(bp);
       this.stop(parseInt(bp.id));
-
-      this._stackFrames = [];
-      const srcLine = this._currentFile ? this._sourceLines.get(this._currentFile) : '';
-      const stackFrame: DebugProtocol.StackFrame = {
-        id: 0,
-        name: srcLine ? srcLine[this._currentLine].substring(this._currentColumn, this._currentEndColumn) : '',
-        source: { path: this._currentFile },
-        line: this._currentLine,
-        column: this._currentColumn,
-        endColumn: this._currentEndColumn
-      };
-      this._stackFrames.push(stackFrame);
-      if (bp.callstack !== undefined) {
-        for (const [index, value] of bp.callstack.reverse().entries()) {
-          const stackFrame: DebugProtocol.StackFrame = {
-            id: index + 1,
-            name: value.function,
-            line: 0,
-            column: 0
-          };
-          this._stackFrames.push(stackFrame);
-        }
-      }
+      this.parseStackFrames(bp.callstack);
     }).then((commands) => {
       this._terminate = commands.terminate;
       this._continue = commands.continue;
@@ -235,13 +193,13 @@ export class HSLRuntime extends EventEmitter {
     this._breakPoints.set(path, newBps);
     
     if (!this._terminate) {
-      await this.verifyBreakpoints(path);
+      await this.verifyBreakPoints(path);
     }
     
     return newBps;
   }
   
-  private async verifyBreakpoints(path: string): Promise<void> {
+  private async verifyBreakPoints(path: string): Promise<void> {
     if (!this._debug) {
       return;
     }
@@ -276,7 +234,31 @@ export class HSLRuntime extends EventEmitter {
     return lines.join('\n');
   }
 
-  private parseValue(value: any) {
+  private parseBreakPoint(bp: any) {
+    this._variables.clear();
+    this._variablesReference = 1;
+    const variablesReference = this._variablesReference;
+    const variables: DebugProtocol.Variable[] = [];
+    const values: any = Object.entries(JSON.parse(bp.values));
+    for (const [index, _value] of values) {
+      this._variablesReference = this._variablesReference += 1;
+      const value = _value.format === 'json' ? JSON.parse(_value.value) : Buffer.from(_value.value, 'base64').toString('binary');
+      const variable = {
+        name: index,
+        type: value === null ? 'null' : typeof value,
+        value: JSON.stringify(value),
+        variablesReference: value !== null && typeof value === 'object' ? this._variablesReference : 0
+      };
+      variables.push(variable);
+      this.parseBreakPointValue(value);
+    }
+    this._variables.set(variablesReference, variables);
+    this._currentLine = bp.location.beginline - 1;
+    this._currentColumn = bp.location.begincolumn - 1;
+    this._currentEndColumn = bp.location.endcolumn - 1;
+  }
+
+  private parseBreakPointValue(value: any) {
     if (value !== null && typeof value === 'object') {
       const variables: DebugProtocol.Variable[] = [];
       const variablesReference = this._variablesReference;
@@ -290,9 +272,34 @@ export class HSLRuntime extends EventEmitter {
           variablesReference: value !== null && typeof value === 'object' ? this._variablesReference : 0
         };
         variables.push(variable);
-        this.parseValue(value);
+        this.parseBreakPointValue(value);
       }
       this._variables.set(variablesReference, variables);
+    }
+  }
+
+  private parseStackFrames(callstack: any) {
+    this._stackFrames = [];
+    const srcLine = this._currentFile ? this._sourceLines.get(this._currentFile) : '';
+    const stackFrame: DebugProtocol.StackFrame = {
+      id: 0,
+      name: srcLine ? srcLine[this._currentLine].substring(this._currentColumn, this._currentEndColumn) : '',
+      source: { path: this._currentFile },
+      line: this._currentLine,
+      column: this._currentColumn,
+      endColumn: this._currentEndColumn
+    };
+    this._stackFrames.push(stackFrame);
+    if (callstack !== undefined) {
+      for (const [index, value] of callstack.reverse().entries()) {
+        const stackFrame: DebugProtocol.StackFrame = {
+          id: index + 1,
+          name: value.function,
+          line: 0,
+          column: 0
+        };
+        this._stackFrames.push(stackFrame);
+      }
     }
   }
   
