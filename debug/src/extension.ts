@@ -1,10 +1,10 @@
 import * as vscode from 'vscode';
-import { HSLLoggingDebugSession } from './debug';
+import { HSLDebugSession } from './debug';
 
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(vscode.debug.registerDebugAdapterDescriptorFactory('hsl', {
     createDebugAdapterDescriptor: (_session) => {
-      return new vscode.DebugAdapterInlineImplementation(new HSLLoggingDebugSession());
+      return new vscode.DebugAdapterInlineImplementation(new HSLDebugSession());
     }
   }));
   

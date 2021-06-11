@@ -17,7 +17,7 @@ export interface HSLLaunchRequestArguments extends DebugProtocol.LaunchRequestAr
   config?: string;
 }
 
-export class HSLLoggingDebugSession extends DebugSession {
+export class HSLDebugSession extends DebugSession {
   private static threadID = 1;
   private _runtime: HSLRuntime;
   private _configurationDone = new Subject();
@@ -31,7 +31,7 @@ export class HSLLoggingDebugSession extends DebugSession {
     this._runtime = new HSLRuntime();
 
     this._runtime.on('stopOnBreakpoint', () => {
-      this.sendEvent(new StoppedEvent('breakpoint', HSLLoggingDebugSession.threadID));
+      this.sendEvent(new StoppedEvent('breakpoint', HSLDebugSession.threadID));
     });
 
     this._runtime.on('breakpointValidated', (bp: DebugProtocol.Breakpoint) => {
@@ -93,7 +93,7 @@ export class HSLLoggingDebugSession extends DebugSession {
   }
 
   protected threadsRequest(response: DebugProtocol.ThreadsResponse): void {
-    response.body = { threads: [new Thread(HSLLoggingDebugSession.threadID, 'thread 1')] };
+    response.body = { threads: [new Thread(HSLDebugSession.threadID, 'thread 1')] };
     this.sendResponse(response);
   }
   
