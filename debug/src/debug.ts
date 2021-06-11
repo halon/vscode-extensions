@@ -9,6 +9,7 @@ import { HSLRuntime } from './runtime';
 import { Subject } from 'await-notify';
 
 export interface HSLLaunchRequestArguments extends DebugProtocol.LaunchRequestArguments {
+  type: string;
   program: string;
   debugId?: string;
   debug?: boolean;

@@ -51,11 +51,13 @@ export class HSLRuntime extends EventEmitter {
       return;
     }
 
-    const filesPath = path.join(workspaceFolder.uri.fsPath, 'src', 'files');
-    if (!pathIsInside(args.program, filesPath)) {
-      this.sendEvent('output', '\x1b[31mOnly files inside the "files" directory can be run\x1b[0m\n');
-      this.sendEvent('end');
-      return;
+    if (args.type === 'hsl') {
+      const filesPath = path.join(workspaceFolder.uri.fsPath, 'src', 'files');
+      if (!pathIsInside(args.program, filesPath)) {
+        this.sendEvent('output', '\x1b[31mOnly files inside the "files" directory can be run\x1b[0m\n');
+        this.sendEvent('end');
+        return;
+      }
     }
     
     let config: any = {};
@@ -109,8 +111,11 @@ export class HSLRuntime extends EventEmitter {
       }
     }
 
-    const id = path.relative(filesPath, args.program).split(path.sep).join(path.posix.sep);
-    config.smtpd_app.__entrypoint = 'include "' + id + '";';
+    if (args.type === 'hsl') {
+      const filesPath = path.join(workspaceFolder.uri.fsPath, 'src', 'files');
+      const id = path.relative(filesPath, args.program).split(path.sep).join(path.posix.sep);
+      config.smtpd_app.__entrypoint = 'include "' + id + '";';
+    }
 
     let configPath = args.config;
     if (configPath === undefined && config.smtpd !== undefined) {
