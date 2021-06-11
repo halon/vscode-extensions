@@ -26,7 +26,10 @@ class HSLConfigurationProvider implements vscode.DebugConfigurationProvider {
         config.debug = true;
       }
     }
-    if (!config.program) {
+    if (!config.folder && folder) {
+      config.folder = folder.uri.fsPath;
+    }
+    if (config.type === 'hsl' && !config.program) {
       vscode.window.showInformationMessage('Cannot find a program to debug');
       return undefined;
     }

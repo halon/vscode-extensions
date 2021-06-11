@@ -43,11 +43,14 @@ export class HSLRuntime extends EventEmitter {
     this._debug = args.debug !== undefined ? args.debug : this._debug;
     this._debugId = args.debugId || '';
 
-    let workspaceFolder: WorkspaceFolder | undefined;
-
-    if (args.type === 'hsl') {
-      workspaceFolder = workspace.getWorkspaceFolder(Uri.file(args.program as string));
+    if (args.folder === undefined) {
+      this.sendEvent('output', '\x1b[31mNo workspace folder found\x1b[0m\n');
+      this.sendEvent('end');
+      return;
     }
+
+    let workspaceFolder: WorkspaceFolder | undefined;
+    workspaceFolder = workspace.getWorkspaceFolder(Uri.file(args.folder));
 
     if (workspaceFolder === undefined) {
       this.sendEvent('output', '\x1b[31mNo workspace folder found\x1b[0m\n');

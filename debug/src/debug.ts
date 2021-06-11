@@ -10,6 +10,7 @@ import { Subject } from 'await-notify';
 
 export interface HSLLaunchRequestArguments extends DebugProtocol.LaunchRequestArguments {
   type: string;
+  folder?: string;
   program?: string;
   debugId?: string;
   debug?: boolean;
