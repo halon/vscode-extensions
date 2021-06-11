@@ -132,7 +132,7 @@ export class HSLRuntime extends EventEmitter {
         configPath = path.join(workspaceFolder.uri.fsPath, 'src', 'config', 'smtpd.yaml');
       }
   
-      remote.hsh(connector, configPath, config.smtpd_app, args.plugins, (data: string, err: boolean) => {
+      remote.hsh(connector, config.smtpd_app, configPath, args.plugins, (data: string, err: boolean) => {
         this.sendEvent('output', err ? `\x1b[31m${data}\x1b[0m` : data);
       }, (code: number, signal: string) => {
         if (code !== null) {

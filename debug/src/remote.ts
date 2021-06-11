@@ -6,8 +6,8 @@ import kill from 'tree-kill';
 
 export const hsh = (
   connector: IConnector,
-  configPath: string | undefined,
   appConfig: any,
+  configPath: string | undefined,
   plugins: string[] = [],
   onData: (data: string, error: boolean) => void,
   onDone: (code: number, signal: string) => void,
