@@ -34,11 +34,18 @@ export class HSLRuntime extends EventEmitter {
   }
   
   public async start(args: HSLLaunchRequestArguments): Promise<void> {
+    if (args.type !== 'hsl') {
+      this.sendEvent('output', '\x1b[31mUnsupported type\x1b[0m\n');
+      this.sendEvent('end');
+      return;
+    }
+
     this._debugId = args.debugId;
     this._debug = args.debug !== undefined ? args.debug : this._debug;
 
     let extension = extensions.getExtension('Halon.vscode-halon');
     if (!extension) {
+      this.sendEvent('output', '\x1b[31mMissing extension\x1b[0m\n');
       this.sendEvent('end');
       return;
     }
@@ -117,41 +124,44 @@ export class HSLRuntime extends EventEmitter {
       config.smtpd_app.__entrypoint = 'include "' + id + '";';
     }
 
-    let configPath = args.config;
-    if (configPath === undefined && config.smtpd !== undefined) {
-      configPath = path.join(workspaceFolder.uri.fsPath, 'src', 'config', 'smtpd.yaml');
-    }
-
     const connector = factory.ConnectorFactory();
-    remote.hsh(connector, configPath, config.smtpd_app, args.plugins, (data: string, err: boolean) => {
-      this.sendEvent('output', err ? `\x1b[31m${data}\x1b[0m` : data);
-    }, (code: number, signal: string) => {
-      if (code !== null) {
-        if (code === 0) {
-          this.sendEvent('output', '\x1b[32mTerminated successfully\x1b[0m\n');
-        } else {
-          this.sendEvent('output', `\x1b[31mTerminated with return code ${code}\x1b[0m\n`);
+
+    if (args.type === 'hsl') {
+      let configPath = args.config;
+      if (configPath === undefined && config.smtpd !== undefined) {
+        configPath = path.join(workspaceFolder.uri.fsPath, 'src', 'config', 'smtpd.yaml');
+      }
+  
+      remote.hsh(connector, configPath, config.smtpd_app, args.plugins, (data: string, err: boolean) => {
+        this.sendEvent('output', err ? `\x1b[31m${data}\x1b[0m` : data);
+      }, (code: number, signal: string) => {
+        if (code !== null) {
+          if (code === 0) {
+            this.sendEvent('output', '\x1b[32mTerminated successfully\x1b[0m\n');
+          } else {
+            this.sendEvent('output', `\x1b[31mTerminated with return code ${code}\x1b[0m\n`);
+          }
+        } else if (signal !== undefined) {
+          this.sendEvent('output', `\x1b[31mTerminated with ${signal}\x1b[0m\n`);
         }
-      } else if (signal !== undefined) {
-        this.sendEvent('output', `\x1b[31mTerminated with ${signal}\x1b[0m\n`);
-      }
-      this.sendEvent('end');
-    }, (error) => {
-      if (error.message !== 'No breakpoint' && error.code !== 'EPIPE' && error.code !== 'ECONNRESET') {
-        this.sendEvent('output', `\x1b[31m${error.message || error}\x1b[0m\n`);
-      }
-    }, (bp) => {
-      if (this.findBreakPoint(parseInt(bp.id))) {
-        this.parseBreakPoint(bp);
-        this.parseStackFrames(bp.callstack);
-        this.sendEvent('stopOnBreakpoint');
-      } else {
-        this.continue();
-      }
-    }).then((commands) => {
-      this._terminate = commands.terminate;
-      this._continue = commands.continue;
-    });
+        this.sendEvent('end');
+      }, (error) => {
+        if (error.message !== 'No breakpoint' && error.code !== 'EPIPE' && error.code !== 'ECONNRESET') {
+          this.sendEvent('output', `\x1b[31m${error.message || error}\x1b[0m\n`);
+        }
+      }, (bp) => {
+        if (this.findBreakPoint(parseInt(bp.id))) {
+          this.parseBreakPoint(bp);
+          this.parseStackFrames(bp.callstack);
+          this.sendEvent('stopOnBreakpoint');
+        } else {
+          this.continue();
+        }
+      }).then((commands) => {
+        this._terminate = commands.terminate;
+        this._continue = commands.continue;
+      });
+    }
   }
 
   public continue() {
