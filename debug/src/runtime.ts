@@ -130,9 +130,13 @@ export class HSLRuntime extends EventEmitter {
         this.sendEvent('output', `\x1b[31m${error.message || error}\x1b[0m\n`);
       }
     }, (bp) => {
-      this.parseBreakPoint(bp);
-      this.stop(parseInt(bp.id));
-      this.parseStackFrames(bp.callstack);
+      if (this.findBreakPoint(parseInt(bp.id))) {
+        this.parseBreakPoint(bp);
+        this.parseStackFrames(bp.callstack);
+        this.sendEvent('stopOnBreakpoint');
+      } else {
+        this.continue();
+      }
     }).then((commands) => {
       this._terminate = commands.terminate;
       this._continue = commands.continue;
@@ -143,20 +147,6 @@ export class HSLRuntime extends EventEmitter {
     if (this._continue) {
       this._continue();
     }
-  }
-
-  private stop(id: number): void {
-    for (const [sourceFile, breakpoints] of this._breakPoints) {
-      this._currentFile = sourceFile;
-      if (breakpoints) {
-        const bp = breakpoints.find(bp => bp.id === id);
-        if (bp && bp.verified) {
-          this.sendEvent('stopOnBreakpoint');
-          return;
-        }
-      }
-    }
-    this.continue();
   }
 
   public terminate() {
@@ -276,6 +266,19 @@ export class HSLRuntime extends EventEmitter {
       }
       this._variables.set(variablesReference, variables);
     }
+  }
+
+  private findBreakPoint(id: number) {
+    for (const [sourceFile, breakpoints] of this._breakPoints) {
+      if (breakpoints) {
+        const bp = breakpoints.find(bp => bp.id === id);
+        if (bp && bp.verified) {
+          this._currentFile = sourceFile;
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   private parseStackFrames(callstack: any) {
