@@ -58,14 +58,21 @@ export class HSLRuntime extends EventEmitter {
       return;
     }
     
-    const id = path.relative(filesPath, args.program).split(path.sep).join(path.posix.sep);
     let config: any = {};
+
     try {
       config = build.generate(workspaceFolder.uri.fsPath);
-      if (typeof config.smtpd_app === 'undefined') {
+      if (config.smtpd_app === undefined) {
         throw new Error('Missing running configuration');
       }
-      if (this._debug) {
+    } catch (error) {
+      this.sendEvent('output', `\x1b[31m${error.message || error}\x1b[0m`);
+      this.sendEvent('end');
+      return;
+    }
+
+    if (this._debug && config.smtpd_app.scripting !== undefined) {
+      if (config.smtpd_app.scripting.hooks !== undefined) {
         for (const hook of Object.keys(config.smtpd_app.scripting.hooks)) {
           if (hook === 'predelivery' || hook === 'postdelivery') {
             const filePath = path.join(workspaceFolder.uri.fsPath, 'src', 'hooks', 'queue', `${hook}.hsl`);
@@ -87,6 +94,8 @@ export class HSLRuntime extends EventEmitter {
             });
           }
         }
+      }
+      if (config.smtpd_app.scripting.files !== undefined) {
         config.smtpd_app.scripting.files = config.smtpd_app.scripting.files.map((file: any) => {
           const filePath = path.join(workspaceFolder.uri.fsPath, 'src', 'files', file.id.split(path.posix.sep).join(path.sep));
           const bps = this._breakPoints.get(filePath);
@@ -98,12 +107,10 @@ export class HSLRuntime extends EventEmitter {
           }
         });
       }
-      config.smtpd_app.__entrypoint = 'include "' + id + '";';
-    } catch (error) {
-      this.sendEvent('output', `\x1b[31m${error.message || error}\x1b[0m`);
-      this.sendEvent('end');
-      return;
     }
+
+    const id = path.relative(filesPath, args.program).split(path.sep).join(path.posix.sep);
+    config.smtpd_app.__entrypoint = 'include "' + id + '";';
 
     let configPath = args.config;
     if (configPath === undefined && config.smtpd !== undefined) {
