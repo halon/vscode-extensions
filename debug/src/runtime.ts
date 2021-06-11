@@ -36,7 +36,6 @@ export class HSLRuntime extends EventEmitter {
   public async start(args: HSLLaunchRequestArguments): Promise<void> {
     this._debugId = args.debugId;
     this._debug = args.debug !== undefined ? args.debug : this._debug;
-    this._currentFile = args.program;
 
     let extension = extensions.getExtension('Halon.vscode-halon');
     if (!extension) {
