@@ -31,6 +31,76 @@
     ],
     "debuggers": [
       {
+        "type": "halon",
+        "label": "Halon MTA",
+        "configurationAttributes": {
+          "launch": {
+            "properties": {
+              "debugId": {
+                "type": "string",
+                "description": "The debug ID that should be used."
+              },
+              "conditions": {
+                "typ": "object",
+                "description": "The conditions that should be used.",
+                "properties": {
+                  "remoteips": {
+                    "type": "array",
+                    "description": "The remote IP:s that it should be enabled for.",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "serverids": {
+                    "type": "array",
+                    "description": "The server ID:s that it should be enabled for.",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "probability": {
+                    "description": "The probability of it being enabled.",
+                    "type": "number"
+                  },
+                  "time": {
+                    "description": "The number of seconds it should be enabled.",
+                    "type": "integer"
+                  },
+                  "count": {
+                    "description": "The number of connections it should be enabled for.",
+                    "type": "integer"
+                  }
+                }
+              },
+              "debug": {
+                "type": "boolean",
+                "description": "If debugging should be enabled."
+              }
+            }
+          }
+        },
+        "configurationSnippets": [
+          {
+            "label": "Halon MTA: Debug Live Stage",
+            "body": {
+              "name": "Debug Live Stage",
+              "type": "halon",
+              "request": "launch",
+              "debug": true
+            }
+          },
+          {
+            "label": "Halon MTA: Run Live Stage",
+            "body": {
+              "name": "Run Live Stage",
+              "type": "halon",
+              "request": "launch",
+              "debug": false
+            }
+          }
+        ]
+      },
+      {
         "type": "hsl",
         "languages": [
           "hsl"
@@ -106,7 +176,8 @@
     ]
   },
   "activationEvents": [
-    "onDebugResolve:hsl"
+    "onDebugResolve:hsl",
+    "onDebugResolve:halon"
   ],
   "qna": false,
   "scripts": {
@@ -132,7 +203,7 @@
     "Halon.vscode-halon"
   ],
   "devDependencies": {
-    "@halon/protobuf-schemas": "github:halon/protobuf-schemas#5ba078e5408e19ca95b62ce83efa3ec11f4f3436",
+    "@halon/protobuf-schemas": "github:halon/protobuf-schemas#519412c66c047edc818f6ea3960d5fa03ee5b386",
     "@types/node": "^15.12.2",
     "@types/path-is-inside": "^1.0.0",
     "@types/vscode": "^1.56.0",
@@ -150,6 +221,7 @@
     "path-is-inside": "^1.0.2",
     "protobufjs": "^6.11.2",
     "tree-kill": "^1.2.2",
+    "uuid": "^8.3.2",
     "vscode-debugadapter": "^1.47.0",
     "yaml": "^1.10.2"
   },

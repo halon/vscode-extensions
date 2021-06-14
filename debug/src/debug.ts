@@ -8,6 +8,14 @@ import { DebugProtocol } from 'vscode-debugprotocol';
 import { HSLRuntime } from './runtime';
 import { Subject } from 'await-notify';
 
+export interface ConfigGreenConditions {
+  remoteips?: string[];
+  serverids?: string[];
+  probability?: number;
+  time?: number;
+  count?: number;
+}
+
 export interface HSLLaunchRequestArguments extends DebugProtocol.LaunchRequestArguments {
   type: string;
   folder?: string;
@@ -16,6 +24,7 @@ export interface HSLLaunchRequestArguments extends DebugProtocol.LaunchRequestAr
   debug?: boolean;
   plugins?: string[];
   config?: string;
+  conditions?: ConfigGreenConditions;
 }
 
 export class HSLDebugSession extends DebugSession {

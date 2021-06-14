@@ -1,93 +1,69 @@
 import * as stream from 'stream';
 
-export const setupIPC = (stream: stream.Duplex, onData: Function, onError: Function) =>
+export const setupIPC = (stream: stream.Duplex, onData: Function, onError: Function, onLog: Function) =>
 {
-  var buffer = Buffer.alloc(0);
+  let buffer = Buffer.alloc(0);
+
   stream.on('error', (error: any) => {
     onError(error);
   });
+
   stream.on('data', (data: Buffer) => {
     buffer = Buffer.concat([buffer, data]);
-    if (buffer.length > 0) {
-      if (buffer[0] == '+'.charCodeAt(0) || buffer[0] == 'E'.charCodeAt(0)) {
-        if (buffer.length >= 9) {
-          const len = buffer.readUIntLE(1, 6);
-          if (buffer.readUInt16LE(7) != 0) {
-            onError(new Error('Too large response'));
-            return;
+    while (buffer.length > 0) {
+      if (buffer[0] === '+'.charCodeAt(0) || buffer[0] === 'E'.charCodeAt(0) || buffer[0] === '='.charCodeAt(0)) {
+        const len = buffer.readUIntLE(1, 6);
+        if (buffer.readUInt16LE(7) !== 0) {
+          onError(new Error('Too large response'));
+          buffer = Buffer.alloc(0);
+          return;
+        }
+        if (buffer.length >= len + 9) {
+          if (buffer[0] === 'E'.charCodeAt(0)) {
+            onError(new Error(buffer.slice(9, len + 9).toString()));
+          } else if (buffer[0] === '='.charCodeAt(0)) {
+            onLog(buffer.slice(9, len + 9));
+          } else {
+            onData(buffer.slice(9, len + 9));
           }
-          if (buffer.length > len + 9) {
-            onError(new Error('Too much data in response'));
-            return;
-          }
-          if (buffer.length == len + 9) {
-            if (buffer[0] == 'E'.charCodeAt(0)) {
-              onError(new Error(buffer.slice(9, len + 9).toString()));
-              return;
-            }
-						var buf = buffer.slice(9, len + 9);
-						buffer = Buffer.alloc(0);
-						onData(buf);
-          }
+          buffer = buffer.slice(len + 9);
+        } else {
+          return;
         }
       } else {
-        onError(Error('Invalid protocol response: ' + buffer[0]));
+        onError(new Error('Invalid protocol response: ' + buffer[0]));
+        buffer = Buffer.alloc(0);
         return;
       }
     }
   });
-}
+};
 
-export const sendAndWait = (stream: stream.Duplex, data: Uint8Array) =>
+export const packRequest = (command: string, version?: boolean, protobuf?: Uint8Array): Buffer =>
 {
-  return new Promise<Buffer>((resolve, reject) => {
-    var buffer = Buffer.alloc(0);
-    stream.on('error', (error) => {
-      reject(error);
-    });
-    stream.on('data', (data: Buffer) => {
-      buffer = Buffer.concat([buffer, data]);
-      if (buffer.length > 0) {
-        if (buffer[0] == '+'.charCodeAt(0) || buffer[0] == 'E'.charCodeAt(0)) {
-          if (buffer.length >= 9) {
-            const len = buffer.readUIntLE(1, 6);
-            if (buffer.readUInt16LE(7) != 0) {
-              reject(new Error('Too large response'));
-              return;
-            }
-            if (buffer.length > len + 9) {
-              reject(new Error('Too much data in response'));
-              return;
-            }
-            if (buffer.length == len + 9) {
-              if (buffer[0] == 'E'.charCodeAt(0)) {
-                reject(new Error(buffer.slice(9, len + 9).toString()));
-                return;
-              }
-              resolve(buffer.slice(9, len + 9));
-            }
-          }
-        } else {
-          reject(new Error('Invalid protocol response: ' + buffer[0]));
-          return;
-        }
-      }
-    });
-    stream.write(data);
-  });
-}
+  let buffers: Array<Buffer|Uint8Array> = [];
 
-export const packRequest = (command: string, protobuf?: Uint8Array): Buffer =>
-{
-  // 5.6
-  var version = Buffer.alloc(2);
-  version.writeInt8(5, 0);
-  version.writeInt8(6, 1);
+  if (version) {
+    const buffer = Buffer.alloc(2);
+    buffer.writeInt8(5, 0);
+    buffer.writeInt8(7, 1);
+    buffers.push(buffer);
+  }
 
-  if (!protobuf)
-    return Buffer.concat([version, Buffer.from(command)]);
+  const buffer = Buffer.from(command);
+  buffers.push(buffer);
 
-  var buf = Buffer.alloc(8);
-  buf.writeUInt32LE(protobuf.length, 0);
-  return Buffer.concat([version, Buffer.from(command), buf, protobuf]);
-}
+  if (protobuf) {
+    const buffer = Buffer.alloc(8);
+    buffer.writeUInt32LE(protobuf.length, 0);
+    buffers.push(buffer, protobuf);
+  }
+
+  if (!protobuf && command === 'e') {
+    const buffer = Buffer.alloc(8);
+    buffer.writeUInt32LE(0, 0);
+    buffers.push(buffer);
+  }
+
+  return Buffer.concat(buffers);
+};

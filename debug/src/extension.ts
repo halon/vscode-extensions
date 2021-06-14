@@ -7,8 +7,14 @@ export function activate(context: vscode.ExtensionContext) {
       return new vscode.DebugAdapterInlineImplementation(new HSLDebugSession());
     }
   }));
+  context.subscriptions.push(vscode.debug.registerDebugAdapterDescriptorFactory('halon', {
+    createDebugAdapterDescriptor: (_session) => {
+      return new vscode.DebugAdapterInlineImplementation(new HSLDebugSession());
+    }
+  }));
   
   context.subscriptions.push(vscode.debug.registerDebugConfigurationProvider('hsl', new HSLConfigurationProvider()));
+  context.subscriptions.push(vscode.debug.registerDebugConfigurationProvider('halon', new HSLConfigurationProvider()));
 }
 
 export function deactivate() {

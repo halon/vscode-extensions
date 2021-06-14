@@ -6,6 +6,7 @@ import { DebugProtocol } from 'vscode-debugprotocol';
 import * as remote from './remote';
 import * as factory from './factory';
 import { HSLLaunchRequestArguments } from './debug';
+import { v4 as uuidv4 } from 'uuid';
 
 interface HSLBreakpoint extends DebugProtocol.Breakpoint {
   logMessage?: string;
@@ -34,14 +35,17 @@ export class HSLRuntime extends EventEmitter {
   }
   
   public async start(args: HSLLaunchRequestArguments): Promise<void> {
-    if (args.type !== 'hsl') {
+    if (args.type !== 'hsl' && args.type !== 'halon') {
       this.sendEvent('output', '\x1b[31mUnsupported type\x1b[0m\n');
       this.sendEvent('end');
       return;
     }
 
     this._debug = args.debug !== undefined ? args.debug : this._debug;
-    this._debugId = args.debugId || '';
+  
+    if (args.type === 'halon') {
+      this._debugId = args.debugId || uuidv4();
+    }
 
     if (args.folder === undefined) {
       this.sendEvent('output', '\x1b[31mNo workspace folder found\x1b[0m\n');
@@ -85,14 +89,36 @@ export class HSLRuntime extends EventEmitter {
 
     const connector = factory.ConnectorFactory();
 
+    if (args.type === 'halon') {
+      remote.smtpd(connector, config.smtpd_app, this._debugId as string, args.conditions, (data: string, error: boolean) => {
+        this.sendEvent('output', error ? `\x1b[31m${data}\x1b[0m` : data);
+      }, (error) => {
+        this.sendEvent('output', `\x1b[31m${error.message || error}\x1b[0m\n`);
+        if (error.message !== 'Aborted') {
+          this.sendEvent('end');
+        }
+      }, (bp) => {
+        if (this.findBreakPoint(parseInt(bp.id))) {
+          this.parseBreakPoint(bp);
+          this.parseStackFrames(bp.callstack);
+          this.sendEvent('stopOnBreakpoint');
+        } else {
+          this.continue();
+        }
+      }).then((commands) => {
+        this._terminate = commands.terminate;
+        this._continue = commands.continue;
+      });
+    }
+
     if (args.type === 'hsl') {
       let configPath = args.config;
       if (configPath === undefined && config.smtpd !== undefined) {
         configPath = path.join(workspaceFolder.uri.fsPath, 'src', 'config', 'smtpd.yaml');
       }
   
-      remote.hsh(connector, config.smtpd_app, configPath, args.plugins, (data: string, err: boolean) => {
-        this.sendEvent('output', err ? `\x1b[31m${data}\x1b[0m` : data);
+      remote.hsh(connector, config.smtpd_app, configPath, args.plugins, (data: string, error: boolean) => {
+        this.sendEvent('output', error ? `\x1b[31m${data}\x1b[0m` : data);
       }, (code: number, signal: string) => {
         if (code !== null) {
           if (code === 0) {
@@ -105,7 +131,7 @@ export class HSLRuntime extends EventEmitter {
         }
         this.sendEvent('end');
       }, (error) => {
-        if (error.message !== 'No breakpoint' && error.code !== 'EPIPE' && error.code !== 'ECONNRESET') {
+        if (error.message !== 'No breakpoint') {
           this.sendEvent('output', `\x1b[31m${error.message || error}\x1b[0m\n`);
         }
       }, (bp) => {
