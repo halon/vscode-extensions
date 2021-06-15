@@ -195,6 +195,7 @@
   },
   "dependencies": {
     "@halon/protobuf-schemas": "github:halon/protobuf-schemas#49d9ad9f7e30ddd99f20c4e9da31ae8cf36449bf",
+    "@types/uuid": "^8.3.0",
     "await-notify": "1.0.1",
     "google-protobuf": "^3.17.3",
     "path-is-inside": "^1.0.2",
