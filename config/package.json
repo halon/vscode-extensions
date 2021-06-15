@@ -28,21 +28,6 @@
         "command": "halon.build",
         "title": "Build",
         "category": "Halon"
-      },
-      {
-        "command": "halon.livestageStart",
-        "title": "Live Staging (Start)",
-        "category": "Halon"
-      },
-      {
-        "command": "halon.livestageStatus",
-        "title": "Live Staging (Status)",
-        "category": "Halon"
-      },
-      {
-        "command": "halon.livestageCancel",
-        "title": "Live Staging (Cancel)",
-        "category": "Halon"
       }
     ],
     "yamlValidation": [
@@ -95,10 +80,7 @@
   "activationEvents": [
     "onLanguage:hsl",
     "onCommand:halon.init",
-    "onCommand:halon.build",
-    "onCommand:halon.livestageStart",
-    "onCommand:halon.livestageStatus",
-    "onCommand:halon.livestageCancel"
+    "onCommand:halon.build"
   ],
   "qna": false,
   "scripts": {
@@ -128,9 +110,6 @@
     "@halon/hsl-docs": "github:halon/hsl-docs#b200ab9a7553f47d9ac8e0846c8970bc29b741b5",
     "@types/is-utf8": "^0.2.0",
     "@types/node": "^14.0.14",
-    "@types/path-is-inside": "^1.0.0",
-    "@types/ssh2": "^0.5.45",
-    "@types/underscore": "^1.11.2",
     "@types/vscode": "^1.56.0",
     "@typescript-eslint/eslint-plugin": "^4.25.0",
     "@typescript-eslint/parser": "^4.25.0",
@@ -147,13 +126,8 @@
   },
   "dependencies": {
     "@halon/json-schemas": "github:halon/json-schemas#95ef93809e99f500d58463d977ed168f60cdfd94",
-    "@halon/protobuf-schemas": "github:halon/protobuf-schemas#ada3977428788a59e79562588894c1217b921f04",
     "ajv": "^6.10.2",
     "is-utf8": "^0.2.1",
-    "path-is-inside": "^1.0.2",
-    "protobufjs": "^6.8.8",
-    "ssh2": "^0.8.9",
-    "underscore": "^1.13.1",
     "yaml": "^1.10.0"
   },
   "main": "./dist/extension"
