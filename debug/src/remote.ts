@@ -47,7 +47,7 @@ export const smtpd = (
     }, async (response: any) => {
       try {
         const log = await pb.protobufLoader('smtpd', 'smtpd.HSLLogResponse', response);
-        onData(`${log.text}\n`, false);
+        onData(`[${log.id}] ${log.text}\n`, false);
       } catch (error) {
         onError(error);
       }
