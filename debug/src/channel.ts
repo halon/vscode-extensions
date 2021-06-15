@@ -4,7 +4,7 @@ export const setupIPC = (stream: stream.Duplex, onData: Function, onError: Funct
 {
   let buffer = Buffer.alloc(0);
 
-  stream.on('error', (error: any) => {
+  stream.on('error', (error) => {
     onError(error);
   });
 

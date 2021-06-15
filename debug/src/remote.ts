@@ -12,7 +12,7 @@ export const smtpd = (
   debugId: string,
   conditions: HSLLaunchRequestArguments['conditions'],
   onData: (data: string, error: boolean) => void,
-  onError: (error: any) => void,
+  onError: (error: Error) => void,
   getBreakPoint: (bp: smtpd_pb.HSLBreakPointResponse) => void
 ) => {
   return new Promise<{ terminate: () => void, continue: () => void }>(async (resolve, reject) => {
@@ -43,7 +43,7 @@ export const smtpd = (
       } catch (error) {
         onError(error);
       }
-    }, (error: any) => {
+    }, (error: Error) => {
       onError(error);
     }, (response: any) => {
       try {
@@ -97,7 +97,7 @@ export const hsh = (
   plugins: string[] = [],
   onData: (data: string, error: boolean) => void,
   onDone: (code: number, signal: string) => void,
-  onError: (error: any) => void,
+  onError: (error: Error) => void,
   getBreakPoint: (bp: hsh_pb.HSLBreakPointResponse) => void
 ) => {
   return new Promise<{ terminate: () => void, continue: () => void }>(async (resolve, reject) => {
@@ -121,7 +121,7 @@ export const hsh = (
         } catch (error) {
           onError(error);
         }
-      }, (error: any) => {
+      }, (error) => {
         onError(error);
       }, (response: any) => {
         try {
