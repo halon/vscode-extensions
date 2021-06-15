@@ -131,7 +131,8 @@
             "type": "hsl",
             "request": "launch",
             "program": "${file}"
-          }, {
+          },
+          {
             "name": "Debug Live Stage",
             "type": "halon",
             "request": "launch"
@@ -193,7 +194,7 @@
     "webpack-cli": "^4.7.2"
   },
   "dependencies": {
-    "@halon/protobuf-schemas": "github:halon/protobuf-schemas#6601f591603e7ed29a0bbb7f4d2f2b9c0db9aad6",
+    "@halon/protobuf-schemas": "github:halon/protobuf-schemas#49d9ad9f7e30ddd99f20c4e9da31ae8cf36449bf",
     "await-notify": "1.0.1",
     "google-protobuf": "^3.17.3",
     "path-is-inside": "^1.0.2",
