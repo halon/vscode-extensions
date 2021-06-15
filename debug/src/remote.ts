@@ -102,7 +102,7 @@ export const hsh = (
 ) => {
   return new Promise<{ terminate: () => void, continue: () => void }>(async (resolve, reject) => {
     const hshPath = '/opt/halon/bin/hsh';
-    let pid: number | null | undefined = null;
+    let pid: number | undefined;
     const debugPath = '/tmp/hsh-debug.' + (new Date()).getTime();
     connector.openServerChannel(debugPath, (stream) => {
       var cmd = 'e';

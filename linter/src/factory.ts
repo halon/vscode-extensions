@@ -8,6 +8,7 @@ export interface ExecProgram extends EventEmitter
   stdin: stream.Writable;
   stdout: stream.Readable;
   stderr: stream.Readable;
+  pid?: number;
 }
 
 export interface IConnector
@@ -22,7 +23,7 @@ export interface IConnector
 export const ConnectorFactory = () =>
 {
   return new UNIXConnector();
-}
+};
 
 export class UNIXConnector implements IConnector
 {
