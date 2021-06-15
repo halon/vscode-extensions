@@ -1,7 +1,11 @@
 import * as stream from 'stream';
 
-export const setupIPC = (stream: stream.Duplex, onData: Function, onError: Function, onLog: Function) =>
-{
+export const setupIPC = (
+  stream: stream.Duplex,
+  onData: (data: Buffer) => void,
+  onError: (error: Error) => void,
+  onLog: (data: Buffer) => void
+) => {
   let buffer = Buffer.alloc(0);
 
   stream.on('error', (error) => {

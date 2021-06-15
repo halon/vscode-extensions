@@ -24,7 +24,7 @@ export const smtpd = (
       return;
     }
     var cmd = 'a';
-    channel.setupIPC(stream, (response: any) => {
+    channel.setupIPC(stream, (response) => {
       try {
         if (cmd === 'c') {
           if (!stream.destroyed) {
@@ -45,7 +45,7 @@ export const smtpd = (
       }
     }, (error: Error) => {
       onError(error);
-    }, (response: any) => {
+    }, (response) => {
       try {
         const log = smtpd_pb.HSLLogResponse.deserializeBinary(response);
         onData(`[${log.getId()}] ${log.getText()}\n`, false);
@@ -106,7 +106,7 @@ export const hsh = (
     const debugPath = '/tmp/hsh-debug.' + (new Date()).getTime();
     connector.openServerChannel(debugPath, (stream) => {
       var cmd = 'e';
-      channel.setupIPC(stream, (response: any) => {
+      channel.setupIPC(stream, (response) => {
         try {
           if (cmd === 'e') {
             if (!response) {
@@ -123,7 +123,7 @@ export const hsh = (
         }
       }, (error) => {
         onError(error);
-      }, (response: any) => {
+      }, (response) => {
         try {
           const log = hsh_pb.HSLLogResponse.deserializeBinary(response);
           onData(`${log.getText()}\n`, false);
