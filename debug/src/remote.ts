@@ -143,7 +143,7 @@ export const hsh = (
           }
         }
       });
-    }).then((server: any) => {
+    }).then((server) => {
       let args = ['-C', debugPath, '-A', '-', '-'];
       if (configPath) {
         args.push('-c', configPath);
