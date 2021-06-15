@@ -180,7 +180,6 @@
     "Halon.vscode-halon"
   ],
   "devDependencies": {
-    "@halon/protobuf-schemas": "github:halon/protobuf-schemas#be4f5796f71589013fefc9d899ac4329ec8f309c",
     "@types/node": "^15.12.2",
     "@types/path-is-inside": "^1.0.0",
     "@types/vscode": "^1.56.0",
@@ -194,9 +193,10 @@
     "webpack-cli": "^4.7.2"
   },
   "dependencies": {
+    "@halon/protobuf-schemas": "github:halon/protobuf-schemas#6601f591603e7ed29a0bbb7f4d2f2b9c0db9aad6",
     "await-notify": "1.0.1",
+    "google-protobuf": "^3.17.3",
     "path-is-inside": "^1.0.2",
-    "protobufjs": "^6.11.2",
     "tree-kill": "^1.2.2",
     "uuid": "^8.3.2",
     "vscode-debugadapter": "^1.47.0",

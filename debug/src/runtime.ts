@@ -7,6 +7,8 @@ import * as remote from './remote';
 import * as factory from './factory';
 import { HSLLaunchRequestArguments } from './debug';
 import { v4 as uuidv4 } from 'uuid';
+import * as smtpd_pb from '@halon/protobuf-schemas/js/smtpd_pb';
+import * as hsh_pb from '@halon/protobuf-schemas/js/hsh_pb';
 
 interface HSLBreakpoint extends DebugProtocol.Breakpoint {
   logMessage?: string;
@@ -98,9 +100,9 @@ export class HSLRuntime extends EventEmitter {
           this.sendEvent('end');
         }
       }, (bp) => {
-        if (this.findBreakPoint(parseInt(bp.id))) {
+        if (this.findBreakPoint(parseInt(bp.getId()))) {
           this.parseBreakPoint(bp);
-          this.parseStackFrames(bp.callstack);
+          this.parseStackFrames(bp.getCallstackList());
           this.sendEvent('stopOnBreakpoint');
         } else {
           this.continue();
@@ -135,9 +137,9 @@ export class HSLRuntime extends EventEmitter {
           this.sendEvent('output', `\x1b[31m${error.message || error}\x1b[0m\n`);
         }
       }, (bp) => {
-        if (this.findBreakPoint(parseInt(bp.id))) {
+        if (this.findBreakPoint(parseInt(bp.getId()))) {
           this.parseBreakPoint(bp);
-          this.parseStackFrames(bp.callstack);
+          this.parseStackFrames(bp.getCallstackList());
           this.sendEvent('stopOnBreakpoint');
         } else {
           this.continue();
@@ -230,12 +232,12 @@ export class HSLRuntime extends EventEmitter {
     return lines.join('\n');
   }
 
-  private parseBreakPoint(bp: any) {
+  private parseBreakPoint(bp: smtpd_pb.HSLBreakPointResponse | hsh_pb.HSLBreakPointResponse) {
     this._variables.clear();
     this._variablesReference = 1;
     const variablesReference = this._variablesReference;
     const variables: DebugProtocol.Variable[] = [];
-    const values: any = Object.entries(JSON.parse(bp.values));
+    const values: any = Object.entries(JSON.parse(bp.getValues()));
     for (const [index, _value] of values) {
       this._variablesReference = this._variablesReference += 1;
       const value = _value.format === 'json' ? JSON.parse(_value.value) : Buffer.from(_value.value, 'base64').toString('binary');
@@ -249,9 +251,10 @@ export class HSLRuntime extends EventEmitter {
       this.parseBreakPointValue(value);
     }
     this._variables.set(variablesReference, variables);
-    this._currentLine = bp.location.beginline - 1;
-    this._currentColumn = bp.location.begincolumn - 1;
-    this._currentEndColumn = bp.location.endcolumn - 1;
+    const location = bp.getLocation();
+    this._currentLine = location !== undefined ? location.getBeginline() - 1 : 0;
+    this._currentColumn = location !== undefined ? location.getBegincolumn() - 1 : 0;
+    this._currentEndColumn = location !== undefined ? location.getEndcolumn() - 1 : 0;
   }
 
   private parseBreakPointValue(value: any) {
@@ -287,7 +290,7 @@ export class HSLRuntime extends EventEmitter {
     return false;
   }
 
-  private parseStackFrames(callstack: any) {
+  private parseStackFrames(callstack: Array<hsh_pb.HSLBreakPointResponse.Callstack | hsh_pb.HSLBreakPointResponse.Callstack>) {
     this._stackFrames = [];
     const srcLine = this._currentFile ? this._sourceLines.get(this._currentFile) : '';
     const stackFrame: DebugProtocol.StackFrame = {
@@ -303,7 +306,7 @@ export class HSLRuntime extends EventEmitter {
       for (const [index, value] of callstack.reverse().entries()) {
         const stackFrame: DebugProtocol.StackFrame = {
           id: index + 1,
-          name: value.function,
+          name: value.getFunction(),
           line: 0,
           column: 0
         };
