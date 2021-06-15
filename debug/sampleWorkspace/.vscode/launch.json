@@ -2,30 +2,15 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug Live Stage",
-            "type": "halon",
-            "request": "launch",
-            "debug": true
-        },
-        {
-            "name": "Run Live Stage",
-            "type": "halon",
-            "request": "launch",
-            "debug": false
-        },
-        {
             "name": "Debug File",
             "type": "hsl",
             "request": "launch",
-            "program": "${file}",
-            "debug": true
+            "program": "${file}"
         },
         {
-            "name": "Run File",
-            "type": "hsl",
-            "request": "launch",
-            "program": "${file}",
-            "debug": false
+            "name": "Debug Live Stage",
+            "type": "halon",
+            "request": "launch"
         }
     ]
 }
