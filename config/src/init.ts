@@ -73,15 +73,7 @@ command=/opt/halon/sbin/smtpd -f`
           name: "Debug File",
           type: "hsl",
           request: "launch",
-          program: "${file}",
-          debug: true
-        },
-        {
-          name: "Run File",
-          type: "hsl",
-          request: "launch",
-          program: "${file}",
-          debug: false
+          program: "${file}"
         }
       ]
     }, undefined, 2));
