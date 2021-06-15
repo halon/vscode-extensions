@@ -9,6 +9,12 @@ import { HSLLaunchRequestArguments } from './debug';
 import { v4 as uuidv4 } from 'uuid';
 import * as smtpd_pb from '@halon/protobuf-schemas/js/smtpd_pb';
 import * as hsh_pb from '@halon/protobuf-schemas/js/hsh_pb';
+import { Smtpd } from '@halon/json-schemas/ts/smtpd';
+import { SmtpdApp } from '@halon/json-schemas/ts/smtpd-app';
+
+export interface SmtpdAppDebug extends SmtpdApp {
+  __entrypoint?: string;
+}
 
 interface HSLBreakpoint extends DebugProtocol.Breakpoint {
   logMessage?: string;
@@ -73,12 +79,17 @@ export class HSLRuntime extends EventEmitter {
       }
     }
 
-    let config: any = {};
-
+    let config: { smtpd?: Smtpd, smtpd_app?: SmtpdAppDebug };
     try {
       config = this.generateConfig(workspaceFolder);
     } catch (error) {
       this.sendEvent('output', `\x1b[31m${error.message || error}\x1b[0m`);
+      this.sendEvent('end');
+      return;
+    }
+
+    if (config.smtpd_app === undefined) {
+      this.sendEvent('output', `\x1b[31mMissing running configuration\x1b[0m`);
       this.sendEvent('end');
       return;
     }
@@ -322,46 +333,45 @@ export class HSLRuntime extends EventEmitter {
     }
     const build = extension.exports.build;
   
-    const config = build.generate(workspaceFolder.uri.fsPath);
-    if (config.smtpd_app === undefined) {
-      throw new Error('Missing running configuration');
-    }
+    const config: { smtpd?: Smtpd, smtpd_app?: SmtpdAppDebug } = build.generate(workspaceFolder.uri.fsPath);
 
-    if (this._debug && config.smtpd_app.scripting !== undefined) {
-      if (config.smtpd_app.scripting.hooks !== undefined) {
-        for (const hook of Object.keys(config.smtpd_app.scripting.hooks)) {
-          if (hook === 'predelivery' || hook === 'postdelivery') {
-            const filePath = path.join(workspaceFolder.uri.fsPath, 'src', 'hooks', 'queue', `${hook}.hsl`);
-            const bps = this._breakPoints.get(filePath);
-            const srcLines = this._sourceLines.get(filePath);
-            if (bps && srcLines) {
-              config.smtpd_app.scripting.hooks[hook] = this.applyBreakPoints(bps, srcLines);
-            }
-          } else {
-            config.smtpd_app.scripting.hooks[hook] = config.smtpd_app.scripting.hooks[hook].map((file: any) => {
-              const filePath = path.join(workspaceFolder.uri.fsPath, 'src', 'hooks', hook, file.id.split(path.posix.sep).join(path.sep) + '.hsl');
+    if (config.smtpd_app) {
+      if (this._debug && config.smtpd_app.scripting !== undefined) {
+        if (config.smtpd_app.scripting.hooks !== undefined) {
+          for (const hook of Object.keys(config.smtpd_app.scripting.hooks)) {
+            if (hook === 'predelivery' || hook === 'postdelivery') {
+              const filePath = path.join(workspaceFolder.uri.fsPath, 'src', 'hooks', 'queue', `${hook}.hsl`);
               const bps = this._breakPoints.get(filePath);
               const srcLines = this._sourceLines.get(filePath);
               if (bps && srcLines) {
-                return { ...file, data: this.applyBreakPoints(bps, srcLines) };
-              } else {
-                return file;
+                config.smtpd_app.scripting.hooks[hook] = this.applyBreakPoints(bps, srcLines);
               }
-            });
+            } else {
+              config.smtpd_app.scripting.hooks[hook] = config.smtpd_app.scripting.hooks[hook].map((file: { id: string, data: string }) => {
+                const filePath = path.join(workspaceFolder.uri.fsPath, 'src', 'hooks', hook, file.id.split(path.posix.sep).join(path.sep) + '.hsl');
+                const bps = this._breakPoints.get(filePath);
+                const srcLines = this._sourceLines.get(filePath);
+                if (bps && srcLines) {
+                  return { ...file, data: this.applyBreakPoints(bps, srcLines) };
+                } else {
+                  return file;
+                }
+              });
+            }
           }
         }
-      }
-      if (config.smtpd_app.scripting.files !== undefined) {
-        config.smtpd_app.scripting.files = config.smtpd_app.scripting.files.map((file: any) => {
-          const filePath = path.join(workspaceFolder.uri.fsPath, 'src', 'files', file.id.split(path.posix.sep).join(path.sep));
-          const bps = this._breakPoints.get(filePath);
-          const srcLines = this._sourceLines.get(filePath);
-          if (bps && srcLines) {
-            return { ...file, data: this.applyBreakPoints(bps, srcLines) };
-          } else {
-            return file;
-          }
-        });
+        if (config.smtpd_app.scripting.files !== undefined) {
+          config.smtpd_app.scripting.files = config.smtpd_app.scripting.files.map((file) => {
+            const filePath = path.join(workspaceFolder.uri.fsPath, 'src', 'files', file.id.split(path.posix.sep).join(path.sep));
+            const bps = this._breakPoints.get(filePath);
+            const srcLines = this._sourceLines.get(filePath);
+            if (bps && srcLines) {
+              return { ...file, data: this.applyBreakPoints(bps, srcLines) };
+            } else {
+              return file;
+            }
+          });
+        }
       }
     }
 

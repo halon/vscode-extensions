@@ -5,10 +5,11 @@ import kill from 'tree-kill';
 import * as smtpd_pb from '@halon/protobuf-schemas/js/smtpd_pb';
 import * as hsh_pb from '@halon/protobuf-schemas/js/hsh_pb';
 import { HSLLaunchRequestArguments } from './debug';
+import { SmtpdAppDebug } from './runtime';
 
 export const smtpd = (
   connector: IConnector,
-  appConfig: any,
+  appConfig: SmtpdAppDebug,
   debugId: string,
   conditions: HSLLaunchRequestArguments['conditions'],
   onData: (data: string, error: boolean) => void,
@@ -92,7 +93,7 @@ export const smtpd = (
 
 export const hsh = (
   connector: IConnector,
-  appConfig: any,
+  appConfig: SmtpdAppDebug,
   configPath: string | undefined,
   plugins: string[] = [],
   onData: (data: string, error: boolean) => void,
