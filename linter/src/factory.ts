@@ -14,8 +14,8 @@ export interface ExecProgram extends EventEmitter
 export interface IConnector
 {
   openChannel: (path: string) => Promise<stream.Duplex>;
-  openServerChannel: (path: string, callback: (stream: stream.Duplex) => void) => Promise<any>;
-  closeServerChannel: (server: any) => void;
+  openServerChannel: (path: string, callback: (stream: stream.Duplex) => void) => Promise<net.Server>;
+  closeServerChannel: (server: net.Server) => void;
   exec: (program: string, argv: string[]) => Promise<ExecProgram>;
   dispose: () => void;
 }
@@ -40,7 +40,7 @@ export class UNIXConnector implements IConnector
   }
   openServerChannel(path: string, callback: (stream: stream.Duplex) => void)
   {
-    return new Promise<any>(async (resolve, reject) => {
+    return new Promise<net.Server>(async (resolve, reject) => {
       var s = net.createServer((client) => {
         callback(client);
       });
@@ -48,7 +48,7 @@ export class UNIXConnector implements IConnector
       resolve(s);
     });
   }
-  closeServerChannel(server: any)
+  closeServerChannel(server: net.Server)
   {
     server.close();
   }
