@@ -25,6 +25,7 @@ interface HSLBreakpoint extends DebugProtocol.Breakpoint {
 export class HSLRuntime extends EventEmitter {
   private _debug: boolean = true;
   private _debugId: string | undefined;
+  private _workspaceFolder: WorkspaceFolder | undefined;
   private _currentFile: string | undefined;
   private _currentLine = 0;
   private _currentColumn = 0;
@@ -61,17 +62,16 @@ export class HSLRuntime extends EventEmitter {
       return;
     }
 
-    let workspaceFolder: WorkspaceFolder | undefined;
-    workspaceFolder = workspace.getWorkspaceFolder(Uri.file(args.folder));
+    this._workspaceFolder = workspace.getWorkspaceFolder(Uri.file(args.folder));
 
-    if (workspaceFolder === undefined) {
+    if (this._workspaceFolder === undefined) {
       this.sendEvent('output', '\x1b[31mNo workspace folder found\x1b[0m\n');
       this.sendEvent('end');
       return;
     }
 
     if (args.type === 'hsl') {
-      const filesPath = path.join(workspaceFolder.uri.fsPath, 'src', 'files');
+      const filesPath = path.join(this._workspaceFolder.uri.fsPath, 'src', 'files');
       if (!pathIsInside(args.program as string, filesPath)) {
         this.sendEvent('output', '\x1b[31mOnly files inside the "files" directory can be run\x1b[0m\n');
         this.sendEvent('end');
@@ -81,7 +81,7 @@ export class HSLRuntime extends EventEmitter {
 
     let config: { smtpd?: Smtpd, smtpd_app?: SmtpdAppDebug };
     try {
-      config = this.generateConfig(workspaceFolder);
+      config = this.generateConfig(this._workspaceFolder);
     } catch (error) {
       this.sendEvent('output', `\x1b[31m${error.message || error}\x1b[0m`);
       this.sendEvent('end');
@@ -95,7 +95,7 @@ export class HSLRuntime extends EventEmitter {
     }
 
     if (args.type === 'hsl') {
-      const filesPath = path.join(workspaceFolder.uri.fsPath, 'src', 'files');
+      const filesPath = path.join(this._workspaceFolder.uri.fsPath, 'src', 'files');
       const id = path.relative(filesPath, args.program as string).split(path.sep).join(path.posix.sep);
       config.smtpd_app.__entrypoint = 'include "' + id + '";';
     }
@@ -127,7 +127,7 @@ export class HSLRuntime extends EventEmitter {
     if (args.type === 'hsl') {
       let configPath = args.config;
       if (configPath === undefined && config.smtpd !== undefined) {
-        configPath = path.join(workspaceFolder.uri.fsPath, 'src', 'config', 'smtpd.yaml');
+        configPath = path.join(this._workspaceFolder.uri.fsPath, 'src', 'config', 'smtpd.yaml');
       }
   
       remote.hsh(connector, config.smtpd_app, configPath, args.plugins, (data: string, error: boolean) => {
