@@ -28,6 +28,7 @@ export class HSLRuntime extends EventEmitter {
   private _workspaceFolder: WorkspaceFolder | undefined;
   private _currentFile: string | undefined;
   private _currentLine = 0;
+  private _currentEndLine = 0;
   private _currentColumn = 0;
   private _currentEndColumn = 0;
   private _sourceLines = new Map<string, string[]>();
@@ -264,6 +265,7 @@ export class HSLRuntime extends EventEmitter {
     this._variables.set(variablesReference, variables);
     const location = bp.getLocation();
     this._currentLine = location !== undefined ? location.getBeginline() - 1 : 0;
+    this._currentEndLine = location !== undefined ? location.getEndline() - 1 : 0;
     this._currentColumn = location !== undefined ? location.getBegincolumn() - 1 : 0;
     this._currentEndColumn = location !== undefined ? location.getEndcolumn() - 1 : 0;
   }
@@ -306,9 +308,10 @@ export class HSLRuntime extends EventEmitter {
     const srcLines = this._currentFile ? this._sourceLines.get(this._currentFile) : undefined;
     const stackFrame: DebugProtocol.StackFrame = {
       id: 0,
-      name: srcLines ? srcLines[this._currentLine].substring(this._currentColumn, this._currentEndColumn) : '',
+      name: srcLines ? srcLines[this._currentLine] : '',
       source: this._currentFile ? { path: this._currentFile } : undefined,
       line: this._currentLine,
+      endLine: this._currentEndLine,
       column: this._currentColumn,
       endColumn: this._currentEndColumn
     };
