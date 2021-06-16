@@ -305,10 +305,9 @@ export class HSLRuntime extends EventEmitter {
 
   private parseStackFrames(callstack: Array<hsh_pb.HSLBreakPointResponse.Callstack | hsh_pb.HSLBreakPointResponse.Callstack>) {
     this._stackFrames = [];
-    const srcLines = this._currentFile ? this._sourceLines.get(this._currentFile) : undefined;
     const stackFrame: DebugProtocol.StackFrame = {
       id: 0,
-      name: srcLines ? srcLines[this._currentLine] : '',
+      name: '0',
       source: this._currentFile ? { path: this._currentFile } : undefined,
       line: this._currentLine,
       endLine: this._currentEndLine,
