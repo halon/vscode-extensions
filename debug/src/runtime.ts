@@ -37,6 +37,7 @@ export class HSLRuntime extends EventEmitter {
   private _variables = new Map<number, DebugProtocol.Variable[]>();
   private _variablesReference = 1;
   private _stackFrames = new Array<DebugProtocol.StackFrame>();
+  private _exceptionFilters: string[] = [];
   private _terminate: { () : void } | null = null;
   private _continue: { () : void } | null = null;
   
@@ -116,6 +117,10 @@ export class HSLRuntime extends EventEmitter {
           this.parseBreakPoint(bp);
           this.parseStackFrames(bp.getCallstackList());
           this.sendEvent('stopOnBreakpoint');
+        } else if (!bp.getId() && this._exceptionFilters.length > 0) {
+            this.parseBreakPoint(bp);
+            this.parseStackFrames(bp.getCallstackList());
+            this.sendEvent('stopOnException');
         } else {
           this.continue();
         }
@@ -153,6 +158,10 @@ export class HSLRuntime extends EventEmitter {
           this.parseBreakPoint(bp);
           this.parseStackFrames(bp.getCallstackList());
           this.sendEvent('stopOnBreakpoint');
+        } else if (!bp.getId() && this._exceptionFilters.length > 0) {
+            this.parseBreakPoint(bp);
+            this.parseStackFrames(bp.getCallstackList());
+            this.sendEvent('stopOnException');
         } else {
           this.continue();
         }
@@ -208,6 +217,10 @@ export class HSLRuntime extends EventEmitter {
     
     return newBps;
   }
+
+  public setExceptionsFilters(exceptionFilters: string[]): void {
+		this._exceptionFilters = exceptionFilters;
+	}
   
   private async verifyBreakPoints(path: string): Promise<void> {
     if (!this._debug) {
@@ -268,6 +281,13 @@ export class HSLRuntime extends EventEmitter {
     this._currentEndLine = location !== undefined ? location.getEndline() - 1 : undefined;
     this._currentColumn = location !== undefined ? location.getBegincolumn() - 1 : 0;
     this._currentEndColumn = location !== undefined ? location.getEndcolumn() - 1 : undefined;
+    if (!bp.getId()) {
+      if (this._workspaceFolder && location && location.getId() && location.getType() === '') {
+        this._currentFile = path.join(this._workspaceFolder.uri.fsPath, 'src', 'files', location.getId().split(path.posix.sep).join(path.sep));
+      } else {
+        this._currentFile = undefined;
+      }
+    }
   }
 
   private parseBreakPointValue(value: any) {

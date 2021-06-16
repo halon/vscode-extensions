@@ -50,6 +50,10 @@ export class HSLDebugSession extends DebugSession {
       } as DebugProtocol.Breakpoint));
     });
 
+    this._runtime.on('stopOnException', () => {
+      this.sendEvent(new StoppedEvent('exception', HSLDebugSession.threadID));
+		});
+
     this._runtime.on('output', (text, filePath, line, column) => {
       const event: DebugProtocol.OutputEvent = new OutputEvent(text);
       if (filePath) event.body.source = new Source(path.basename(filePath), this.convertDebuggerPathToClient(filePath));
@@ -66,6 +70,20 @@ export class HSLDebugSession extends DebugSession {
   protected initializeRequest(response: DebugProtocol.InitializeResponse, args: DebugProtocol.InitializeRequestArguments): void {
     response.body = response.body || {};
     response.body.supportsConfigurationDoneRequest = true;
+    response.body.supportsExceptionFilterOptions = true;
+    response.body.exceptionBreakpointFilters = [
+			{
+				filter: 'caughtExceptions',
+				label: "Caught Exceptions",
+				description: 'Breaks on all throw errors, even if they are caught later.',
+				default: false
+			}, {
+				filter: 'uncaughtExceptions',
+				label: "Uncaught Exceptions",
+				description: 'Breaks only on errors that are not handled.',
+				default: true
+			}
+		];
     response.body.supportsTerminateRequest = true;
     this.sendResponse(response);
     this.sendEvent(new InitializedEvent());
@@ -134,6 +152,18 @@ export class HSLDebugSession extends DebugSession {
     response.body = { variables: this._runtime.getVariables(args.variablesReference) };
     this.sendResponse(response);
   }
+
+  protected async setExceptionBreakPointsRequest(response: DebugProtocol.SetExceptionBreakpointsResponse, args: DebugProtocol.SetExceptionBreakpointsArguments): Promise<void> {
+    let exceptionFilters: string[] = [];
+		if (args.filterOptions) {
+			for (const filterOption of args.filterOptions) {
+        exceptionFilters.push(filterOption.filterId);
+			}
+		}
+
+		this._runtime.setExceptionsFilters(exceptionFilters);
+		this.sendResponse(response);
+	}
   
   protected continueRequest(response: DebugProtocol.ContinueResponse, args: DebugProtocol.ContinueArguments): void {
     this._runtime.continue();
