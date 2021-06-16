@@ -28,9 +28,9 @@ export class HSLRuntime extends EventEmitter {
   private _workspaceFolder: WorkspaceFolder | undefined;
   private _currentFile: string | undefined;
   private _currentLine = 0;
-  private _currentEndLine = 0;
+  private _currentEndLine: number | undefined;
   private _currentColumn = 0;
-  private _currentEndColumn = 0;
+  private _currentEndColumn: number | undefined;
   private _sourceLines = new Map<string, string[]>();
   private _breakpointId = 1;
   private _breakPoints = new Map<string, HSLBreakpoint[]>();
@@ -265,9 +265,9 @@ export class HSLRuntime extends EventEmitter {
     this._variables.set(variablesReference, variables);
     const location = bp.getLocation();
     this._currentLine = location !== undefined ? location.getBeginline() - 1 : 0;
-    this._currentEndLine = location !== undefined ? location.getEndline() - 1 : 0;
+    this._currentEndLine = location !== undefined ? location.getEndline() - 1 : undefined;
     this._currentColumn = location !== undefined ? location.getBegincolumn() - 1 : 0;
-    this._currentEndColumn = location !== undefined ? location.getEndcolumn() - 1 : 0;
+    this._currentEndColumn = location !== undefined ? location.getEndcolumn() - 1 : undefined;
   }
 
   private parseBreakPointValue(value: any) {

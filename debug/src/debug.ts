@@ -114,6 +114,7 @@ export class HSLDebugSession extends DebugSession {
       stackFrames: stackFrames.map((stackFrame) => ({
         ...stackFrame,
         line: stackFrame.source !== undefined ? this.convertDebuggerLineToClient(stackFrame.line) : 0,
+        endLine: stackFrame.endLine !== undefined ? this.convertDebuggerLineToClient(stackFrame.endLine) : undefined,
         column: stackFrame.source !== undefined ? this.convertDebuggerColumnToClient(stackFrame.column) : 0,
         endColumn: stackFrame.endColumn !== undefined ? this.convertDebuggerColumnToClient(stackFrame.endColumn) : undefined,
         source: stackFrame.source !== undefined ? {
