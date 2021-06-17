@@ -341,7 +341,7 @@ export class HSLRuntime extends EventEmitter {
     return false;
   }
 
-  private parseStackFrames(callstack: Array<hsh_pb.HSLBreakPointResponse.Callstack | hsh_pb.HSLBreakPointResponse.Callstack>) {
+  private parseStackFrames(callstack: Array<smtpd_pb.HSLBreakPointResponse.Callstack | hsh_pb.HSLBreakPointResponse.Callstack>) {
     this._stackFrames = [];
     const stackFrame: DebugProtocol.StackFrame = {
       id: 0,
