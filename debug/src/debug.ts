@@ -75,12 +75,12 @@ export class HSLDebugSession extends DebugSession {
 			{
 				filter: 'caughtExceptions',
 				label: "Caught Exceptions",
-				description: 'Breaks on all throw errors, even if they are caught later.',
+				description: 'Breaks on errors that are handled.',
 				default: false
 			}, {
 				filter: 'uncaughtExceptions',
 				label: "Uncaught Exceptions",
-				description: 'Breaks only on errors that are not handled.',
+				description: 'Breaks on errors that are not handled.',
 				default: true
 			}
 		];

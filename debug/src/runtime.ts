@@ -38,6 +38,7 @@ export class HSLRuntime extends EventEmitter {
   private _variablesReference = 1;
   private _stackFrames = new Array<DebugProtocol.StackFrame>();
   private _exceptionFilters: string[] = [];
+  private _uncaughtException: boolean = true;
   private _terminate: { () : void } | null = null;
   private _continue: { () : void } | null = null;
   
@@ -117,10 +118,14 @@ export class HSLRuntime extends EventEmitter {
           this.parseBreakPoint(bp);
           this.parseStackFrames(bp.getCallstackList());
           this.sendEvent('stopOnBreakpoint');
-        } else if (!bp.getId() && this._exceptionFilters.length > 0) {
+        } else if (!bp.getId()) {
             this.parseBreakPoint(bp);
             this.parseStackFrames(bp.getCallstackList());
-            this.sendEvent('stopOnException');
+            if (this._exceptionFilters.includes(this._uncaughtException ? 'uncaughtExceptions' : 'caughtExceptions')) {
+              this.sendEvent('stopOnException');
+            } else {
+              this.continue();
+            }
         } else {
           this.continue();
         }
@@ -158,10 +163,14 @@ export class HSLRuntime extends EventEmitter {
           this.parseBreakPoint(bp);
           this.parseStackFrames(bp.getCallstackList());
           this.sendEvent('stopOnBreakpoint');
-        } else if (!bp.getId() && this._exceptionFilters.length > 0) {
+        } else if (!bp.getId()) {
             this.parseBreakPoint(bp);
             this.parseStackFrames(bp.getCallstackList());
-            this.sendEvent('stopOnException');
+            if (this._exceptionFilters.includes(this._uncaughtException ? 'uncaughtExceptions' : 'caughtExceptions')) {
+              this.sendEvent('stopOnException');
+            } else {
+              this.continue();
+            }
         } else {
           this.continue();
         }
@@ -273,6 +282,9 @@ export class HSLRuntime extends EventEmitter {
         variablesReference: value !== null && typeof value === 'object' ? this._variablesReference : 0
       };
       variables.push(variable);
+      if (index === '__throw') {
+        this._uncaughtException = _value.uncaught;
+      }
       this.parseBreakPointValue(value);
     }
     this._variables.set(variablesReference, variables);
