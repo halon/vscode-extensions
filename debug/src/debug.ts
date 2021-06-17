@@ -84,6 +84,7 @@ export class HSLDebugSession extends DebugSession {
 				default: true
 			}
 		];
+    response.body.supportsExceptionInfoRequest = true;
     response.body.supportsTerminateRequest = true;
     this.sendResponse(response);
     this.sendEvent(new InitializedEvent());
@@ -162,6 +163,14 @@ export class HSLDebugSession extends DebugSession {
 		}
 
 		this._runtime.setExceptionsFilters(exceptionFilters);
+		this.sendResponse(response);
+	}
+
+  protected exceptionInfoRequest(response: DebugProtocol.ExceptionInfoResponse, args: DebugProtocol.ExceptionInfoArguments) {
+		response.body = {
+			exceptionId: this._runtime.getExceptionMessage(),
+      breakMode: 'always'
+		};
 		this.sendResponse(response);
 	}
   

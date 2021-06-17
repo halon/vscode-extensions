@@ -39,6 +39,7 @@ export class HSLRuntime extends EventEmitter {
   private _stackFrames = new Array<DebugProtocol.StackFrame>();
   private _exceptionFilters: string[] = [];
   private _uncaughtException: boolean = true;
+  private _exceptionMessage: string = '';
   private _terminate: { () : void } | null = null;
   private _continue: { () : void } | null = null;
   
@@ -230,6 +231,10 @@ export class HSLRuntime extends EventEmitter {
   public setExceptionsFilters(exceptionFilters: string[]): void {
 		this._exceptionFilters = exceptionFilters;
 	}
+
+  public getExceptionMessage() {
+		return this._exceptionMessage;
+	}
   
   private async verifyBreakPoints(path: string): Promise<void> {
     if (!this._debug) {
@@ -284,6 +289,7 @@ export class HSLRuntime extends EventEmitter {
       variables.push(variable);
       if (index === '__throw') {
         this._uncaughtException = _value.uncaught;
+        this._exceptionMessage = _value.message !== undefined ? _value.message : '';
       }
       this.parseBreakPointValue(value);
     }
