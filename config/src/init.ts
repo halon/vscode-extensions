@@ -74,6 +74,11 @@ command=/opt/halon/sbin/smtpd -f`
           type: "hsl",
           request: "launch",
           program: "${file}"
+        },
+        {
+          name: "Debug Live Stage",
+          type: "halon",
+          request: "launch"
         }
       ]
     }, undefined, 2));
