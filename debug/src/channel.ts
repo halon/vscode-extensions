@@ -63,11 +63,5 @@ export const packRequest = (command: string, version?: boolean, protobuf?: Uint8
     buffers.push(buffer, protobuf);
   }
 
-  if (!protobuf && command === 'e') {
-    const buffer = Buffer.alloc(8);
-    buffer.writeUInt32LE(0, 0);
-    buffers.push(buffer);
-  }
-
   return Buffer.concat(buffers);
 };

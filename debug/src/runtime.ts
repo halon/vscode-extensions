@@ -300,8 +300,31 @@ export class HSLRuntime extends EventEmitter {
     this._currentColumn = location !== undefined ? location.getBegincolumn() - 1 : 0;
     this._currentEndColumn = location !== undefined ? location.getEndcolumn() - 1 : undefined;
     if (!bp.getId()) {
-      if (this._workspaceFolder && location && location.getId() && location.getType() === '') {
-        this._currentFile = path.join(this._workspaceFolder.uri.fsPath, 'src', 'files', location.getId().split(path.posix.sep).join(path.sep));
+      if (this._workspaceFolder && location && location.getFile()) {
+        const file = location.getFile();
+        let [type, id] = file.split(':');
+        if (file === 'predelivery:' || file === 'postdelivery:') {
+          id = type;
+          type = 'queue';
+        } else {
+          if (!id) {
+            id = type;
+            type = 'file';
+          }
+        }
+
+        let paths: string[] = [];
+        if (type === 'file') {
+          paths.push('files', id.split(path.posix.sep).join(path.sep));
+        } else if (type === 'eodrcpt') {
+          paths.push('hooks', 'eod', 'rcpt', id + '.hsl');
+        } else if (type === 'queue') {
+          paths.push('hooks', 'queue', id + '.hsl');
+        } else {
+          paths.push('hooks', type, id + '.hsl');
+        }
+
+        this._currentFile = path.join(this._workspaceFolder.uri.fsPath, 'src', ...paths);
       } else {
         this._currentFile = undefined;
       }
