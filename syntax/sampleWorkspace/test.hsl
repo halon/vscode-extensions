@@ -1,0 +1,5 @@
+try {
+    throw Exception("Caught Exception");
+} catch ($error) {
+    echo $error->toString();
+}

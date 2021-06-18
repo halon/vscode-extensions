@@ -38,6 +38,10 @@
           "match": "\\b(if|while|for|return|foreach|else|forever|break|continue|switch|case|default)\\b"
         },
         {
+          "name": "keyword.control.trycatch.hsl",
+          "match": "\\b(try|throw|catch)\\b"
+        },
+        {
           "name": "keyword.operator.hsl",
           "match": "(&|\\^|\\||<<|>>>|>>|~)"
         },
@@ -158,7 +162,7 @@
       "patterns": [
         {
           "name": "invalid.illegal.hsl",
-          "match": "\\b(this|self|public|protected|struct|clone|final|const|goto|namespace|new|catch|try|interface|throw|in|extends|print|trait|assert|finally|lambda|pass|destroy|export|use)\\b"
+          "match": "\\b(this|self|public|protected|struct|clone|final|const|goto|namespace|new|interface|in|extends|print|trait|assert|finally|lambda|pass|destroy|export|use)\\b"
         },
         {
           "name": "invalid.illegal.hsl",
