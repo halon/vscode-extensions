@@ -1,6 +1,6 @@
 import * as path from 'path';
 import pathIsInside from 'path-is-inside';
-import { extensions, workspace, Uri, WorkspaceFolder } from 'vscode';
+import { extensions, workspace, Uri, WorkspaceFolder, languages, commands, window, DiagnosticSeverity } from 'vscode';
 import { EventEmitter } from 'events';
 import { DebugProtocol } from 'vscode-debugprotocol';
 import * as remote from './remote';
@@ -49,7 +49,7 @@ export class HSLRuntime extends EventEmitter {
   
   public async start(args: HSLLaunchRequestArguments): Promise<void> {
     if (args.type !== 'hsl' && args.type !== 'halon') {
-      this.sendEvent('output', '\x1b[31mUnsupported type\x1b[0m\n');
+      window.showErrorMessage('Debugger type not supported');
       this.sendEvent('end');
       return;
     }
@@ -61,7 +61,7 @@ export class HSLRuntime extends EventEmitter {
     }
 
     if (args.folder === undefined) {
-      this.sendEvent('output', '\x1b[31mNo workspace folder found\x1b[0m\n');
+      window.showErrorMessage('No workspace folder was found');
       this.sendEvent('end');
       return;
     }
@@ -69,7 +69,7 @@ export class HSLRuntime extends EventEmitter {
     this._workspaceFolder = workspace.getWorkspaceFolder(Uri.file(args.folder));
 
     if (this._workspaceFolder === undefined) {
-      this.sendEvent('output', '\x1b[31mNo workspace folder found\x1b[0m\n');
+      window.showErrorMessage('No workspace folder was found');
       this.sendEvent('end');
       return;
     }
@@ -77,9 +77,27 @@ export class HSLRuntime extends EventEmitter {
     if (args.type === 'hsl') {
       const filesPath = path.join(this._workspaceFolder.uri.fsPath, 'src', 'files');
       if (!pathIsInside(args.program as string, filesPath)) {
-        this.sendEvent('output', '\x1b[31mOnly files inside the "files" directory can be run\x1b[0m\n');
+        window.showErrorMessage('Only files inside the "files" directory can be debugged');
         this.sendEvent('end');
         return;
+      }
+    }
+
+    const diagnostics = languages.getDiagnostics();
+    for (const [uri, _diagnostics] of diagnostics) {
+      const srcPath = path.join(this._workspaceFolder.uri.fsPath, 'src');
+      if (pathIsInside(uri.fsPath, srcPath) && _diagnostics.length > 0) {
+        for (const diagnostic of _diagnostics) {
+          if (diagnostic.severity === DiagnosticSeverity.Error) {
+            window.showErrorMessage('Linter error needs to be fixed before the debugger can be started', { title: 'Open file' }).then((value) => {
+              if (value?.title === 'Open file') {
+                commands.executeCommand('vscode.open', Uri.file(uri.fsPath));
+              }
+            });
+            this.sendEvent('end');
+            return;
+          }
+        }
       }
     }
 
@@ -87,13 +105,13 @@ export class HSLRuntime extends EventEmitter {
     try {
       config = this.generateConfig(this._workspaceFolder);
     } catch (error) {
-      this.sendEvent('output', `\x1b[31m${error.message || error}\x1b[0m`);
+      window.showErrorMessage(error.message || error);
       this.sendEvent('end');
       return;
     }
 
     if (config.smtpd_app === undefined) {
-      this.sendEvent('output', `\x1b[31mMissing running configuration\x1b[0m`);
+      window.showErrorMessage('No running configuration was found');
       this.sendEvent('end');
       return;
     }
