@@ -8,7 +8,7 @@
     {
         "name": "if",
         "detail": "if",
-        "documentation": "One of the most basic control structures in HSL is the `if` statement, it allows conditional control flow. `if` statements check the expression for [truthiness]({{ docsurl }}operators.html#truthtable).",
+        "documentation": "One of the most basic control structures in HSL is the `if` statement, it allows conditional control flow. `if` statements check the expression for truthiness.",
         "link": "[Full documentation]({{ docsurl }}structures.html#if)",
         "snippets": [
             {
@@ -221,5 +221,35 @@
         "detail": "barrier",
         "documentation": "A barrier is system-wide named mutually exclusive scope, only one execution is allowed to enter the same named scope (applies to all thread and processes). Waiters are queued for execution in random order. Optionally with every barrier comes a shared variable (shared memory) which data is shared among executions.",
         "link": "[Full documentation]({{ docsurl }}structures.html#barrier)"
+    },
+    {
+        "name": "try",
+        "detail": "try",
+        "documentation": "In order to catch an exception, it is has to be thrown within a try\/catch code block. When a exception is thrown the remaining code in the try statement is not execution and the execution flow is moved to the first statement of the catch code block. Exception are catched at the first catch statement in the callstack, and are not propegated unless re-thrown. If and exception is thrown outside of a try\/catch code block it will result in a script error.",
+        "link": "[Full documentation]({{ docsurl }}structures.html#try)",
+        "snippets": [
+            {
+                "detail": "try\/catch snippet",
+                "insertText": [
+                    "try {",
+                    "\t${1:throw Exception(\"Error\");}",
+                    "} catch (\\$${2:error}) {",
+                    "\t${3:echo \\$error->toString();}",
+                    "}"
+                ]
+            }
+        ]
+    },
+    {
+        "name": "catch",
+        "detail": "catch",
+        "documentation": "The caught exception is available in the variable specificed in the catch statement.",
+        "link": "[Full documentation]({{ docsurl }}structures.html#catch)"
+    },
+    {
+        "name": "throw",
+        "detail": "throw",
+        "documentation": "Any value type may be thrown. Built-in runtime exceptions are instances of the Exception class.",
+        "link": "[Full documentation]({{ docsurl }}structures.html#throw)"
     }
 ]

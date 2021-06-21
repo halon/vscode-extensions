@@ -2291,6 +2291,84 @@
             "value": "FFI($0)",
             "documentation": "This class allows you to load a shared object\/library.",
             "link": "[Full documentation]({{ docsurl }}functions.html#FFI)"
+        },
+        {
+            "name": "Exception",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "message",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "methods": [
+                {
+                    "name": "toString",
+                    "parameters": {
+                        "required": [],
+                        "optional": []
+                    },
+                    "returnType": "string",
+                    "detail": "Exception->toString(): string",
+                    "value": "toString()",
+                    "documentation": "Return a user-friendly represention of the exception message including file, line or column if available.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#Exception.toString)"
+                },
+                {
+                    "name": "message",
+                    "parameters": {
+                        "required": [],
+                        "optional": []
+                    },
+                    "returnType": "string",
+                    "detail": "Exception->message(): string",
+                    "value": "message()",
+                    "documentation": "Return the error message without any additional information regarding file, line or column.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#Exception.message)"
+                },
+                {
+                    "name": "file",
+                    "parameters": {
+                        "required": [],
+                        "optional": []
+                    },
+                    "returnType": "string or none",
+                    "detail": "Exception->file(): string or none",
+                    "value": "file()",
+                    "documentation": "Return the file which caused the exception. This function will only return the file for builin exceptions.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#Exception.file)"
+                },
+                {
+                    "name": "line",
+                    "parameters": {
+                        "required": [],
+                        "optional": []
+                    },
+                    "returnType": "number or none",
+                    "detail": "Exception->line(): number or none",
+                    "value": "line()",
+                    "documentation": "Return the line which caused the exception. This function will only return the line for builin exceptions.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#Exception.line)"
+                },
+                {
+                    "name": "column",
+                    "parameters": {
+                        "required": [],
+                        "optional": []
+                    },
+                    "returnType": "number or none",
+                    "detail": "Exception->column(): number or none",
+                    "value": "column()",
+                    "documentation": "Return the column which caused the exception. This function will only return the column for builin exceptions.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#Exception.column)"
+                }
+            ],
+            "detail": "Exception(string $message)",
+            "value": "Exception($0)",
+            "documentation": "This builtin class is used to create Exception objects. Similar to the built in exceptions thrown.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#Exception)"
         }
     ],
     "connect": [],
