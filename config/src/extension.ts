@@ -47,9 +47,9 @@ export function activate(context: ExtensionContext)
                 if (development !== undefined) {
                   try {
                     init.run(workspaceFolderPath, template?.label, development?.label);
-                    window.showInformationMessage('Init: Completed');
+                    window.showInformationMessage('Init command was run successfully');
                   } catch (error) {
-                    window.showErrorMessage(`Init: ${error.message || error}`);
+                    window.showErrorMessage(error.message || error);
                   }
                 }
               });
@@ -58,7 +58,7 @@ export function activate(context: ExtensionContext)
         }
       });
     } else {
-      window.showErrorMessage(`Init: You need to have a workspace folder open to run this command`);
+      window.showErrorMessage('You need to have a workspace folder open to run this command');
     }
   }));
 
@@ -70,14 +70,14 @@ export function activate(context: ExtensionContext)
         if (typeof workspaceFolderPath !== 'undefined') {
           try {
             build.run(workspaceFolderPath);
-            window.showInformationMessage('Build: Completed');
+            window.showInformationMessage('Build command was run successfully');
           } catch (error) {
-            window.showErrorMessage(`Build: ${error.message || error}`);
+            window.showErrorMessage(error.message || error);
           }
         }
       });
     } else {
-      window.showErrorMessage(`Build: You need to have a workspace folder open to run this command`);
+      window.showErrorMessage('You need to have a workspace folder open to run this command');
     }
   }));
 
