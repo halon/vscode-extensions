@@ -2734,7 +2734,7 @@
                             "name": "error",
                             "type": "array",
                             "detail": "array error",
-                            "example": "[\"temporary\" => true, \"reason\" => ...]",
+                            "example": "[\"temporary\" => true, \"message\" => ...]",
                             "documentation": "A generic eror message (if no SMTP result)",
                             "keys": [
                                 {
@@ -3062,7 +3062,7 @@
         {
             "name": "$context",
             "type": "any",
-            "detail": "any $context",
+            "detail": "any readonly $context",
             "documentation": "This variable is only defined if the pre-delivery has been executed"
         },
         {
