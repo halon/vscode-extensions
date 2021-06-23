@@ -210,7 +210,7 @@
             "returnType": "array",
             "detail": "array_reverse(array $array): array",
             "value": "array_reverse($0)",
-            "documentation": "Return array in reverse order",
+            "documentation": "Return array in reverse order. Numeric keys are reindexed.",
             "link": "[Full documentation]({{ docsurl }}functions.html#array_reverse)"
         },
         {
@@ -238,6 +238,40 @@
             "value": "array_sort($0)",
             "documentation": "Returns the array sorted (with index association maintained) using the callback function to determine the order. The sort is not guaranteed to be stable.",
             "link": "[Full documentation]({{ docsurl }}functions.html#array_sort)"
+        },
+        {
+            "name": "array_shuffle",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "array",
+                        "type": "array"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "array",
+            "detail": "array_shuffle(array $array): array",
+            "value": "array_shuffle($0)",
+            "documentation": "Return array in shuffled order. Numeric keys are reindexed.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#array_shuffle)"
+        },
+        {
+            "name": "array_unique",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "array",
+                        "type": "array"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "array",
+            "detail": "array_unique(array $array): array",
+            "value": "array_unique($0)",
+            "documentation": "Return an array with unique values (the first key is preserved).",
+            "link": "[Full documentation]({{ docsurl }}functions.html#array_unique)"
         },
         {
             "name": "aes_decrypt",
@@ -1035,10 +1069,15 @@
                         "type": "string"
                     }
                 ],
-                "optional": []
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
             },
             "returnType": "boolean",
-            "detail": "domain_includes(string $subdomain, string $domain): boolean",
+            "detail": "domain_includes(string $subdomain, string $domain [, array $options]): boolean",
             "value": "domain_includes($0)",
             "documentation": "Test if subdomain is a subdomain of domain. If the domain starts with a dot . it must be a subdomain of domain, hence it will not even if subdomain == domain.",
             "link": "[Full documentation]({{ docsurl }}functions.html#domain_includes)",

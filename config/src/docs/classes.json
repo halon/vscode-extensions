@@ -1925,6 +1925,29 @@
                     "value": "toFFIValue()",
                     "documentation": "Return a pointer to a OpenSSL X509 object representing the current X509 resource.",
                     "link": "[Full documentation]({{ docsurl }}functions.html#X509.toFFIValue)"
+                },
+                {
+                    "static": true,
+                    "name": "String",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "data",
+                                "type": "string"
+                            }
+                        ],
+                        "optional": [
+                            {
+                                "name": "options",
+                                "type": "array"
+                            }
+                        ]
+                    },
+                    "returnType": "X509",
+                    "detail": "X509::String(string $data [, array $options]): X509",
+                    "value": "String($0)",
+                    "documentation": "Return a X509 resource containing the data.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#X509.String)"
                 }
             ],
             "detail": "X509(X509Resource $x509resource)",
