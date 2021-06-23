@@ -125,7 +125,7 @@
     "webpack-stream": "^6.1.2"
   },
   "dependencies": {
-    "@halon/json-schemas": "github:halon/json-schemas#95ef93809e99f500d58463d977ed168f60cdfd94",
+    "@halon/json-schemas": "github:halon/json-schemas#212b64eb6ee398c2057fd10aee8f71b9c9d3dae3",
     "ajv": "^6.10.2",
     "is-utf8": "^0.2.1",
     "yaml": "^1.10.0"
