@@ -69,7 +69,16 @@
             "name": "$connection",
             "type": "array",
             "detail": "array readonly $connection",
-            "documentation": "Connection\/session bound"
+            "documentation": "Connection\/session bound",
+            "keys": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "detail": "string id",
+                    "example": "\"18c190a3-93f-47d7-bd...\"",
+                    "documentation": "ID of the connection"
+                }
+            ]
         },
         {
             "name": "$transaction",
@@ -230,6 +239,13 @@
             "detail": "array readonly $connection",
             "documentation": "Connection\/session bound",
             "keys": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "detail": "string id",
+                    "example": "\"18c190a3-93f-47d7-bd...\"",
+                    "documentation": "ID of the connection"
+                },
                 {
                     "name": "remoteip",
                     "type": "string",
@@ -403,6 +419,13 @@
             "detail": "array readonly $connection",
             "documentation": "Connection\/session bound",
             "keys": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "detail": "string id",
+                    "example": "\"18c190a3-93f-47d7-bd...\"",
+                    "documentation": "ID of the connection"
+                },
                 {
                     "name": "remoteip",
                     "type": "string",
@@ -642,6 +665,13 @@
             "detail": "array readonly $connection",
             "documentation": "Connection\/session bound",
             "keys": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "detail": "string id",
+                    "example": "\"18c190a3-93f-47d7-bd...\"",
+                    "documentation": "ID of the connection"
+                },
                 {
                     "name": "remoteip",
                     "type": "string",
@@ -917,6 +947,13 @@
             "detail": "array readonly $connection",
             "documentation": "Connection\/session bound",
             "keys": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "detail": "string id",
+                    "example": "\"18c190a3-93f-47d7-bd...\"",
+                    "documentation": "ID of the connection"
+                },
                 {
                     "name": "remoteip",
                     "type": "string",
@@ -1211,6 +1248,13 @@
             "detail": "array readonly $connection",
             "documentation": "Connection\/session bound",
             "keys": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "detail": "string id",
+                    "example": "\"18c190a3-93f-47d7-bd...\"",
+                    "documentation": "ID of the connection"
+                },
                 {
                     "name": "remoteip",
                     "type": "string",
@@ -1534,6 +1578,13 @@
             "detail": "array readonly $connection",
             "documentation": "Connection\/session bound",
             "keys": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "detail": "string id",
+                    "example": "\"18c190a3-93f-47d7-bd...\"",
+                    "documentation": "ID of the connection"
+                },
                 {
                     "name": "remoteip",
                     "type": "string",
@@ -1910,6 +1961,13 @@
             "detail": "array readonly $connection",
             "documentation": "Connection\/session bound",
             "keys": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "detail": "string id",
+                    "example": "\"18c190a3-93f-47d7-bd...\"",
+                    "documentation": "ID of the connection"
+                },
                 {
                     "name": "remoteip",
                     "type": "string",
