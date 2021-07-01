@@ -81,6 +81,7 @@ export default class Completions implements CompletionItemProvider
     
         for (let item of functions) {
           if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false)) {
+            if (item.name === 'globalview' || item.name === 'ScanRPD' || item.name === 'ScanSA' || item.name === 'ScanKAV' || item.name === 'ScanCLAM') continue;
             let completionItem = new CompletionItem(item.name, CompletionItemKind.Function);
             completionItem.detail = item.detail;
             completionItem.documentation = new MarkdownString(item.documentation);

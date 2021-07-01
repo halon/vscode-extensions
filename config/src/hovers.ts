@@ -64,6 +64,7 @@ export default class Hovers implements HoverProvider
     
         for (let item of functions) {
           if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false)) {
+            if (item.name === 'globalview' || item.name === 'ScanRPD' || item.name === 'ScanSA' || item.name === 'ScanKAV' || item.name === 'ScanCLAM') continue;
             if (item.name === text) {
               let contents = [
                 new MarkdownString().appendCodeblock(item.detail, 'plaintext'),
