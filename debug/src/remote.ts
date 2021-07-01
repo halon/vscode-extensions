@@ -6,6 +6,7 @@ import * as smtpd_pb from '@halon/protobuf-schemas/js/smtpd_pb';
 import * as hsh_pb from '@halon/protobuf-schemas/js/hsh_pb';
 import { HSLLaunchRequestArguments } from './debug';
 import { SmtpdAppDebug } from './runtime';
+import { StringDecoder } from 'string_decoder';
 
 export const smtpd = (
   connector: IConnector,
@@ -49,7 +50,8 @@ export const smtpd = (
     }, (response) => {
       try {
         const log = smtpd_pb.HSLLogResponse.deserializeBinary(response);
-        onData(`[${log.getId()}] ${log.getText()}\n`, false);
+        const decoder = new StringDecoder('utf8');
+        onData(`[${log.getId()}] ${decoder.write(Buffer.from(log.getText_asU8()))}\n`, false);
       } catch (error) {
         onError(error);
       }
@@ -127,7 +129,8 @@ export const hsh = (
       }, (response) => {
         try {
           const log = hsh_pb.HSLLogResponse.deserializeBinary(response);
-          onData(`${log.getText()}\n`, false);
+          const decoder = new StringDecoder('utf8');
+          onData(`${decoder.write(Buffer.from(log.getText_asU8()))}\n`, false);
         } catch (error) {
           onError(error);
         }
