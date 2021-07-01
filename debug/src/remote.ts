@@ -19,6 +19,7 @@ export const smtpd = (
 ) => {
   return new Promise<{ terminate: () => void, continue: () => void }>(async (resolve, reject) => {
     const smtpdPath = '/var/run/halon/smtpd.ctl';
+    const decoder = new StringDecoder('utf8');
     try {
       var stream = await connector.openChannel(smtpdPath);
     } catch (error) {
@@ -50,7 +51,6 @@ export const smtpd = (
     }, (response) => {
       try {
         const log = smtpd_pb.HSLLogResponse.deserializeBinary(response);
-        const decoder = new StringDecoder('utf8');
         onData(`[${log.getId()}] ${decoder.write(Buffer.from(log.getText_asU8()))}\n`, false);
       } catch (error) {
         onError(error);
@@ -105,6 +105,7 @@ export const hsh = (
 ) => {
   return new Promise<{ terminate: () => void, continue: () => void }>(async (resolve, reject) => {
     const hshPath = '/opt/halon/bin/hsh';
+    const decoder = new StringDecoder('utf8');
     let pid: number | undefined;
     const debugPath = '/tmp/hsh-debug.' + (new Date()).getTime();
     connector.openServerChannel(debugPath, (stream) => {
@@ -129,7 +130,6 @@ export const hsh = (
       }, (response) => {
         try {
           const log = hsh_pb.HSLLogResponse.deserializeBinary(response);
-          const decoder = new StringDecoder('utf8');
           onData(`${decoder.write(Buffer.from(log.getText_asU8()))}\n`, false);
         } catch (error) {
           onError(error);
