@@ -121,7 +121,7 @@ command=/opt/halon/sbin/smtpd -f`
     fs.mkdirSync(path.join(base, "src", "hooks", "queue"));
 
   const smtpd_app = {
-    version: '5.6',
+    version: '5.7',
     servers: [
       {
         id: 'default',
@@ -168,7 +168,7 @@ command=/opt/halon/sbin/smtpd -f`
 
   if (development === 'container') {
     const smtpd = {
-      version: '5.6',
+      version: '5.7',
       servers: [
         {
           id: 'default',
