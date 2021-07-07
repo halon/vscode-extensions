@@ -42,6 +42,10 @@
         "language": "hsl",
         "scopeName": "source.hsl",
         "path": "./hsl.tmLanguage.json"
+      },
+      {
+        "scopeName": "source.regexp",
+        "path": "./regexp/regexp.tmLanguage.json"
       }
     ]
   },
