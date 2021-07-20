@@ -2417,10 +2417,19 @@
                         "type": "string"
                     }
                 ],
-                "optional": []
+                "optional": [
+                    {
+                        "name": "offset=1",
+                        "type": "number"
+                    },
+                    {
+                        "name": "remove_if_zero=false",
+                        "type": "boolean"
+                    }
+                ]
             },
             "returnType": "number or none",
-            "detail": "memory_dec(string $key): number or none",
+            "detail": "memory_dec(string $key [, number $offset=1 [, boolean $remove_if_zero=false]]): number or none",
             "value": "memory_dec($0)",
             "documentation": "Decrements a number value in the store. If the key doesn't exist, it's created and the value is initialized to 0 before the decrement. If the value is not a number, this function fail and will return none.",
             "link": "[Full documentation]({{ docsurl }}functions.html#memory_dec)"
@@ -2500,10 +2509,15 @@
                         "type": "string"
                     }
                 ],
-                "optional": []
+                "optional": [
+                    {
+                        "name": "offset=1",
+                        "type": "number"
+                    }
+                ]
             },
             "returnType": "number or none",
-            "detail": "memory_inc(string $key): number or none",
+            "detail": "memory_inc(string $key [, number $offset=1]): number or none",
             "value": "memory_inc($0)",
             "documentation": "Increments a number value in the store. If the key doesn't exist, it's created and the value is initialized to 0 before the increment. If the value is not a number, this function fail and will return none.",
             "link": "[Full documentation]({{ docsurl }}functions.html#memory_inc)"
