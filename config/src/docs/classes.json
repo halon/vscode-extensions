@@ -622,6 +622,31 @@
                     "value": "queue($0)",
                     "documentation": "Queue the message.",
                     "link": "[Full documentation]({{ docsurl }}functions.html#MIME.queue)"
+                },
+                {
+                    "name": "send",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "sender",
+                                "type": "string or array"
+                            },
+                            {
+                                "name": "recipients",
+                                "type": "array of (string or array)"
+                            },
+                            {
+                                "name": "server",
+                                "type": "string or array"
+                            }
+                        ],
+                        "optional": []
+                    },
+                    "returnType": "array",
+                    "detail": "MIME->send(string or array $sender, array of (string or array) $recipients, string or array $server): array",
+                    "value": "send($0)",
+                    "documentation": "Try to send the message to the server.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#MIME.send)"
                 }
             ],
             "detail": "MIME()",

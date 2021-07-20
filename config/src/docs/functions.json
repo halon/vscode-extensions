@@ -2275,7 +2275,7 @@
                 "required": [
                     {
                         "name": "pattern",
-                        "type": "string"
+                        "type": "Regex, string"
                     },
                     {
                         "name": "subject",
@@ -2285,7 +2285,7 @@
                 "optional": []
             },
             "returnType": "array",
-            "detail": "pcre_match(string $pattern, string $subject): array",
+            "detail": "pcre_match(Regex, string $pattern, string $subject): array",
             "value": "pcre_match($0)",
             "documentation": "PCRE matching in subject.",
             "link": "[Full documentation]({{ docsurl }}functions.html#pcre_match)"
@@ -2296,7 +2296,7 @@
                 "required": [
                     {
                         "name": "pattern",
-                        "type": "string"
+                        "type": "Regex, string"
                     },
                     {
                         "name": "subject",
@@ -2306,7 +2306,7 @@
                 "optional": []
             },
             "returnType": "array",
-            "detail": "pcre_match_all(string $pattern, string $subject): array",
+            "detail": "pcre_match_all(Regex, string $pattern, string $subject): array",
             "value": "pcre_match_all($0)",
             "documentation": "The implementation is identical to pcre_match() except the return type.",
             "link": "[Full documentation]({{ docsurl }}functions.html#pcre_match_all)"
@@ -2329,16 +2329,33 @@
             "link": "[Full documentation]({{ docsurl }}functions.html#pcre_quote)"
         },
         {
+            "name": "pcre_compile",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "string",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "Regex",
+            "detail": "pcre_compile(string $string): Regex",
+            "value": "pcre_compile($0)",
+            "documentation": "Pre-compile a regex to a regular expression object.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#pcre_compile)"
+        },
+        {
             "name": "pcre_replace",
             "parameters": {
                 "required": [
                     {
                         "name": "pattern",
-                        "type": "string"
+                        "type": "Regex, string"
                     },
                     {
                         "name": "replace",
-                        "type": "any"
+                        "type": "function, string"
                     },
                     {
                         "name": "subject",
@@ -2353,7 +2370,7 @@
                 ]
             },
             "returnType": "string",
-            "detail": "pcre_replace(string $pattern, any $replace, string $subject [, number $limit = 0]): string",
+            "detail": "pcre_replace(Regex, string $pattern, function, string $replace, string $subject [, number $limit = 0]): string",
             "value": "pcre_replace($0)",
             "documentation": "Perl compatible regular expression data matching and replacing.",
             "link": "[Full documentation]({{ docsurl }}functions.html#pcre_replace)"
