@@ -57,6 +57,9 @@ export const syntax = (file: string, workspaceFolder: string) =>
       if (result.version === undefined && smtpd_app.version !== undefined) {
         result.version = smtpd_app.version;
       }
+      if (smtpd_app.scripting !== undefined && smtpd_app.scripting.files !== undefined) {
+        result.files = smtpd_app.scripting.files;
+      }
     } catch (err) {}
   }
 
@@ -100,8 +103,12 @@ export const syntax = (file: string, workspaceFolder: string) =>
         item.data = buffer.toString('base64');
         item.binary = true;
       }
-  
-      result.files.push(item);
+
+      if (result.files.find(file => file.id === item.id)) {
+        result.files = result.files.map(file => file.id === item.id ? item : file);
+      } else {
+        result.files.push(item);
+      }
     }
   }
 
