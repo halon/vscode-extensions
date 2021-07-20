@@ -21,8 +21,6 @@ export const readdirSyncRecursive = (dir: string) =>
 
 export const syntax = (file: string, workspaceFolder: string) =>
 {
-  var fileparse = path.parse(file);
-  const filepath = fileparse.dir.split(path.sep);
   var result: {
     version?: string,
     phase: string,
@@ -35,6 +33,36 @@ export const syntax = (file: string, workspaceFolder: string) =>
     data: "",
     files: []
   };
+
+  const smtpd_path = path.join(workspaceFolder, 'src', 'config', 'smtpd.yaml');
+  if (fs.existsSync(smtpd_path)) {
+    try {
+      const smtpd = yaml.parse(fs.readFileSync(smtpd_path).toString());
+      if (smtpd.version !== undefined) {
+        result.version = smtpd.version;
+      }
+      if (smtpd.scripting !== undefined) {
+        result.scripting = smtpd.scripting;
+      }
+      if (smtpd.plugins !== undefined) {
+        result.plugins = smtpd.plugins;
+      }
+    } catch (err) {}
+  }
+
+  const smtpd_app_path = path.join(workspaceFolder, 'src', 'config', 'smtpd-app.yaml');
+  if (fs.existsSync(smtpd_app_path)) {
+    try {
+      const smtpd_app = yaml.parse(fs.readFileSync(smtpd_app_path).toString());
+      if (result.version === undefined && smtpd_app.version !== undefined) {
+        result.version = smtpd_app.version;
+      }
+    } catch (err) {}
+  }
+
+  var fileparse = path.parse(file);
+  const filepath = fileparse.dir.split(path.sep);
+
   if (filepath.length > 2 && filepath.slice(-2, -1)[0] === "hooks") {
     if (filepath.slice(-1)[0] === 'queue') {
       result.phase = fileparse.name;
@@ -75,32 +103,6 @@ export const syntax = (file: string, workspaceFolder: string) =>
   
       result.files.push(item);
     }
-  }
-
-  const smtpd_path = path.join(workspaceFolder, 'src', 'config', 'smtpd.yaml');
-  if (fs.existsSync(smtpd_path)) {
-    try {
-      const smtpd = yaml.parse(fs.readFileSync(smtpd_path).toString());
-      if (smtpd.version !== undefined) {
-        result.version = smtpd.version;
-      }
-      if (smtpd.scripting !== undefined) {
-        result.scripting = smtpd.scripting;
-      }
-      if (smtpd.plugins !== undefined) {
-        result.plugins = smtpd.plugins;
-      }
-    } catch (err) {}
-  }
-
-  const smtpd_app_path = path.join(workspaceFolder, 'src', 'config', 'smtpd-app.yaml');
-  if (fs.existsSync(smtpd_app_path)) {
-    try {
-      const smtpd_app = yaml.parse(fs.readFileSync(smtpd_app_path).toString());
-      if (result.version === undefined && smtpd_app.version !== undefined) {
-        result.version = smtpd_app.version;
-      }
-    } catch (err) {}
   }
 
   return result;
