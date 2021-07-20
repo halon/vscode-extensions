@@ -25,7 +25,11 @@ const addFile = (config: any, script: any) =>
     config.scripting = {};
   if (!config.scripting.files)
     config.scripting.files = [];
-  config.scripting.files.push(script);
+  if (config.scripting.files.find(file => file.id === script.id)) {
+    config.scripting.files = config.scripting.files.map(file => file.id === script.id ? script : file);
+  } else {
+    config.scripting.files.push(script);
+  }
 }
 
 const addHook = (config: any, type: any, script: any) =>
