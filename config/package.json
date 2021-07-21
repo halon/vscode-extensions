@@ -107,7 +107,7 @@
     "redhat.vscode-yaml"
   ],
   "devDependencies": {
-    "@halon/hsl-docs": "github:halon/hsl-docs#8cbceb9a4986ab7027110062611826f9036fcc7b",
+    "@halon/hsl-docs": "github:halon/hsl-docs#5fb98f057a131e172ac747f93a8a5645f4af76d8",
     "@types/is-utf8": "^0.2.0",
     "@types/node": "^14.0.14",
     "@types/vscode": "^1.56.0",
