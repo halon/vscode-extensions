@@ -5,6 +5,9 @@ src/**/*
 build
 node_modules
 tsconfig.json
+.editorconfig
+.eslintrc.json
+webpack.config.js
 out
 sampleWorkspace
 .devcontainer
