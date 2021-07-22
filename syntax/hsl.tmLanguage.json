@@ -197,7 +197,7 @@
           "end": "(\\/)([imusxUX]*)",
           "patterns": [
             {
-              "include": "source.regexp"
+              "include": "source.hsl.regexp"
             }
           ]
         }

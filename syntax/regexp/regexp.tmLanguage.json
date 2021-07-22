@@ -165,5 +165,5 @@
       ]
     }
   },
-  "scopeName": "source.regexp"
+  "scopeName": "source.hsl.regexp"
 }

@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "1.0.3",
+  "version": "1.0.4",
   "engines": {
     "vscode": "*"
   },
@@ -35,6 +35,12 @@
           ".hsl"
         ],
         "configuration": "./language-configuration.json"
+      },
+      {
+        "id": "hsl-regexp",
+        "aliases": [
+          "Halon Scripting Language - Regular Expression"
+        ]
       }
     ],
     "grammars": [
@@ -44,7 +50,8 @@
         "path": "./hsl.tmLanguage.json"
       },
       {
-        "scopeName": "source.regexp",
+        "language": "hsl-regexp",
+        "scopeName": "source.hsl.regexp",
         "path": "./regexp/regexp.tmLanguage.json"
       }
     ]
