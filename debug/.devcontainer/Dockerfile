@@ -1,8 +1,8 @@
 FROM ubuntu:20.04
 MAINTAINER Halon <support@halon.io>
 
-COPY .devcontainer/halon-5.6.1-ubuntu-20.04-x86_64.deb /halon-5.6.1-ubuntu-20.04-x86_64.deb
-RUN apt-get update && apt install -y /halon-5.6.1-ubuntu-20.04-x86_64.deb && rm /halon-5.6.1-ubuntu-20.04-x86_64.deb
+COPY .devcontainer/halon-5.7.0-ubuntu-20.04-x86_64.deb /halon-5.7.0-ubuntu-20.04-x86_64.deb
+RUN apt-get update && apt install -y /halon-5.7.0-ubuntu-20.04-x86_64.deb && rm /halon-5.7.0-ubuntu-20.04-x86_64.deb
 
 RUN /usr/bin/install -d /var/run/halon
 ENV LD_LIBRARY_PATH=/opt/halon/lib/:$LD_LIBRARY_PATH
