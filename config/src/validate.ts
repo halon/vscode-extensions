@@ -1,15 +1,15 @@
 import AJV from 'ajv';
-import smtpd_schema from '@halon/json-schemas/smtpd.schema.json';
-import smtpd_app_schema from '@halon/json-schemas/smtpd-app.schema.json';
-import smtpd_policy_schema from '@halon/json-schemas/smtpd-policy.schema.json';
-import smtpd_suspend_schema from '@halon/json-schemas/smtpd-suspend.schema.json';
-import smtpd_delivery_schema from '@halon/json-schemas/smtpd-delivery.schema.json';
-import rated_schema from '@halon/json-schemas/rated.schema.json';
-import rated_app_schema from '@halon/json-schemas/rated-app.schema.json';
-import dlpd_schema from '@halon/json-schemas/dlpd.schema.json';
-import dlpd_app_schema from '@halon/json-schemas/dlpd-app.schema.json';
-import api_schema from '@halon/json-schemas/api.schema.json';
-import web_schema from '@halon/json-schemas/web.schema.json';
+import smtpd_schema from '@halon/json-schemas/5.7/smtpd.schema.json';
+import smtpd_app_schema from '@halon/json-schemas/5.7/smtpd-app.schema.json';
+import smtpd_policy_schema from '@halon/json-schemas/5.7/smtpd-policy.schema.json';
+import smtpd_suspend_schema from '@halon/json-schemas/5.7/smtpd-suspend.schema.json';
+import smtpd_delivery_schema from '@halon/json-schemas/5.7/smtpd-delivery.schema.json';
+import rated_schema from '@halon/json-schemas/5.7/rated.schema.json';
+import rated_app_schema from '@halon/json-schemas/5.7/rated-app.schema.json';
+import dlpd_schema from '@halon/json-schemas/5.7/dlpd.schema.json';
+import dlpd_app_schema from '@halon/json-schemas/5.7/dlpd-app.schema.json';
+import api_schema from '@halon/json-schemas/5.7/api.schema.json';
+import web_schema from '@halon/json-schemas/5.7/web.schema.json';
 
 export const validate = (
   config: {

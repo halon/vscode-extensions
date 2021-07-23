@@ -26,13 +26,13 @@ gulp.task('webpack-development', function() {
 });
 
 gulp.task('json-schemas', () => {
-  return gulp.src('node_modules/@halon/json-schemas/*.schema.json')
+  return gulp.src('node_modules/@halon/json-schemas/5.7/*.schema.json')
     .pipe(gulp.dest('dist/json-schemas'));
 });
 
 gulp.task('watch', () => {
   gulp.watch(['src/**/*.ts', 'src/**/*.json'], gulp.series('webpack-development'));
-  gulp.watch('node_modules/@halon/json-schemas/*.schema.json', gulp.series('json-schemas'));
+  gulp.watch('node_modules/@halon/json-schemas/5.7/*.schema.json', gulp.series('json-schemas'));
 });
 
 gulp.task('production', gulp.series('clean', gulp.parallel('webpack-production', 'json-schemas')));
