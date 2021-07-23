@@ -46,47 +46,47 @@
     "yamlValidation": [
       {
         "fileMatch": "smtpd.yaml",
-        "url": "./dist/json-schemas/smtpd.schema.json"
+        "url": "./dist/json-schemas/5.7/smtpd.schema.json"
       },
       {
         "fileMatch": "smtpd-app.yaml",
-        "url": "./dist/json-schemas/smtpd-app.schema.json"
+        "url": "./dist/json-schemas/5.7/smtpd-app.schema.json"
       },
       {
         "fileMatch": "smtpd-policy.yaml",
-        "url": "./dist/json-schemas/smtpd-policy.schema.json"
+        "url": "./dist/json-schemas/5.7/smtpd-policy.schema.json"
       },
       {
         "fileMatch": "smtpd-suspend.yaml",
-        "url": "./dist/json-schemas/smtpd-suspend.schema.json"
+        "url": "./dist/json-schemas/5.7/smtpd-suspend.schema.json"
       },
       {
         "fileMatch": "smtpd-delivery.yaml",
-        "url": "./dist/json-schemas/smtpd-delivery.schema.json"
+        "url": "./dist/json-schemas/5.7/smtpd-delivery.schema.json"
       },
       {
         "fileMatch": "dlpd.yaml",
-        "url": "./dist/json-schemas/dlpd.schema.json"
+        "url": "./dist/json-schemas/5.7/dlpd.schema.json"
       },
       {
         "fileMatch": "dlpd-app.yaml",
-        "url": "./dist/json-schemas/dlpd-app.schema.json"
+        "url": "./dist/json-schemas/5.7/dlpd-app.schema.json"
       },
       {
         "fileMatch": "rated.yaml",
-        "url": "./dist/json-schemas/rated.schema.json"
+        "url": "./dist/json-schemas/5.7/rated.schema.json"
       },
       {
         "fileMatch": "rated-app.yaml",
-        "url": "./dist/json-schemas/rated-app.schema.json"
+        "url": "./dist/json-schemas/5.7/rated-app.schema.json"
       },
       {
         "fileMatch": "api.yaml",
-        "url": "./dist/json-schemas/api.schema.json"
+        "url": "./dist/json-schemas/5.7/api.schema.json"
       },
       {
         "fileMatch": "web.yaml",
-        "url": "./dist/json-schemas/web.schema.json"
+        "url": "./dist/json-schemas/5.7/web.schema.json"
       }
     ]
   },

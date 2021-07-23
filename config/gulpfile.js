@@ -26,7 +26,7 @@ gulp.task('webpack-development', function() {
 });
 
 gulp.task('json-schemas', () => {
-  return gulp.src('node_modules/@halon/json-schemas/5.7/*.schema.json')
+  return gulp.src('node_modules/@halon/json-schemas/**/*.schema.json')
     .pipe(gulp.dest('dist/json-schemas'));
 });
 
