@@ -3,6 +3,7 @@ import * as path from 'path';
 import yaml from 'yaml';
 import * as validate from './validate';
 import isUtf8 from 'is-utf8';
+import { workspace, Uri } from 'vscode';
 
 export const readdirSyncRecursive = (dir: string) =>
 {
@@ -139,15 +140,25 @@ export const generate = (base: string = '.') =>
 {
   let returnValue: { smtpd?: any, smtpd_app?: any, smtpd_policy?: any, smtpd_suspend?: any, smtpd_delivery?: any, rated?: any, rated_app?: any, dlpd?: any, dlpd_app?: any, api?: any, web?: any } = {};
 
-  const yamlSettingsPath = path.join(base, "settings.yaml");
-  const jsonSettingsPath = path.join(base, "settings.json");
-
-  let settings: any = null;
-
-  if (fs.existsSync(yamlSettingsPath)) {
-    settings = yaml.parse(fs.readFileSync(yamlSettingsPath).toString());
-  } else if (fs.existsSync(jsonSettingsPath)) {
-    settings = JSON.parse(fs.readFileSync(jsonSettingsPath).toString());
+  let exclude: string[] = [];
+  const config = workspace.getConfiguration('halon.build', Uri.file(base));
+  const value = config.get('exclude');
+  if (Array.isArray(value) && value.length > 0) {
+    exclude = value;
+  } else {
+    // Backwards compatibility
+    const yamlSettingsPath = path.join(base, "settings.yaml");
+    const jsonSettingsPath = path.join(base, "settings.json");
+    let settings: any = null;
+    if (fs.existsSync(yamlSettingsPath)) {
+      settings = yaml.parse(fs.readFileSync(yamlSettingsPath).toString());
+    } else if (fs.existsSync(jsonSettingsPath)) {
+      settings = JSON.parse(fs.readFileSync(jsonSettingsPath).toString());
+    }
+    exclude = settings &&
+    settings.smtpd &&
+    settings.smtpd.build &&
+    settings.smtpd.build.exclude ? settings.smtpd.build.exclude : [];
   }
 
   if (fs.existsSync(path.join(base, "src", "config", "smtpd.yaml"))) {
@@ -201,10 +212,6 @@ export const generate = (base: string = '.') =>
           if (hidden.length > 0)
             continue;
   
-          var exclude: string[] = settings &&
-                                  settings.smtpd &&
-                                  settings.smtpd.build &&
-                                  settings.smtpd.build.exclude ? settings.smtpd.build.exclude : [];
           if (exclude.indexOf(id) != -1)
             continue;
           

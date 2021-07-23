@@ -18,6 +18,19 @@
   ],
   "icon": "icon.png",
   "contributes": {
+    "configuration": {
+      "title": "Halon",
+      "properties": {
+        "halon.build.exclude": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "markdownDescription": "Source files inside `src/files` that should be omitted when building the `smtpd-app.yaml` file"
+        }
+      }
+    },
     "commands": [
       {
         "command": "halon.init",
