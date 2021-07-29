@@ -345,6 +345,13 @@
                             "documentation": "The keysize"
                         },
                         {
+                            "name": "sni",
+                            "type": "string",
+                            "detail": "string sni",
+                            "example": "\"example.com\"",
+                            "documentation": "The SNI hostname (not always available)"
+                        },
+                        {
                             "name": "peercert",
                             "type": "array",
                             "detail": "array peercert",
@@ -530,6 +537,13 @@
                             "detail": "number keysize",
                             "example": "256",
                             "documentation": "The keysize"
+                        },
+                        {
+                            "name": "sni",
+                            "type": "string",
+                            "detail": "string sni",
+                            "example": "\"example.com\"",
+                            "documentation": "The SNI hostname (not always available)"
                         },
                         {
                             "name": "peercert",
@@ -761,6 +775,13 @@
                             "detail": "number keysize",
                             "example": "256",
                             "documentation": "The keysize"
+                        },
+                        {
+                            "name": "sni",
+                            "type": "string",
+                            "detail": "string sni",
+                            "example": "\"example.com\"",
+                            "documentation": "The SNI hostname (not always available)"
                         },
                         {
                             "name": "peercert",
@@ -1074,6 +1095,13 @@
                             "documentation": "The keysize"
                         },
                         {
+                            "name": "sni",
+                            "type": "string",
+                            "detail": "string sni",
+                            "example": "\"example.com\"",
+                            "documentation": "The SNI hostname (not always available)"
+                        },
+                        {
                             "name": "peercert",
                             "type": "array",
                             "detail": "array peercert",
@@ -1380,6 +1408,13 @@
                             "detail": "number keysize",
                             "example": "256",
                             "documentation": "The keysize"
+                        },
+                        {
+                            "name": "sni",
+                            "type": "string",
+                            "detail": "string sni",
+                            "example": "\"example.com\"",
+                            "documentation": "The SNI hostname (not always available)"
                         },
                         {
                             "name": "peercert",
@@ -1717,6 +1752,13 @@
                             "detail": "number keysize",
                             "example": "256",
                             "documentation": "The keysize"
+                        },
+                        {
+                            "name": "sni",
+                            "type": "string",
+                            "detail": "string sni",
+                            "example": "\"example.com\"",
+                            "documentation": "The SNI hostname (not always available)"
                         },
                         {
                             "name": "peercert",
@@ -2107,6 +2149,13 @@
                             "detail": "number keysize",
                             "example": "256",
                             "documentation": "The keysize"
+                        },
+                        {
+                            "name": "sni",
+                            "type": "string",
+                            "detail": "string sni",
+                            "example": "\"example.com\"",
+                            "documentation": "The SNI hostname (not always available)"
                         },
                         {
                             "name": "peercert",
