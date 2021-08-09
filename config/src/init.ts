@@ -32,7 +32,7 @@ export const run = (base: string | null = '.', template = 'minimal', development
     }, undefined, 2));
 
     fs.writeFileSync(path.join(base, ".devcontainer", "Dockerfile"),
-`FROM ubuntu:20.04
+`FROM --platform=linux/amd64 ubuntu:20.04
 MAINTAINER Halon <support@halon.io>
 
 COPY .devcontainer/halon-5.7.1-ubuntu-20.04-x86_64.deb /halon-5.7.1-ubuntu-20.04-x86_64.deb
