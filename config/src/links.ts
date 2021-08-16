@@ -18,7 +18,7 @@ export default class Links implements DocumentLinkProvider
 
       for (let pattern of patterns) {
         let match: RegExpExecArray | null = null;
-        while ((match = pattern.exec(text)) !== null) {
+        while ((match = pattern.exec(text)) !== null && !match[2].includes('*')) {
           const pre = match[1];
           const link = match[2];
           const offset = (match.index || 0) + pre.length;
