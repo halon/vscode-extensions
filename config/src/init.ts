@@ -33,7 +33,7 @@ export const run = (base: string | null = '.', template = 'minimal', development
 
     fs.writeFileSync(path.join(base, ".devcontainer", "Dockerfile"),
 `FROM --platform=linux/amd64 ubuntu:20.04
-MAINTAINER Halon <support@halon.io>
+LABEL org.opencontainers.image.authors="support@halon.io"
 
 COPY .devcontainer/halon-5.7.1-ubuntu-20.04-x86_64.deb /halon-5.7.1-ubuntu-20.04-x86_64.deb
 RUN apt-get update && apt install -y /halon-5.7.1-ubuntu-20.04-x86_64.deb && rm /halon-5.7.1-ubuntu-20.04-x86_64.deb
