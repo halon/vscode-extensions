@@ -4,12 +4,15 @@ import * as channel from './channel';
 import kill from 'tree-kill';
 import * as smtpd_pb from '@halon/protobuf-schemas/js/smtpd_pb';
 import * as hsh_pb from '@halon/protobuf-schemas/js/hsh_pb';
+import { Smtpd } from '@halon/json-schemas/5.7/ts/smtpd';
 import { HSLLaunchRequestArguments } from './debug';
 import { SmtpdAppDebug } from './runtime';
 import { StringDecoder } from 'string_decoder';
+import { NetConnectOpts } from 'net';
 
 export const smtpd = (
   connector: IConnector,
+  config: Smtpd | undefined,
   appConfig: SmtpdAppDebug,
   debugId: string,
   conditions: HSLLaunchRequestArguments['conditions'],
@@ -18,10 +21,26 @@ export const smtpd = (
   getBreakPoint: (bp: smtpd_pb.HSLBreakPointResponse) => void
 ) => {
   return new Promise<{ terminate: () => void, continue: () => void }>(async (resolve, reject) => {
-    const smtpdPath = '/var/run/halon/smtpd.ctl';
+    let options: NetConnectOpts = {
+      path: '/var/run/halon/smtpd.ctl'
+    };
+
+    if (config?.environment?.controlsocket !== undefined) {
+      if ('path' in config.environment.controlsocket && config.environment.controlsocket.path !== undefined) {
+        options = {
+          path: config.environment.controlsocket.path
+        };
+      }
+      if ('port' in config.environment.controlsocket && config.environment.controlsocket.port !== undefined) {
+        options = {
+          port: config.environment.controlsocket.port
+        };
+      }
+    }
+
     const decoder = new StringDecoder('utf8');
     try {
-      var stream = await connector.openChannel(smtpdPath);
+      var stream = await connector.openChannel(options);
     } catch (error) {
       onError(error);
       return;

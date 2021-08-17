@@ -13,7 +13,7 @@ export interface ExecProgram extends EventEmitter
 
 export interface IConnector
 {
-  openChannel: (path: string) => Promise<stream.Duplex>;
+  openChannel: (options: any) => Promise<stream.Duplex>;
   openServerChannel: (path: string, callback: (stream: stream.Duplex) => void) => Promise<net.Server>;
   closeServerChannel: (server: net.Server) => void;
   exec: (program: string, argv: string[]) => Promise<ExecProgram>;
@@ -22,15 +22,15 @@ export interface IConnector
 
 export const ConnectorFactory = () =>
 {
-  return new UNIXConnector();
+  return new SocketConnector();
 };
 
-export class UNIXConnector implements IConnector
+export class SocketConnector implements IConnector
 {
-  openChannel(path: string)
+  openChannel(options: net.NetConnectOpts)
   {
     return new Promise<stream.Duplex>((resolve, reject) => {
-      const client = net.createConnection({ path: path }, async () => {
+      const client = net.createConnection(options, async () => {
         resolve(client);
       });
       client.on('error', (err) => {

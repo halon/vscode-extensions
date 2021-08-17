@@ -125,7 +125,7 @@ export class HSLRuntime extends EventEmitter {
     const connector = factory.ConnectorFactory();
 
     if (args.type === 'halon') {
-      remote.smtpd(connector, config.smtpd_app, this._debugId as string, args.conditions, (data: string, error: boolean) => {
+      remote.smtpd(connector, config.smtpd, config.smtpd_app, this._debugId as string, args.conditions, (data: string, error: boolean) => {
         this.sendEvent('output', error ? `\x1b[31m${data}\x1b[0m` : data);
       }, (error) => {
         this.sendEvent('output', `\x1b[31m${error.message || error}\x1b[0m\n`);
