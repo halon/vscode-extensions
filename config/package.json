@@ -141,6 +141,7 @@
     "@halon/json-schemas": "github:halon/json-schemas#82c4d2c532b33404fa130acacc1aff7de230373b",
     "ajv": "^6.10.2",
     "is-utf8": "^0.2.1",
+    "minimatch": "^3.0.4",
     "yaml": "^1.10.0"
   },
   "main": "./dist/extension"

@@ -4,6 +4,7 @@ import yaml from 'yaml';
 import * as validate from './validate';
 import isUtf8 from 'is-utf8';
 import { workspace, Uri } from 'vscode';
+import minimatch from 'minimatch';
 
 export const readdirSyncRecursive = (dir: string) =>
 {
@@ -140,11 +141,13 @@ export const generate = (base: string = '.') =>
 {
   let returnValue: { smtpd?: any, smtpd_app?: any, smtpd_policy?: any, smtpd_suspend?: any, smtpd_delivery?: any, rated?: any, rated_app?: any, dlpd?: any, dlpd_app?: any, api?: any, web?: any } = {};
 
-  let exclude: string[] = [];
+  let exclude: [string, string][] = [];
   const config = workspace.getConfiguration('halon.build', Uri.file(base));
   const value = config.get('exclude');
   if (Array.isArray(value) && value.length > 0) {
-    exclude = value;
+    for (const pattern of value) {
+      exclude.push([path.posix.sep, pattern]);
+    }
   } else {
     // Backwards compatibility
     const yamlSettingsPath = path.join(base, "settings.yaml");
@@ -158,7 +161,8 @@ export const generate = (base: string = '.') =>
     exclude = settings &&
     settings.smtpd &&
     settings.smtpd.build &&
-    settings.smtpd.build.exclude ? settings.smtpd.build.exclude : [];
+    settings.smtpd.build.exclude &&
+    Array.isArray(settings.smtpd.build.exclude) ? settings.smtpd.build.exclude.map(pattern => [path.posix.sep, pattern]) : [];
   }
 
   if (fs.existsSync(path.join(base, "src", "config", "smtpd.yaml"))) {
@@ -205,14 +209,33 @@ export const generate = (base: string = '.') =>
 
       const filespath = path.join(base, "src", "files");
       if (fs.existsSync(filespath)) {
-        for (let i of readdirSyncRecursive(filespath))
+        const files = readdirSyncRecursive(filespath);
+        const halonignores = files.filter(file => path.basename(file) === '.halonignore');
+        for (const halonignore of halonignores) {
+          const buffer = fs.readFileSync(halonignore);
+          const patterns = buffer.toString('utf8').split(/\r?\n/).filter(line => line !== '');
+          const folder = path.relative(filespath, path.dirname(halonignore)).split(path.sep).join(path.posix.sep);
+          for (const pattern of patterns) {
+            exclude.push([`${path.posix.sep}${folder}`, pattern]);
+          }
+        }
+        for (let i of files)
         {
           const id = path.relative(filespath, i).split(path.sep).join(path.posix.sep);
           const hidden = id.split(path.posix.sep).filter(i => i.charAt(0) === '.');
           if (hidden.length > 0)
             continue;
-  
-          if (exclude.indexOf(id) != -1)
+
+          const excluded = exclude.find((x) => {
+            const relative = path.relative(x[0], `${path.posix.sep}${id}`);
+            if (relative.startsWith('..')) {
+              return false;
+            } else {
+              return minimatch(`${path.posix.sep}${relative}`, x[1], { matchBase: true });
+            }
+          });
+
+          if (excluded)
             continue;
           
           const buffer = fs.readFileSync(i);
