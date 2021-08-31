@@ -84,13 +84,6 @@ command=/opt/halon/sbin/smtpd -f`
     }, undefined, 2));
   }
 
-  let settings: any = {
-    "halon.build.exclude": [],
-  };
-  if (!fs.existsSync(path.join(base, ".vscode")))
-    fs.mkdirSync(path.join(base, ".vscode"));
-  fs.writeFileSync(path.join(base, ".vscode", "settings.json"), JSON.stringify(settings, undefined, 2));
-
   if (!fs.existsSync(path.join(base, "src")))
     fs.mkdirSync(path.join(base, "src"));
   if (!fs.existsSync(path.join(base, "src", "hooks")))
