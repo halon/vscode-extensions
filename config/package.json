@@ -98,13 +98,13 @@
   "qna": false,
   "scripts": {
     "vscode:prepublish": "npm run package-ext",
-    "compile": "gulp development",
+    "compile": "gulp && webpack --config ./webpack.config.js",
     "lint": "eslint src --ext ts",
-    "watch": "gulp watch",
+    "watch": "gulp && webpack --watch --devtool nosources-source-map --config ./webpack.config.js",
     "pretest": "npm run compile && npm run lint",
     "package": "vsce package",
     "publish": "vsce publish",
-    "package-ext": "gulp production",
+    "package-ext": "gulp && webpack --mode production --config ./webpack.config.js",
     "docs": "npm --prefix node_modules/@halon/hsl-docs install && npm --prefix node_modules/@halon/hsl-docs run build && cp node_modules/@halon/hsl-docs/dist/json/* src/docs/"
   },
   "bugs": {
@@ -122,20 +122,19 @@
   "devDependencies": {
     "@halon/hsl-docs": "github:halon/hsl-docs#795dc0823381d1969fca68ea1bc169efea57aaa7",
     "@types/is-utf8": "^0.2.0",
-    "@types/node": "^14.0.14",
+    "@types/node": "^15.12.2",
     "@types/vscode": "^1.56.0",
-    "@typescript-eslint/eslint-plugin": "^4.25.0",
-    "@typescript-eslint/parser": "^4.25.0",
+    "@typescript-eslint/eslint-plugin": "^4.26.1",
+    "@typescript-eslint/parser": "^4.26.1",
     "del": "^5.1.0",
-    "eslint": "^7.27.0",
+    "eslint": "^7.28.0",
     "gulp": "^4.0.2",
     "gulp-cli": "^2.3.0",
-    "ts-loader": "^8.3.0",
-    "typescript": "^3.9.6",
-    "vsce": "^1.93.0",
-    "webpack": "^4.46.0",
-    "webpack-cli": "^4.7.2",
-    "webpack-stream": "^6.1.2"
+    "ts-loader": "^9.2.3",
+    "typescript": "^4.3.2",
+    "vsce": "^1.96.1",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.2"
   },
   "dependencies": {
     "@halon/json-schemas": "github:halon/json-schemas#82c4d2c532b33404fa130acacc1aff7de230373b",

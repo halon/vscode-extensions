@@ -302,7 +302,7 @@ export const generate = (base: string = '.') =>
 
   try {
     validate.validate(returnValue);
-  } catch (err) {
+  } catch (err: any) {
     throw new Error(`${err.source}: ${JSON.stringify(err.errors)}`);
   }
   return returnValue;

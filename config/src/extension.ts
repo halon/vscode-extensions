@@ -48,7 +48,7 @@ export function activate(context: ExtensionContext)
                   try {
                     init.run(workspaceFolderPath, template?.label, development?.label);
                     window.showInformationMessage('Init command was run successfully');
-                  } catch (error) {
+                  } catch (error: any) {
                     window.showErrorMessage(error.message || error);
                   }
                 }
@@ -71,7 +71,7 @@ export function activate(context: ExtensionContext)
           try {
             build.run(workspaceFolderPath);
             window.showInformationMessage('Build command was run successfully');
-          } catch (error) {
+          } catch (error: any) {
             window.showErrorMessage(error.message || error);
           }
         }
