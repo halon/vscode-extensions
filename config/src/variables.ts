@@ -7,7 +7,7 @@ export let matchVariable = (variable: any, variables: any, returnKeys: any): any
       if (variable.keys.length === 0) {
         result = returnKeys ? v.keys : v;
       } else {
-        var key = variable.keys.shift()
+        var key = variable.keys.shift();
         result = matchVariable({
           name: key,
           keys: variable.keys
@@ -16,7 +16,7 @@ export let matchVariable = (variable: any, variables: any, returnKeys: any): any
     }
   }
   return result;
-}
+};
 
 export let parseVariable = (document: TextDocument, position: Position, quote = false, keys: any): any => {
   const steps = quote === true ? 2 : 1;
@@ -50,7 +50,7 @@ export let parseVariable = (document: TextDocument, position: Position, quote = 
         return {
           name: word,
           keys: keys
-        }
+        };
       } else {
         if (word.length > 0) {
           keys.unshift(word);
@@ -59,4 +59,4 @@ export let parseVariable = (document: TextDocument, position: Position, quote = 
       }
     }
   }
-}
+};

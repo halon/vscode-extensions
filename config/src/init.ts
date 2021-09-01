@@ -216,7 +216,7 @@ command=/opt/halon/sbin/smtpd -f`
 * If you need to see the text logs you can run \`supervisorctl tail -f smtpd stderr\`
 `
     );
-    commands.executeCommand('markdown.showPreview', Uri.file(path.join(base, "README.md")))
+    commands.executeCommand('markdown.showPreview', Uri.file(path.join(base, "README.md")));
   }
 
   if (development === 'ssh') {
@@ -233,6 +233,6 @@ command=/opt/halon/sbin/smtpd -f`
 6. [Open this folder on the remote machine](https://code.visualstudio.com/docs/remote/ssh#_connect-to-a-remote-host)
 `
     );
-    commands.executeCommand('markdown.showPreview', Uri.file(path.join(base, "README.md")))
+    commands.executeCommand('markdown.showPreview', Uri.file(path.join(base, "README.md")));
   }
-}
+};

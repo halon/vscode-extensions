@@ -19,7 +19,7 @@ export const readdirSyncRecursive = (dir: string) =>
       results.push(file);
   });
   return results;
-}
+};
 
 const addFile = (config: any, script: any) =>
 {
@@ -32,7 +32,7 @@ const addFile = (config: any, script: any) =>
   } else {
     config.scripting.files.push(script);
   }
-}
+};
 
 const addHook = (config: any, type: any, script: any) =>
 {
@@ -43,7 +43,7 @@ const addHook = (config: any, type: any, script: any) =>
   if (!config.scripting.hooks[type])
     config.scripting.hooks[type] = [];
   config.scripting.hooks[type].push(script);
-}
+};
 
 const extractHooks = (config: any) =>
 {
@@ -95,7 +95,7 @@ const extractHooks = (config: any) =>
         if (server.phases.eod && server.phases.eod.rcpt && server.phases.eod.rcpt.hook)
         {
           var hook = server.phases.eod.rcpt.hook;
-          if (typeof hook == "string")
+          if (typeof hook === "string")
             hooks.eodrcpt.push(hook);
           else
           {
@@ -113,9 +113,9 @@ const extractHooks = (config: any) =>
   }
   Object.keys(hooks).forEach(x => {
     hooks[x] = [...new Set(hooks[x])];
-  })
+  });
   return hooks;
-}
+};
 
 export const run = (base: string = '.') =>
 {
@@ -135,7 +135,7 @@ export const run = (base: string = '.') =>
   if (config.dlpd_app) fs.writeFileSync(path.join(base, "dist", "dlpd-app.yaml"), yaml.stringify(config.dlpd_app));
   if (config.api) fs.writeFileSync(path.join(base, "dist", "api.yaml"), yaml.stringify(config.api));
   if (config.web) fs.writeFileSync(path.join(base, "dist", "web.yaml"), yaml.stringify(config.web));
-}
+};
 
 export const generate = (base: string = '.') =>
 {
@@ -182,7 +182,7 @@ export const generate = (base: string = '.') =>
         for (let id of value)
         {
           var hookfolder = [type];
-          if (type == "eodrcpt")
+          if (type === "eodrcpt")
             hookfolder = ["eod", "rcpt"];
           addHook(config, type, {
             id: id,
@@ -306,4 +306,4 @@ export const generate = (base: string = '.') =>
     throw new Error(`${err.source}: ${JSON.stringify(err.errors)}`);
   }
   return returnValue;
-}
+};
