@@ -18,7 +18,7 @@ import * as remote from './remote';
 import * as factory from './factory';
 import pathIsInside from 'path-is-inside';
 
-export default async (connector: factory.UNIXConnector, document: TextDocument, diagnosticCollection: DiagnosticCollection) =>
+export default async (connector: factory.SocketConnector, document: TextDocument, diagnosticCollection: DiagnosticCollection) =>
 {
   const workspaceFolder = workspace.getWorkspaceFolder(document.uri);
 
