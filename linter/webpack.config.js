@@ -10,6 +10,7 @@ module.exports = {
     extensions: ['.ts', '.js']
   },
   node: {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     __dirname: false
   },
   module: {
@@ -37,4 +38,4 @@ module.exports = {
     devtoolModuleFilenameTemplate: "./../[resource-path]"
   },
   devtool: 'source-map'
-}
+};
