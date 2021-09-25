@@ -98,13 +98,13 @@
   "qna": false,
   "scripts": {
     "vscode:prepublish": "npm run package-ext",
-    "compile": "gulp && webpack --config ./webpack.config.js",
+    "compile": "webpack --config ./webpack.config.js",
     "lint": "eslint src --ext ts",
-    "watch": "gulp && webpack --watch --devtool nosources-source-map --config ./webpack.config.js",
+    "watch": "webpack --watch --devtool nosources-source-map --config ./webpack.config.js",
     "pretest": "npm run compile && npm run lint",
     "package": "vsce package",
     "publish": "vsce publish",
-    "package-ext": "gulp && webpack --mode production --config ./webpack.config.js",
+    "package-ext": "webpack --mode production --config ./webpack.config.js",
     "docs": "npm --prefix node_modules/@halon/hsl-docs install && npm --prefix node_modules/@halon/hsl-docs run build && cp node_modules/@halon/hsl-docs/dist/json/* src/docs/"
   },
   "bugs": {
@@ -126,10 +126,8 @@
     "@types/vscode": "^1.56.0",
     "@typescript-eslint/eslint-plugin": "^4.26.1",
     "@typescript-eslint/parser": "^4.26.1",
-    "del": "^5.1.0",
+    "copy-webpack-plugin": "^9.0.1",
     "eslint": "^7.28.0",
-    "gulp": "^4.0.2",
-    "gulp-cli": "^2.3.0",
     "ts-loader": "^9.2.3",
     "typescript": "^4.3.2",
     "vsce": "^1.96.1",

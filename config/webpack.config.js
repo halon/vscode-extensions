@@ -1,4 +1,6 @@
 const path = require('path');
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   mode: 'none',
@@ -37,5 +39,12 @@ module.exports = {
     libraryTarget: 'commonjs2',
     devtoolModuleFilenameTemplate: "./../[resource-path]"
   },
-  devtool: 'source-map'
+  devtool: 'source-map',
+  plugins: [
+    new CopyPlugin({
+      patterns: [
+        { context: 'node_modules/@halon', from: 'json-schemas/**/*.schema.json' }
+      ],
+    }),
+  ]
 };
