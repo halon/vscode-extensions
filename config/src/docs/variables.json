@@ -3003,6 +3003,22 @@
                             "detail": "number duration",
                             "example": "1.012",
                             "documentation": "The delivery attempt duration"
+                        },
+                        {
+                            "name": "plugin",
+                            "type": "array",
+                            "detail": "array plugin",
+                            "example": "[\"return\" => \"plugin data\"]",
+                            "documentation": "Custom delivery plugin return value (not always available)",
+                            "keys": [
+                                {
+                                    "name": "return",
+                                    "type": "any",
+                                    "detail": "any return",
+                                    "example": "\"plugin return value\"",
+                                    "documentation": "Any type passed from custom delivery plugin"
+                                }
+                            ]
                         }
                     ]
                 },

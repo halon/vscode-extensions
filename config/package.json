@@ -120,7 +120,7 @@
     "redhat.vscode-yaml"
   ],
   "devDependencies": {
-    "@halon/hsl-docs": "github:halon/hsl-docs#795dc0823381d1969fca68ea1bc169efea57aaa7",
+    "@halon/hsl-docs": "github:halon/hsl-docs#4287aa72d014ff4e4d2934b21b00f93c2339d39c",
     "@types/is-utf8": "^0.2.0",
     "@types/node": "^15.12.2",
     "@types/vscode": "^1.56.0",
@@ -135,7 +135,7 @@
     "webpack-cli": "^4.7.2"
   },
   "dependencies": {
-    "@halon/json-schemas": "github:halon/json-schemas#272349823a6031487f292677f71517eed57f407d",
+    "@halon/json-schemas": "github:halon/json-schemas#2e8d496f0a44411380678f34d59688afe0e38c2b",
     "ajv": "^6.10.2",
     "is-utf8": "^0.2.1",
     "minimatch": "^3.0.4",

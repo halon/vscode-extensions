@@ -2881,24 +2881,6 @@
             "value": "Defer($0)",
             "documentation": "Close the connection with a temporary (421) error.",
             "link": "[Full documentation]({{ docsurl }}connect.html#Defer)"
-        },
-        {
-            "name": "SetSenderIP",
-            "deprecated": true,
-            "parameters": {
-                "required": [
-                    {
-                        "name": "senderip",
-                        "type": "string"
-                    }
-                ],
-                "optional": []
-            },
-            "returnType": "string or none",
-            "detail": "SetSenderIP(string $senderip): string or none",
-            "value": "SetSenderIP($0)",
-            "documentation": "Change the senderip for the current connection.",
-            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/4.8-stable\/connect.html#SetSenderIP)"
         }
     ],
     "disconnect": [
@@ -3008,55 +2990,6 @@
             "value": "Defer($0)",
             "documentation": "Defer the HELO or EHLO command with a temporary (450) error.",
             "link": "[Full documentation]({{ docsurl }}helo.html#Defer)"
-        },
-        {
-            "name": "GetExtensions",
-            "deprecated": true,
-            "parameters": {
-                "required": [],
-                "optional": []
-            },
-            "returnType": "array",
-            "detail": "GetExtensions(): array",
-            "value": "GetExtensions()",
-            "documentation": "Return the current SMTP service extensions to be sent if the EHLO command was issued.",
-            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.0-stable\/helo.html#GetExtensions)"
-        },
-        {
-            "name": "GetTLS",
-            "deprecated": true,
-            "parameters": {
-                "required": [],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "array",
-            "detail": "GetTLS([array $options]): array",
-            "value": "GetTLS($0)",
-            "documentation": "Get the TLS information for a connection.",
-            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.0-stable\/helo.html#GetTLS)"
-        },
-        {
-            "name": "SetHELO",
-            "deprecated": true,
-            "parameters": {
-                "required": [
-                    {
-                        "name": "senderhelo",
-                        "type": "string"
-                    }
-                ],
-                "optional": []
-            },
-            "returnType": "string or none",
-            "detail": "SetHELO(string $senderhelo): string or none",
-            "value": "SetHELO($0)",
-            "documentation": "Change the HELO hostname for the current connection.",
-            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/4.8-stable\/helo.html#SetHELO)"
         }
     ],
     "auth": [
@@ -3135,24 +3068,6 @@
             "value": "Reply($0)",
             "documentation": "Send a reply (334) message. The reply will be base64 encoded before sent to the client. This function is used to implement custom authentication mechanisms.",
             "link": "[Full documentation]({{ docsurl }}auth.html#Reply)"
-        },
-        {
-            "name": "GetTLS",
-            "deprecated": true,
-            "parameters": {
-                "required": [],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "array",
-            "detail": "GetTLS([array $options]): array",
-            "value": "GetTLS($0)",
-            "documentation": "Get the TLS information for a connection.",
-            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.0-stable\/auth.html#GetTLS)"
         }
     ],
     "mailfrom": [
@@ -3211,24 +3126,6 @@
             "value": "Defer($0)",
             "documentation": "Defer the MAIL FROM command (sender) with a temporary (450) error.",
             "link": "[Full documentation]({{ docsurl }}mailfrom.html#Defer)"
-        },
-        {
-            "name": "GetTLS",
-            "deprecated": true,
-            "parameters": {
-                "required": [],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "array",
-            "detail": "GetTLS([array $options]): array",
-            "value": "GetTLS($0)",
-            "documentation": "Get the TLS information for a connection.",
-            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.0-stable\/mailfrom.html#GetTLS)"
         },
         {
             "name": "SetSender",
@@ -3305,24 +3202,6 @@
             "value": "Defer($0)",
             "documentation": "Defer the RCPT TO command (recipient) with a temporary (450) error.",
             "link": "[Full documentation]({{ docsurl }}rcptto.html#Defer)"
-        },
-        {
-            "name": "GetTLS",
-            "deprecated": true,
-            "parameters": {
-                "required": [],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "array",
-            "detail": "GetTLS([array $options]): array",
-            "value": "GetTLS($0)",
-            "documentation": "Get the TLS information for a connection.",
-            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/4.8-stable\/rcptto.html#GetTLS)"
         },
         {
             "name": "SetSender",
@@ -4010,59 +3889,6 @@
             "link": "[Full documentation]({{ docsurl }}eodrcpt.html#DelHeader)"
         },
         {
-            "name": "GetRoute",
-            "deprecated": true,
-            "parameters": {
-                "required": [],
-                "optional": [
-                    {
-                        "name": "extended_result = false",
-                        "type": "boolean"
-                    }
-                ]
-            },
-            "returnType": "array",
-            "detail": "GetRoute([boolean $extended_result = false]): array",
-            "value": "GetRoute($0)",
-            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.0-stable\/eodrcpt.html#GetRoute)"
-        },
-        {
-            "name": "GetDSN",
-            "deprecated": true,
-            "parameters": {
-                "required": [],
-                "optional": []
-            },
-            "returnType": "array or false",
-            "detail": "GetDSN(): array or false",
-            "value": "GetDSN()",
-            "documentation": "Parse a DSN message.",
-            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.0-stable\/eodrcpt.html#GetDSN)"
-        },
-        {
-            "name": "GetDSNHeader",
-            "deprecated": true,
-            "parameters": {
-                "required": [
-                    {
-                        "name": "name",
-                        "type": "string"
-                    }
-                ],
-                "optional": [
-                    {
-                        "name": "skip_decode = false",
-                        "type": "boolean"
-                    }
-                ]
-            },
-            "returnType": "string",
-            "detail": "GetDSNHeader(string $name [, boolean $skip_decode = false]): string",
-            "value": "GetDSNHeader($0)",
-            "documentation": "Same as GetHeader except it works on attached DSN messages. The name is not case sensitive.",
-            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.0-stable\/eodrcpt.html#GetDSNHeader)"
-        },
-        {
             "name": "ScanRPD",
             "parameters": {
                 "required": [],
@@ -4214,24 +4040,6 @@
             "value": "GetMetaData()",
             "documentation": "Get the metadata set by SetMetaData(). If no data was set, an empty array is returned.",
             "link": "[Full documentation]({{ docsurl }}predelivery.html#GetMetaData)"
-        },
-        {
-            "name": "GetMailFile",
-            "deprecated": true,
-            "parameters": {
-                "required": [],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "File",
-            "detail": "GetMailFile([array $options]): File",
-            "value": "GetMailFile($0)",
-            "documentation": "Return a File class to the current mail file.",
-            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.1-stable\/predelivery.html#GetMailFile)"
         },
         {
             "name": "Reschedule",
@@ -4551,24 +4359,6 @@
             "value": "GetMetaData()",
             "documentation": "Get the metadata set by SetMetaData(). If no data was set, an empty array is returned.",
             "link": "[Full documentation]({{ docsurl }}postdelivery.html#GetMetaData)"
-        },
-        {
-            "name": "GetMailFile",
-            "deprecated": true,
-            "parameters": {
-                "required": [],
-                "optional": [
-                    {
-                        "name": "options",
-                        "type": "array"
-                    }
-                ]
-            },
-            "returnType": "File",
-            "detail": "GetMailFile([array $options]): File",
-            "value": "GetMailFile($0)",
-            "documentation": "Return a File class to the current mail file.",
-            "link": "[Full documentation](https:\/\/docs.halon.io\/hsl\/archive\/5.1-stable\/postdelivery.html#GetMailFile)"
         },
         {
             "name": "Retry",
