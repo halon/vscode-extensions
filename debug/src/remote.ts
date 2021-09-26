@@ -4,7 +4,7 @@ import * as channel from './channel';
 import kill from 'tree-kill';
 import * as smtpd_pb from '@halon/protobuf-schemas/js/smtpd_pb';
 import * as hsh_pb from '@halon/protobuf-schemas/js/hsh_pb';
-import { Smtpd } from '@halon/json-schemas/5.7/ts/smtpd';
+import { Smtpd } from '@halon/json-schemas/5.8/ts/smtpd';
 import { HSLLaunchRequestArguments } from './debug';
 import { SmtpdAppDebug } from './runtime';
 import { StringDecoder } from 'string_decoder';

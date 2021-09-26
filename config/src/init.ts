@@ -35,8 +35,8 @@ export const run = (base: string | null = '.', template = 'minimal', development
 `FROM --platform=linux/amd64 ubuntu:20.04
 LABEL org.opencontainers.image.authors="support@halon.io"
 
-COPY .devcontainer/halon-5.7.1-ubuntu-20.04-x86_64.deb /halon-5.7.1-ubuntu-20.04-x86_64.deb
-RUN apt-get update && apt install -y /halon-5.7.1-ubuntu-20.04-x86_64.deb && rm /halon-5.7.1-ubuntu-20.04-x86_64.deb
+COPY .devcontainer/halon-5.8.0-ubuntu-20.04-x86_64.deb /halon-5.8.0-ubuntu-20.04-x86_64.deb
+RUN apt-get update && apt install -y /halon-5.8.0-ubuntu-20.04-x86_64.deb && rm /halon-5.8.0-ubuntu-20.04-x86_64.deb
 
 RUN /usr/bin/install -d /var/run/halon
 ENV LD_LIBRARY_PATH=/opt/halon/lib/:$LD_LIBRARY_PATH
@@ -114,7 +114,7 @@ command=/opt/halon/sbin/smtpd -f`
     fs.mkdirSync(path.join(base, "src", "hooks", "queue"));
 
   const smtpd_app = {
-    version: '5.7',
+    version: '5.8',
     servers: [
       {
         id: 'default',
@@ -161,7 +161,7 @@ command=/opt/halon/sbin/smtpd -f`
 
   if (development === 'container') {
     const smtpd = {
-      version: '5.7',
+      version: '5.8',
       servers: [
         {
           id: 'default',
@@ -204,7 +204,7 @@ command=/opt/halon/sbin/smtpd -f`
 
 1. Install [Docker Desktop](https://www.docker.com/products/docker-desktop)
 2. Install [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension
-3. Copy \`halon-5.7.1-ubuntu-20.04-x86_64.deb\` to the \`.devcontainer\` folder
+3. Copy \`halon-5.8.0-ubuntu-20.04-x86_64.deb\` to the \`.devcontainer\` folder
 4. [Reopen this folder in the container](https://code.visualstudio.com/docs/remote/containers#_quick-start-open-an-existing-folder-in-a-container)
 
 ## Useful information
@@ -225,7 +225,7 @@ command=/opt/halon/sbin/smtpd -f`
 
 ## Getting started
 
-1. Install \`halon-5.7.1-ubuntu-20.04-x86_64.deb\` on the remote machine
+1. Install \`halon-5.8.0-ubuntu-20.04-x86_64.deb\` on the remote machine
 2. Move this folder to the remote machine (You don't need to have it on your local machine)
 3. Install [Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) extension
 4. [Connect to the remote machine](https://code.visualstudio.com/docs/remote/ssh#_connect-to-a-remote-host) using the [Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) extension
