@@ -104,8 +104,7 @@
     "pretest": "npm run compile && npm run lint",
     "package": "vsce package",
     "publish": "vsce publish",
-    "package-ext": "webpack --mode production --config ./webpack.config.js",
-    "docs": "npm --prefix node_modules/@halon/hsl-docs install && npm --prefix node_modules/@halon/hsl-docs run build && cp node_modules/@halon/hsl-docs/dist/json/* src/docs/"
+    "package-ext": "webpack --mode production --config ./webpack.config.js"
   },
   "bugs": {
     "url": "https://github.com/halon/vscode-extensions/issues",
@@ -120,7 +119,7 @@
     "redhat.vscode-yaml"
   ],
   "devDependencies": {
-    "@halon/hsl-docs": "github:halon/hsl-docs#4287aa72d014ff4e4d2934b21b00f93c2339d39c",
+    "@halon/hsl-docs": "github:halon/hsl-docs#e5f11f7338ce545c517950ee2de244cc10c02d78",
     "@types/is-utf8": "^0.2.0",
     "@types/node": "^15.12.2",
     "@types/vscode": "^1.56.0",
