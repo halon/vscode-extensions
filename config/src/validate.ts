@@ -39,7 +39,7 @@ export const validate = (
       if (!config[source].version) {
         throw { source: source, errors: 'Missing version' };
       }
-      const schemaPath = path.join(__dirname, 'json-schemas', config[source].version, file);
+      const schemaPath = path.join(__dirname, 'json-schemas', `${config[source].version}-stable`, file);
       if (!fs.existsSync(schemaPath)) {
         throw { source: source, errors: 'Unknown version' };
       }

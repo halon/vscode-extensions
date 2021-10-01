@@ -46,47 +46,47 @@
     "yamlValidation": [
       {
         "fileMatch": "smtpd.yaml",
-        "url": "./dist/json-schemas/5.8/smtpd.schema.json"
+        "url": "./dist/json-schemas/5.8-stable/smtpd.schema.json"
       },
       {
         "fileMatch": "smtpd-app.yaml",
-        "url": "./dist/json-schemas/5.8/smtpd-app.schema.json"
+        "url": "./dist/json-schemas/5.8-stable/smtpd-app.schema.json"
       },
       {
         "fileMatch": "smtpd-policy.yaml",
-        "url": "./dist/json-schemas/5.8/smtpd-policy.schema.json"
+        "url": "./dist/json-schemas/5.8-stable/smtpd-policy.schema.json"
       },
       {
         "fileMatch": "smtpd-suspend.yaml",
-        "url": "./dist/json-schemas/5.8/smtpd-suspend.schema.json"
+        "url": "./dist/json-schemas/5.8-stable/smtpd-suspend.schema.json"
       },
       {
         "fileMatch": "smtpd-delivery.yaml",
-        "url": "./dist/json-schemas/5.8/smtpd-delivery.schema.json"
+        "url": "./dist/json-schemas/5.8-stable/smtpd-delivery.schema.json"
       },
       {
         "fileMatch": "dlpd.yaml",
-        "url": "./dist/json-schemas/5.8/dlpd.schema.json"
+        "url": "./dist/json-schemas/5.8-stable/dlpd.schema.json"
       },
       {
         "fileMatch": "dlpd-app.yaml",
-        "url": "./dist/json-schemas/5.8/dlpd-app.schema.json"
+        "url": "./dist/json-schemas/5.8-stable/dlpd-app.schema.json"
       },
       {
         "fileMatch": "rated.yaml",
-        "url": "./dist/json-schemas/5.8/rated.schema.json"
+        "url": "./dist/json-schemas/5.8-stable/rated.schema.json"
       },
       {
         "fileMatch": "rated-app.yaml",
-        "url": "./dist/json-schemas/5.8/rated-app.schema.json"
+        "url": "./dist/json-schemas/5.8-stable/rated-app.schema.json"
       },
       {
         "fileMatch": "api.yaml",
-        "url": "./dist/json-schemas/5.8/api.schema.json"
+        "url": "./dist/json-schemas/5.8-stable/api.schema.json"
       },
       {
         "fileMatch": "web.yaml",
-        "url": "./dist/json-schemas/5.8/web.schema.json"
+        "url": "./dist/json-schemas/5.8-stable/web.schema.json"
       }
     ]
   },
@@ -134,7 +134,7 @@
     "webpack-cli": "^4.7.2"
   },
   "dependencies": {
-    "@halon/json-schemas": "github:halon/json-schemas#f007c2f2f51eb4bb0aa6edf888daab1b194656e1",
+    "@halon/json-schemas": "github:halon/json-schemas#867f9c7fb496007223802d60c968a03b86915bf2",
     "ajv": "^6.10.2",
     "is-utf8": "^0.2.1",
     "minimatch": "^3.0.4",
