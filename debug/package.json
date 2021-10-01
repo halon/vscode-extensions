@@ -195,7 +195,7 @@
   },
   "dependencies": {
     "@halon/json-schemas": "github:halon/json-schemas#867f9c7fb496007223802d60c968a03b86915bf2",
-    "@halon/protobuf-schemas": "github:halon/protobuf-schemas#9c4dd10c7c936ae7ce83b23217e8c970c6568114",
+    "@halon/protobuf-schemas": "github:halon/protobuf-schemas#f745cfcf6b4ed80fc9cb30ecfd7fa6bd873157c2",
     "@types/uuid": "^8.3.0",
     "await-notify": "1.0.1",
     "google-protobuf": "^3.17.3",
