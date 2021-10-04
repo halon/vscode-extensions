@@ -1,0 +1,12 @@
+version: "5.8"
+environment:
+  controlsocket:
+    group: staff
+    chmod: "0660"
+  socket:
+    owner: halon
+    group: halon
+    chmod: "0660"
+  privdrop:
+    user: nobody
+    group: nogroup
