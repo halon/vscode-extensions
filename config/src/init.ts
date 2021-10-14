@@ -28,15 +28,31 @@ export const run = (base: string | null = '.', template = 'minimal', development
       extensions: ['Halon.vscode-halon', 'Halon.hsl-linter', 'Halon.hsl-debug'],
       mounts: [
         'source=${localWorkspaceFolder}/dist,target=/etc/halon,type=bind,consistency=cached'
-      ]
+      ],
+      build: {
+        args: {
+          HALON_REPO_USER: "${localEnv:HALON_REPO_USER}",
+          HALON_REPO_PASS: "${localEnv:HALON_REPO_PASS}"
+        }
+      }
     }, undefined, 2));
 
     fs.writeFileSync(path.join(base, ".devcontainer", "Dockerfile"),
 `FROM --platform=linux/amd64 ubuntu:20.04
 LABEL org.opencontainers.image.authors="support@halon.io"
 
-COPY .devcontainer/halon-5.8.0-ubuntu-20.04-x86_64.deb /halon-5.8.0-ubuntu-20.04-x86_64.deb
-RUN apt-get update && apt install -y /halon-5.8.0-ubuntu-20.04-x86_64.deb && rm /halon-5.8.0-ubuntu-20.04-x86_64.deb
+ARG HALON_REPO_USER
+ARG HALON_REPO_PASS
+
+RUN apt-get update
+
+RUN apt-get install -y wget gnupg
+RUN wget -qO - https://raw.githubusercontent.com/halon/changelog/master/pgp-keys/7F0A73B5.asc | apt-key add -
+
+RUN apt-get install -y apt-transport-https
+RUN echo "deb https://repo.halon.io/ focal stable" >> /etc/apt/sources.list.d/halon.list
+RUN echo "machine repo.halon.io login \${HALON_REPO_USER} password \${HALON_REPO_PASS}" >> /etc/apt/auth.conf
+RUN apt-get update && apt-get install -y halon=5.8.0
 
 RUN /usr/bin/install -d /var/run/halon
 ENV LD_LIBRARY_PATH=/opt/halon/lib/:$LD_LIBRARY_PATH
@@ -224,7 +240,7 @@ command=/opt/halon/sbin/smtpd -f`
 
 1. Install [Docker Desktop](https://www.docker.com/products/docker-desktop)
 2. Install [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension
-3. Copy \`halon-5.8.0-ubuntu-20.04-x86_64.deb\` to the \`.devcontainer\` folder
+3. Set the \`HALON_REPO_USER\` and \`HALON_REPO_PASS\` environment variables or adjust the build arguments in \`.devcontainer/devcontainer.json\`
 4. [Reopen this folder in the container](https://code.visualstudio.com/docs/remote/containers#_quick-start-open-an-existing-folder-in-a-container)
 
 ## Useful information

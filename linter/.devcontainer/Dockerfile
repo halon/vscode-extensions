@@ -1,8 +1,18 @@
 FROM ubuntu:20.04
-MAINTAINER Halon <support@halon.io>
+LABEL org.opencontainers.image.authors="support@halon.io"
 
-COPY .devcontainer/halon-5.8.0-ubuntu-20.04-x86_64.deb /halon-5.8.0-ubuntu-20.04-x86_64.deb
-RUN apt-get update && apt install -y /halon-5.8.0-ubuntu-20.04-x86_64.deb && rm /halon-5.8.0-ubuntu-20.04-x86_64.deb
+ARG HALON_REPO_USER
+ARG HALON_REPO_PASS
+
+RUN apt-get update
+
+RUN apt-get install -y wget gnupg
+RUN wget -qO - https://raw.githubusercontent.com/halon/changelog/master/pgp-keys/7F0A73B5.asc | apt-key add -
+
+RUN apt-get install -y apt-transport-https
+RUN echo "deb https://repo.halon.io/ focal stable" >> /etc/apt/sources.list.d/halon.list
+RUN echo "machine repo.halon.io login \${HALON_REPO_USER} password \${HALON_REPO_PASS}" >> /etc/apt/auth.conf
+RUN apt-get update && apt-get install -y halon=5.8.0
 
 RUN /usr/bin/install -d /var/run/halon
 ENV LD_LIBRARY_PATH=/opt/halon/lib/:$LD_LIBRARY_PATH
