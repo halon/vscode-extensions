@@ -73,12 +73,20 @@
         "url": "./dist/json-schemas/5.8-stable/dlpd-app.schema.json"
       },
       {
+        "fileMatch": "dlpctl.yaml",
+        "url": "./dist/json-schemas/5.8-stable/dlpctl.schema.json"
+      },
+      {
         "fileMatch": "rated.yaml",
         "url": "./dist/json-schemas/5.8-stable/rated.schema.json"
       },
       {
         "fileMatch": "rated-app.yaml",
         "url": "./dist/json-schemas/5.8-stable/rated-app.schema.json"
+      },
+      {
+        "fileMatch": "ratectl.yaml",
+        "url": "./dist/json-schemas/5.8-stable/ratectl.schema.json"
       },
       {
         "fileMatch": "api.yaml",
@@ -134,7 +142,7 @@
     "webpack-cli": "^4.7.2"
   },
   "dependencies": {
-    "@halon/json-schemas": "github:halon/json-schemas#867f9c7fb496007223802d60c968a03b86915bf2",
+    "@halon/json-schemas": "github:halon/json-schemas#88c5b6c7de1a4fb983835e4c69fcdc3f4f0f3518",
     "ajv": "^6.10.2",
     "is-utf8": "^0.2.1",
     "minimatch": "^3.0.4",

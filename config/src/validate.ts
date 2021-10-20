@@ -28,8 +28,10 @@ export const validate = (
     ['smtpd_delivery', 'smtpd-delivery.schema.json'],
     ['rated', 'rated.schema.json'],
     ['rated_app', 'rated-app.schema.json'],
+    ['ratectl', 'ratectl.schema.json'],
     ['dlpd', 'dlpd.schema.json'],
     ['dlpd_app', 'dlpd-app.schema.json'],
+    ['dlpctl', 'dlpctl.schema.json'],
     ['api', 'api.schema.json'],
     ['web', 'web.schema.json'],
   ];
