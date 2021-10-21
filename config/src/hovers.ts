@@ -1,6 +1,7 @@
 import { HoverProvider, TextDocument, Position, CancellationToken, ProviderResult, Hover, MarkdownString, Range } from 'vscode';
 import { matchVariable, parseVariable } from './variables';
 import docs from './docs';
+import plugins from './plugins';
 
 export default class Hovers implements HoverProvider
 {
@@ -9,7 +10,10 @@ export default class Hovers implements HoverProvider
     const wordRange = document.getWordRangeAtPosition(position);
     const text = document.getText(wordRange);
 
-    const { classes, functions, variables, keywords } = docs(document);
+    let { classes, functions, variables, keywords } = docs(document);
+    const extras = plugins();
+    classes = classes.concat(extras.classes);
+    functions = functions.concat(extras.functions);
 
     if (wordRange) {
       let variable = parseVariable(document, new Position(position.line, wordRange.start.character), true, [text]);

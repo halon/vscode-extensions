@@ -3,6 +3,7 @@ import { workspace, CompletionItemProvider, CancellationToken, TextDocument, Pos
 import { matchVariable, parseVariable } from './variables';
 import docs from './docs';
 import { readdirSyncRecursive } from './build';
+import plugins from './plugins';
 
 export default class Completions implements CompletionItemProvider
 {
@@ -16,7 +17,10 @@ export default class Completions implements CompletionItemProvider
   public provideCompletionItems(document: TextDocument, position: Position, token: CancellationToken, context: CompletionContext): CompletionItem[] {
     let completionItems: CompletionItem[] = [];
   
-    const { classes, functions, variables, keywords } = docs(document);
+    let { classes, functions, variables, keywords } = docs(document);
+    const extras = plugins();
+    classes = classes.concat(extras.classes);
+    functions = functions.concat(extras.functions);
 
     if (!this.triggerCharacters.length) {
       let isMethod = false;
