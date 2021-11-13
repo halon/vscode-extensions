@@ -129,6 +129,7 @@ export const run = (base: string = '.') =>
   if (config.smtpd_policy) fs.writeFileSync(path.join(base, "dist", "smtpd-policy.yaml"), yaml.stringify(config.smtpd_policy));
   if (config.smtpd_suspend) fs.writeFileSync(path.join(base, "dist", "smtpd-suspend.yaml"), yaml.stringify(config.smtpd_suspend));
   if (config.smtpd_delivery) fs.writeFileSync(path.join(base, "dist", "smtpd-delivery.yaml"), yaml.stringify(config.smtpd_delivery));
+  if (config.halonctl) fs.writeFileSync(path.join(base, "dist", "halonctl.yaml"), yaml.stringify(config.halonctl));
   if (config.rated) fs.writeFileSync(path.join(base, "dist", "rated.yaml"), yaml.stringify(config.rated));
   if (config.rated_app) fs.writeFileSync(path.join(base, "dist", "rated-app.yaml"), yaml.stringify(config.rated_app));
   if (config.ratectl) fs.writeFileSync(path.join(base, "dist", "ratectl.yaml"), yaml.stringify(config.ratectl));
@@ -141,7 +142,7 @@ export const run = (base: string = '.') =>
 
 export const generate = (base: string = '.') =>
 {
-  let returnValue: { smtpd?: any, smtpd_app?: any, smtpd_policy?: any, smtpd_suspend?: any, smtpd_delivery?: any, rated?: any, rated_app?: any, ratectl?: any, dlpd?: any, dlpd_app?: any, dlpctl?: any, api?: any, web?: any } = {};
+  let returnValue: { smtpd?: any, smtpd_app?: any, smtpd_policy?: any, smtpd_suspend?: any, smtpd_delivery?: any, halonctl?: any, rated?: any, rated_app?: any, ratectl?: any, dlpd?: any, dlpd_app?: any, dlpctl?: any, api?: any, web?: any } = {};
 
   let exclude: [string, string][] = [];
   const config = workspace.getConfiguration('halon.build', Uri.file(base));
@@ -270,6 +271,11 @@ export const generate = (base: string = '.') =>
   if (fs.existsSync(path.join(base, "src", "config", "smtpd-delivery.yaml"))) {
     const file = fs.readFileSync(path.join(base, "src", "config", "smtpd-delivery.yaml"), 'utf-8');
     if (file) returnValue.smtpd_delivery = yaml.parse(file);
+  }
+
+  if (fs.existsSync(path.join(base, "src", "config", "halonctl.yaml"))) {
+    const file = fs.readFileSync(path.join(base, "src", "config", "halonctl.yaml"), 'utf-8');
+    if (file) returnValue.halonctl = yaml.parse(file);
   }
 
   if (fs.existsSync(path.join(base, "src", "config", "rated.yaml"))) {

@@ -65,6 +65,10 @@
         "url": "./dist/json-schemas/5.8-stable/smtpd-delivery.schema.json"
       },
       {
+        "fileMatch": "halonctl.yaml",
+        "url": "./dist/json-schemas/5.8-stable/halonctl.schema.json"
+      },
+      {
         "fileMatch": "dlpd.yaml",
         "url": "./dist/json-schemas/5.8-stable/dlpd.schema.json"
       },

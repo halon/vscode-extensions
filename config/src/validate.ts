@@ -9,10 +9,13 @@ export const validate = (
     smtpd_policy?: any,
     smtpd_suspend?: any,
     smtpd_delivery?: any,
+    halonctl?: any,
     rated?: any,
     rated_app?: any,
+    ratectl?: any,
     dlpd?: any,
     dlpd_app?: any,
+    dlpctl?: any,
     api?: any,
     web?: any
   }
@@ -26,6 +29,7 @@ export const validate = (
     ['smtpd_policy', 'smtpd-policy.schema.json'],
     ['smtpd_suspend', 'smtpd-suspend.schema.json'],
     ['smtpd_delivery', 'smtpd-delivery.schema.json'],
+    ['halonctl', 'halonctl.schema.json'],
     ['rated', 'rated.schema.json'],
     ['rated_app', 'rated-app.schema.json'],
     ['ratectl', 'ratectl.schema.json'],
