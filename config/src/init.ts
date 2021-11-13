@@ -227,6 +227,32 @@ command=/opt/halon/sbin/smtpd -f`
     };
     fs.writeFileSync(path.join(base, "src", "config", "rated.yaml"), yaml.stringify(rated));
     fs.writeFileSync(path.join(base, "dist", "rated.yaml"), yaml.stringify(rated));
+    const dlpd = {
+      version: '5.8',
+      environment: {
+        controlsocket: {
+          group: 'staff',
+          chmod: '0660'
+        },
+        socket: {
+          owner: 'halon',
+          group: 'halon',
+          chmod: '0660'
+        },
+        privdrop: {
+          user: 'halon',
+          group: 'halon'
+        }
+      }
+    };
+    fs.writeFileSync(path.join(base, "src", "config", "dlpd.yaml"), yaml.stringify(dlpd));
+    fs.writeFileSync(path.join(base, "dist", "dlpd.yaml"), yaml.stringify(dlpd));
+    const dlpd_app = {
+      version: '5.8',
+      rules:  []
+    };
+    fs.writeFileSync(path.join(base, "src", "config", "dlpd-app.yaml"), yaml.stringify(dlpd_app));
+    fs.writeFileSync(path.join(base, "dist", "dlpd-app.yaml"), yaml.stringify(dlpd_app));
   }
 
   fs.writeFileSync(path.join(base, "src", "hooks", "queue", "predelivery.hsl"), "");
