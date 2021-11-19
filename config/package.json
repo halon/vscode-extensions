@@ -46,59 +46,59 @@
     "yamlValidation": [
       {
         "fileMatch": "smtpd.yaml",
-        "url": "./dist/json-schemas/5.8-stable/smtpd.schema.json"
+        "url": "./dist/json-schemas/combined/smtpd.schema.json"
       },
       {
         "fileMatch": "smtpd-app.yaml",
-        "url": "./dist/json-schemas/5.8-stable/smtpd-app.schema.json"
+        "url": "./dist/json-schemas/combined/smtpd-app.schema.json"
       },
       {
         "fileMatch": "smtpd-policy.yaml",
-        "url": "./dist/json-schemas/5.8-stable/smtpd-policy.schema.json"
+        "url": "./dist/json-schemas/combined/smtpd-policy.schema.json"
       },
       {
         "fileMatch": "smtpd-suspend.yaml",
-        "url": "./dist/json-schemas/5.8-stable/smtpd-suspend.schema.json"
+        "url": "./dist/json-schemas/combined/smtpd-suspend.schema.json"
       },
       {
         "fileMatch": "smtpd-delivery.yaml",
-        "url": "./dist/json-schemas/5.8-stable/smtpd-delivery.schema.json"
+        "url": "./dist/json-schemas/combined/smtpd-delivery.schema.json"
       },
       {
         "fileMatch": "halonctl.yaml",
-        "url": "./dist/json-schemas/5.8-stable/halonctl.schema.json"
+        "url": "./dist/json-schemas/combined/halonctl.schema.json"
       },
       {
         "fileMatch": "dlpd.yaml",
-        "url": "./dist/json-schemas/5.8-stable/dlpd.schema.json"
+        "url": "./dist/json-schemas/combined/dlpd.schema.json"
       },
       {
         "fileMatch": "dlpd-app.yaml",
-        "url": "./dist/json-schemas/5.8-stable/dlpd-app.schema.json"
+        "url": "./dist/json-schemas/combined/dlpd-app.schema.json"
       },
       {
         "fileMatch": "dlpctl.yaml",
-        "url": "./dist/json-schemas/5.8-stable/dlpctl.schema.json"
+        "url": "./dist/json-schemas/combined/dlpctl.schema.json"
       },
       {
         "fileMatch": "rated.yaml",
-        "url": "./dist/json-schemas/5.8-stable/rated.schema.json"
+        "url": "./dist/json-schemas/combined/rated.schema.json"
       },
       {
         "fileMatch": "rated-app.yaml",
-        "url": "./dist/json-schemas/5.8-stable/rated-app.schema.json"
+        "url": "./dist/json-schemas/combined/rated-app.schema.json"
       },
       {
         "fileMatch": "ratectl.yaml",
-        "url": "./dist/json-schemas/5.8-stable/ratectl.schema.json"
+        "url": "./dist/json-schemas/combined/ratectl.schema.json"
       },
       {
         "fileMatch": "api.yaml",
-        "url": "./dist/json-schemas/5.8-stable/api.schema.json"
+        "url": "./dist/json-schemas/combined/api.schema.json"
       },
       {
         "fileMatch": "web.yaml",
-        "url": "./dist/json-schemas/5.8-stable/web.schema.json"
+        "url": "./dist/json-schemas/combined/web.schema.json"
       }
     ]
   },
@@ -147,7 +147,7 @@
     "webpack-cli": "^4.7.2"
   },
   "dependencies": {
-    "@halon/json-schemas": "github:halon/json-schemas#0ebad33ccc809cc0eab8de2f00c17d56dfd4aebc",
+    "@halon/json-schemas": "github:halon/json-schemas#20e82c67a072d4dd52d77454b0f4f2e7fc6e70e8",
     "ajv": "^6.10.2",
     "glob": "^7.2.0",
     "is-utf8": "^0.2.1",
