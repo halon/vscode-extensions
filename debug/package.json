@@ -194,7 +194,7 @@
     "webpack-cli": "^4.7.2"
   },
   "dependencies": {
-    "@halon/json-schemas": "github:halon/json-schemas#20e82c67a072d4dd52d77454b0f4f2e7fc6e70e8",
+    "@halon/json-schemas": "github:halon/json-schemas#a4620536497769b1cc3ad0f1073a1e15aaf98d68",
     "@halon/protobuf-schemas": "github:halon/protobuf-schemas#2dbd83920dc1894bf94e3ac4e5588062fe906fdf",
     "@types/uuid": "^8.3.0",
     "await-notify": "1.0.1",
