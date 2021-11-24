@@ -55,7 +55,7 @@ RUN echo "machine repo.halon.io login \${HALON_REPO_USER} password \${HALON_REPO
 RUN apt-get update && apt-get install -y halon=5.8.0 halon-rated=5.8.0 halon-dlpd=5.8.0 halon-extras-rate=1.0.0 halon-extras-dlp=1.0.0
 
 RUN /usr/bin/install -d /var/run/halon
-ENV LD_LIBRARY_PATH=/opt/halon/lib/:$LD_LIBRARY_PATH
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH
 
 RUN apt-get install -y git
 
@@ -71,12 +71,16 @@ loglevel=info
 
 [program:rated]
 command=/opt/halon/sbin/rated
+environment=LD_LIBRARY_PATH="/opt/halon/lib/rated/:%(ENV_LD_LIBRARY_PATH)s"
 
 [program:dlpd]
 command=/opt/halon/sbin/dlpd
+environment=LD_LIBRARY_PATH="/opt/halon/lib/dlpd/:%(ENV_LD_LIBRARY_PATH)s"
 
 [program:smtpd]
-command=/opt/halon/sbin/smtpd -f`
+command=/opt/halon/sbin/smtpd -f
+environment=LD_LIBRARY_PATH="/opt/halon/lib/:%(ENV_LD_LIBRARY_PATH)s"
+`
     );
 
     if (!fs.existsSync(path.join(base, ".vscode")))
