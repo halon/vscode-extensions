@@ -9,8 +9,8 @@ import { HSLLaunchRequestArguments } from './debug';
 import { v4 as uuidv4 } from 'uuid';
 import * as smtpd_pb from '@halon/protobuf-schemas/js/smtpd_pb';
 import * as hsh_pb from '@halon/protobuf-schemas/js/hsh_pb';
-import { Smtpd } from '@halon/json-schemas/5.8-stable/ts/smtpd';
-import { SmtpdApp } from '@halon/json-schemas/5.8-stable/ts/smtpd-app';
+import { Smtpd } from '@halon/json-schemas/mta/5.8-stable/ts/smtpd';
+import { SmtpdApp } from '@halon/json-schemas/mta/5.8-stable/ts/smtpd-app';
 
 export interface SmtpdAppDebug extends SmtpdApp {
   __entrypoint?: string;
