@@ -126,19 +126,35 @@ environment=LD_LIBRARY_PATH="/opt/halon/lib/:%(ENV_LD_LIBRARY_PATH)s"
     fs.mkdirSync(path.join(base, "src", "hooks", "rcptto"));
   if (!fs.existsSync(path.join(base, "src", "hooks", "eod")))
     fs.mkdirSync(path.join(base, "src", "hooks", "eod"));
-  if (!fs.existsSync(path.join(base, "src", "hooks", "eod", "rcpt")))
-    fs.mkdirSync(path.join(base, "src", "hooks", "eod", "rcpt"));
   if (!fs.existsSync(path.join(base, "src", "config")))
     fs.mkdirSync(path.join(base, "src", "config"));
   if (!fs.existsSync(path.join(base, "src", "hooks", "queue")))
     fs.mkdirSync(path.join(base, "src", "hooks", "queue"));
 
-  const smtpd_app = {
+  const eod_default = `$transactionid = $transaction["id"];
+$sender = $transaction["senderaddress"];
+$recipients = $transaction["recipients"];
+$mail = $arguments["mail"];
+
+// Queue message for all recipients
+foreach ($recipients as $recipient)
+    $mail->queue($sender, $recipient["address"], $recipient["transportid"]);
+
+Accept();
+`;
+  fs.writeFileSync(path.join(base, "src", "hooks", "eod", "default.hsl"), eod_default);
+
+  const smtpd_app: any = {
     version: '5.8',
     servers: [
       {
         id: 'default',
-        transport: 'mx'
+        transport: 'mx',
+        phases: {
+          eod: {
+            hook: 'default'
+          }
+        }
       }
     ],
     transportgroups: [
@@ -176,8 +192,13 @@ environment=LD_LIBRARY_PATH="/opt/halon/lib/:%(ENV_LD_LIBRARY_PATH)s"
     }
   };
   fs.writeFileSync(path.join(base, "src", "config", "smtpd-app.yaml"), yaml.stringify(smtpd_app));
-  if (development === 'container')
+  if (development === 'container') {
+    if (smtpd_app.scripting === undefined) smtpd_app.scripting = {};
+    if (smtpd_app.scripting.hooks === undefined) smtpd_app.scripting.hooks = {};
+    if (smtpd_app.scripting.hooks.eod === undefined) smtpd_app.scripting.hooks.eod = [];
+    smtpd_app.scripting.hooks.eod.push({ id: "default", data: eod_default });
     fs.writeFileSync(path.join(base, "dist", "smtpd-app.yaml"), yaml.stringify(smtpd_app));
+  }
 
   if (development === 'container') {
     const smtpd = {
