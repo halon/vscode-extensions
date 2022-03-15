@@ -25,7 +25,7 @@ export const run = (base: string | null = '.', template = 'minimal', development
       forwardPorts: [25],
       // appPort: [25],
       overrideCommand: false,
-      extensions: ['Halon.vscode-halon', 'Halon.hsl-linter', 'Halon.hsl-debug'],
+      extensions: ['Halon.vscode-halon', 'Halon.hsl-syntax', 'Halon.hsl-linter', 'Halon.hsl-debug'],
       mounts: [
         'source=${localWorkspaceFolder}/dist,target=/etc/halon,type=bind,consistency=cached'
       ],
