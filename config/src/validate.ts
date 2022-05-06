@@ -49,7 +49,7 @@ export const validate = (
       if (!config[source].version) {
         throw { source: source, errors: 'Missing version' };
       }
-      const project = (source === 'web' || source === 'api' || source === 'submission' || source === 'submission_tracking') ? source : 'mta';
+      const project = source === 'submission_tracking' ? 'submission-tracking' : (source === 'web' || source === 'api' || source === 'submission') ? source : 'mta';
       const schemaPath = path.join(__dirname, 'json-schemas', project, `${config[source].version}-stable`, file);
       if (!fs.existsSync(schemaPath)) {
         throw { source: source, errors: 'Unknown version' };
