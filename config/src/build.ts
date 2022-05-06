@@ -138,11 +138,13 @@ export const run = (base: string = '.') =>
   if (config.dlpctl) fs.writeFileSync(path.join(base, "dist", "dlpctl.yaml"), yaml.stringify(config.dlpctl));
   if (config.api) fs.writeFileSync(path.join(base, "dist", "api.yaml"), yaml.stringify(config.api));
   if (config.web) fs.writeFileSync(path.join(base, "dist", "web.yaml"), yaml.stringify(config.web));
+  if (config.submission) fs.writeFileSync(path.join(base, "dist", "submission.yaml"), yaml.stringify(config.submission));
+  if (config.submission_tracking) fs.writeFileSync(path.join(base, "dist", "submission-tracking.yaml"), yaml.stringify(config.submission_tracking));
 };
 
 export const generate = (base: string = '.') =>
 {
-  let returnValue: { smtpd?: any, smtpd_app?: any, smtpd_policy?: any, smtpd_suspend?: any, smtpd_delivery?: any, halonctl?: any, rated?: any, rated_app?: any, ratectl?: any, dlpd?: any, dlpd_app?: any, dlpctl?: any, api?: any, web?: any } = {};
+  let returnValue: { smtpd?: any, smtpd_app?: any, smtpd_policy?: any, smtpd_suspend?: any, smtpd_delivery?: any, halonctl?: any, rated?: any, rated_app?: any, ratectl?: any, dlpd?: any, dlpd_app?: any, dlpctl?: any, api?: any, web?: any, submission?: any, submission_tracking?: any } = {};
 
   let exclude: [string, string][] = [];
   const config = workspace.getConfiguration('halon.build', Uri.file(base));
@@ -316,6 +318,16 @@ export const generate = (base: string = '.') =>
   if (fs.existsSync(path.join(base, "src", "config", "web.yaml"))) {
     const file = fs.readFileSync(path.join(base, "src", "config", "web.yaml"), 'utf-8');
     if (file) returnValue.web = yaml.parse(file);
+  }
+
+  if (fs.existsSync(path.join(base, "src", "config", "submission.yaml"))) {
+    const file = fs.readFileSync(path.join(base, "src", "config", "submission.yaml"), 'utf-8');
+    if (file) returnValue.submission = yaml.parse(file);
+  }
+
+  if (fs.existsSync(path.join(base, "src", "config", "submission-tracking.yaml"))) {
+    const file = fs.readFileSync(path.join(base, "src", "config", "submission-tracking.yaml"), 'utf-8');
+    if (file) returnValue.submission_tracking = yaml.parse(file);
   }
 
   try {

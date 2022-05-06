@@ -17,7 +17,9 @@ export const validate = (
     dlpd_app?: any,
     dlpctl?: any,
     api?: any,
-    web?: any
+    web?: any,
+    submission?: any,
+    submission_tracking?: any
   }
 ) => 
 {
@@ -38,6 +40,8 @@ export const validate = (
     ['dlpctl', 'dlpctl.schema.json'],
     ['api', 'api.schema.json'],
     ['web', 'web.schema.json'],
+    ['submission', 'submission.schema.json'],
+    ['submission_tracking', 'submission-tracking.schema.json'],
   ];
 
   for (const [source, file] of configs) {
@@ -45,7 +49,7 @@ export const validate = (
       if (!config[source].version) {
         throw { source: source, errors: 'Missing version' };
       }
-      const project = (source === 'web' || source === 'api') ? source : 'mta';
+      const project = (source === 'web' || source === 'api' || source === 'submission' || source === 'submission_tracking') ? source : 'mta';
       const schemaPath = path.join(__dirname, 'json-schemas', project, `${config[source].version}-stable`, file);
       if (!fs.existsSync(schemaPath)) {
         throw { source: source, errors: 'Unknown version' };
