@@ -145,7 +145,7 @@ Accept();
   fs.writeFileSync(path.join(base, "src", "hooks", "eod", "default.hsl"), eod_default);
 
   const smtpd_app: any = {
-    version: '5.8',
+    version: '5.9',
     servers: [
       {
         id: 'default',
