@@ -97,6 +97,7 @@ export const smtpd = (
         if (conditions.count !== undefined) {
           cond.setCount(conditions.count);
         }
+        request.setConditions(cond);
       }
     stream.write(channel.packRequest('a', true, request.serializeBinary()));  
     resolve({
