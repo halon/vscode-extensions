@@ -71,6 +71,6 @@
   },
   "homepage": "https://github.com/halon/vscode-extensions",
   "devDependencies": {
-    "vsce": "^1.100.0"
+    "vsce": "^2.7.0"
   }
 }
