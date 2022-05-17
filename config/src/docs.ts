@@ -61,11 +61,6 @@ export default (document: TextDocument) => {
         items.functions = items.functions.concat(functions.eodonce);
         items.variables = items.variables.concat(variables.eodonce);
       }
-      if (folder === 'rcpt') {
-        items.classes = items.classes.concat(classes.eodrcpt);
-        items.functions = items.functions.concat(functions.eodrcpt);
-        items.variables = items.variables.concat(variables.eodrcpt);
-      }
       if (basename === 'predelivery.hsl') {
         items.classes = items.classes.concat(classes.predelivery);
         items.functions = items.functions.concat(functions.predelivery);

@@ -23,3 +23,13 @@ transportgroups:
 resolver:
   cache:
     size: 10000
+scripting:
+  hooks:
+    predelivery: ""
+    postdelivery: ""
+  files:
+    - id: test.hsl
+      data: |-
+        $foo = "Bar";
+        echo "Hello World";
+        $bar = "Baz";

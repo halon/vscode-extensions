@@ -55,8 +55,7 @@ const extractHooks = (config: any) =>
     'auth': [],
     'mailfrom': [],
     'rcptto': [],
-    'eod': [],
-    'eodrcpt': [],
+    'eod': []
   };
   if (config.servers) {
     for (let server of config.servers) {
@@ -92,22 +91,6 @@ const extractHooks = (config: any) =>
         }
         if (server.phases.eod && server.phases.eod.hook)
           hooks.eod.push(server.phases.eod.hook);
-        if (server.phases.eod && server.phases.eod.rcpt && server.phases.eod.rcpt.hook)
-        {
-          var hook = server.phases.eod.rcpt.hook;
-          if (typeof hook === "string")
-            hooks.eodrcpt.push(hook);
-          else
-          {
-            if (hook.id)
-              hooks.eodrcpt.push(hook.id);
-            if (hook.recipientdomains)
-            {
-              for (let i in hook.recipientdomains)
-                hooks.eodrcpt.push(hook.recipientdomains[i]);
-            }
-          }
-        }
       }
     }
   }
@@ -187,8 +170,6 @@ export const generate = (base: string = '.') =>
         for (let id of value)
         {
           var hookfolder = [type];
-          if (type === "eodrcpt")
-            hookfolder = ["eod", "rcpt"];
           addHook(config, type, {
             id: id,
             data: fs.readFileSync(path.join(base, "src", "hooks", ...hookfolder, id + ".hsl")).toString()

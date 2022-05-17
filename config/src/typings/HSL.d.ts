@@ -16,7 +16,6 @@ declare namespace HSL
     mailfrom: Variable[];
     rcptto: Variable[];
     eodonce: Variable[];
-    eodrcpt: Variable[];
     predelivery: Variable[];
     postdelivery: Variable[];
     api: Variable[];
@@ -43,7 +42,6 @@ declare namespace HSL
     mailfrom: Function[];
     rcptto: Function[];
     eodonce: Function[];
-    eodrcpt: Function[];
     predelivery: Function[];
     postdelivery: Function[];
     api: Function[];
@@ -72,7 +70,6 @@ declare namespace HSL
     mailfrom: Class[];
     rcptto: Class[];
     eodonce: Class[];
-    eodrcpt: Class[];
     predelivery: Class[];
     postdelivery: Class[];
     api: Class[];

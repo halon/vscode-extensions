@@ -73,11 +73,7 @@ export const syntax = (file: string, workspaceFolder: string) =>
       result.phase = filepath.slice(-1)[0];
     }
   } else if (filepath.length > 3 && filepath.slice(-3, -2)[0] === "hooks") {
-    if (filepath.slice(-2)[0] === 'eod' && filepath.slice(-1)[0] === 'rcpt') {
-      result.phase = 'eodrcpt';
-    } else {
       throw Error('Unknown hooks directory in path');
-    }
   }
   result.data = fs.readFileSync(file).toString();
 

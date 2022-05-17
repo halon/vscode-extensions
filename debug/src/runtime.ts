@@ -334,8 +334,6 @@ export class HSLRuntime extends EventEmitter {
         let paths: string[] = [];
         if (type === 'file') {
           paths.push('files', id.split(path.posix.sep).join(path.sep));
-        } else if (type === 'eodrcpt') {
-          paths.push('hooks', 'eod', 'rcpt', id + '.hsl');
         } else if (type === 'queue') {
           paths.push('hooks', 'queue', id + '.hsl');
         } else {
