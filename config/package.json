@@ -155,7 +155,7 @@
     "webpack-cli": "^4.7.2"
   },
   "dependencies": {
-    "@halon/json-schemas": "github:halon/json-schemas#5a7dc7ccf38dc1c0181a0f13fa2d7492dacc9af8",
+    "@halon/json-schemas": "github:halon/json-schemas#30fb790d90458a7f17242f0861a45b2279c2b56a",
     "ajv": "^6.10.2",
     "glob": "^7.2.0",
     "is-utf8": "^0.2.1",
