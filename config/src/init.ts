@@ -233,7 +233,7 @@ Accept();
     fs.writeFileSync(path.join(base, "src", "config", "smtpd.yaml"), yaml.stringify(smtpd));
     fs.writeFileSync(path.join(base, "dist", "smtpd.yaml"), yaml.stringify(smtpd));
     const rated = {
-      version: '5.8',
+      version: '5.9',
       environment: {
         controlsocket: {
           group: 'staff',
@@ -273,7 +273,7 @@ Accept();
     fs.writeFileSync(path.join(base, "src", "config", "dlpd.yaml"), yaml.stringify(dlpd));
     fs.writeFileSync(path.join(base, "dist", "dlpd.yaml"), yaml.stringify(dlpd));
     const dlpd_app = {
-      version: '5.8',
+      version: '5.9',
       rules:  []
     };
     fs.writeFileSync(path.join(base, "src", "config", "dlpd-app.yaml"), yaml.stringify(dlpd_app));
