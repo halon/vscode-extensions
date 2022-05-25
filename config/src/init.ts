@@ -253,7 +253,7 @@ Accept();
     fs.writeFileSync(path.join(base, "src", "config", "rated.yaml"), yaml.stringify(rated));
     fs.writeFileSync(path.join(base, "dist", "rated.yaml"), yaml.stringify(rated));
     const dlpd = {
-      version: '5.8',
+      version: '5.9',
       environment: {
         controlsocket: {
           group: 'staff',
