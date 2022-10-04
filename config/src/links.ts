@@ -31,7 +31,7 @@ export default class Links implements DocumentLinkProvider
           const start = document.positionAt(offset);
           const end = document.positionAt(offset + type.length + link.length);
           const range = new Range(start, end);
-          const relative = link.substring(0, 2) === './';
+          const relative = link.substring(0, 2) === `.${path.sep}`;
 
           let uri: string | null = null;
           if (relative) {
