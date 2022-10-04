@@ -16,7 +16,7 @@ export default class Links implements DocumentLinkProvider
 
       let patterns: RegExp[] = [];
       patterns.push(/(.*?(?:from)\s+\"(?:.*!)?)(file:\/\/)?((?:.\/)?(([^."]+)([\.\/][^."]+)*))\"/mg);
-      patterns.push(/(.*?(?:include|include_once)\s+\")(file:\/\/)?((?:.\/)?(?:[^."]+)(?:[\.\/][^."]+)*)\"/mg);
+      patterns.push(/(.*?(?:include|include_once)\s+\")(file:\/\/)?((?:.\/)?(([^."]+)([\.\/][^."]+)*))\"/mg);
 
       const text  = document.getText();
 
