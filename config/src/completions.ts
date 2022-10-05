@@ -36,7 +36,7 @@ export default class Completions implements CompletionItemProvider
       }
       if (isMethod) {
         for (let item of classes) {
-          if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false)) {
+          if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false) && (typeof item.freebsd === 'undefined' || item.freebsd === false)) {
             for (let method of item.methods) {
               if (typeof method.static === 'undefined' || method.static === false) {
                 let completionItem = new CompletionItem(`(${item.name}) ${method.name}`, CompletionItemKind.Method);
@@ -56,7 +56,7 @@ export default class Completions implements CompletionItemProvider
             let className = document.getText(classNameRange);
             if (className) {
               for (let item of classes) {
-                if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false) && item.name === className) {
+                if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false) && (typeof item.freebsd === 'undefined' || item.freebsd === false) && item.name === className) {
                   for (let method of item.methods) {
                     if (typeof method.static !== 'undefined' && method.static === true) {
                       let completionItem = new CompletionItem(method.name, CompletionItemKind.Method);
@@ -73,7 +73,7 @@ export default class Completions implements CompletionItemProvider
         }
       } else {
         for (let item of classes) {
-          if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false)) {
+          if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false) && (typeof item.freebsd === 'undefined' || item.freebsd === false)) {
             if (item.name === 'MailMessage' || item.name === 'EODMailMessage' || item.name === 'MIMEPart' || item.name === 'LDAPResult') continue;
             let completionItem = new CompletionItem(item.name, CompletionItemKind.Class);
             completionItem.detail = item.detail;
@@ -84,7 +84,7 @@ export default class Completions implements CompletionItemProvider
         }
     
         for (let item of functions) {
-          if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false)) {
+          if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false) && (typeof item.freebsd === 'undefined' || item.freebsd === false)) {
             let completionItem = new CompletionItem(item.name, CompletionItemKind.Function);
             completionItem.detail = item.detail;
             completionItem.documentation = new MarkdownString(item.documentation);
@@ -94,7 +94,7 @@ export default class Completions implements CompletionItemProvider
         }
     
         for (let item of variables) {
-          if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false)) {
+          if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false) && (typeof item.freebsd === 'undefined' || item.freebsd === false)) {
             let completionItem = new CompletionItem(item.name, CompletionItemKind.Variable);
             completionItem.detail = item.detail;
             completionItem.documentation = new MarkdownString(item.example ? `${item.documentation} \n\n Example: \`${item.example}\`` : item.documentation);
@@ -126,7 +126,7 @@ export default class Completions implements CompletionItemProvider
         let isMethod = document.getText(new Range(position.line, position.character >= 2 ? position.character -2 : 0, position.line, position.character)) === '->';
         if (isMethod) {
           for (let item of classes) {
-            if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false)) {
+            if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false) && (typeof item.freebsd === 'undefined' || item.freebsd === false)) {
               for (let method of item.methods) {
                 if (typeof method.static === 'undefined' || method.static === false) {
                   let completionItem = new CompletionItem(`(${item.name}) ${method.name}`, CompletionItemKind.Method);
@@ -147,7 +147,7 @@ export default class Completions implements CompletionItemProvider
             const className = document.getText(wordRange);
             if (className) {
               for (let item of classes) {
-                if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false) && item.name === className) {
+                if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false) && (typeof item.freebsd === 'undefined' || item.freebsd === false) && item.name === className) {
                   for (let method of item.methods) {
                     if (typeof method.static !== 'undefined' && method.static === true) {
                       let completionItem = new CompletionItem(method.name, CompletionItemKind.Method);
