@@ -40,7 +40,7 @@ export default class Links implements DocumentLinkProvider
       }
     }
 
-    // Get plugin path
+    // Get extras path
     if (fs.existsSync(path.join('/opt', 'halon', 'plugins', 'hsl'))) {
       extrasPath = path.join('/opt', 'halon', 'plugins', 'hsl');
     }
