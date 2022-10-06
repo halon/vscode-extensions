@@ -38,7 +38,7 @@ export default class Links implements DocumentLinkProvider
             if (rootPath === null) {
               let smtpdPath = path.join(workspacePath, 'src', 'config', 'smtpd.yaml');
               if (!fs.existsSync(smtpdPath)) {
-                smtpdPath = path.join('etc', 'halon', 'smtpd.yaml');
+                smtpdPath = path.join('/etc', 'halon', 'smtpd.yaml');
               }
               if (fs.existsSync(smtpdPath)) {
                 try {
@@ -54,7 +54,7 @@ export default class Links implements DocumentLinkProvider
             }
           } else if (type === 'extras://') {
             // Extras files
-            const pluginPath = path.join('opt', 'halon', 'plugins', 'hsl', link);
+            const pluginPath = path.join('/opt', 'halon', 'plugins', 'hsl', link);
             if (fs.existsSync(pluginPath)) {
               uri = pluginPath;
             }
