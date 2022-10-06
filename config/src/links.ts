@@ -15,7 +15,7 @@ export default class Links implements DocumentLinkProvider
       let rootPath: string | null = null;
 
       const text  = document.getText();
-      let pattern = /(.*?(?:from|include|include_once)\s+\"(?:.*!)?)(file:\/\/)?((?:.\/)?(([^."]+)([\.\/][^."]+)*))\"/mg;
+      let pattern = /(.*?(?:from|include|include_once)\s+\"(?:.*!)?)((?:file|extras):\/\/)?((?:.\/)?(([^."]+)([\.\/][^."]+)*))\"/mg;
       let match: RegExpExecArray | null = null;
       while ((match = pattern.exec(text)) !== null && !match[3].includes('*')) {
         const pre = match[1];
@@ -51,6 +51,12 @@ export default class Links implements DocumentLinkProvider
             }
             if (rootPath !== null) {
               uri = path.join(rootPath, link);
+            }
+          } else if (type === 'extras://') {
+            // Extras files
+            const pluginPath = path.join('opt', 'halon', 'plugins', 'hsl', link);
+            if (fs.existsSync(pluginPath)) {
+              uri = pluginPath;
             }
           } else {
             // Workspace files
