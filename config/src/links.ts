@@ -58,9 +58,9 @@ export default class Links implements DocumentLinkProvider
           }
         }
 
-        // Index files
-        if (uri && !extension && fs.existsSync(path.join(uri, 'index.hsl'))) {
-          uri = path.join(uri, 'index.hsl');
+        // Main files
+        if (uri && !extension && fs.existsSync(path.join(uri, 'main.hsl'))) {
+          uri = path.join(uri, 'main.hsl');
         }
 
         // Append link
