@@ -38,7 +38,7 @@
       "patterns": [
         {
           "name": "keyword.control.hsl",
-          "match": "\\b(if|while|for|return|foreach|else|forever|break|continue|switch|case|default)\\b"
+          "match": "\\b(if|while|for|return|foreach|else|forever|break|continue|switch|case|default|match)\\b"
         },
         {
           "name": "keyword.control.trycatch.hsl",
