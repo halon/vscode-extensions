@@ -73,7 +73,7 @@ export default class Links implements DocumentLinkProvider
           }
         } else if (type === 'extras://') {
           // Extras files
-          if (extrasPath) {
+          if (extrasPath && fs.existsSync(path.join(extrasPath, link))) {
             uri = path.join(extrasPath, link);
           }
         } else {
