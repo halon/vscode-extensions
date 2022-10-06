@@ -1,0 +1,23 @@
+{
+  "name": "Halon",
+  "context": "..",
+  "dockerFile": "./Dockerfile",
+  "forwardPorts": [
+    25
+  ],
+  "overrideCommand": false,
+  "extensions": [
+    "Halon.vscode-halon",
+    "Halon.hsl-linter",
+    "dbaeumer.vscode-eslint"
+  ],
+  "mounts": [
+    "source=${localWorkspaceFolder}/sampleWorkspace/dist,target=/etc/halon,type=bind,consistency=cached"
+  ],
+  "build": {
+    "args": {
+      "HALON_REPO_USER": "${localEnv:HALON_REPO_USER}",
+      "HALON_REPO_PASS": "${localEnv:HALON_REPO_PASS}"
+    }
+  }
+}

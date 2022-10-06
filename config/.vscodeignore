@@ -10,4 +10,5 @@ tsconfig.json
 webpack.config.js
 out
 sampleWorkspace
+.devcontainer
 .DS_Store
