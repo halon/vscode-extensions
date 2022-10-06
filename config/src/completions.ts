@@ -1,3 +1,4 @@
+import * as fs from 'fs';
 import * as path from 'path';
 import { workspace, CompletionItemProvider, CancellationToken, TextDocument, Position, CompletionContext, CompletionItem, CompletionItemKind, SnippetString, MarkdownString, Range } from 'vscode';
 import { matchVariable, parseVariable } from './variables';
@@ -185,15 +186,50 @@ export default class Completions implements CompletionItemProvider
           const isInclude = document.getText(new Range(position.line, position.character >= 9 ? position.character -9 : 0, position.line, position.character)) === 'include "';
           const isIncludeOnce = document.getText(new Range(position.line, position.character >= 14 ? position.character -14 : 0, position.line, position.character)) === 'include_once "';
           if (isImport || isInclude || isIncludeOnce) {
+            let workspacePath: string | null = null;
+            let extrasPath: string | null = null;
+
+            // Get workspace path
             const workspaceFolder = workspace.getWorkspaceFolder(document.uri);
-            if (workspaceFolder !== undefined) {
-              for (let i of readdirSyncRecursive(path.join(workspaceFolder.uri.fsPath, "src", "files"))) {
-                const id = path.relative(path.join(workspaceFolder.uri.fsPath, "src", "files"), i).split(path.sep).join(path.posix.sep);
+            if (typeof workspaceFolder !== 'undefined') {
+              workspacePath = workspaceFolder.uri.fsPath;
+            }
+
+            // Get extras path
+            if (fs.existsSync(path.join('/opt', 'halon', 'plugins', 'hsl'))) {
+              extrasPath = path.join('/opt', 'halon', 'plugins', 'hsl');
+            }
+
+            if (workspacePath) {
+              for (let i of readdirSyncRecursive(path.join(workspacePath, "src", "files"))) {
+                const id = path.relative(path.join(workspacePath, "src", "files"), i).split(path.sep).join(path.posix.sep);
                 const hidden = id.split(path.posix.sep).filter(i => i.charAt(0) === '.');
                 if (hidden.length > 0)
                   continue;
                 let completionItem = new CompletionItem(id, CompletionItemKind.File);
                 completionItem.insertText = new SnippetString(id + '";');
+                completionItem.range = new Range(position.line, position.character, position.line, position.character + 2);
+                completionItems.push(completionItem);
+              }
+            }
+
+            if (extrasPath) {
+              var results: string[] = [];
+              var list = fs.readdirSync(extrasPath);
+              list.forEach((file) => {
+                file = extrasPath + path.sep + file;
+                var stat = fs.statSync(file);
+                if (stat && stat.isDirectory()) {
+                  results.push(file);
+                }
+              });
+              for (let i of results) {
+                const id = path.relative(extrasPath, i).split(path.sep).join(path.posix.sep);
+                const hidden = id.split(path.posix.sep).filter(i => i.charAt(0) === '.');
+                if (hidden.length > 0)
+                  continue;
+                let completionItem = new CompletionItem('extras://' + id, CompletionItemKind.File);
+                completionItem.insertText = new SnippetString('extras://' + id + '";');
                 completionItem.range = new Range(position.line, position.character, position.line, position.character + 2);
                 completionItems.push(completionItem);
               }
