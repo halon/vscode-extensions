@@ -333,14 +333,15 @@ export class HSLRuntime extends EventEmitter {
 
         let paths: string[] = [];
         if (type === 'file') {
-          paths.push('files', id.split(path.posix.sep).join(path.sep));
+          paths.push(this._workspaceFolder.uri.fsPath, 'src', 'files', id.split(path.posix.sep).join(path.sep));
         } else if (type === 'queue') {
-          paths.push('hooks', 'queue', id + '.hsl');
+          paths.push(this._workspaceFolder.uri.fsPath, 'src', 'hooks', 'queue', id + '.hsl');
+        } else if (type === 'extras') {
+          paths.push('/opt', 'halon', 'plugins', 'hsl', id.split(path.posix.sep).join(path.sep));
         } else {
-          paths.push('hooks', type, id + '.hsl');
+          paths.push(this._workspaceFolder.uri.fsPath, 'src', 'hooks', type, id + '.hsl');
         }
-
-        this._currentFile = path.join(this._workspaceFolder.uri.fsPath, 'src', ...paths);
+        this._currentFile = path.join(...paths);
       } else {
         this._currentFile = undefined;
       }
