@@ -187,12 +187,18 @@ export default class Completions implements CompletionItemProvider
           const isIncludeOnce = document.getText(new Range(position.line, position.character >= 14 ? position.character -14 : 0, position.line, position.character)) === 'include_once "';
           if (isImport || isInclude || isIncludeOnce) {
             let workspacePath: string | null = null;
+            let pluginsPath: string | null = null;
             let extrasPath: string | null = null;
 
             // Get workspace path
             const workspaceFolder = workspace.getWorkspaceFolder(document.uri);
             if (typeof workspaceFolder !== 'undefined') {
               workspacePath = workspaceFolder.uri.fsPath;
+            }
+
+            // Get plugins path
+            if (fs.existsSync(path.join('/opt', 'halon', 'plugins'))) {
+              pluginsPath = path.join('/opt', 'halon', 'plugins');
             }
 
             // Get extras path
@@ -208,6 +214,29 @@ export default class Completions implements CompletionItemProvider
                   continue;
                 let completionItem = new CompletionItem(id, CompletionItemKind.File);
                 completionItem.insertText = new SnippetString(id + '";');
+                completionItem.range = new Range(position.line, position.character, position.line, position.character + 2);
+                completionItems.push(completionItem);
+              }
+            }
+
+            if (pluginsPath) {
+              var results: string[] = [];
+              var list = fs.readdirSync(pluginsPath);
+              list.forEach((file) => {
+                file = pluginsPath + path.sep + file;
+                var stat = fs.statSync(file);
+                if (stat && stat.isFile() && path.extname(file) === '.so') {
+                  results.push(file);
+                }
+              });
+              for (let i of results) {
+                const id = path.basename(path.relative(pluginsPath, i).split(path.sep).join(path.posix.sep), '.so');
+                const hidden = id.split(path.posix.sep).filter(i => i.charAt(0) === '.');
+                if (hidden.length > 0)
+                  continue;
+                
+                let completionItem = new CompletionItem('extras://' + id, CompletionItemKind.File);
+                completionItem.insertText = new SnippetString('extras://' + id + '";');
                 completionItem.range = new Range(position.line, position.character, position.line, position.character + 2);
                 completionItems.push(completionItem);
               }
