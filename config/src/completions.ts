@@ -187,23 +187,11 @@ export default class Completions implements CompletionItemProvider
           const isIncludeOnce = document.getText(new Range(position.line, position.character >= 14 ? position.character -14 : 0, position.line, position.character)) === 'include_once "';
           if (isImport || isInclude || isIncludeOnce) {
             let workspacePath: string | null = null;
-            let pluginsPath: string | null = null;
-            let extrasPath: string | null = null;
 
             // Get workspace path
             const workspaceFolder = workspace.getWorkspaceFolder(document.uri);
             if (typeof workspaceFolder !== 'undefined') {
               workspacePath = workspaceFolder.uri.fsPath;
-            }
-
-            // Get plugins path
-            if (fs.existsSync(path.join('/opt', 'halon', 'plugins'))) {
-              pluginsPath = path.join('/opt', 'halon', 'plugins');
-            }
-
-            // Get extras path
-            if (fs.existsSync(path.join('/opt', 'halon', 'plugins', 'hsl'))) {
-              extrasPath = path.join('/opt', 'halon', 'plugins', 'hsl');
             }
 
             if (workspacePath) {
@@ -217,6 +205,21 @@ export default class Completions implements CompletionItemProvider
                 completionItem.range = new Range(position.line, position.character, position.line, position.character + 2);
                 completionItems.push(completionItem);
               }
+            }
+          }
+
+          if (isImport) {
+            let pluginsPath: string | null = null;
+            let extrasPath: string | null = null;
+
+            // Get plugins path
+            if (fs.existsSync(path.join('/opt', 'halon', 'plugins'))) {
+              pluginsPath = path.join('/opt', 'halon', 'plugins');
+            }
+
+            // Get extras path
+            if (fs.existsSync(path.join('/opt', 'halon', 'plugins', 'hsl'))) {
+              extrasPath = path.join('/opt', 'halon', 'plugins', 'hsl');
             }
 
             if (pluginsPath) {
