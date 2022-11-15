@@ -12,3 +12,4 @@ out
 sampleWorkspace
 .devcontainer
 .DS_Store
+.npmrc

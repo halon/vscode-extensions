@@ -6,3 +6,4 @@ package-json.lock
 sampleWorkspace
 .devcontainer
 .DS_Store
+.npmrc
