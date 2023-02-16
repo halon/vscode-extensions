@@ -6,10 +6,14 @@
     25
   ],
   "overrideCommand": false,
-  "extensions": [
-    "Halon.vscode-halon",
-    "dbaeumer.vscode-eslint"
-  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Halon.vscode-halon",
+        "dbaeumer.vscode-eslint"
+      ]
+    }
+  },
   "mounts": [
     "source=${localWorkspaceFolder}/sampleWorkspace/dist,target=/etc/halon,type=bind,consistency=cached"
   ],
