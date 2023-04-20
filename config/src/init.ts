@@ -106,6 +106,17 @@ environment=LD_LIBRARY_PATH="/opt/halon/lib/:%(ENV_LD_LIBRARY_PATH)s"
         }
       ]
     }, undefined, 2));
+
+    fs.writeFileSync(path.join(base, ".vscode", "settings.json"), JSON.stringify({
+      "yaml.customTags": [
+        "!Map mapping",
+        "!Set sequence",
+        "!Regex scalar",
+        "!PrivateKey scalar",
+        "!X509 scalar",
+        "!MailMessage scalar"
+      ]
+    }, undefined, 2));
   }
 
   if (!fs.existsSync(path.join(base, "src")))
