@@ -15,11 +15,9 @@ declare namespace HSL
     auth: Variable[];
     mailfrom: Variable[];
     rcptto: Variable[];
-    eodonce: Variable[];
+    eod: Variable[];
     predelivery: Variable[];
     postdelivery: Variable[];
-    api: Variable[];
-    firewall: Variable[];
   }
 
   interface Variable {
@@ -42,11 +40,9 @@ declare namespace HSL
     auth: Function[];
     mailfrom: Function[];
     rcptto: Function[];
-    eodonce: Function[];
+    eod: Function[];
     predelivery: Function[];
     postdelivery: Function[];
-    api: Function[];
-    firewall: Function[];
   }
 
   interface Function {
@@ -71,11 +67,9 @@ declare namespace HSL
     auth: Class[];
     mailfrom: Class[];
     rcptto: Class[];
-    eodonce: Class[];
+    eod: Class[];
     predelivery: Class[];
     postdelivery: Class[];
-    api: Class[];
-    firewall: Class[];
   }
   
   interface Class {

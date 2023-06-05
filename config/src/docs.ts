@@ -57,9 +57,9 @@ export default (document: TextDocument) => {
         items.variables = items.variables.concat(variables.rcptto);
       }
       if (folder === 'eod') {
-        items.classes = items.classes.concat(classes.eodonce);
-        items.functions = items.functions.concat(functions.eodonce);
-        items.variables = items.variables.concat(variables.eodonce);
+        items.classes = items.classes.concat(classes.eod);
+        items.functions = items.functions.concat(functions.eod);
+        items.variables = items.variables.concat(variables.eod);
       }
       if (basename === 'predelivery.hsl') {
         items.classes = items.classes.concat(classes.predelivery);
