@@ -29,7 +29,6 @@ declare namespace HSL
     example?: string;
     compat?: number;
     deprecated?: boolean;
-    freebsd?: boolean;
   }
 
   interface Functions {
@@ -56,7 +55,6 @@ declare namespace HSL
     compat?: number;
     deprecated?: boolean;
     static?: boolean;
-    freebsd?: boolean;
   }
   
   interface Classes {
@@ -82,7 +80,6 @@ declare namespace HSL
     link: string;
     compat?: number;
     deprecated?: boolean;
-    freebsd?: boolean;
   }
   
   interface Parameters {

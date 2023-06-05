@@ -36,7 +36,7 @@ export default class Hovers implements HoverProvider
             let className = document.getText(classNameRange);
             if (className) {
               for (let item of classes) {
-                if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false) && (typeof item.freebsd === 'undefined' || item.freebsd === false) && item.name === className) {
+                if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false) && item.name === className) {
                   for (let method of item.methods) {
                     if (item.name === className && method.name === text) {
                       let contents = [
@@ -54,7 +54,7 @@ export default class Hovers implements HoverProvider
         }
       } else {
         for (let item of classes) {
-          if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false) && (typeof item.freebsd === 'undefined' || item.freebsd === false)) {
+          if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false)) {
             if (item.name === text) {
               let contents = [
                 new MarkdownString().appendCodeblock(item.detail, 'plaintext'),
@@ -67,7 +67,7 @@ export default class Hovers implements HoverProvider
         }
     
         for (let item of functions) {
-          if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false) && (typeof item.freebsd === 'undefined' || item.freebsd === false)) {
+          if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false)) {
             if (item.name === text) {
               let contents = [
                 new MarkdownString().appendCodeblock(item.detail, 'plaintext'),
@@ -80,7 +80,7 @@ export default class Hovers implements HoverProvider
         }
     
         for (let item of variables) {
-          if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false) && (typeof item.freebsd === 'undefined' || item.freebsd === false)) {
+          if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false)) {
             if (item.name === text) {
               let contents = [
                 new MarkdownString().appendCodeblock(item.detail, 'plaintext'),
