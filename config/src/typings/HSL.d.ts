@@ -80,6 +80,7 @@ declare namespace HSL
     link: string;
     compat?: number;
     deprecated?: boolean;
+    instantiable?: boolean;
   }
   
   interface Parameters {

@@ -74,7 +74,7 @@ export default class Completions implements CompletionItemProvider
         }
       } else {
         for (let item of classes) {
-          if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false)) {
+          if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false) && (typeof item.instantiable === 'undefined' || item.instantiable === true)) {
             if (item.name === 'MailMessage' || item.name === 'EODMailMessage' || item.name === 'MIMEPart' || item.name === 'LDAPResult') continue;
             let completionItem = new CompletionItem(item.name, CompletionItemKind.Class);
             completionItem.detail = item.detail;
