@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "6.1.7",
+  "version": "6.1.8",
   "engines": {
     "vscode": "^1.56.2"
   },
@@ -101,6 +101,10 @@
         "url": "./dist/json-schemas/combined/web.schema.json"
       },
       {
+        "fileMatch": "web-history.yaml",
+        "url": "./dist/json-schemas/combined/web-history.schema.json"
+      },
+      {
         "fileMatch": "submission.yaml",
         "url": "./dist/json-schemas/combined/submission.schema.json"
       },
@@ -155,7 +159,7 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "@halon/json-schemas": "github:halon/json-schemas#dd0efabc8ce825a5c2f460a665cedda043626c05",
+    "@halon/json-schemas": "github:halon/json-schemas#93d2177f3d40356a25584ab5124e758e14e1a027",
     "ajv": "^6.10.2",
     "glob": "^7.2.0",
     "is-utf8": "^0.2.1",
