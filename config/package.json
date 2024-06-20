@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "6.3.0",
+  "version": "6.3.1",
   "engines": {
     "vscode": "^1.56.2"
   },
@@ -159,7 +159,7 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "@halon/json-schemas": "github:halon/json-schemas#d08ae293763667ac4544f16a10179c6b8a93a05d",
+    "@halon/json-schemas": "github:halon/json-schemas#6210076f3c55bbffc4a76399b383bde152ec7725",
     "ajv": "^6.10.2",
     "glob": "^7.2.0",
     "is-utf8": "^0.2.1",
