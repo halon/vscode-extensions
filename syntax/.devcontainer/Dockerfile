@@ -4,10 +4,8 @@ LABEL org.opencontainers.image.authors="support@halon.io"
 ARG HALON_REPO_USER
 ARG HALON_REPO_PASS
 
-RUN apt-get update
-
-RUN apt-get install -y wget gnupg
-RUN apt-get install -y apt-transport-https
+RUN apt-get update && apt-get install -y wget gnupg
+RUN apt-get update && apt-get install -y apt-transport-https
 
 RUN wget -qO - https://raw.githubusercontent.com/halon/pgp-keys/master/pgp-keys/7F0A73B5.asc | apt-key add -
 RUN echo "deb https://repo.halon.io/ focal stable" >> /etc/apt/sources.list.d/halon.list
@@ -17,12 +15,12 @@ RUN apt-get update && apt-get install -y halon=5.12.0 halon-rated=5.12.0 halon-d
 RUN /usr/bin/install -d /var/run/halon
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH
 
-RUN apt-get install -y git
+RUN apt-get update && apt-get install -y git
 
-RUN apt-get install -y curl
+RUN apt-get update && apt-get install -y curl
 RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
-RUN apt-get install -y nodejs
+RUN apt-get update && apt-get install -y nodejs
 
-RUN apt-get install -y supervisor
+RUN apt-get update && apt-get install -y supervisor
 COPY .devcontainer/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 CMD ["/usr/bin/supervisord"]
