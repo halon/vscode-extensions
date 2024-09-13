@@ -56,7 +56,7 @@ RUN apt-get update && apt-get install -y apt-transport-https
 RUN wget -qO - https://raw.githubusercontent.com/halon/pgp-keys/master/pgp-keys/7F0A73B5.asc | apt-key add -
 RUN echo "deb https://repo.halon.io/ jammy stable" >> /etc/apt/sources.list.d/halon.list
 RUN echo "machine repo.halon.io login \${HALON_REPO_USER} password \${HALON_REPO_PASS}" >> /etc/apt/auth.conf
-RUN apt-get update && apt-get install -y halon=6.1.0 halon-rated=6.1.0 halon-dlpd=6.1.0 halon-extras-rate=1.2.0 halon-extras-dlp=1.1.0
+RUN apt-get update && apt-get install -y halon=6.4.1 halon-rated=6.4.0 halon-dlpd=6.4.0 halon-extras-rate=1.2.0 halon-extras-dlp=1.1.0
 
 RUN /usr/bin/install -d /var/run/halon
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH
@@ -172,7 +172,7 @@ Accept();
   fs.writeFileSync(path.join(base, "src", "hooks", "eod", "default.hsl"), eod_default);
 
   const smtpd_app: any = {
-    version: '6.1',
+    version: '6.4',
     servers: [
       {
         id: 'default',
@@ -229,7 +229,7 @@ Accept();
 
   if (development === 'container') {
     const smtpd = {
-      version: '6.1',
+      version: '6.4',
       servers: [
         {
           id: 'default',
@@ -260,7 +260,7 @@ Accept();
     fs.writeFileSync(path.join(base, "src", "config", "smtpd.yaml"), yaml.stringify(smtpd));
     fs.writeFileSync(path.join(base, "dist", "smtpd.yaml"), yaml.stringify(smtpd));
     const rated = {
-      version: '6.1',
+      version: '6.4',
       environment: {
         controlsocket: {
           group: 'staff',
@@ -280,7 +280,7 @@ Accept();
     fs.writeFileSync(path.join(base, "src", "config", "rated.yaml"), yaml.stringify(rated));
     fs.writeFileSync(path.join(base, "dist", "rated.yaml"), yaml.stringify(rated));
     const dlpd = {
-      version: '6.1',
+      version: '6.4',
       environment: {
         controlsocket: {
           group: 'staff',
@@ -300,7 +300,7 @@ Accept();
     fs.writeFileSync(path.join(base, "src", "config", "dlpd.yaml"), yaml.stringify(dlpd));
     fs.writeFileSync(path.join(base, "dist", "dlpd.yaml"), yaml.stringify(dlpd));
     const dlpd_app = {
-      version: '6.1',
+      version: '6.4',
       rules:  []
     };
     fs.writeFileSync(path.join(base, "src", "config", "dlpd-app.yaml"), yaml.stringify(dlpd_app));
