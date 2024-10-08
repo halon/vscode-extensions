@@ -42,7 +42,7 @@ export const run = (base: string | null = '.', template = 'minimal', development
     }, undefined, 2));
 
     fs.writeFileSync(path.join(base, ".devcontainer", "Dockerfile"),
-`FROM --platform=linux/amd64 ubuntu:22.04
+`FROM --platform=linux/amd64 ubuntu:24.04
 LABEL org.opencontainers.image.authors="support@halon.io"
 
 ARG HALON_REPO_USER
@@ -54,7 +54,7 @@ RUN apt-get update && apt-get install -y wget gnupg
 RUN apt-get update && apt-get install -y apt-transport-https
 
 RUN wget -qO - https://raw.githubusercontent.com/halon/pgp-keys/master/pgp-keys/7F0A73B5.asc | apt-key add -
-RUN echo "deb https://repo.halon.io/ jammy stable" >> /etc/apt/sources.list.d/halon.list
+RUN echo "deb https://repo.halon.io/ noble stable" >> /etc/apt/sources.list.d/halon.list
 RUN echo "machine repo.halon.io login \${HALON_REPO_USER} password \${HALON_REPO_PASS}" >> /etc/apt/auth.conf
 RUN apt-get update && apt-get install -y halon=6.4.1 halon-rated=6.4.0 halon-dlpd=6.4.0 halon-extras-rate=1.2.0 halon-extras-dlp=1.1.0
 
