@@ -1,41 +1,45 @@
-const path = require('path');
+const path = require("path");
 
 module.exports = {
-  mode: 'none',
-  target: 'node',
+  mode: "none",
+  target: "node",
   entry: {
-    extension: './src/extension.ts'
+    extension: "./src/extension.ts",
   },
   resolve: {
-    extensions: ['.ts', '.js']
+    extensions: [".ts", ".js"],
   },
   node: {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    __dirname: false
+    __dirname: false,
   },
   module: {
-    rules: [{
-      test: /\.ts$/,
-      exclude: /node_modules/,
-      use: [{
-        loader: 'ts-loader',
-        options: {
-          compilerOptions: {
-            'sourceMap': true,
-            'declaration': false
-          }
-        }
-      }]
-    }]
+    rules: [
+      {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: "ts-loader",
+            options: {
+              compilerOptions: {
+                sourceMap: true,
+                declaration: false,
+              },
+            },
+          },
+        ],
+      },
+    ],
   },
   externals: {
-    vscode: "commonjs vscode"
+    vscode: "commonjs vscode",
   },
   output: {
-    filename: 'extension.js',
-    path: path.resolve(__dirname, './dist'),
-    libraryTarget: 'commonjs2',
-    devtoolModuleFilenameTemplate: "./../[resource-path]"
+    filename: "extension.js",
+    path: path.resolve(__dirname, "./dist"),
+    libraryTarget: "commonjs2",
+    devtoolModuleFilenameTemplate: "./../[resource-path]",
   },
-  devtool: 'source-map'
+  devtool: "source-map",
 };

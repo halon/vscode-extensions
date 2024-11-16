@@ -2,9 +2,7 @@
   "name": "Halon",
   "context": "..",
   "dockerFile": "./Dockerfile",
-  "forwardPorts": [
-    25
-  ],
+  "forwardPorts": [25],
   "overrideCommand": false,
   "customizations": {
     "vscode": {

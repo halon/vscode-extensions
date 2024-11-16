@@ -1,5 +1,4 @@
-declare namespace HSL
-{
+declare namespace HSL {
   interface Collection {
     classes: Class[];
     functions: Function[];
@@ -8,7 +7,7 @@ declare namespace HSL
   }
 
   interface Variables {
-    core: Variable[]
+    core: Variable[];
     connect: Variable[];
     disconnect: Variable[];
     helo: Variable[];
@@ -56,7 +55,7 @@ declare namespace HSL
     deprecated?: boolean;
     static?: boolean;
   }
-  
+
   interface Classes {
     core: Class[];
     connect: Class[];
@@ -69,7 +68,7 @@ declare namespace HSL
     predelivery: Class[];
     postdelivery: Class[];
   }
-  
+
   interface Class {
     name: string;
     parameters: Parameters;
@@ -82,7 +81,7 @@ declare namespace HSL
     deprecated?: boolean;
     instantiable?: boolean;
   }
-  
+
   interface Parameters {
     required: Parameter[];
     optional: Parameter[];

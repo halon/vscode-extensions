@@ -1,11 +1,21 @@
-import { DocumentLinkProvider, CancellationToken, DocumentLink, TextDocument, Range, Uri, workspace } from 'vscode';
-import * as fs from 'fs';
-import * as path from 'path';
-import yaml from 'yaml';
+import {
+  DocumentLinkProvider,
+  CancellationToken,
+  DocumentLink,
+  TextDocument,
+  Range,
+  Uri,
+  workspace,
+} from "vscode";
+import * as fs from "fs";
+import * as path from "path";
+import yaml from "yaml";
 
-export default class Links implements DocumentLinkProvider
-{
-  public provideDocumentLinks(document: TextDocument, token: CancellationToken): DocumentLink[] {
+export default class Links implements DocumentLinkProvider {
+  public provideDocumentLinks(
+    document: TextDocument,
+    token: CancellationToken,
+  ): DocumentLink[] {
     let links: DocumentLink[] = [];
 
     let workspacePath: string | null = null;
@@ -15,7 +25,7 @@ export default class Links implements DocumentLinkProvider
 
     // Get workspace path
     const workspaceFolder = workspace.getWorkspaceFolder(document.uri);
-    if (typeof workspaceFolder !== 'undefined') {
+    if (typeof workspaceFolder !== "undefined") {
       workspacePath = workspaceFolder.uri.fsPath;
     }
 
@@ -26,14 +36,17 @@ export default class Links implements DocumentLinkProvider
 
     // Get root path
     if (workspacePath) {
-      let smtpdPath = path.join(workspacePath, 'src', 'config', 'smtpd.yaml');
+      let smtpdPath = path.join(workspacePath, "src", "config", "smtpd.yaml");
       if (!fs.existsSync(smtpdPath)) {
-        smtpdPath = path.join('/etc', 'halon', 'smtpd.yaml');
+        smtpdPath = path.join("/etc", "halon", "smtpd.yaml");
       }
       if (fs.existsSync(smtpdPath)) {
         try {
           const smtpd = yaml.parse(fs.readFileSync(smtpdPath).toString());
-          if (smtpd.scripting !== undefined && smtpd.scripting.rootpath !== undefined) {
+          if (
+            smtpd.scripting !== undefined &&
+            smtpd.scripting.rootpath !== undefined
+          ) {
             rootPath = smtpd.scripting.rootpath;
           }
         } catch (err) {}
@@ -41,16 +54,17 @@ export default class Links implements DocumentLinkProvider
     }
 
     // Get extras path
-    if (fs.existsSync(path.join('/opt', 'halon', 'plugins', 'hsl'))) {
-      extrasPath = path.join('/opt', 'halon', 'plugins', 'hsl');
+    if (fs.existsSync(path.join("/opt", "halon", "plugins", "hsl"))) {
+      extrasPath = path.join("/opt", "halon", "plugins", "hsl");
     }
 
-    const text  = document.getText();
-    let pattern = /(.*?(?:from|include|include_once)\s+\"(?:.*!)?)((?:file|extras):\/\/)?((?:.\/)?(([^."]+)([\.\/][^."]+)*))\"/mg;
+    const text = document.getText();
+    let pattern =
+      /(.*?(?:from|include|include_once)\s+\"(?:.*!)?)((?:file|extras):\/\/)?((?:.\/)?(([^."]+)([\.\/][^."]+)*))\"/gm;
     let match: RegExpExecArray | null = null;
-    while ((match = pattern.exec(text)) !== null && !match[3].includes('*')) {
+    while ((match = pattern.exec(text)) !== null && !match[3].includes("*")) {
       const pre = match[1];
-      const type = match[2] ?? '';
+      const type = match[2] ?? "";
       const link = match[3].split(path.posix.sep).join(path.sep);
       const extension = match[6];
       const offset = (match.index || 0) + pre.length;
@@ -66,12 +80,12 @@ export default class Links implements DocumentLinkProvider
           uri = path.join(relativePath, link);
         }
       } else {
-        if (type === 'file://') {
+        if (type === "file://") {
           // External files
           if (rootPath) {
             uri = path.join(rootPath, link);
           }
-        } else if (type === 'extras://') {
+        } else if (type === "extras://") {
           // Extras files
           if (extrasPath && fs.existsSync(path.join(extrasPath, link))) {
             uri = path.join(extrasPath, link);
@@ -79,14 +93,14 @@ export default class Links implements DocumentLinkProvider
         } else {
           // Workspace files
           if (workspacePath) {
-            uri = path.join(workspacePath, 'src', 'files', link);
+            uri = path.join(workspacePath, "src", "files", link);
           }
         }
       }
 
       // Main files
-      if (uri && !extension && fs.existsSync(path.join(uri, 'main.hsl'))) {
-        uri = path.join(uri, 'main.hsl');
+      if (uri && !extension && fs.existsSync(path.join(uri, "main.hsl"))) {
+        uri = path.join(uri, "main.hsl");
       }
 
       // Append link

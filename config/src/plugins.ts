@@ -1,14 +1,14 @@
-import * as fs from 'fs';
-import * as glob from 'glob';
-import mem from 'mem';
+import * as fs from "fs";
+import * as glob from "glob";
+import mem from "mem";
 
 const plugins = () => {
-  const pluginsPath = '/opt/halon/share/plugins';
+  const pluginsPath = "/opt/halon/share/plugins";
   let items: HSL.Collection = {
     functions: [],
     classes: [],
     variables: [],
-    keywords: []
+    keywords: [],
   };
   try {
     for (const plugin of glob.sync(`${pluginsPath}/*.functions.json`)) {

@@ -1,4 +1,5 @@
 # Halon Configuration Packer
+
 Visual Studio Code extension providing a configuration packer for Halon.
 It also provides a linter for the YAML configuration files.
 

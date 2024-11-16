@@ -1,23 +1,38 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import { workspace, CompletionItemProvider, CancellationToken, TextDocument, Position, CompletionContext, CompletionItem, CompletionItemKind, SnippetString, MarkdownString, Range } from 'vscode';
-import { matchVariable, parseVariable } from './variables';
-import docs from './docs';
-import { readdirSyncRecursive } from './build';
-import plugins from './plugins';
+import * as fs from "fs";
+import * as path from "path";
+import {
+  workspace,
+  CompletionItemProvider,
+  CancellationToken,
+  TextDocument,
+  Position,
+  CompletionContext,
+  CompletionItem,
+  CompletionItemKind,
+  SnippetString,
+  MarkdownString,
+  Range,
+} from "vscode";
+import { matchVariable, parseVariable } from "./variables";
+import docs from "./docs";
+import { readdirSyncRecursive } from "./build";
+import plugins from "./plugins";
 
-export default class Completions implements CompletionItemProvider
-{
+export default class Completions implements CompletionItemProvider {
   triggerCharacters: string[];
 
-  constructor(...triggerCharacters: string[])
-  {
+  constructor(...triggerCharacters: string[]) {
     this.triggerCharacters = triggerCharacters;
   }
 
-  public provideCompletionItems(document: TextDocument, position: Position, token: CancellationToken, context: CompletionContext): CompletionItem[] {
+  public provideCompletionItems(
+    document: TextDocument,
+    position: Position,
+    token: CancellationToken,
+    context: CompletionContext,
+  ): CompletionItem[] {
     let completionItems: CompletionItem[] = [];
-  
+
     let { classes, functions, variables, keywords } = docs(document);
     const extras = plugins();
     classes = classes.concat(extras.classes);
@@ -30,19 +45,36 @@ export default class Completions implements CompletionItemProvider
       if (wordRange !== undefined) {
         const text = document.getText(wordRange);
         if (text) {
-          let range = new Range(position.line, wordRange.start.character >= 2 ? wordRange.start.character -2 : 0, position.line, wordRange.start.character);
-          isMethod = document.getText(range) === '->';
-          isStaticMethod = document.getText(range) === '::';
+          let range = new Range(
+            position.line,
+            wordRange.start.character >= 2 ? wordRange.start.character - 2 : 0,
+            position.line,
+            wordRange.start.character,
+          );
+          isMethod = document.getText(range) === "->";
+          isStaticMethod = document.getText(range) === "::";
         }
       }
       if (isMethod) {
         for (let item of classes) {
-          if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false)) {
+          if (
+            typeof item.compat === "undefined" &&
+            (typeof item.deprecated === "undefined" ||
+              item.deprecated === false)
+          ) {
             for (let method of item.methods) {
-              if (typeof method.static === 'undefined' || method.static === false) {
-                let completionItem = new CompletionItem(`(${item.name}) ${method.name}`, CompletionItemKind.Method);
+              if (
+                typeof method.static === "undefined" ||
+                method.static === false
+              ) {
+                let completionItem = new CompletionItem(
+                  `(${item.name}) ${method.name}`,
+                  CompletionItemKind.Method,
+                );
                 completionItem.detail = method.detail;
-                completionItem.documentation = new MarkdownString(method.documentation);
+                completionItem.documentation = new MarkdownString(
+                  method.documentation,
+                );
                 completionItem.insertText = new SnippetString(method.value);
                 completionItems.push(completionItem);
               }
@@ -51,19 +83,38 @@ export default class Completions implements CompletionItemProvider
         }
       } else if (isStaticMethod) {
         if (wordRange !== undefined) {
-          let classNamePosition = new Position(position.line, wordRange.start.character >= 3 ? wordRange.start.character -3 : 0);
-          let classNameRange = document.getWordRangeAtPosition(classNamePosition);
+          let classNamePosition = new Position(
+            position.line,
+            wordRange.start.character >= 3 ? wordRange.start.character - 3 : 0,
+          );
+          let classNameRange =
+            document.getWordRangeAtPosition(classNamePosition);
           if (classNameRange !== undefined) {
             let className = document.getText(classNameRange);
             if (className) {
               for (let item of classes) {
-                if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false) && item.name === className) {
+                if (
+                  typeof item.compat === "undefined" &&
+                  (typeof item.deprecated === "undefined" ||
+                    item.deprecated === false) &&
+                  item.name === className
+                ) {
                   for (let method of item.methods) {
-                    if (typeof method.static !== 'undefined' && method.static === true) {
-                      let completionItem = new CompletionItem(method.name, CompletionItemKind.Method);
+                    if (
+                      typeof method.static !== "undefined" &&
+                      method.static === true
+                    ) {
+                      let completionItem = new CompletionItem(
+                        method.name,
+                        CompletionItemKind.Method,
+                      );
                       completionItem.detail = method.detail;
-                      completionItem.documentation = new MarkdownString(method.documentation);
-                      completionItem.insertText = new SnippetString(method.value);
+                      completionItem.documentation = new MarkdownString(
+                        method.documentation,
+                      );
+                      completionItem.insertText = new SnippetString(
+                        method.value,
+                      );
                       completionItems.push(completionItem);
                     }
                   }
@@ -74,47 +125,96 @@ export default class Completions implements CompletionItemProvider
         }
       } else {
         for (let item of classes) {
-          if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false) && (typeof item.instantiable === 'undefined' || item.instantiable === true)) {
-            if (item.name === 'MailMessage' || item.name === 'EODMailMessage' || item.name === 'MIMEPart' || item.name === 'LDAPResult') continue;
-            let completionItem = new CompletionItem(item.name, CompletionItemKind.Class);
+          if (
+            typeof item.compat === "undefined" &&
+            (typeof item.deprecated === "undefined" ||
+              item.deprecated === false) &&
+            (typeof item.instantiable === "undefined" ||
+              item.instantiable === true)
+          ) {
+            if (
+              item.name === "MailMessage" ||
+              item.name === "EODMailMessage" ||
+              item.name === "MIMEPart" ||
+              item.name === "LDAPResult"
+            )
+              continue;
+            let completionItem = new CompletionItem(
+              item.name,
+              CompletionItemKind.Class,
+            );
             completionItem.detail = item.detail;
-            completionItem.documentation = new MarkdownString(item.documentation);
+            completionItem.documentation = new MarkdownString(
+              item.documentation,
+            );
             completionItem.insertText = new SnippetString(item.value);
             completionItems.push(completionItem);
           }
         }
-    
+
         for (let item of functions) {
-          if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false)) {
-            let completionItem = new CompletionItem(item.name, CompletionItemKind.Function);
+          if (
+            typeof item.compat === "undefined" &&
+            (typeof item.deprecated === "undefined" ||
+              item.deprecated === false)
+          ) {
+            let completionItem = new CompletionItem(
+              item.name,
+              CompletionItemKind.Function,
+            );
             completionItem.detail = item.detail;
-            completionItem.documentation = new MarkdownString(item.documentation);
+            completionItem.documentation = new MarkdownString(
+              item.documentation,
+            );
             completionItem.insertText = new SnippetString(item.value);
             completionItems.push(completionItem);
           }
         }
-    
+
         for (let item of variables) {
-          if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false)) {
-            let completionItem = new CompletionItem(item.name, CompletionItemKind.Variable);
+          if (
+            typeof item.compat === "undefined" &&
+            (typeof item.deprecated === "undefined" ||
+              item.deprecated === false)
+          ) {
+            let completionItem = new CompletionItem(
+              item.name,
+              CompletionItemKind.Variable,
+            );
             completionItem.detail = item.detail;
-            completionItem.documentation = new MarkdownString(item.example ? `${item.documentation} \n\n Example: \`${item.example}\`` : item.documentation);
+            completionItem.documentation = new MarkdownString(
+              item.example
+                ? `${item.documentation} \n\n Example: \`${item.example}\``
+                : item.documentation,
+            );
             completionItems.push(completionItem);
           }
         }
-    
+
         for (let item of keywords) {
-          let completionItem = new CompletionItem(item.name, CompletionItemKind.Keyword);
+          let completionItem = new CompletionItem(
+            item.name,
+            CompletionItemKind.Keyword,
+          );
           completionItem.detail = item.detail;
           completionItem.documentation = new MarkdownString(item.documentation);
-          completionItem.insertText = new SnippetString(item.value || item.name);
+          completionItem.insertText = new SnippetString(
+            item.value || item.name,
+          );
           completionItems.push(completionItem);
-          if (typeof item.snippets !== 'undefined') {
+          if (typeof item.snippets !== "undefined") {
             for (let snippet of item.snippets) {
-              let completionItem = new CompletionItem(item.name, CompletionItemKind.Snippet);
+              let completionItem = new CompletionItem(
+                item.name,
+                CompletionItemKind.Snippet,
+              );
               completionItem.detail = snippet.detail;
-              completionItem.documentation = new MarkdownString(snippet.documentation || item.documentation);
-              completionItem.insertText = new SnippetString(snippet.insertText.join('\n'));
+              completionItem.documentation = new MarkdownString(
+                snippet.documentation || item.documentation,
+              );
+              completionItem.insertText = new SnippetString(
+                snippet.insertText.join("\n"),
+              );
               completionItems.push(completionItem);
             }
           }
@@ -123,16 +223,36 @@ export default class Completions implements CompletionItemProvider
     }
 
     for (let triggerCharacter of this.triggerCharacters) {
-      if (triggerCharacter === '>') {
-        let isMethod = document.getText(new Range(position.line, position.character >= 2 ? position.character -2 : 0, position.line, position.character)) === '->';
+      if (triggerCharacter === ">") {
+        let isMethod =
+          document.getText(
+            new Range(
+              position.line,
+              position.character >= 2 ? position.character - 2 : 0,
+              position.line,
+              position.character,
+            ),
+          ) === "->";
         if (isMethod) {
           for (let item of classes) {
-            if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false)) {
+            if (
+              typeof item.compat === "undefined" &&
+              (typeof item.deprecated === "undefined" ||
+                item.deprecated === false)
+            ) {
               for (let method of item.methods) {
-                if (typeof method.static === 'undefined' || method.static === false) {
-                  let completionItem = new CompletionItem(`(${item.name}) ${method.name}`, CompletionItemKind.Method);
+                if (
+                  typeof method.static === "undefined" ||
+                  method.static === false
+                ) {
+                  let completionItem = new CompletionItem(
+                    `(${item.name}) ${method.name}`,
+                    CompletionItemKind.Method,
+                  );
                   completionItem.detail = method.detail;
-                  completionItem.documentation = new MarkdownString(method.documentation);
+                  completionItem.documentation = new MarkdownString(
+                    method.documentation,
+                  );
                   completionItem.insertText = new SnippetString(method.value);
                   completionItems.push(completionItem);
                 }
@@ -140,21 +260,49 @@ export default class Completions implements CompletionItemProvider
             }
           }
         }
-      } else if (triggerCharacter === ':') {
-        let isMethod = document.getText(new Range(position.line, position.character >= 2 ? position.character -2 : 0, position.line, position.character)) === '::';
+      } else if (triggerCharacter === ":") {
+        let isMethod =
+          document.getText(
+            new Range(
+              position.line,
+              position.character >= 2 ? position.character - 2 : 0,
+              position.line,
+              position.character,
+            ),
+          ) === "::";
         if (isMethod) {
-          const wordRange = document.getWordRangeAtPosition(new Position(position.line, position.character >= 3 ? position.character -3 : 0));
+          const wordRange = document.getWordRangeAtPosition(
+            new Position(
+              position.line,
+              position.character >= 3 ? position.character - 3 : 0,
+            ),
+          );
           if (wordRange !== undefined) {
             const className = document.getText(wordRange);
             if (className) {
               for (let item of classes) {
-                if (typeof item.compat === 'undefined' && (typeof item.deprecated === 'undefined' || item.deprecated === false) && item.name === className) {
+                if (
+                  typeof item.compat === "undefined" &&
+                  (typeof item.deprecated === "undefined" ||
+                    item.deprecated === false) &&
+                  item.name === className
+                ) {
                   for (let method of item.methods) {
-                    if (typeof method.static !== 'undefined' && method.static === true) {
-                      let completionItem = new CompletionItem(method.name, CompletionItemKind.Method);
+                    if (
+                      typeof method.static !== "undefined" &&
+                      method.static === true
+                    ) {
+                      let completionItem = new CompletionItem(
+                        method.name,
+                        CompletionItemKind.Method,
+                      );
                       completionItem.detail = method.detail;
-                      completionItem.documentation = new MarkdownString(method.documentation);
-                      completionItem.insertText = new SnippetString(method.value);
+                      completionItem.documentation = new MarkdownString(
+                        method.documentation,
+                      );
+                      completionItem.insertText = new SnippetString(
+                        method.value,
+                      );
                       completionItems.push(completionItem);
                     }
                   }
@@ -163,46 +311,99 @@ export default class Completions implements CompletionItemProvider
             }
           }
         }
-      } else if (triggerCharacter === '[' || triggerCharacter === '"') {
-        let variable = parseVariable(document, position, triggerCharacter === '[' ? false : true, []);
+      } else if (triggerCharacter === "[" || triggerCharacter === '"') {
+        let variable = parseVariable(
+          document,
+          position,
+          triggerCharacter === "[" ? false : true,
+          [],
+        );
         if (variable) {
           let keys = matchVariable(variable, variables, true);
           if (keys) {
             for (let v of keys) {
               let value = v.documentation;
               if (v.example !== undefined)
-                value = value + '\n\n' + 'Example: `' + v.example + '`';
-              let completionItem = new CompletionItem(v.name, CompletionItemKind.Text);
+                value = value + "\n\n" + "Example: `" + v.example + "`";
+              let completionItem = new CompletionItem(
+                v.name,
+                CompletionItemKind.Text,
+              );
               completionItem.detail = v.detail;
               completionItem.documentation = new MarkdownString(value);
-              completionItem.insertText = new SnippetString((triggerCharacter === '[' ? '"' : '') + v.name + '"]');
-              completionItem.range = new Range(position.line, position.character, position.line, position.character + (triggerCharacter === '[' ? 1 : 2));
+              completionItem.insertText = new SnippetString(
+                (triggerCharacter === "[" ? '"' : "") + v.name + '"]',
+              );
+              completionItem.range = new Range(
+                position.line,
+                position.character,
+                position.line,
+                position.character + (triggerCharacter === "[" ? 1 : 2),
+              );
               completionItems.push(completionItem);
             }
           }
         }
         if (triggerCharacter === '"') {
-          const isImport = document.getText(new Range(position.line, position.character >= 7 ? position.character -7 : 0, position.line, position.character)) === ' from "';
-          const isInclude = document.getText(new Range(position.line, position.character >= 9 ? position.character -9 : 0, position.line, position.character)) === 'include "';
-          const isIncludeOnce = document.getText(new Range(position.line, position.character >= 14 ? position.character -14 : 0, position.line, position.character)) === 'include_once "';
+          const isImport =
+            document.getText(
+              new Range(
+                position.line,
+                position.character >= 7 ? position.character - 7 : 0,
+                position.line,
+                position.character,
+              ),
+            ) === ' from "';
+          const isInclude =
+            document.getText(
+              new Range(
+                position.line,
+                position.character >= 9 ? position.character - 9 : 0,
+                position.line,
+                position.character,
+              ),
+            ) === 'include "';
+          const isIncludeOnce =
+            document.getText(
+              new Range(
+                position.line,
+                position.character >= 14 ? position.character - 14 : 0,
+                position.line,
+                position.character,
+              ),
+            ) === 'include_once "';
           if (isImport || isInclude || isIncludeOnce) {
             let workspacePath: string | null = null;
 
             // Get workspace path
             const workspaceFolder = workspace.getWorkspaceFolder(document.uri);
-            if (typeof workspaceFolder !== 'undefined') {
+            if (typeof workspaceFolder !== "undefined") {
               workspacePath = workspaceFolder.uri.fsPath;
             }
 
             if (workspacePath) {
-              for (let i of readdirSyncRecursive(path.join(workspacePath, "src", "files"))) {
-                const id = path.relative(path.join(workspacePath, "src", "files"), i).split(path.sep).join(path.posix.sep);
-                const hidden = id.split(path.posix.sep).filter(i => i.charAt(0) === '.');
-                if (hidden.length > 0)
-                  continue;
-                let completionItem = new CompletionItem(id, CompletionItemKind.File);
+              for (let i of readdirSyncRecursive(
+                path.join(workspacePath, "src", "files"),
+              )) {
+                const id = path
+                  .relative(path.join(workspacePath, "src", "files"), i)
+                  .split(path.sep)
+                  .join(path.posix.sep);
+                const hidden = id
+                  .split(path.posix.sep)
+                  .filter((i) => i.charAt(0) === ".");
+                if (hidden.length > 0) continue;
+                let completionItem = new CompletionItem(
+                  id,
+                  CompletionItemKind.File,
+                );
                 completionItem.insertText = new SnippetString(id + '";');
-                completionItem.range = new Range(position.line, position.character, position.line, position.character + 2);
+                completionItem.range = new Range(
+                  position.line,
+                  position.character,
+                  position.line,
+                  position.character + 2,
+                );
                 completionItems.push(completionItem);
               }
             }
@@ -213,13 +414,13 @@ export default class Completions implements CompletionItemProvider
             let extrasPath: string | null = null;
 
             // Get plugins path
-            if (fs.existsSync(path.join('/opt', 'halon', 'plugins'))) {
-              pluginsPath = path.join('/opt', 'halon', 'plugins');
+            if (fs.existsSync(path.join("/opt", "halon", "plugins"))) {
+              pluginsPath = path.join("/opt", "halon", "plugins");
             }
 
             // Get extras path
-            if (fs.existsSync(path.join('/opt', 'halon', 'plugins', 'hsl'))) {
-              extrasPath = path.join('/opt', 'halon', 'plugins', 'hsl');
+            if (fs.existsSync(path.join("/opt", "halon", "plugins", "hsl"))) {
+              extrasPath = path.join("/opt", "halon", "plugins", "hsl");
             }
 
             if (pluginsPath) {
@@ -228,19 +429,36 @@ export default class Completions implements CompletionItemProvider
               list.forEach((file) => {
                 file = pluginsPath + path.sep + file;
                 var stat = fs.statSync(file);
-                if (stat && stat.isFile() && path.extname(file) === '.so') {
+                if (stat && stat.isFile() && path.extname(file) === ".so") {
                   results.push(file);
                 }
               });
               for (let i of results) {
-                const id = path.basename(path.relative(pluginsPath, i).split(path.sep).join(path.posix.sep), '.so');
-                const hidden = id.split(path.posix.sep).filter(i => i.charAt(0) === '.');
-                if (hidden.length > 0)
-                  continue;
-                
-                let completionItem = new CompletionItem('extras://' + id, CompletionItemKind.File);
-                completionItem.insertText = new SnippetString('extras://' + id + '";');
-                completionItem.range = new Range(position.line, position.character, position.line, position.character + 2);
+                const id = path.basename(
+                  path
+                    .relative(pluginsPath, i)
+                    .split(path.sep)
+                    .join(path.posix.sep),
+                  ".so",
+                );
+                const hidden = id
+                  .split(path.posix.sep)
+                  .filter((i) => i.charAt(0) === ".");
+                if (hidden.length > 0) continue;
+
+                let completionItem = new CompletionItem(
+                  "extras://" + id,
+                  CompletionItemKind.File,
+                );
+                completionItem.insertText = new SnippetString(
+                  "extras://" + id + '";',
+                );
+                completionItem.range = new Range(
+                  position.line,
+                  position.character,
+                  position.line,
+                  position.character + 2,
+                );
                 completionItems.push(completionItem);
               }
             }
@@ -256,13 +474,27 @@ export default class Completions implements CompletionItemProvider
                 }
               });
               for (let i of results) {
-                const id = path.relative(extrasPath, i).split(path.sep).join(path.posix.sep);
-                const hidden = id.split(path.posix.sep).filter(i => i.charAt(0) === '.');
-                if (hidden.length > 0)
-                  continue;
-                let completionItem = new CompletionItem('extras://' + id, CompletionItemKind.File);
-                completionItem.insertText = new SnippetString('extras://' + id + '";');
-                completionItem.range = new Range(position.line, position.character, position.line, position.character + 2);
+                const id = path
+                  .relative(extrasPath, i)
+                  .split(path.sep)
+                  .join(path.posix.sep);
+                const hidden = id
+                  .split(path.posix.sep)
+                  .filter((i) => i.charAt(0) === ".");
+                if (hidden.length > 0) continue;
+                let completionItem = new CompletionItem(
+                  "extras://" + id,
+                  CompletionItemKind.File,
+                );
+                completionItem.insertText = new SnippetString(
+                  "extras://" + id + '";',
+                );
+                completionItem.range = new Range(
+                  position.line,
+                  position.character,
+                  position.line,
+                  position.character + 2,
+                );
                 completionItems.push(completionItem);
               }
             }

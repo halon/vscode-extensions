@@ -112,7 +112,7 @@
         "1": { "name": "keyword.other.hsl" }
       },
       "patterns": []
-    },		
+    },
     "numbers": {
       "patterns": [
         {
@@ -152,7 +152,7 @@
       "patterns": [
         {
           "name": "comment.line.double-slash.hsl",
-          "match": "\\\/\\\/.*"
+          "match": "\\/\\/.*"
         },
         {
           "name": "comment.block.hsl",
