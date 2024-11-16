@@ -121,7 +121,7 @@
   "scripts": {
     "vscode:prepublish": "npm run package-ext",
     "compile": "webpack --config ./webpack.config.js",
-    "lint": "eslint src --ext ts",
+    "lint": "tsc --noEmit && eslint src/**/*.{js,cjs,mjs,ts,cts,mts} --report-unused-disable-directives --max-warnings 0",
     "watch": "webpack --watch --devtool nosources-source-map --config ./webpack.config.js",
     "pretest": "npm run compile && npm run lint",
     "package": "vsce package",
@@ -142,19 +142,20 @@
     "redhat.vscode-yaml"
   ],
   "devDependencies": {
+    "@eslint/js": "^9.14.0",
     "@halon/hsl-docs": "github:halon/hsl-docs#3c4292b0dbea350a816532968733ca7b73f74b77",
     "@types/glob": "^7.2.0",
     "@types/is-utf8": "^0.2.0",
     "@types/node": "^15.12.2",
     "@types/vscode": "^1.56.0",
-    "@typescript-eslint/eslint-plugin": "^4.31.2",
-    "@typescript-eslint/parser": "^4.31.2",
     "@vscode/vsce": "^2.19.0",
     "copy-webpack-plugin": "^9.0.1",
-    "eslint": "^7.32.0",
+    "eslint": "^9.14.0",
+    "globals": "^15.12.0",
     "prettier": "^3.3.3",
     "ts-loader": "^9.2.3",
-    "typescript": "^4.3.2",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.14.0",
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4"
   },
