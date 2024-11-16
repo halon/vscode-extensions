@@ -13,8 +13,16 @@
         "halon.hsl-linter",
         "dbaeumer.vscode-eslint",
         "amodio.tsl-problem-matcher",
-        "editorconfig.editorconfig"
-      ]
+        "editorconfig.editorconfig",
+        "esbenp.prettier-vscode"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "[json]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        }
+      }
     }
   },
   "mounts": [
