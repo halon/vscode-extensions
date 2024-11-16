@@ -1,7 +1,10 @@
 {
   "recommendations": [
-    "amodio.tsl-problem-matcher",
+    "halon.hsl-syntax",
+    "halon.vscode-halon",
+    "halon.hsl-linter",
     "dbaeumer.vscode-eslint",
+    "amodio.tsl-problem-matcher",
     "editorconfig.editorconfig"
   ]
 }

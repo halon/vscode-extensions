@@ -13,3 +13,4 @@ sampleWorkspace
 .devcontainer
 .DS_Store
 .npmrc
+license.key

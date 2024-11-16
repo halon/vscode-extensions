@@ -1,3 +1,9 @@
+out
+/dist
 node_modules
 *.vsix
 .DS_Store
+*.deb
+license.key
+sampleWorkspace/dist/**/*
+!.gitkeep

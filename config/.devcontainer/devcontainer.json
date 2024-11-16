@@ -9,9 +9,12 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "Halon.vscode-halon",
-        "Halon.hsl-linter",
-        "dbaeumer.vscode-eslint"
+        "halon.hsl-syntax",
+        "halon.hsl-linter",
+        "dbaeumer.vscode-eslint",
+        "amodio.tsl-problem-matcher",
+        "editorconfig.editorconfig",
+        "redhat.vscode-yaml"
       ]
     }
   },

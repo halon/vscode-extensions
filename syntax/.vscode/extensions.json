@@ -1,5 +1,9 @@
 {
   "recommendations": [
+    "halon.vscode-halon",
+    "halon.hsl-linter",
+    "dbaeumer.vscode-eslint",
+    "amodio.tsl-problem-matcher",
     "editorconfig.editorconfig"
   ]
 }
