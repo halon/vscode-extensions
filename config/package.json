@@ -2,7 +2,7 @@
   "private": true,
   "version": "6.4.1",
   "engines": {
-    "vscode": "^1.56.2"
+    "vscode": "^1.75.0"
   },
   "name": "vscode-halon",
   "displayName": "Halon Configuration Packer",
@@ -115,9 +115,7 @@
     ]
   },
   "activationEvents": [
-    "onLanguage:hsl",
-    "onCommand:halon.init",
-    "onCommand:halon.build"
+    "onLanguage:hsl"
   ],
   "qna": false,
   "scripts": {

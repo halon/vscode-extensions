@@ -2,7 +2,7 @@
   "private": true,
   "version": "1.1.0",
   "engines": {
-    "vscode": "^1.56.2"
+    "vscode": "^1.75.0"
   },
   "name": "hsl-debug",
   "displayName": "Halon Scripting Language Debugger",
