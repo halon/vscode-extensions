@@ -536,10 +536,7 @@ export const generate = (base: string = ".") => {
     }
   }
 
-  try {
-    validate.validate(returnValue);
-  } catch (err: any) {
-    throw new Error(`${err.source}: ${JSON.stringify(err.errors)}`);
-  }
+  validate.validate(returnValue);
+
   return returnValue;
 };

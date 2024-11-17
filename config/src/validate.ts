@@ -44,7 +44,7 @@ export const validate = (config: {
   for (const [source, file] of configs) {
     if (config[source]) {
       if (!config[source].version) {
-        throw { source: source, errors: "Missing version" };
+        throw new Error(`${source}: "Missing version"`);
       }
       const project =
         source === "submission_tracking"
@@ -60,12 +60,12 @@ export const validate = (config: {
         file,
       );
       if (!fs.existsSync(schemaPath)) {
-        throw { source: source, errors: "Unknown version" };
+        throw new Error(`${source}: "Unknown version"`);
       }
       const schema = JSON.parse(fs.readFileSync(schemaPath, "utf-8"));
       const result = ajv.compile(schema);
       if (!result(config[source])) {
-        throw { source: source, errors: result.errors };
+        throw new Error(`${source}: ${JSON.stringify(result.errors)}`);
       }
     }
   }
