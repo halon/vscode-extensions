@@ -125,7 +125,11 @@ export class HSLRuntime extends EventEmitter {
     try {
       config = this.generateConfig(this._workspaceFolder);
     } catch (error) {
-      window.showErrorMessage(error.message || error);
+      if (error instanceof Error) {
+        window.showErrorMessage(error.message);
+      } else {
+        window.showErrorMessage(String(error));
+      }
       this.sendEvent("end");
       return;
     }
