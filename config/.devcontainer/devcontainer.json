@@ -7,10 +7,11 @@
   "customizations": {
     "vscode": {
       "extensions": [
+        "dbaeumer.vscode-eslint",
+        "connor4312.esbuild-problem-matchers",
+        "ms-vscode.extension-test-runner",
         "halon.hsl-syntax",
         "halon.hsl-linter",
-        "dbaeumer.vscode-eslint",
-        "amodio.tsl-problem-matcher",
         "redhat.vscode-yaml",
         "esbenp.prettier-vscode"
       ],

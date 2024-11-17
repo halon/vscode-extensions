@@ -2,7 +2,7 @@
   "private": true,
   "version": "1.0.5",
   "engines": {
-    "vscode": "*"
+    "vscode": "^1.95.0"
   },
   "name": "hsl-syntax",
   "displayName": "Halon Scripting Language Syntax",
@@ -58,7 +58,6 @@
   },
   "qna": false,
   "scripts": {
-    "package": "vsce package",
     "publish": "vsce publish",
     "format": "prettier --write ."
   },
@@ -72,7 +71,7 @@
   },
   "homepage": "https://github.com/halon/vscode-extensions",
   "devDependencies": {
-    "@vscode/vsce": "^2.19.0",
+    "@vscode/vsce": "^3.2.1",
     "prettier": "^3.3.3"
   }
 }
