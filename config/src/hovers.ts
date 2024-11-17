@@ -50,8 +50,9 @@ export default class Hovers implements HoverProvider {
             new MarkdownString().appendCodeblock(key.detail, "plaintext"),
             new MarkdownString(key.documentation),
           ];
-          if (key.example)
+          if (key.example) {
             contents.push(new MarkdownString("Example: `" + key.example + "`"));
+          }
           return new Hover(contents);
         }
       } else if (isStaticMethod) {
@@ -138,10 +139,11 @@ export default class Hovers implements HoverProvider {
                 new MarkdownString().appendCodeblock(item.detail, "plaintext"),
                 new MarkdownString(item.documentation),
               ];
-              if (item.example)
+              if (item.example) {
                 contents.push(
                   new MarkdownString("Example: `" + item.example + "`"),
                 );
+              }
               return new Hover(contents);
             }
           }

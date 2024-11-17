@@ -137,8 +137,9 @@ export default class Completions implements CompletionItemProvider {
               item.name === "EODMailMessage" ||
               item.name === "MIMEPart" ||
               item.name === "LDAPResult"
-            )
+            ) {
               continue;
+            }
             let completionItem = new CompletionItem(
               item.name,
               CompletionItemKind.Class,
@@ -323,8 +324,9 @@ export default class Completions implements CompletionItemProvider {
           if (keys) {
             for (let v of keys) {
               let value = v.documentation;
-              if (v.example !== undefined)
+              if (v.example !== undefined) {
                 value = value + "\n\n" + "Example: `" + v.example + "`";
+              }
               let completionItem = new CompletionItem(
                 v.name,
                 CompletionItemKind.Text,
@@ -392,7 +394,9 @@ export default class Completions implements CompletionItemProvider {
                 const hidden = id
                   .split(path.posix.sep)
                   .filter((i) => i.charAt(0) === ".");
-                if (hidden.length > 0) continue;
+                if (hidden.length > 0) {
+                  continue;
+                }
                 let completionItem = new CompletionItem(
                   id,
                   CompletionItemKind.File,
@@ -444,7 +448,9 @@ export default class Completions implements CompletionItemProvider {
                 const hidden = id
                   .split(path.posix.sep)
                   .filter((i) => i.charAt(0) === ".");
-                if (hidden.length > 0) continue;
+                if (hidden.length > 0) {
+                  continue;
+                }
 
                 let completionItem = new CompletionItem(
                   "extras://" + id,
@@ -481,7 +487,9 @@ export default class Completions implements CompletionItemProvider {
                 const hidden = id
                   .split(path.posix.sep)
                   .filter((i) => i.charAt(0) === ".");
-                if (hidden.length > 0) continue;
+                if (hidden.length > 0) {
+                  continue;
+                }
                 let completionItem = new CompletionItem(
                   "extras://" + id,
                   CompletionItemKind.File,

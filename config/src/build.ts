@@ -12,16 +12,22 @@ export const readdirSyncRecursive = (dir: string) => {
   list.forEach((file) => {
     file = dir + path.sep + file;
     var stat = fs.statSync(file);
-    if (stat && stat.isDirectory())
+    if (stat && stat.isDirectory()) {
       results = results.concat(readdirSyncRecursive(file));
-    else results.push(file);
+    } else {
+      results.push(file);
+    }
   });
   return results;
 };
 
 const addFile = (config: any, script: any) => {
-  if (!config.scripting) config.scripting = {};
-  if (!config.scripting.files) config.scripting.files = [];
+  if (!config.scripting) {
+    config.scripting = {};
+  }
+  if (!config.scripting.files) {
+    config.scripting.files = [];
+  }
   if (config.scripting.files.find((file) => file.id === script.id)) {
     config.scripting.files = config.scripting.files.map((file) =>
       file.id === script.id ? script : file,
@@ -32,9 +38,15 @@ const addFile = (config: any, script: any) => {
 };
 
 const addHook = (config: any, type: any, script: any) => {
-  if (!config.scripting) config.scripting = {};
-  if (!config.scripting.hooks) config.scripting.hooks = {};
-  if (!config.scripting.hooks[type]) config.scripting.hooks[type] = [];
+  if (!config.scripting) {
+    config.scripting = {};
+  }
+  if (!config.scripting.hooks) {
+    config.scripting.hooks = {};
+  }
+  if (!config.scripting.hooks[type]) {
+    config.scripting.hooks[type] = [];
+  }
   config.scripting.hooks[type].push(script);
 };
 
@@ -52,31 +64,42 @@ const extractHooks = (config: any) => {
   if (config.servers) {
     for (let server of config.servers) {
       if (server.phases) {
-        if (server.phases.connect && server.phases.connect.hook)
+        if (server.phases.connect && server.phases.connect.hook) {
           hooks.connect.push(server.phases.connect.hook);
-        if (server.phases.disconnect && server.phases.disconnect.hook)
+        }
+        if (server.phases.disconnect && server.phases.disconnect.hook) {
           hooks.disconnect.push(server.phases.disconnect.hook);
-        if (server.phases.proxy && server.phases.proxy.hook)
+        }
+        if (server.phases.proxy && server.phases.proxy.hook) {
           hooks.proxy.push(server.phases.proxy.hook);
-        if (server.phases.helo && server.phases.helo.hook)
+        }
+        if (server.phases.helo && server.phases.helo.hook) {
           hooks.helo.push(server.phases.helo.hook);
-        if (server.phases.auth && server.phases.auth.hook)
+        }
+        if (server.phases.auth && server.phases.auth.hook) {
           hooks.auth.push(server.phases.auth.hook);
-        if (server.phases.mailfrom && server.phases.mailfrom.hook)
+        }
+        if (server.phases.mailfrom && server.phases.mailfrom.hook) {
           hooks.mailfrom.push(server.phases.mailfrom.hook);
+        }
         if (server.phases.rcptto && server.phases.rcptto.hook) {
           var hook = server.phases.rcptto.hook;
-          if (typeof hook == "string") hooks.rcptto.push(hook);
-          else {
-            if (hook.id) hooks.rcptto.push(hook.id);
+          if (typeof hook === "string") {
+            hooks.rcptto.push(hook);
+          } else {
+            if (hook.id) {
+              hooks.rcptto.push(hook.id);
+            }
             if (hook.recipientdomains) {
-              for (let i in hook.recipientdomains)
+              for (let i in hook.recipientdomains) {
                 hooks.rcptto.push(hook.recipientdomains[i]);
+              }
             }
           }
         }
-        if (server.phases.eod && server.phases.eod.hook)
+        if (server.phases.eod && server.phases.eod.hook) {
           hooks.eod.push(server.phases.eod.hook);
+        }
       }
     }
   }
@@ -87,91 +110,108 @@ const extractHooks = (config: any) => {
 };
 
 export const run = (base: string = ".") => {
-  if (!fs.existsSync(path.join(base, "dist")))
+  if (!fs.existsSync(path.join(base, "dist"))) {
     fs.mkdirSync(path.join(base, "dist"));
+  }
 
   const config = generate(base);
 
-  if (config.smtpd)
+  if (config.smtpd) {
     fs.writeFileSync(
       path.join(base, "dist", "smtpd.yaml"),
       yaml.stringify(config.smtpd),
     );
-  if (config.smtpd_app)
+  }
+  if (config.smtpd_app) {
     fs.writeFileSync(
       path.join(base, "dist", "smtpd-app.yaml"),
       yaml.stringify(config.smtpd_app),
     );
-  if (config.smtpd_policy)
+  }
+  if (config.smtpd_policy) {
     fs.writeFileSync(
       path.join(base, "dist", "smtpd-policy.yaml"),
       yaml.stringify(config.smtpd_policy),
     );
-  if (config.smtpd_suspend)
+  }
+  if (config.smtpd_suspend) {
     fs.writeFileSync(
       path.join(base, "dist", "smtpd-suspend.yaml"),
       yaml.stringify(config.smtpd_suspend),
     );
-  if (config.smtpd_delivery)
+  }
+  if (config.smtpd_delivery) {
     fs.writeFileSync(
       path.join(base, "dist", "smtpd-delivery.yaml"),
       yaml.stringify(config.smtpd_delivery),
     );
-  if (config.halonctl)
+  }
+  if (config.halonctl) {
     fs.writeFileSync(
       path.join(base, "dist", "halonctl.yaml"),
       yaml.stringify(config.halonctl),
     );
-  if (config.rated)
+  }
+  if (config.rated) {
     fs.writeFileSync(
       path.join(base, "dist", "rated.yaml"),
       yaml.stringify(config.rated),
     );
-  if (config.rated_app)
+  }
+  if (config.rated_app) {
     fs.writeFileSync(
       path.join(base, "dist", "rated-app.yaml"),
       yaml.stringify(config.rated_app),
     );
-  if (config.ratectl)
+  }
+  if (config.ratectl) {
     fs.writeFileSync(
       path.join(base, "dist", "ratectl.yaml"),
       yaml.stringify(config.ratectl),
     );
-  if (config.dlpd)
+  }
+  if (config.dlpd) {
     fs.writeFileSync(
       path.join(base, "dist", "dlpd.yaml"),
       yaml.stringify(config.dlpd),
     );
-  if (config.dlpd_app)
+  }
+  if (config.dlpd_app) {
     fs.writeFileSync(
       path.join(base, "dist", "dlpd-app.yaml"),
       yaml.stringify(config.dlpd_app),
     );
-  if (config.dlpctl)
+  }
+  if (config.dlpctl) {
     fs.writeFileSync(
       path.join(base, "dist", "dlpctl.yaml"),
       yaml.stringify(config.dlpctl),
     );
-  if (config.api)
+  }
+  if (config.api) {
     fs.writeFileSync(
       path.join(base, "dist", "api.yaml"),
       yaml.stringify(config.api),
     );
-  if (config.web)
+  }
+  if (config.web) {
     fs.writeFileSync(
       path.join(base, "dist", "web.yaml"),
       yaml.stringify(config.web),
     );
-  if (config.submission)
+  }
+  if (config.submission) {
     fs.writeFileSync(
       path.join(base, "dist", "submission.yaml"),
       yaml.stringify(config.submission),
     );
-  if (config.submission_tracking)
+  }
+  if (config.submission_tracking) {
     fs.writeFileSync(
       path.join(base, "dist", "submission-tracking.yaml"),
       yaml.stringify(config.submission_tracking),
     );
+  }
 };
 
 export const generate = (base: string = ".") => {
@@ -229,7 +269,9 @@ export const generate = (base: string = ".") => {
       path.join(base, "src", "config", "smtpd.yaml"),
       "utf-8",
     );
-    if (file) returnValue.smtpd = yaml.parse(file);
+    if (file) {
+      returnValue.smtpd = yaml.parse(file);
+    }
   }
 
   if (fs.existsSync(path.join(base, "src", "config", "smtpd-app.yaml"))) {
@@ -264,8 +306,12 @@ export const generate = (base: string = ".") => {
         "predelivery.hsl",
       );
       if (fs.existsSync(filePath)) {
-        if (!config.scripting) config.scripting = {};
-        if (!config.scripting.hooks) config.scripting.hooks = {};
+        if (!config.scripting) {
+          config.scripting = {};
+        }
+        if (!config.scripting.hooks) {
+          config.scripting.hooks = {};
+        }
         config.scripting.hooks.predelivery = fs
           .readFileSync(filePath)
           .toString();
@@ -273,8 +319,12 @@ export const generate = (base: string = ".") => {
 
       filePath = path.join(base, "src", "hooks", "queue", "postdelivery.hsl");
       if (fs.existsSync(filePath)) {
-        if (!config.scripting) config.scripting = {};
-        if (!config.scripting.hooks) config.scripting.hooks = {};
+        if (!config.scripting) {
+          config.scripting = {};
+        }
+        if (!config.scripting.hooks) {
+          config.scripting.hooks = {};
+        }
         config.scripting.hooks.postdelivery = fs
           .readFileSync(filePath)
           .toString();
@@ -308,7 +358,9 @@ export const generate = (base: string = ".") => {
           const hidden = id
             .split(path.posix.sep)
             .filter((i) => i.charAt(0) === ".");
-          if (hidden.length > 0) continue;
+          if (hidden.length > 0) {
+            continue;
+          }
 
           const excluded = exclude.find((x) => {
             const relative = path.relative(x[0], `${path.posix.sep}${id}`);
@@ -321,7 +373,9 @@ export const generate = (base: string = ".") => {
             }
           });
 
-          if (excluded) continue;
+          if (excluded) {
+            continue;
+          }
 
           const buffer = fs.readFileSync(i);
 
@@ -345,7 +399,9 @@ export const generate = (base: string = ".") => {
       path.join(base, "src", "config", "smtpd-policy.yaml"),
       "utf-8",
     );
-    if (file) returnValue.smtpd_policy = yaml.parse(file);
+    if (file) {
+      returnValue.smtpd_policy = yaml.parse(file);
+    }
   }
 
   if (fs.existsSync(path.join(base, "src", "config", "smtpd-suspend.yaml"))) {
@@ -353,7 +409,9 @@ export const generate = (base: string = ".") => {
       path.join(base, "src", "config", "smtpd-suspend.yaml"),
       "utf-8",
     );
-    if (file) returnValue.smtpd_suspend = yaml.parse(file);
+    if (file) {
+      returnValue.smtpd_suspend = yaml.parse(file);
+    }
   }
 
   if (fs.existsSync(path.join(base, "src", "config", "smtpd-delivery.yaml"))) {
@@ -361,7 +419,9 @@ export const generate = (base: string = ".") => {
       path.join(base, "src", "config", "smtpd-delivery.yaml"),
       "utf-8",
     );
-    if (file) returnValue.smtpd_delivery = yaml.parse(file);
+    if (file) {
+      returnValue.smtpd_delivery = yaml.parse(file);
+    }
   }
 
   if (fs.existsSync(path.join(base, "src", "config", "halonctl.yaml"))) {
@@ -369,7 +429,9 @@ export const generate = (base: string = ".") => {
       path.join(base, "src", "config", "halonctl.yaml"),
       "utf-8",
     );
-    if (file) returnValue.halonctl = yaml.parse(file);
+    if (file) {
+      returnValue.halonctl = yaml.parse(file);
+    }
   }
 
   if (fs.existsSync(path.join(base, "src", "config", "rated.yaml"))) {
@@ -377,7 +439,9 @@ export const generate = (base: string = ".") => {
       path.join(base, "src", "config", "rated.yaml"),
       "utf-8",
     );
-    if (file) returnValue.rated = yaml.parse(file);
+    if (file) {
+      returnValue.rated = yaml.parse(file);
+    }
   }
 
   if (fs.existsSync(path.join(base, "src", "config", "rated-app.yaml"))) {
@@ -385,7 +449,9 @@ export const generate = (base: string = ".") => {
       path.join(base, "src", "config", "rated-app.yaml"),
       "utf-8",
     );
-    if (file) returnValue.rated_app = yaml.parse(file);
+    if (file) {
+      returnValue.rated_app = yaml.parse(file);
+    }
   }
 
   if (fs.existsSync(path.join(base, "src", "config", "ratectl.yaml"))) {
@@ -393,7 +459,9 @@ export const generate = (base: string = ".") => {
       path.join(base, "src", "config", "ratectl.yaml"),
       "utf-8",
     );
-    if (file) returnValue.ratectl = yaml.parse(file);
+    if (file) {
+      returnValue.ratectl = yaml.parse(file);
+    }
   }
 
   if (fs.existsSync(path.join(base, "src", "config", "dlpd.yaml"))) {
@@ -401,7 +469,9 @@ export const generate = (base: string = ".") => {
       path.join(base, "src", "config", "dlpd.yaml"),
       "utf-8",
     );
-    if (file) returnValue.dlpd = yaml.parse(file);
+    if (file) {
+      returnValue.dlpd = yaml.parse(file);
+    }
   }
 
   if (fs.existsSync(path.join(base, "src", "config", "dlpd-app.yaml"))) {
@@ -409,7 +479,9 @@ export const generate = (base: string = ".") => {
       path.join(base, "src", "config", "dlpd-app.yaml"),
       "utf-8",
     );
-    if (file) returnValue.dlpd_app = yaml.parse(file);
+    if (file) {
+      returnValue.dlpd_app = yaml.parse(file);
+    }
   }
 
   if (fs.existsSync(path.join(base, "src", "config", "dlpctl.yaml"))) {
@@ -417,7 +489,9 @@ export const generate = (base: string = ".") => {
       path.join(base, "src", "config", "dlpctl.yaml"),
       "utf-8",
     );
-    if (file) returnValue.dlpctl = yaml.parse(file);
+    if (file) {
+      returnValue.dlpctl = yaml.parse(file);
+    }
   }
 
   if (fs.existsSync(path.join(base, "src", "config", "api.yaml"))) {
@@ -425,7 +499,9 @@ export const generate = (base: string = ".") => {
       path.join(base, "src", "config", "api.yaml"),
       "utf-8",
     );
-    if (file) returnValue.api = yaml.parse(file);
+    if (file) {
+      returnValue.api = yaml.parse(file);
+    }
   }
 
   if (fs.existsSync(path.join(base, "src", "config", "web.yaml"))) {
@@ -433,7 +509,9 @@ export const generate = (base: string = ".") => {
       path.join(base, "src", "config", "web.yaml"),
       "utf-8",
     );
-    if (file) returnValue.web = yaml.parse(file);
+    if (file) {
+      returnValue.web = yaml.parse(file);
+    }
   }
 
   if (fs.existsSync(path.join(base, "src", "config", "submission.yaml"))) {
@@ -441,7 +519,9 @@ export const generate = (base: string = ".") => {
       path.join(base, "src", "config", "submission.yaml"),
       "utf-8",
     );
-    if (file) returnValue.submission = yaml.parse(file);
+    if (file) {
+      returnValue.submission = yaml.parse(file);
+    }
   }
 
   if (
@@ -451,7 +531,9 @@ export const generate = (base: string = ".") => {
       path.join(base, "src", "config", "submission-tracking.yaml"),
       "utf-8",
     );
-    if (file) returnValue.submission_tracking = yaml.parse(file);
+    if (file) {
+      returnValue.submission_tracking = yaml.parse(file);
+    }
   }
 
   try {

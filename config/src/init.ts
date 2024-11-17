@@ -8,17 +8,22 @@ export const run = (
   template = "minimal",
   development = "none",
 ) => {
-  if (base === null) base = ".";
+  if (base === null) {
+    base = ".";
+  }
 
-  if (fs.existsSync(path.join(base, "src")))
+  if (fs.existsSync(path.join(base, "src"))) {
     throw new Error('"src" folder already exists in current working directory');
+  }
 
-  if (!fs.existsSync(path.join(base, "dist")))
+  if (!fs.existsSync(path.join(base, "dist"))) {
     fs.mkdirSync(path.join(base, "dist"));
+  }
 
   if (development === "container") {
-    if (!fs.existsSync(path.join(base, ".devcontainer")))
+    if (!fs.existsSync(path.join(base, ".devcontainer"))) {
       fs.mkdirSync(path.join(base, ".devcontainer"));
+    }
 
     fs.writeFileSync(
       path.join(base, ".devcontainer", "devcontainer.json"),
@@ -116,8 +121,9 @@ environment=LD_LIBRARY_PATH="/opt/halon/lib/:%(ENV_LD_LIBRARY_PATH)s"
 `,
     );
 
-    if (!fs.existsSync(path.join(base, ".vscode")))
+    if (!fs.existsSync(path.join(base, ".vscode"))) {
       fs.mkdirSync(path.join(base, ".vscode"));
+    }
 
     fs.writeFileSync(
       path.join(base, ".vscode", "launch.json"),
@@ -162,32 +168,45 @@ environment=LD_LIBRARY_PATH="/opt/halon/lib/:%(ENV_LD_LIBRARY_PATH)s"
     );
   }
 
-  if (!fs.existsSync(path.join(base, "src")))
+  if (!fs.existsSync(path.join(base, "src"))) {
     fs.mkdirSync(path.join(base, "src"));
-  if (!fs.existsSync(path.join(base, "src", "hooks")))
+  }
+  if (!fs.existsSync(path.join(base, "src", "hooks"))) {
     fs.mkdirSync(path.join(base, "src", "hooks"));
-  if (!fs.existsSync(path.join(base, "src", "files")))
+  }
+  if (!fs.existsSync(path.join(base, "src", "files"))) {
     fs.mkdirSync(path.join(base, "src", "files"));
-  if (!fs.existsSync(path.join(base, "src", "hooks", "connect")))
+  }
+  if (!fs.existsSync(path.join(base, "src", "hooks", "connect"))) {
     fs.mkdirSync(path.join(base, "src", "hooks", "connect"));
-  if (!fs.existsSync(path.join(base, "src", "hooks", "disconnect")))
+  }
+  if (!fs.existsSync(path.join(base, "src", "hooks", "disconnect"))) {
     fs.mkdirSync(path.join(base, "src", "hooks", "disconnect"));
-  if (!fs.existsSync(path.join(base, "src", "hooks", "proxy")))
+  }
+  if (!fs.existsSync(path.join(base, "src", "hooks", "proxy"))) {
     fs.mkdirSync(path.join(base, "src", "hooks", "proxy"));
-  if (!fs.existsSync(path.join(base, "src", "hooks", "helo")))
+  }
+  if (!fs.existsSync(path.join(base, "src", "hooks", "helo"))) {
     fs.mkdirSync(path.join(base, "src", "hooks", "helo"));
-  if (!fs.existsSync(path.join(base, "src", "hooks", "auth")))
+  }
+  if (!fs.existsSync(path.join(base, "src", "hooks", "auth"))) {
     fs.mkdirSync(path.join(base, "src", "hooks", "auth"));
-  if (!fs.existsSync(path.join(base, "src", "hooks", "mailfrom")))
+  }
+  if (!fs.existsSync(path.join(base, "src", "hooks", "mailfrom"))) {
     fs.mkdirSync(path.join(base, "src", "hooks", "mailfrom"));
-  if (!fs.existsSync(path.join(base, "src", "hooks", "rcptto")))
+  }
+  if (!fs.existsSync(path.join(base, "src", "hooks", "rcptto"))) {
     fs.mkdirSync(path.join(base, "src", "hooks", "rcptto"));
-  if (!fs.existsSync(path.join(base, "src", "hooks", "eod")))
+  }
+  if (!fs.existsSync(path.join(base, "src", "hooks", "eod"))) {
     fs.mkdirSync(path.join(base, "src", "hooks", "eod"));
-  if (!fs.existsSync(path.join(base, "src", "config")))
+  }
+  if (!fs.existsSync(path.join(base, "src", "config"))) {
     fs.mkdirSync(path.join(base, "src", "config"));
-  if (!fs.existsSync(path.join(base, "src", "hooks", "queue")))
+  }
+  if (!fs.existsSync(path.join(base, "src", "hooks", "queue"))) {
     fs.mkdirSync(path.join(base, "src", "hooks", "queue"));
+  }
 
   const eod_default = `$transactionid = $transaction["id"];
 $sender = $transaction["senderaddress"];
@@ -257,10 +276,15 @@ Accept();
     yaml.stringify(smtpd_app),
   );
   if (development === "container") {
-    if (smtpd_app.scripting === undefined) smtpd_app.scripting = {};
-    if (smtpd_app.scripting.hooks === undefined) smtpd_app.scripting.hooks = {};
-    if (smtpd_app.scripting.hooks.eod === undefined)
+    if (smtpd_app.scripting === undefined) {
+      smtpd_app.scripting = {};
+    }
+    if (smtpd_app.scripting.hooks === undefined) {
+      smtpd_app.scripting.hooks = {};
+    }
+    if (smtpd_app.scripting.hooks.eod === undefined) {
       smtpd_app.scripting.hooks.eod = [];
+    }
     smtpd_app.scripting.hooks.eod.push({ id: "default", data: eod_default });
     fs.writeFileSync(
       path.join(base, "dist", "smtpd-app.yaml"),

@@ -68,14 +68,18 @@ export class HSLDebugSession extends DebugSession {
 
     this._runtime.on("output", (text, filePath, line, column) => {
       const event: DebugProtocol.OutputEvent = new OutputEvent(text);
-      if (filePath)
+      if (filePath) {
         event.body.source = new Source(
           path.basename(filePath),
           this.convertDebuggerPathToClient(filePath),
         );
-      if (line) event.body.line = this.convertDebuggerLineToClient(line);
-      if (column)
+      }
+      if (line) {
+        event.body.line = this.convertDebuggerLineToClient(line);
+      }
+      if (column) {
         event.body.column = this.convertDebuggerColumnToClient(column);
+      }
       this.sendEvent(event);
     });
 
