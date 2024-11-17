@@ -5,7 +5,7 @@ src/**/*
 build
 node_modules
 tsconfig.json
-.eslintrc.json
+eslint.config.mjs
 webpack.config.js
 out
 sampleWorkspace
@@ -13,3 +13,5 @@ sampleWorkspace
 .DS_Store
 .npmrc
 license.key
+.prettierignore
+.prettierrc.mjs

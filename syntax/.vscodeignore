@@ -1,9 +1,10 @@
+.vscode/**/*
 .gitignore
-.vscode
 node_modules
-package-json.lock
 sampleWorkspace
 .devcontainer
 .DS_Store
 .npmrc
 license.key
+.prettierignore
+.prettierrc.mjs
