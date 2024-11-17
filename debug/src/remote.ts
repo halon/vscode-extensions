@@ -2,8 +2,8 @@ import yaml from "yaml";
 import { IConnector, ExecProgram } from "./factory";
 import * as channel from "./channel";
 import kill from "tree-kill";
-import * as smtpd_pb from "@halon/protobuf-schemas/js/smtpd_pb";
-import * as hsh_pb from "@halon/protobuf-schemas/js/hsh_pb";
+import * as smtpdPB from "@halon/protobuf-schemas/js/smtpd_pb";
+import * as hshPB from "@halon/protobuf-schemas/js/hsh_pb";
 import { Smtpd } from "@halon/json-schemas/mta/5.8-stable/ts/smtpd";
 import { HSLLaunchRequestArguments } from "./debug";
 import { SmtpdAppDebug } from "./runtime";
@@ -18,7 +18,7 @@ export const smtpd = (
   conditions: HSLLaunchRequestArguments["conditions"],
   onData: (data: string, error: boolean) => void,
   onError: (error: Error) => void,
-  getBreakPoint: (bp: smtpd_pb.HSLBreakPointResponse) => void,
+  getBreakPoint: (bp: smtpdPB.HSLBreakPointResponse) => void,
 ) => {
   return new Promise<{ terminate: () => void; continue: () => void }>(
     async (resolve, reject) => {
@@ -66,7 +66,7 @@ export const smtpd = (
                 return;
               }
               const bp =
-                smtpd_pb.HSLBreakPointResponse.deserializeBinary(response);
+                smtpdPB.HSLBreakPointResponse.deserializeBinary(response);
               getBreakPoint(bp);
             } else if (cmd === "a" || cmd === "f") {
               cmd = "e";
@@ -81,7 +81,7 @@ export const smtpd = (
         },
         (response) => {
           try {
-            const log = smtpd_pb.HSLLogResponse.deserializeBinary(response);
+            const log = smtpdPB.HSLLogResponse.deserializeBinary(response);
             onData(
               `[${log.getId()}] ${decoder.write(Buffer.from(log.getText_asU8()))}\n`,
               false,
@@ -91,13 +91,13 @@ export const smtpd = (
           }
         },
       );
-      let request = new smtpd_pb.ConfigGreenDeployRequest();
+      let request = new smtpdPB.ConfigGreenDeployRequest();
       request.setId(debugId);
       request.setConfig(yaml.stringify(appConfig));
       request.setConnectionbound(true);
 
       if (conditions !== undefined) {
-        let cond = new smtpd_pb.ConfigGreenConditions();
+        let cond = new smtpdPB.ConfigGreenConditions();
         if (conditions.remoteips !== undefined) {
           cond.setRemoteipsList(conditions.remoteips);
         }
@@ -138,7 +138,7 @@ export const hsh = (
   onData: (data: string, error: boolean) => void,
   onDone: (code: number, signal: string) => void,
   onError: (error: Error) => void,
-  getBreakPoint: (bp: hsh_pb.HSLBreakPointResponse) => void,
+  getBreakPoint: (bp: hshPB.HSLBreakPointResponse) => void,
 ) => {
   return new Promise<{ terminate: () => void; continue: () => void }>(
     async (resolve, reject) => {
@@ -158,7 +158,7 @@ export const hsh = (
                     return;
                   }
                   const bp =
-                    hsh_pb.HSLBreakPointResponse.deserializeBinary(response);
+                    hshPB.HSLBreakPointResponse.deserializeBinary(response);
                   getBreakPoint(bp);
                 } else if (cmd === "f") {
                   cmd = "e";
@@ -173,7 +173,7 @@ export const hsh = (
             },
             (response) => {
               try {
-                const log = hsh_pb.HSLLogResponse.deserializeBinary(response);
+                const log = hshPB.HSLLogResponse.deserializeBinary(response);
                 onData(
                   `${decoder.write(Buffer.from(log.getText_asU8()))}\n`,
                   false,

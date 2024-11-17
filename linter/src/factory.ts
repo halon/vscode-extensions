@@ -1,7 +1,7 @@
 import net from "net";
 import * as stream from "stream";
 import { EventEmitter } from "events";
-import * as child_process from "child_process";
+import * as ChildProcess from "child_process";
 
 export interface ExecProgram extends EventEmitter {
   stdin: stream.Writable;
@@ -50,7 +50,7 @@ export class SocketConnector implements IConnector {
   }
   exec(program: string, argv: string[]) {
     return new Promise<ExecProgram>((resolve, reject) => {
-      resolve(child_process.spawn(program, argv));
+      resolve(ChildProcess.spawn(program, argv));
     });
   }
   dispose() {}

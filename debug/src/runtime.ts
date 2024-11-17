@@ -16,8 +16,8 @@ import * as remote from "./remote";
 import * as factory from "./factory";
 import { HSLLaunchRequestArguments } from "./debug";
 import { v4 as uuidv4 } from "uuid";
-import * as smtpd_pb from "@halon/protobuf-schemas/js/smtpd_pb";
-import * as hsh_pb from "@halon/protobuf-schemas/js/hsh_pb";
+import * as smtpdPB from "@halon/protobuf-schemas/js/smtpd_pb";
+import * as hshPB from "@halon/protobuf-schemas/js/hsh_pb";
 import { Smtpd } from "@halon/json-schemas/mta/5.8-stable/ts/smtpd";
 import { SmtpdApp } from "@halon/json-schemas/mta/5.8-stable/ts/smtpd-app";
 
@@ -384,7 +384,7 @@ export class HSLRuntime extends EventEmitter {
   }
 
   private parseBreakPoint(
-    bp: smtpd_pb.HSLBreakPointResponse | hsh_pb.HSLBreakPointResponse,
+    bp: smtpdPB.HSLBreakPointResponse | hshPB.HSLBreakPointResponse,
   ) {
     this._variables.clear();
     this._variablesReference = 1;
@@ -518,8 +518,8 @@ export class HSLRuntime extends EventEmitter {
 
   private parseStackFrames(
     callstack: Array<
-      | smtpd_pb.HSLBreakPointResponse.Callstack
-      | hsh_pb.HSLBreakPointResponse.Callstack
+      | smtpdPB.HSLBreakPointResponse.Callstack
+      | hshPB.HSLBreakPointResponse.Callstack
     >,
   ) {
     this._stackFrames = [];

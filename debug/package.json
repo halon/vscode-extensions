@@ -186,6 +186,7 @@
     "Halon.vscode-halon"
   ],
   "devDependencies": {
+    "@types/google-protobuf": "^3.15.12",
     "@types/mocha": "^10.0.9",
     "@types/node": "20.x",
     "@types/path-is-inside": "^1.0.0",
@@ -206,7 +207,7 @@
     "@halon/protobuf-schemas": "github:halon/protobuf-schemas#2dbd83920dc1894bf94e3ac4e5588062fe906fdf",
     "@types/uuid": "^8.3.0",
     "await-notify": "1.0.1",
-    "google-protobuf": "^3.17.3",
+    "google-protobuf": "^3.21.4",
     "path-is-inside": "^1.0.2",
     "tree-kill": "^1.2.2",
     "uuid": "^8.3.2",

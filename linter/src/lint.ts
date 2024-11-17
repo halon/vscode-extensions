@@ -67,7 +67,11 @@ export default async (
         syntaxErrors.push(syntaxError);
       } catch (error) {
         diagnosticCollection.clear();
-        window.showWarningMessage(`Linter: ${error.message || error}`);
+        if (error instanceof Error) {
+          window.showWarningMessage(`Linter: ${error.message}`);
+        } else {
+          window.showWarningMessage(`Linter: ${String(error)}`);
+        }
       }
     }
 
