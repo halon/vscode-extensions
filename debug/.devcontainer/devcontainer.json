@@ -12,7 +12,6 @@
         "halon.hsl-linter",
         "dbaeumer.vscode-eslint",
         "amodio.tsl-problem-matcher",
-        "editorconfig.editorconfig",
         "esbenp.prettier-vscode"
       ],
       "settings": {

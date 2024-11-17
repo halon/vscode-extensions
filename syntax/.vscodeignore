@@ -2,7 +2,6 @@
 .vscode
 node_modules
 package-json.lock
-.editorconfig
 sampleWorkspace
 .devcontainer
 .DS_Store
