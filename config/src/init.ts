@@ -161,6 +161,7 @@ environment=LD_LIBRARY_PATH="/opt/halon/lib/:%(ENV_LD_LIBRARY_PATH)s"
             "!X509 scalar",
             "!MailMessage scalar",
           ],
+          "redhat.telemetry.enabled": false,
         },
         undefined,
         2,
