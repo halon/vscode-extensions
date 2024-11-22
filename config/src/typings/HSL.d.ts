@@ -10,6 +10,7 @@ declare namespace HSL {
     core: Variable[];
     connect: Variable[];
     disconnect: Variable[];
+    proxy: Variable[];
     helo: Variable[];
     auth: Variable[];
     mailfrom: Variable[];
@@ -34,6 +35,7 @@ declare namespace HSL {
     core: Function[];
     connect: Function[];
     disconnect: Function[];
+    proxy: Variable[];
     helo: Function[];
     auth: Function[];
     mailfrom: Function[];
@@ -60,6 +62,7 @@ declare namespace HSL {
     core: Class[];
     connect: Class[];
     disconnect: Class[];
+    proxy: Variable[];
     helo: Class[];
     auth: Class[];
     mailfrom: Class[];
