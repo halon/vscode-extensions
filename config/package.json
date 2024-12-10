@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "6.4.1",
+  "version": "6.5.0",
   "engines": {
     "vscode": "^1.95.0"
   },
@@ -111,6 +111,10 @@
       {
         "fileMatch": "submission-tracking.yaml",
         "url": "./dist/json-schemas/combined/submission-tracking.schema.json"
+      },
+      {
+        "fileMatch": "clusterd.yaml",
+        "url": "./dist/json-schemas/combined/clusterd.schema.json"
       }
     ]
   },
@@ -166,7 +170,7 @@
     "typescript": "^5.6.3"
   },
   "dependencies": {
-    "@halon/json-schemas": "github:halon/json-schemas#699bc1e80255e16a901fd4e88b5f1f87f2f963f4",
+    "@halon/json-schemas": "github:halon/json-schemas#cdc7b81974756cfa11a73588b1c494a62b62446e",
     "ajv": "^6.10.2",
     "glob": "^7.2.0",
     "is-utf8": "^0.2.1",

@@ -19,6 +19,7 @@ export const validate = (config: {
   web?: any;
   submission?: any;
   submission_tracking?: any;
+  clusterd?: any;
 }) => {
   let ajv = new AJV();
 
@@ -39,6 +40,7 @@ export const validate = (config: {
     ["web", "web.schema.json"],
     ["submission", "submission.schema.json"],
     ["submission_tracking", "submission-tracking.schema.json"],
+    ["clusterd", "clusterd.schema.json"],
   ];
 
   for (const [source, file] of configs) {

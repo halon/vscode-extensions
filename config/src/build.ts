@@ -212,6 +212,12 @@ export const run = (base: string = ".") => {
       yaml.stringify(config.submission_tracking),
     );
   }
+  if (config.clusterd) {
+    fs.writeFileSync(
+      path.join(base, "dist", "clusterd.yaml"),
+      yaml.stringify(config.clusterd),
+    );
+  }
 };
 
 export const generate = (base: string = ".") => {
@@ -232,6 +238,7 @@ export const generate = (base: string = ".") => {
     web?: any;
     submission?: any;
     submission_tracking?: any;
+    clusterd?: any;
   } = {};
 
   let exclude: [string, string][] = [];
@@ -533,6 +540,16 @@ export const generate = (base: string = ".") => {
     );
     if (file) {
       returnValue.submission_tracking = yaml.parse(file);
+    }
+  }
+
+  if (fs.existsSync(path.join(base, "src", "config", "clusterd.yaml"))) {
+    const file = fs.readFileSync(
+      path.join(base, "src", "config", "clusterd.yaml"),
+      "utf-8",
+    );
+    if (file) {
+      returnValue.clusterd = yaml.parse(file);
     }
   }
 
