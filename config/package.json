@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "6.5.0",
+  "version": "6.5.1",
   "engines": {
     "vscode": "^1.95.0"
   },
@@ -151,7 +151,7 @@
     "redhat.vscode-yaml"
   ],
   "devDependencies": {
-    "@halon/hsl-docs": "github:halon/hsl-docs#3c4292b0dbea350a816532968733ca7b73f74b77",
+    "@halon/hsl-docs": "github:halon/hsl-docs#046c98258fc0a979a9e07c1838be5543a3899b27",
     "@types/glob": "^7.2.0",
     "@types/is-utf8": "^0.2.0",
     "@types/mocha": "^10.0.9",
