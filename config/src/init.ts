@@ -442,7 +442,7 @@ Accept();
 
 ## Getting started
 
-1. Follow the [instructions](https://docs.halon.io/manual/comp_install.html#installation) in our manual to add our package repository on the remote machine and then install the \`halon\` package
+1. Follow the [instructions](https://docs.halon.io/manual/install.html#installation) in our manual to add our package repository on the remote machine and then install the \`halon\` package
 2. Move this folder to the remote machine (You don't need to have it on your local machine)
 3. Install [Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) extension
 4. [Connect to the remote machine](https://code.visualstudio.com/docs/remote/ssh#_connect-to-a-remote-host) using the [Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) extension
