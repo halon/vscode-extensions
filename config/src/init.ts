@@ -108,11 +108,11 @@ nodaemon=true
 loglevel=info
 
 [program:rated]
-command=/opt/halon/sbin/rated
+command=/opt/halon/sbin/rated -f
 environment=LD_LIBRARY_PATH="/opt/halon/lib/rated/:%(ENV_LD_LIBRARY_PATH)s"
 
 [program:dlpd]
-command=/opt/halon/sbin/dlpd
+command=/opt/halon/sbin/dlpd -f
 environment=LD_LIBRARY_PATH="/opt/halon/lib/dlpd/:%(ENV_LD_LIBRARY_PATH)s"
 
 [program:smtpd]
