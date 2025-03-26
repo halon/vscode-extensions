@@ -54,7 +54,7 @@ export const validate = (config: {
           : source === "web" || source === "api" || source === "submission"
             ? source
             : "mta";
-      const schemaPath = path.join(
+      let schemaPath = path.join(
         __dirname,
         "json-schemas",
         project,
@@ -62,7 +62,16 @@ export const validate = (config: {
         file,
       );
       if (!fs.existsSync(schemaPath)) {
-        throw new Error(`${source}: "Unknown version"`);
+        schemaPath = path.join(
+          __dirname,
+          "json-schemas",
+          project,
+          `${config[source].version}`,
+          file,
+        );
+        if (!fs.existsSync(schemaPath)) {
+          throw new Error(`${source}: "Unknown version"`);
+        }
       }
       const schema = JSON.parse(fs.readFileSync(schemaPath, "utf-8"));
       const result = ajv.compile(schema);
