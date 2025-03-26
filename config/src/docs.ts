@@ -1,9 +1,9 @@
 import { TextDocument } from "vscode";
 import * as path from "path";
-import functions from "@halon/hsl-docs/json/archive/master/functions.json";
-import classes from "@halon/hsl-docs/json/archive/master/classes.json";
-import variables from "@halon/hsl-docs/json/archive/master/variables.json";
-import keywords from "@halon/hsl-docs/json/archive/master/keywords.json";
+import functions from "./docs/functions.json";
+import classes from "./docs/classes.json";
+import variables from "./docs/variables.json";
+import keywords from "./docs/keywords.json";
 
 export default (document: TextDocument) => {
   let items: HSL.Collection = {
