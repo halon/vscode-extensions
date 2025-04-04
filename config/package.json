@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "6.6.0",
+  "version": "6.6.1",
   "engines": {
     "vscode": "^1.95.0"
   },
@@ -169,7 +169,7 @@
     "typescript": "^5.6.3"
   },
   "dependencies": {
-    "@halon/json-schemas": "github:halon/json-schemas#a98c25c5528738390b8e2c483d3b95f066b5a7df",
+    "@halon/json-schemas": "github:halon/json-schemas#a48ff5a7899f37ac77810929c000e0f5febe13e6",
     "ajv": "^6.10.2",
     "glob": "^7.2.0",
     "is-utf8": "^0.2.1",
