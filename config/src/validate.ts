@@ -51,7 +51,11 @@ export const validate = (config: {
       const project =
         source === "submission_tracking"
           ? "submission-tracking"
-          : source === "web" || source === "api" || source === "submission"
+          : source === "web" ||
+              source === "api" ||
+              source === "submission" ||
+              source === "rated" ||
+              source === "dlpd"
             ? source
             : "mta";
       let schemaPath = path.join(
