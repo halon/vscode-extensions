@@ -51,13 +51,17 @@ export const validate = (config: {
       const project =
         source === "submission_tracking"
           ? "submission-tracking"
-          : source === "web" ||
-              source === "api" ||
-              source === "submission" ||
-              source === "rated" ||
-              source === "dlpd"
-            ? source
-            : "mta";
+          : source === "rated_app" || source === "ratectl"
+            ? "rated"
+            : source === "dlpd_app" || source === "dlpctl"
+              ? "dlpd"
+              : source === "web" ||
+                  source === "api" ||
+                  source === "submission" ||
+                  source === "rated" ||
+                  source === "dlpd"
+                ? source
+                : "mta";
       let schemaPath = path.join(
         __dirname,
         "json-schemas",
