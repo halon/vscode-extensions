@@ -20,6 +20,8 @@ export const validate = (config: {
   submission?: any;
   submission_tracking?: any;
   clusterd?: any;
+  policyd?: any;
+  policyd_app?: any;
 }) => {
   let ajv = new AJV();
 
@@ -41,6 +43,8 @@ export const validate = (config: {
     ["submission", "submission.schema.json"],
     ["submission_tracking", "submission-tracking.schema.json"],
     ["clusterd", "clusterd.schema.json"],
+    ["policyd", "policyd.schema.json"],
+    ["policyd_app", "policyd-app.schema.json"],
   ];
 
   for (const [source, file] of configs) {
@@ -51,17 +55,21 @@ export const validate = (config: {
       const project =
         source === "submission_tracking"
           ? "submission-tracking"
-          : source === "rated_app" || source === "ratectl"
-            ? "rated"
-            : source === "dlpd_app" || source === "dlpctl"
-              ? "dlpd"
-              : source === "web" ||
-                  source === "api" ||
-                  source === "submission" ||
-                  source === "rated" ||
-                  source === "dlpd"
-                ? source
-                : "mta";
+          : source === "policyd_app"
+            ? "policyd"
+            : source === "rated_app" || source === "ratectl"
+              ? "rated"
+              : source === "dlpd_app" || source === "dlpctl"
+                ? "dlpd"
+                : source === "web" ||
+                    source === "api" ||
+                    source === "submission" ||
+                    source === "rated" ||
+                    source === "dlpd" ||
+                    source === "clusterd" ||
+                    source === "policyd"
+                  ? source
+                  : "mta";
       let schemaPath = path.join(
         __dirname,
         "json-schemas",

@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "6.7.2",
+  "version": "6.7.3",
   "engines": {
     "vscode": "^1.95.0"
   },
@@ -115,6 +115,14 @@
       {
         "fileMatch": "clusterd.yaml",
         "url": "./dist/json-schemas/combined/clusterd.schema.json"
+      },
+      {
+        "fileMatch": "policyd.yaml",
+        "url": "./dist/json-schemas/combined/policyd.schema.json"
+      },
+      {
+        "fileMatch": "policyd-app.yaml",
+        "url": "./dist/json-schemas/combined/policyd-app.schema.json"
       }
     ]
   },
@@ -169,7 +177,7 @@
     "typescript": "^5.6.3"
   },
   "dependencies": {
-    "@halon/json-schemas": "github:halon/json-schemas#5f1396e00f539a7b4527ee64df5c4f5002fa00ac",
+    "@halon/json-schemas": "github:halon/json-schemas#95a96cd1d336b8caddff8165e6edc60fe10b2bc2",
     "ajv": "^6.10.2",
     "glob": "^7.2.0",
     "is-utf8": "^0.2.1",

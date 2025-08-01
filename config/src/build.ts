@@ -218,6 +218,18 @@ export const run = (base: string = ".") => {
       yaml.stringify(config.clusterd),
     );
   }
+  if (config.policyd) {
+    fs.writeFileSync(
+      path.join(base, "dist", "policyd.yaml"),
+      yaml.stringify(config.policyd),
+    );
+  }
+  if (config.policyd_app) {
+    fs.writeFileSync(
+      path.join(base, "dist", "policyd-app.yaml"),
+      yaml.stringify(config.policyd_app),
+    );
+  }
 };
 
 export const generate = (base: string = ".") => {
@@ -239,6 +251,8 @@ export const generate = (base: string = ".") => {
     submission?: any;
     submission_tracking?: any;
     clusterd?: any;
+    policyd?: any;
+    policyd_app?: any;
   } = {};
 
   let exclude: [string, string][] = [];
@@ -550,6 +564,26 @@ export const generate = (base: string = ".") => {
     );
     if (file) {
       returnValue.clusterd = yaml.parse(file);
+    }
+  }
+
+  if (fs.existsSync(path.join(base, "src", "config", "policyd.yaml"))) {
+    const file = fs.readFileSync(
+      path.join(base, "src", "config", "policyd.yaml"),
+      "utf-8",
+    );
+    if (file) {
+      returnValue.policyd = yaml.parse(file);
+    }
+  }
+
+  if (fs.existsSync(path.join(base, "src", "config", "policyd-app.yaml"))) {
+    const file = fs.readFileSync(
+      path.join(base, "src", "config", "policyd-app.yaml"),
+      "utf-8",
+    );
+    if (file) {
+      returnValue.policyd_app = yaml.parse(file);
     }
   }
 
