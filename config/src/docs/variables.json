@@ -5,7 +5,7 @@
       "name": "$arguments",
       "type": "array",
       "detail": "array readonly $arguments",
-      "documentation": "Context/hook arguments",
+      "documentation": "Context\/hook arguments",
       "keys": [
         {
           "name": "remoteip",
@@ -76,7 +76,7 @@
       "name": "$connection",
       "type": "array",
       "detail": "array readonly $connection",
-      "documentation": "Connection/session bound",
+      "documentation": "Connection\/session bound",
       "keys": [
         {
           "name": "id",
@@ -121,7 +121,7 @@
       "name": "$arguments",
       "type": "array",
       "detail": "array readonly $arguments",
-      "documentation": "Context/hook arguments",
+      "documentation": "Context\/hook arguments",
       "keys": [
         {
           "name": "close",
@@ -203,7 +203,7 @@
       "name": "$connection",
       "type": "array",
       "detail": "array readonly $connection",
-      "documentation": "Connection/session bound",
+      "documentation": "Connection\/session bound",
       "keys": [
         {
           "name": "id",
@@ -389,7 +389,7 @@
       "name": "$arguments",
       "type": "array",
       "detail": "array readonly $arguments",
-      "documentation": "Context/hook arguments",
+      "documentation": "Context\/hook arguments",
       "keys": [
         {
           "name": "command",
@@ -404,7 +404,7 @@
       "name": "$connection",
       "type": "array",
       "detail": "array readonly $connection",
-      "documentation": "Connection/session bound",
+      "documentation": "Connection\/session bound",
       "keys": [
         {
           "name": "id",
@@ -642,7 +642,7 @@
       "name": "$arguments",
       "type": "array",
       "detail": "array readonly $arguments",
-      "documentation": "Context/hook arguments",
+      "documentation": "Context\/hook arguments",
       "keys": [
         {
           "name": "verb",
@@ -671,7 +671,7 @@
       "name": "$connection",
       "type": "array",
       "detail": "array readonly $connection",
-      "documentation": "Connection/session bound",
+      "documentation": "Connection\/session bound",
       "keys": [
         {
           "name": "id",
@@ -844,7 +844,7 @@
       "name": "$arguments",
       "type": "array",
       "detail": "array readonly $arguments",
-      "documentation": "Context/hook arguments",
+      "documentation": "Context\/hook arguments",
       "keys": [
         {
           "name": "username",
@@ -886,7 +886,7 @@
       "name": "$connection",
       "type": "array",
       "detail": "array readonly $connection",
-      "documentation": "Connection/session bound",
+      "documentation": "Connection\/session bound",
       "keys": [
         {
           "name": "id",
@@ -1059,7 +1059,7 @@
       "name": "$arguments",
       "type": "array",
       "detail": "array readonly $arguments",
-      "documentation": "Context/hook arguments",
+      "documentation": "Context\/hook arguments",
       "keys": [
         {
           "name": "sender",
@@ -1104,7 +1104,7 @@
       "name": "$connection",
       "type": "array",
       "detail": "array readonly $connection",
-      "documentation": "Connection/session bound",
+      "documentation": "Connection\/session bound",
       "keys": [
         {
           "name": "id",
@@ -1299,7 +1299,7 @@
       "name": "$arguments",
       "type": "array",
       "detail": "array readonly $arguments",
-      "documentation": "Context/hook arguments",
+      "documentation": "Context\/hook arguments",
       "keys": [
         {
           "name": "recipient",
@@ -1351,7 +1351,7 @@
       "name": "$connection",
       "type": "array",
       "detail": "array readonly $connection",
-      "documentation": "Connection/session bound",
+      "documentation": "Connection\/session bound",
       "keys": [
         {
           "name": "id",
@@ -1589,7 +1589,7 @@
       "name": "$arguments",
       "type": "array",
       "detail": "array readonly $arguments",
-      "documentation": "Context/hook arguments",
+      "documentation": "Context\/hook arguments",
       "keys": [
         {
           "name": "mail",
@@ -1615,7 +1615,7 @@
       "name": "$connection",
       "type": "array",
       "detail": "array readonly $connection",
-      "documentation": "Connection/session bound",
+      "documentation": "Connection\/session bound",
       "keys": [
         {
           "name": "id",
@@ -1860,7 +1860,7 @@
       "name": "$arguments",
       "type": "array",
       "detail": "array readonly $arguments",
-      "documentation": "Context/hook arguments",
+      "documentation": "Context\/hook arguments",
       "keys": [
         {
           "name": "retry",
@@ -2106,7 +2106,7 @@
       "name": "$arguments",
       "type": "array",
       "detail": "array readonly $arguments",
-      "documentation": "Context/hook arguments",
+      "documentation": "Context\/hook arguments",
       "keys": [
         {
           "name": "retry",

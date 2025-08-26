@@ -13,7 +13,11 @@
     "snippets": [
       {
         "detail": "if snippet",
-        "insertText": ["if (${1:condition}) {", "\t$0", "}"]
+        "insertText": [
+          "if (${1:condition}) {",
+          "\t$0",
+          "}"
+        ]
       }
     ]
   },
@@ -75,7 +79,11 @@
     "snippets": [
       {
         "detail": "while snippet",
-        "insertText": ["while (${1:condition}) {", "\t$0", "}"]
+        "insertText": [
+          "while (${1:condition}) {",
+          "\t$0",
+          "}"
+        ]
       }
     ]
   },
@@ -127,12 +135,16 @@
       {
         "detail": "import snippet (function)",
         "documentation": "A function in the module\u2019s global scope may be imported into the global scope. An imported function (when executed) is executed in the module\u2019s global scope. Hence, the global keyword imports from the module\u2019s global context.",
-        "insertText": ["import { ${1:function} } from \"${2:module}\";"]
+        "insertText": [
+          "import { ${1:function} } from \"${2:module}\";"
+        ]
       },
       {
         "detail": "import snippet (csv)",
-        "documentation": "All content in a module/file can be imported as a variable using different import methods at compile time (chosen by file extensions), this has the benefit of doing the data import once and the data shared across all executions.",
-        "insertText": ["import \\$${1:file} from \"${2:file}.csv\";"]
+        "documentation": "All content in a module\/file can be imported as a variable using different import methods at compile time (chosen by file extensions), this has the benefit of doing the data import once and the data shared across all executions.",
+        "insertText": [
+          "import \\$${1:file} from \"${2:file}.csv\";"
+        ]
       }
     ]
   },
@@ -144,7 +156,9 @@
     "snippets": [
       {
         "detail": "function snippet",
-        "insertText": ["function (\\$${1:argument}) { return $2; }"]
+        "insertText": [
+          "function (\\$${1:argument}) { return $2; }"
+        ]
       }
     ]
   },
@@ -211,11 +225,11 @@
   {
     "name": "try",
     "detail": "try",
-    "documentation": "In order to catch an exception, it is has to be thrown within a try/catch code block. When a exception is thrown the remaining code in the try statement is not execution and the execution flow is moved to the first statement of the catch code block. Exception are catched at the first catch statement in the callstack, and are not propegated unless re-thrown. If and exception is thrown outside of a try/catch code block it will result in a script error.",
+    "documentation": "In order to catch an exception, it is has to be thrown within a try\/catch code block. When a exception is thrown the remaining code in the try statement is not execution and the execution flow is moved to the first statement of the catch code block. Exception are catched at the first catch statement in the callstack, and are not propegated unless re-thrown. If and exception is thrown outside of a try\/catch code block it will result in a script error.",
     "link": "[Full documentation]({{ docsurl }}structures.html#try)",
     "snippets": [
       {
-        "detail": "try/catch snippet",
+        "detail": "try\/catch snippet",
         "insertText": [
           "try {",
           "\t${1:throw Exception(\"Error\");}",

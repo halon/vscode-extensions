@@ -552,7 +552,7 @@
           "returnType": "MIME",
           "detail": "MIME->setType(string $type): MIME",
           "value": "setType($0)",
-          "documentation": "Set the type field of the Content-Type header. The default type is text/plain, and for text/\u2026 the charset is always utf-8.",
+          "documentation": "Set the type field of the Content-Type header. The default type is text\/plain, and for text\/\u2026 the charset is always utf-8.",
           "link": "[Full documentation]({{ docsurl }}functions.html#MIME.setType)"
         },
         {
@@ -569,7 +569,7 @@
           "returnType": "MIME",
           "detail": "MIME->setBoundary(string $boundary): MIME",
           "value": "setBoundary($0)",
-          "documentation": "Set the MIME boundary for multipart/* messages. The default is to use an UUID.",
+          "documentation": "Set the MIME boundary for multipart\/* messages. The default is to use an UUID.",
           "link": "[Full documentation]({{ docsurl }}functions.html#MIME.setBoundary)"
         },
         {
@@ -1026,7 +1026,7 @@
           "returnType": "string or none",
           "detail": "MIMEPart->getType(): string or none",
           "value": "getType()",
-          "documentation": "Return the MIME part\u2019s Content-Type\u2019s type field (eg. text/plain).",
+          "documentation": "Return the MIME part\u2019s Content-Type\u2019s type field (eg. text\/plain).",
           "link": "[Full documentation]({{ docsurl }}functions.html#MIMEPart.getType)"
         },
         {
@@ -1048,7 +1048,7 @@
           "returnType": "string or none",
           "detail": "MIMEPart->getHeader(string $name [, array $options]): string or none",
           "value": "getHeader($0)",
-          "documentation": "Return the value of a header (if multiple headers with the same name exists, the first will be returned). If no header is found, the value none is returned. The name is not case sensitive.",
+          "documentation": "Return the value of a header (if multiple headers with the same name exists, the topmost will be returned). If no header is found, the value none is returned. The name is not case sensitive.",
           "link": "[Full documentation]({{ docsurl }}functions.html#MIMEPart.getHeader)"
         },
         {
@@ -1168,7 +1168,7 @@
           "returnType": "number",
           "detail": "MIMEPart->setDateLater(): number",
           "value": "setDateLater()",
-          "documentation": "Add or set the Date header field upon message delivery/generation. The default date is the current time.",
+          "documentation": "Add or set the Date header field upon message delivery\/generation. The default date is the current time.",
           "link": "[Full documentation]({{ docsurl }}functions.html#MIMEPart.setDateLater)"
         },
         {
@@ -1355,7 +1355,7 @@
           "returnType": "array of MIMEPart objects",
           "detail": "MIMEPart->findByType(Regex or string $type): array of MIMEPart objects",
           "value": "findByType($0)",
-          "documentation": "Find descendant parts (on any depth) based on their Content-Type. If type is given as a string, it\u2019s compiled as a regex with /type/i (partial, case-insensitive).",
+          "documentation": "Find descendant parts (on any depth) based on their Content-Type. If type is given as a string, it\u2019s compiled as a regex with \/type\/i (partial, case-insensitive).",
           "link": "[Full documentation]({{ docsurl }}functions.html#MIMEPart.findByType)"
         },
         {
@@ -1372,7 +1372,7 @@
           "returnType": "array of MIMEPart objects",
           "detail": "MIMEPart->findByFileName(Regex or string $filename): array of MIMEPart objects",
           "value": "findByFileName($0)",
-          "documentation": "Find descendant parts (on any depth) based on their file name. If filename is given as a string, it\u2019s compiled as a regex with /filename/i (partial, case-insensitive).",
+          "documentation": "Find descendant parts (on any depth) based on their file name. If filename is given as a string, it\u2019s compiled as a regex with \/filename\/i (partial, case-insensitive).",
           "link": "[Full documentation]({{ docsurl }}functions.html#MIMEPart.findByFileName)"
         },
         {
@@ -1662,7 +1662,7 @@
           "returnType": "TLSSocket or none",
           "detail": "TLSSocket->handshake(): TLSSocket or none",
           "value": "handshake()",
-          "documentation": "Perform the TLS/SSL handshake. If the handshake fails or the validation fails none is returned.",
+          "documentation": "Perform the TLS\/SSL handshake. If the handshake fails or the validation fails none is returned.",
           "link": "[Full documentation]({{ docsurl }}functions.html#TLSSocket.handshake)"
         },
         {
@@ -1679,7 +1679,7 @@
           "returnType": "string or none",
           "detail": "TLSSocket->recv(number $length): string or none",
           "value": "recv($0)",
-          "documentation": "Receive data on TLS/SSL socket. This function may perform an implicit handshake. On error none is returned.",
+          "documentation": "Receive data on TLS\/SSL socket. This function may perform an implicit handshake. On error none is returned.",
           "link": "[Full documentation]({{ docsurl }}functions.html#TLSSocket.recv)"
         },
         {
@@ -1696,7 +1696,7 @@
           "returnType": "number or none",
           "detail": "TLSSocket->send(string $data): number or none",
           "value": "send($0)",
-          "documentation": "Send data on TLS/SSL socket. This function may perform an implicit handshake. On error none is returned.",
+          "documentation": "Send data on TLS\/SSL socket. This function may perform an implicit handshake. On error none is returned.",
           "link": "[Full documentation]({{ docsurl }}functions.html#TLSSocket.send)"
         },
         {
@@ -1708,7 +1708,7 @@
           "returnType": "number or none",
           "detail": "TLSSocket->shutdown(): number or none",
           "value": "shutdown()",
-          "documentation": "Shut down the TLS/SSL connection. This function may need to be called multiple times. See SSL_shutdown(3) for details. On error none is returned.",
+          "documentation": "Shut down the TLS\/SSL connection. This function may need to be called multiple times. See SSL_shutdown(3) for details. On error none is returned.",
           "link": "[Full documentation]({{ docsurl }}functions.html#TLSSocket.shutdown)"
         },
         {
@@ -1750,7 +1750,7 @@
       ],
       "detail": "TLSSocket(Socket $socket, array $options)",
       "value": "TLSSocket($0)",
-      "documentation": "This class allows OpenSSL like SSL(3) code. The TLSSocket class takes a connected Socket instance (SOCK_STREAM) and encapsulates any read and writes in TLS/SSL.",
+      "documentation": "This class allows OpenSSL like SSL(3) code. The TLSSocket class takes a connected Socket instance (SOCK_STREAM) and encapsulates any read and writes in TLS\/SSL.",
       "link": "[Full documentation]({{ docsurl }}functions.html#TLSSocket)"
     },
     {
@@ -2267,7 +2267,7 @@
           "returnType": "number",
           "detail": "FFI::number(FFIValue $value): number",
           "value": "number($0)",
-          "documentation": "Convert an FFI value to a HSL number. The number type can safely represent all integers between +/-9007199254740991 (the equivalent of (2 ** 53) - 1). If you expect to work with greater numbers use FFI.number64().",
+          "documentation": "Convert an FFI value to a HSL number. The number type can safely represent all integers between +\/-9007199254740991 (the equivalent of (2 ** 53) - 1). If you expect to work with greater numbers use FFI.number64().",
           "link": "[Full documentation]({{ docsurl }}functions.html#FFI.number)"
         },
         {
@@ -2332,7 +2332,7 @@
       ],
       "detail": "FFI(string $path)",
       "value": "FFI($0)",
-      "documentation": "This class allows you to load a shared object/library.",
+      "documentation": "This class allows you to load a shared object\/library.",
       "link": "[Full documentation]({{ docsurl }}functions.html#FFI)"
     },
     {

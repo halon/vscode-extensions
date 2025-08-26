@@ -738,7 +738,7 @@
       "returnType": "string or none",
       "detail": "pkcs7_sign(string $message, array or string $certificate [, array $options]): string or none",
       "value": "pkcs7_sign($0)",
-      "documentation": "PKCS7 sign (S/MIME) a message. If certificate is given as an associative array it should\n                        include a x509 (X509Resource), privatekey (*PrivateKeyResource) and optionally a chain (array) of X509Resources.\n                        If certificate is given as a string it should either be an id or a PEM encoded string with a x509 certificate, a chain and a privatekey.\n                        On error none is returned.",
+      "documentation": "PKCS7 sign (S\/MIME) a message. If certificate is given as an associative array it should\n                        include a x509 (X509Resource), privatekey (*PrivateKeyResource) and optionally a chain (array) of X509Resources.\n                        If certificate is given as a string it should either be an id or a PEM encoded string with a x509 certificate, a chain and a privatekey.\n                        On error none is returned.",
       "link": "[Full documentation]({{ docsurl }}functions.html#pkcs7_sign)"
     },
     {
@@ -1217,7 +1217,7 @@
       "returnType": "string or none",
       "detail": "domain_publicsuffix(string $domain): string or none",
       "value": "domain_publicsuffix($0)",
-      "documentation": "Return the public suffix (https://publicsuffix.org/) of a domain name. If not a valid TLD (none is returned).",
+      "documentation": "Return the public suffix (https:\/\/publicsuffix.org\/) of a domain name. If not a valid TLD (none is returned).",
       "link": "[Full documentation]({{ docsurl }}functions.html#domain_publicsuffix)"
     },
     {
@@ -1657,7 +1657,7 @@
       "returnType": "string, array or none",
       "detail": "http(string $url [, array $options [, array $get [, array, string or function $post]]]): string, array or none",
       "value": "http($0)",
-      "documentation": "Make HTTP/HTTPS request to a URL and return the content.",
+      "documentation": "Make HTTP\/HTTPS request to a URL and return the content.",
       "link": "[Full documentation]({{ docsurl }}functions.html#http)"
     },
     {
