@@ -2290,6 +2290,13 @@
                   "documentation": "The remote MX used"
                 },
                 {
+                  "name": "remotegreet",
+                  "type": "array",
+                  "detail": "array remotegreet",
+                  "example": "[\u201cmail.example.com ESMTP\u201d]",
+                  "documentation": "The remote greet message (only available for 220 responses)"
+                },
+                {
                   "name": "tls",
                   "type": "array",
                   "detail": "array tls",

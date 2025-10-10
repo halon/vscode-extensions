@@ -636,6 +636,40 @@
       "link": "[Full documentation]({{ docsurl }}functions.html#rsa_verify)"
     },
     {
+      "name": "ec_privatekey",
+      "parameters": {
+        "required": [
+          {
+            "name": "privatekey",
+            "type": "string"
+          }
+        ],
+        "optional": []
+      },
+      "returnType": "ECPrivateKey resource or none",
+      "detail": "ec_privatekey(string $privatekey): ECPrivateKey resource or none",
+      "value": "ec_privatekey($0)",
+      "documentation": "Return a EC privatekey resource from a PEM certificate (--- BEGIN PRIVATE KEY ---). On error none is returned.",
+      "link": "[Full documentation]({{ docsurl }}functions.html#ec_privatekey)"
+    },
+    {
+      "name": "is_ec_privatekey",
+      "parameters": {
+        "required": [
+          {
+            "name": "privatekey",
+            "type": "any"
+          }
+        ],
+        "optional": []
+      },
+      "returnType": "boolean",
+      "detail": "is_ec_privatekey(any $privatekey): boolean",
+      "value": "is_ec_privatekey($0)",
+      "documentation": "Return a true if privatekey is a EC privatekey resource.",
+      "link": "[Full documentation]({{ docsurl }}functions.html#is_ec_privatekey)"
+    },
+    {
       "name": "ed25519_privatekey",
       "parameters": {
         "required": [
@@ -740,6 +774,110 @@
       "value": "pkcs7_sign($0)",
       "documentation": "PKCS7 sign (S\/MIME) a message. If certificate is given as an associative array it should\n                        include a x509 (X509Resource), privatekey (*PrivateKeyResource) and optionally a chain (array) of X509Resources.\n                        If certificate is given as a string it should either be an id or a PEM encoded string with a x509 certificate, a chain and a privatekey.\n                        On error none is returned.",
       "link": "[Full documentation]({{ docsurl }}functions.html#pkcs7_sign)"
+    },
+    {
+      "name": "cms_sign",
+      "parameters": {
+        "required": [
+          {
+            "name": "message",
+            "type": "string"
+          },
+          {
+            "name": "certificate",
+            "type": "array or string"
+          }
+        ],
+        "optional": [
+          {
+            "name": "options",
+            "type": "array"
+          }
+        ]
+      },
+      "returnType": "string or none",
+      "detail": "cms_sign(string $message, array or string $certificate [, array $options]): string or none",
+      "value": "cms_sign($0)",
+      "documentation": "CMS sign (S\/MIME) a message. If certificate is given as an associative array it should\n                        include a x509 (X509Resource), privatekey (*PrivateKeyResource) and optionally a chain (array) of X509Resources.\n                        If certificate is given as a string it should either be an id or a PEM encoded string with a x509 certificate, a chain and a privatekey.",
+      "link": "[Full documentation]({{ docsurl }}functions.html#cms_sign)"
+    },
+    {
+      "name": "cms_verify",
+      "parameters": {
+        "required": [
+          {
+            "name": "signature",
+            "type": "string"
+          },
+          {
+            "name": "message",
+            "type": "string or none"
+          },
+          {
+            "name": "certificates",
+            "type": "array"
+          }
+        ],
+        "optional": [
+          {
+            "name": "options",
+            "type": "array"
+          }
+        ]
+      },
+      "returnType": "array",
+      "detail": "cms_verify(string $signature, string or none $message, array $certificates [, array $options]): array",
+      "value": "cms_verify($0)",
+      "documentation": "CMS verify (S\/MIME) a message. The certificate should be given as an associative array and must\n                        include an array of certs (X509Resource) and\/or an array of store (X509Resource).",
+      "link": "[Full documentation]({{ docsurl }}functions.html#cms_verify)"
+    },
+    {
+      "name": "cms_encrypt",
+      "parameters": {
+        "required": [
+          {
+            "name": "message",
+            "type": "string"
+          },
+          {
+            "name": "certificates",
+            "type": "array"
+          }
+        ],
+        "optional": [
+          {
+            "name": "options",
+            "type": "array"
+          }
+        ]
+      },
+      "returnType": "array",
+      "detail": "cms_encrypt(string $message, array $certificates [, array $options]): array",
+      "value": "cms_encrypt($0)",
+      "documentation": "CMS encrypt (S\/MIME) a message. The certificate should be given as an associative array and must\n                        include an array of certs (X509Resource).",
+      "link": "[Full documentation]({{ docsurl }}functions.html#cms_encrypt)"
+    },
+    {
+      "name": "cms_decrypt",
+      "parameters": {
+        "required": [
+          {
+            "name": "message",
+            "type": "string"
+          }
+        ],
+        "optional": [
+          {
+            "name": "options",
+            "type": "array"
+          }
+        ]
+      },
+      "returnType": "array",
+      "detail": "cms_decrypt(string $message [, array $options]): array",
+      "value": "cms_decrypt($0)",
+      "documentation": "CMS decrypt (S\/MIME) a message. If certificate is given as an associative array it should\n                        include a x509 (X509Resource), privatekey (*PrivateKeyResource).\n                        If certificate is given as a string it should either be an id or a PEM encoded string with a x509 certificate and a privatekey.",
+      "link": "[Full documentation]({{ docsurl }}functions.html#cms_decrypt)"
     },
     {
       "name": "random_bytes",
@@ -2787,6 +2925,28 @@
       "link": "[Full documentation]({{ docsurl }}functions.html#memory_update)"
     },
     {
+      "name": "server_concurrency",
+      "parameters": {
+        "required": [
+          {
+            "name": "serverid",
+            "type": "string"
+          }
+        ],
+        "optional": [
+          {
+            "name": "address",
+            "type": "string"
+          }
+        ]
+      },
+      "returnType": "number or none",
+      "detail": "server_concurrency(string $serverid [, string $address]): number or none",
+      "value": "server_concurrency($0)",
+      "documentation": "Return the current server concurrency for a specific IP or network.",
+      "link": "[Full documentation]({{ docsurl }}functions.html#server_concurrency)"
+    },
+    {
       "name": "queue_suspend",
       "parameters": {
         "required": [
@@ -2900,8 +3060,8 @@
           }
         ]
       },
-      "returnType": "boolean or null",
-      "detail": "metrics_increment(string $name, array $labels [, number $value]): boolean or null",
+      "returnType": "boolean or none",
+      "detail": "metrics_increment(string $name, array $labels [, number $value]): boolean or none",
       "value": "metrics_increment($0)",
       "documentation": "Increment a metric of type gauge or counter.",
       "link": "[Full documentation]({{ docsurl }}functions.html#metrics_increment)"
@@ -2926,8 +3086,8 @@
           }
         ]
       },
-      "returnType": "boolean or null",
-      "detail": "metrics_decrement(string $name, array $labels [, number $value]): boolean or null",
+      "returnType": "boolean or none",
+      "detail": "metrics_decrement(string $name, array $labels [, number $value]): boolean or none",
       "value": "metrics_decrement($0)",
       "documentation": "Decrement a metric of type gauge.",
       "link": "[Full documentation]({{ docsurl }}functions.html#metrics_decrement)"
@@ -2951,8 +3111,8 @@
         ],
         "optional": []
       },
-      "returnType": "boolean or null",
-      "detail": "metrics_set(string $name, array $labels, number $value): boolean or null",
+      "returnType": "boolean or none",
+      "detail": "metrics_set(string $name, array $labels, number $value): boolean or none",
       "value": "metrics_set($0)",
       "documentation": "Set a metric of type gauge. counter or histogram.",
       "link": "[Full documentation]({{ docsurl }}functions.html#metrics_set)"

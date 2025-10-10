@@ -1030,6 +1030,23 @@
           "link": "[Full documentation]({{ docsurl }}functions.html#MIMEPart.getType)"
         },
         {
+          "name": "getTypeParameter",
+          "parameters": {
+            "required": [
+              {
+                "name": "name",
+                "type": "string"
+              }
+            ],
+            "optional": []
+          },
+          "returnType": "string or none",
+          "detail": "MIMEPart->getTypeParameter(string $name): string or none",
+          "value": "getTypeParameter($0)",
+          "documentation": "Return the MIME part\u2019s Content-Type\u2019s type parameter value based on name (eg. boundary).",
+          "link": "[Full documentation]({{ docsurl }}functions.html#MIMEPart.getTypeParameter)"
+        },
+        {
           "name": "getHeader",
           "parameters": {
             "required": [
