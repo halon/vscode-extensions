@@ -200,12 +200,6 @@ export const run = (base: string = ".") => {
       yaml.stringify(config.web),
     );
   }
-  if (config.submission) {
-    fs.writeFileSync(
-      path.join(base, "dist", "submission.yaml"),
-      yaml.stringify(config.submission),
-    );
-  }
   if (config.submission_tracking) {
     fs.writeFileSync(
       path.join(base, "dist", "submission-tracking.yaml"),
@@ -248,7 +242,6 @@ export const generate = (base: string = ".") => {
     dlpctl?: any;
     api?: any;
     web?: any;
-    submission?: any;
     submission_tracking?: any;
     clusterd?: any;
     policyd?: any;
@@ -532,16 +525,6 @@ export const generate = (base: string = ".") => {
     );
     if (file) {
       returnValue.web = yaml.parse(file);
-    }
-  }
-
-  if (fs.existsSync(path.join(base, "src", "config", "submission.yaml"))) {
-    const file = fs.readFileSync(
-      path.join(base, "src", "config", "submission.yaml"),
-      "utf-8",
-    );
-    if (file) {
-      returnValue.submission = yaml.parse(file);
     }
   }
 

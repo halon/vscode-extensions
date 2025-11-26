@@ -105,10 +105,6 @@
         "url": "./dist/json-schemas/combined/web-history.schema.json"
       },
       {
-        "fileMatch": "submission.yaml",
-        "url": "./dist/json-schemas/combined/submission.schema.json"
-      },
-      {
         "fileMatch": "submission-tracking.yaml",
         "url": "./dist/json-schemas/combined/submission-tracking.schema.json"
       },

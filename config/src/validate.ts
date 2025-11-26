@@ -17,7 +17,6 @@ export const validate = (config: {
   dlpctl?: any;
   api?: any;
   web?: any;
-  submission?: any;
   submission_tracking?: any;
   clusterd?: any;
   policyd?: any;
@@ -40,7 +39,6 @@ export const validate = (config: {
     ["dlpctl", "dlpctl.schema.json"],
     ["api", "api.schema.json"],
     ["web", "web.schema.json"],
-    ["submission", "submission.schema.json"],
     ["submission_tracking", "submission-tracking.schema.json"],
     ["clusterd", "clusterd.schema.json"],
     ["policyd", "policyd.schema.json"],
@@ -63,7 +61,6 @@ export const validate = (config: {
                 ? "dlpd"
                 : source === "web" ||
                     source === "api" ||
-                    source === "submission" ||
                     source === "rated" ||
                     source === "dlpd" ||
                     source === "clusterd" ||
