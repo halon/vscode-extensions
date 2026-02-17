@@ -204,7 +204,7 @@
     "typescript": "^5.6.3"
   },
   "dependencies": {
-    "@halon/json-schemas": "github:halon/json-schemas#4dcffe15a15c7b67fd4d45703b541ea9bfe8b72c",
+    "@halon/json-schemas": "github:halon/json-schemas#0aba91e80425c91cf62b7cbe27d1c6406e5fddd6",
     "@halon/protobuf-schemas": "github:halon/protobuf-schemas#2dbd83920dc1894bf94e3ac4e5588062fe906fdf",
     "@types/uuid": "^8.3.0",
     "await-notify": "1.0.1",
