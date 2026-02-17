@@ -1,10 +1,12 @@
 import yaml from "yaml";
+import * as tls from "tls";
+import * as fs from "fs";
 import { IConnector, ExecProgram } from "./factory";
 import * as channel from "./channel";
 import kill from "tree-kill";
 import * as smtpdPB from "@halon/protobuf-schemas/js/smtpd_pb";
 import * as hshPB from "@halon/protobuf-schemas/js/hsh_pb";
-import { Smtpd } from "@halon/json-schemas/mta/5.8-stable/ts/smtpd";
+import { Smtpd } from "@halon/json-schemas/mta/6.10-stable/ts/smtpd";
 import { HSLLaunchRequestArguments } from "./debug";
 import { SmtpdAppDebug } from "./runtime";
 import { StringDecoder } from "string_decoder";
@@ -26,6 +28,8 @@ export const smtpd = (
         path: "/var/run/halon/smtpd.ctl",
       };
 
+      let tlsOptions: tls.ConnectionOptions | null = null;
+
       if (config?.environment?.controlsocket !== undefined) {
         if (
           "path" in config.environment.controlsocket &&
@@ -43,11 +47,43 @@ export const smtpd = (
             port: config.environment.controlsocket.port,
           };
         }
+        if (
+          "tls" in config.environment.controlsocket &&
+          config.environment.controlsocket.tls !== undefined &&
+          config.environment.controlsocket.tls.client !== undefined
+        ) {
+          const tls = config.environment.controlsocket.tls.client;
+          tlsOptions = {};
+          if ("data" in tls.certificate) {
+            tlsOptions.cert = tls.certificate.data;
+          } else if (tls.certificate.path) {
+            try {
+              tlsOptions.cert = fs.readFileSync(tls.certificate.path, "utf8");
+            } catch (error) {
+              onError(error);
+              return;
+            }
+          }
+          if ("data" in tls.privatekey) {
+            tlsOptions.key = tls.privatekey.data;
+          } else if (tls.privatekey.path) {
+            try {
+              tlsOptions.key = fs.readFileSync(tls.privatekey.path, "utf8");
+            } catch (error) {
+              onError(error);
+              return;
+            }
+          }
+          tlsOptions.rejectUnauthorized = tls.verify ?? true;
+          if (tls.verifyname) {
+            tlsOptions.servername = tls.verifyname;
+          }
+        }
       }
 
       const decoder = new StringDecoder("utf8");
       try {
-        var stream = await connector.openChannel(options);
+        var stream = await connector.openChannel(options, tlsOptions);
       } catch (error) {
         onError(error);
         return;

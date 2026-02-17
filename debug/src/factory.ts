@@ -2,6 +2,8 @@ import net from "net";
 import * as stream from "stream";
 import { EventEmitter } from "events";
 import * as ChildProcess from "child_process";
+import * as tls from "tls";
+import { NetConnectOpts } from "net";
 
 export interface ExecProgram extends EventEmitter {
   stdin: stream.Writable;
@@ -11,7 +13,10 @@ export interface ExecProgram extends EventEmitter {
 }
 
 export interface IConnector {
-  openChannel: (options: any) => Promise<stream.Duplex>;
+  openChannel(
+    options: NetConnectOpts,
+    tlsOptions?: tls.ConnectionOptions | null,
+  ): Promise<stream.Duplex>;
   openServerChannel: (
     path: string,
     callback: (stream: stream.Duplex) => void,
@@ -26,14 +31,26 @@ export const ConnectorFactory = () => {
 };
 
 export class SocketConnector implements IConnector {
-  openChannel(options: net.NetConnectOpts) {
-    return new Promise<stream.Duplex>((resolve, reject) => {
-      const client = net.createConnection(options, async () => {
-        resolve(client);
-      });
-      client.on("error", (err) => {
-        reject(err);
-      });
+  async openChannel(
+    options: NetConnectOpts,
+    tlsOptions?: tls.ConnectionOptions | null,
+  ): Promise<stream.Duplex> {
+    return new Promise((resolve, reject) => {
+      if (tlsOptions) {
+        const client = tls.connect({ ...options, ...tlsOptions }, () => {
+          resolve(client);
+        });
+        client.on("error", (err) => {
+          reject(err);
+        });
+      } else {
+        const client = net.connect(options, () => {
+          resolve(client);
+        });
+        client.on("error", (err) => {
+          reject(err);
+        });
+      }
     });
   }
   openServerChannel(path: string, callback: (stream: stream.Duplex) => void) {
