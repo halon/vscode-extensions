@@ -181,5 +181,9 @@
     "minimatch": "^3.0.4",
     "yaml": "^1.10.0"
   },
-  "main": "./dist/extension.js"
+  "main": "./dist/extension.js",
+  "overrides": {
+    "diff": "^8.0.3",
+    "serialize-javascript": "^7.0.3"
+  }
 }
