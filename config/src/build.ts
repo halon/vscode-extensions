@@ -28,8 +28,8 @@ const addFile = (config: any, script: any) => {
   if (!config.scripting.files) {
     config.scripting.files = [];
   }
-  if (config.scripting.files.find((file) => file.id === script.id)) {
-    config.scripting.files = config.scripting.files.map((file) =>
+  if (config.scripting.files.find((file: any) => file.id === script.id)) {
+    config.scripting.files = config.scripting.files.map((file: any) =>
       file.id === script.id ? script : file,
     );
   } else {
@@ -271,7 +271,7 @@ export const generate = (base: string = ".") => {
       settings.smtpd.build &&
       settings.smtpd.build.exclude &&
       Array.isArray(settings.smtpd.build.exclude)
-        ? settings.smtpd.build.exclude.map((pattern) => [
+        ? settings.smtpd.build.exclude.map((pattern: any) => [
             path.posix.sep,
             pattern,
           ])

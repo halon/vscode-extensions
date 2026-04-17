@@ -2,26 +2,7 @@ import AJV from "ajv";
 import * as fs from "fs";
 import * as path from "path";
 
-export const validate = (config: {
-  smtpd?: any;
-  smtpd_app?: any;
-  smtpd_policy?: any;
-  smtpd_suspend?: any;
-  smtpd_delivery?: any;
-  halonctl?: any;
-  rated?: any;
-  rated_app?: any;
-  ratectl?: any;
-  dlpd?: any;
-  dlpd_app?: any;
-  dlpctl?: any;
-  api?: any;
-  web?: any;
-  submission_tracking?: any;
-  clusterd?: any;
-  policyd?: any;
-  policyd_app?: any;
-}) => {
+export const validate = (config: Record<string, any>) => {
   let ajv = new AJV();
 
   const configs = [
