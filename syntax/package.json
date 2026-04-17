@@ -2,7 +2,7 @@
   "private": true,
   "version": "1.0.5",
   "engines": {
-    "vscode": "^1.95.0"
+    "vscode": "^1.109.0"
   },
   "name": "hsl-syntax",
   "displayName": "Halon Scripting Language Syntax",

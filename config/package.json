@@ -2,7 +2,7 @@
   "private": true,
   "version": "6.10.2",
   "engines": {
-    "vscode": "^1.95.0"
+    "vscode": "^1.109.0"
   },
   "name": "vscode-halon",
   "displayName": "Halon Configuration Packer",
