@@ -206,12 +206,11 @@
   "dependencies": {
     "@halon/json-schemas": "github:halon/json-schemas#0aba91e80425c91cf62b7cbe27d1c6406e5fddd6",
     "@halon/protobuf-schemas": "github:halon/protobuf-schemas#2dbd83920dc1894bf94e3ac4e5588062fe906fdf",
-    "@types/uuid": "^8.3.0",
     "await-notify": "1.0.1",
     "google-protobuf": "^3.21.4",
     "path-is-inside": "^1.0.2",
     "tree-kill": "^1.2.2",
-    "uuid": "^8.3.2",
+    "uuid": "^14.0.0",
     "vscode-debugadapter": "^1.47.0",
     "yaml": "^1.10.2"
   },
