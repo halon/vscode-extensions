@@ -7,14 +7,17 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "dbaeumer.vscode-eslint",
-        "connor4312.esbuild-problem-matchers",
-        "ms-vscode.extension-test-runner",
-        "halon.hsl-syntax",
-        "halon.vscode-halon",
-        "esbenp.prettier-vscode"
+        "dbaeumer.vscode-eslint@3.0.24",
+        "connor4312.esbuild-problem-matchers@0.0.3",
+        "ms-vscode.extension-test-runner@0.0.14",
+        "halon.hsl-syntax@1.0.6",
+        "halon.vscode-halon@6.10.4",
+        "redhat.vscode-yaml@1.23.0",
+        "esbenp.prettier-vscode@12.4.0"
       ],
       "settings": {
+        "extensions.autoUpdate": false,
+        "extensions.autoCheckUpdates": false,
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "esbenp.prettier-vscode",
         "[json]": {

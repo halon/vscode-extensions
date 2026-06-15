@@ -7,11 +7,13 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "halon.vscode-halon",
-        "halon.hsl-linter",
-        "esbenp.prettier-vscode"
+        "halon.vscode-halon@6.10.4",
+        "halon.hsl-linter@1.0.3",
+        "esbenp.prettier-vscode@12.4.0"
       ],
       "settings": {
+        "extensions.autoUpdate": false,
+        "extensions.autoCheckUpdates": false,
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "esbenp.prettier-vscode",
         "[json]": {
