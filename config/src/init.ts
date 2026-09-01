@@ -38,10 +38,10 @@ export const run = (
           customizations: {
             vscode: {
               extensions: [
-                "Halon.vscode-halon",
-                "Halon.hsl-syntax",
-                "Halon.hsl-linter",
-                "Halon.hsl-debug",
+                "halon.vscode-halon",
+                "halon.hsl-syntax",
+                "halon.hsl-linter",
+                "halon.hsl-debug",
               ],
             },
           },
