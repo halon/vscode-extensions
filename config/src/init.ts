@@ -105,7 +105,7 @@ exec "$@"`,
       path.join(base, ".devcontainer", "supervisord.conf"),
       `[supervisord]
 nodaemon=true
-loglevel=info
+loglevel=warn
 
 [program:rated]
 command=/opt/halon/sbin/rated -f
