@@ -12,10 +12,9 @@ RUN apt-get update && apt-get install -y apt-transport-https
 RUN wget -qO - https://raw.githubusercontent.com/halon/pgp-keys/master/pgp-keys/7F0A73B5.asc | apt-key add -
 RUN echo "deb https://repo.halon.io/ noble stable" >> /etc/apt/sources.list.d/halon.list
 RUN echo "machine repo.halon.io login ${HALON_REPO_USER} password ${HALON_REPO_PASS}" >> /etc/apt/auth.conf
-RUN apt-get update && apt-get install -y halon=6.5.2
+RUN apt-get update && apt-get install -y halon=6.11.3
 
 RUN /usr/bin/install -d /var/run/halon
-ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH
 
 RUN apt-get update && apt-get install -y git
 
