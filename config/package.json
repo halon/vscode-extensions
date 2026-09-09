@@ -173,7 +173,7 @@
     "typescript": "^5.6.3"
   },
   "dependencies": {
-    "@halon/json-schemas": "github:halon/json-schemas#ea838b1c21f222a608a03e7d4a177771e0b0233f",
+    "@halon/json-schemas": "github:halon/json-schemas#ce812991d6ab3819a75718a1610c70b80c9c108c",
     "ajv": "^6.10.2",
     "glob": "^7.2.0",
     "is-utf8": "^0.2.1",
