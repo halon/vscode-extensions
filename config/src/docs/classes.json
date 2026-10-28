@@ -712,12 +712,13 @@
                         "required": [
                             {
                                 "name": "context",
-                                "type": null
+                                "type": "associative array of strings"
                             }
                         ],
                         "optional": []
                     },
-                    "detail": "MIME->setContext( $context)",
+                    "returnType": "MIME",
+                    "detail": "MIME->setContext(associative array of strings $context): MIME",
                     "value": "setContext($0)",
                     "documentation": "Set immutable context data for the message. Available in queue hooks and shared between recipients.",
                     "link": "[Full documentation]({{ docsurl }}functions.html#MIME.setContext)"
