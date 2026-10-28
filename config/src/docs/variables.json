@@ -1919,6 +1919,20 @@
                     "documentation": "The current retry"
                 },
                 {
+                    "name": "expires",
+                    "type": "number",
+                    "detail": "number expires",
+                    "example": "3600",
+                    "documentation": "The amount of seconds that are left until the message will expire"
+                },
+                {
+                    "name": "expired",
+                    "type": "boolean",
+                    "detail": "boolean expired",
+                    "example": "false",
+                    "documentation": "If the maximum age or retry count of the message has been exceeded"
+                },
+                {
                     "name": "queue",
                     "type": "array",
                     "detail": "array queue",
@@ -2140,6 +2154,13 @@
                             "documentation": "The DSN ORCPT recipient address"
                         }
                     ]
+                },
+                {
+                    "name": "context",
+                    "type": "array",
+                    "detail": "array context",
+                    "example": "[\u201cdata\u201d => \u2026,]",
+                    "documentation": "The message context data"
                 }
             ]
         },
@@ -2163,6 +2184,13 @@
                     "detail": "number retry",
                     "example": "3",
                     "documentation": "The current retry"
+                },
+                {
+                    "name": "expires",
+                    "type": "number",
+                    "detail": "number expires",
+                    "example": "3600",
+                    "documentation": "The amount of seconds that are left until the message will expire"
                 },
                 {
                     "name": "expired",
@@ -2278,7 +2306,7 @@
                                     "type": "string",
                                     "detail": "string type",
                                     "example": "\u201cdns\u201d",
-                                    "documentation": "One of config, dns, network, dane,  protocol, smtp, tls or plugin"
+                                    "documentation": "One of config, dns, network, dane, protocol, tls or plugin"
                                 },
                                 {
                                     "name": "dns",
@@ -2286,6 +2314,13 @@
                                     "detail": "string dns",
                                     "example": "\u201cnullmx\u201d",
                                     "documentation": "One of other, nxdomain, nullmx, ipfamily, nodata or excluded (only available if type is dns)"
+                                },
+                                {
+                                    "name": "state",
+                                    "type": "string",
+                                    "detail": "string state",
+                                    "example": "\u201cMAIL\u201d",
+                                    "documentation": "An enum to indicate which issued SMTP command triggerd the result (only available if type is network (if connected) and protocol)"
                                 }
                             ]
                         },
@@ -2768,6 +2803,13 @@
                             "documentation": "The DSN ORCPT recipient address"
                         }
                     ]
+                },
+                {
+                    "name": "context",
+                    "type": "array",
+                    "detail": "array context",
+                    "example": "[\u201cdata\u201d => \u2026,]",
+                    "documentation": "The message context data"
                 }
             ]
         },

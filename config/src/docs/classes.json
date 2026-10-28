@@ -134,6 +134,18 @@
                     "link": "[Full documentation]({{ docsurl }}functions.html#Map.clear)"
                 },
                 {
+                    "name": "toArray",
+                    "parameters": {
+                        "required": [],
+                        "optional": []
+                    },
+                    "returnType": "array",
+                    "detail": "Map->toArray(): array",
+                    "value": "toArray()",
+                    "documentation": "Convert the Map into an array.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#Map.toArray)"
+                },
+                {
                     "name": "entries",
                     "parameters": {
                         "required": [],
@@ -237,6 +249,23 @@
                     "value": "clear()",
                     "documentation": "Delete all keys in the set.",
                     "link": "[Full documentation]({{ docsurl }}functions.html#Set.clear)"
+                },
+                {
+                    "name": "toArray",
+                    "parameters": {
+                        "required": [],
+                        "optional": [
+                            {
+                                "name": "options",
+                                "type": "array"
+                            }
+                        ]
+                    },
+                    "returnType": "array",
+                    "detail": "Set->toArray([array $options]): array",
+                    "value": "toArray($0)",
+                    "documentation": "Convert the Set into an array.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#Set.toArray)"
                 },
                 {
                     "name": "values",
@@ -678,6 +707,22 @@
                     "link": "[Full documentation]({{ docsurl }}functions.html#MIME.toFile)"
                 },
                 {
+                    "name": "setContext",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "context",
+                                "type": null
+                            }
+                        ],
+                        "optional": []
+                    },
+                    "detail": "MIME->setContext( $context)",
+                    "value": "setContext($0)",
+                    "documentation": "Set immutable context data for the message. Available in queue hooks and shared between recipients.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#MIME.setContext)"
+                },
+                {
                     "name": "queue",
                     "parameters": {
                         "required": [
@@ -876,6 +921,23 @@
                     "value": "verifyDKIM()",
                     "documentation": "DKIM verify a DKIM-Signature or ARC-Message-Signature header. The header should include both the header name and value (unmodified).",
                     "link": "[Full documentation]({{ docsurl }}functions.html#MailMessage.verifyDKIM)"
+                },
+                {
+                    "name": "setContext",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "context",
+                                "type": "associative array of strings"
+                            }
+                        ],
+                        "optional": []
+                    },
+                    "returnType": "MailMessageReturn the MailMessage as a string (with all changes applied).",
+                    "detail": "MailMessage->setContext(associative array of strings $context): MailMessageReturn the MailMessage as a string (with all changes applied)->",
+                    "value": "setContext($0)",
+                    "documentation": "Set immutable context data for the message. Available in queue hooks and shared between recipients.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#MailMessage.setContext)"
                 },
                 {
                     "name": "send",
@@ -1929,6 +1991,32 @@
                     "value": "verify($0)",
                     "documentation": "Verify the certificate against a list of CA\u2019s (with optional intermediate certificates).",
                     "link": "[Full documentation]({{ docsurl }}functions.html#X509.verify)"
+                },
+                {
+                    "name": "chain",
+                    "parameters": {
+                        "required": [
+                            {
+                                "name": "calist",
+                                "type": "array"
+                            }
+                        ],
+                        "optional": [
+                            {
+                                "name": "intermediates",
+                                "type": "array"
+                            },
+                            {
+                                "name": "options",
+                                "type": "array"
+                            }
+                        ]
+                    },
+                    "returnType": "array",
+                    "detail": "X509->chain(array $calist [, array $intermediates [, array $options]]): array",
+                    "value": "chain($0)",
+                    "documentation": "Resolve a chain from the X509 to the calist root (if not none), with the longest intermediates chain that can be built.",
+                    "link": "[Full documentation]({{ docsurl }}functions.html#X509.chain)"
                 },
                 {
                     "name": "export",

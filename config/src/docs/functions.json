@@ -60,10 +60,15 @@
                         "type": "array"
                     }
                 ],
-                "optional": []
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
             },
             "returnType": "array",
-            "detail": "array_filter(function $callback, array $array): array",
+            "detail": "array_filter(function $callback, array $array [, array $options]): array",
             "value": "array_filter($0)",
             "documentation": "Returns the filtered items from the array using a callback.",
             "link": "[Full documentation]({{ docsurl }}functions.html#array_filter)"
@@ -81,10 +86,15 @@
                         "type": "array"
                     }
                 ],
-                "optional": []
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
             },
             "returnType": "any",
-            "detail": "array_find(function $callback, array $array): any",
+            "detail": "array_find(function $callback, array $array [, array $options]): any",
             "value": "array_find($0)",
             "documentation": "Return the first element that matches in the array. If no element is found none is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#array_find)"
@@ -179,10 +189,15 @@
                         "type": "array"
                     }
                 ],
-                "optional": []
+                "optional": [
+                    {
+                        "name": "seed",
+                        "type": "number"
+                    }
+                ]
             },
             "returnType": "array",
-            "detail": "array_random(array $array): array",
+            "detail": "array_random(array $array [, number $seed]): array",
             "value": "array_random($0)",
             "documentation": "Returns a random key and value from the array. If the array is empty none is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#array_random)"
@@ -291,10 +306,15 @@
                         "type": "array"
                     }
                 ],
-                "optional": []
+                "optional": [
+                    {
+                        "name": "seed",
+                        "type": "number"
+                    }
+                ]
             },
-            "returnType": "array",
-            "detail": "array_shuffle(array $array): array",
+            "returnType": "array$array = array_shuffle($array, hash(\"hello world\"));",
+            "detail": "array_shuffle(array $array [, number $seed]): array$array = array_shuffle($array, hash(\"hello world\"));",
             "value": "array_shuffle($0)",
             "documentation": "Return array in shuffled order. Numeric keys are reindexed.",
             "link": "[Full documentation]({{ docsurl }}functions.html#array_shuffle)"
@@ -546,6 +566,23 @@
             "link": "[Full documentation]({{ docsurl }}functions.html#hash)"
         },
         {
+            "name": "pkcs11_load",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "uri",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "an array of resources",
+            "detail": "pkcs11_load(string $uri): an array of resources",
+            "value": "pkcs11_load($0)",
+            "documentation": "Return an array of fetched resources types of (PrivateKey\u2019s, X509 and X509CRL). Only URI starting with  pkcs11: are supported.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#pkcs11_load)"
+        },
+        {
             "name": "rsa_privatekey",
             "parameters": {
                 "required": [
@@ -554,10 +591,15 @@
                         "type": "string"
                     }
                 ],
-                "optional": []
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
             },
             "returnType": "RSAPrivateKey resource or none",
-            "detail": "rsa_privatekey(string $privatekey): RSAPrivateKey resource or none",
+            "detail": "rsa_privatekey(string $privatekey [, array $options]): RSAPrivateKey resource or none",
             "value": "rsa_privatekey($0)",
             "documentation": "Return a RSA privatekey resource from a PEM certificate (--- BEGIN PRIVATE KEY ---). On error none is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#rsa_privatekey)"
@@ -644,10 +686,15 @@
                         "type": "string"
                     }
                 ],
-                "optional": []
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
             },
             "returnType": "ECPrivateKey resource or none",
-            "detail": "ec_privatekey(string $privatekey): ECPrivateKey resource or none",
+            "detail": "ec_privatekey(string $privatekey [, array $options]): ECPrivateKey resource or none",
             "value": "ec_privatekey($0)",
             "documentation": "Return a EC privatekey resource from a PEM certificate (--- BEGIN PRIVATE KEY ---). On error none is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#ec_privatekey)"
@@ -678,10 +725,15 @@
                         "type": "string"
                     }
                 ],
-                "optional": []
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
             },
             "returnType": "ED25519PrivateKey resource or none",
-            "detail": "ed25519_privatekey(string $privatekey): ED25519PrivateKey resource or none",
+            "detail": "ed25519_privatekey(string $privatekey [, array $options]): ED25519PrivateKey resource or none",
             "value": "ed25519_privatekey($0)",
             "documentation": "Return a ED25519 privatekey resource from a PEM certificate (--- BEGIN PRIVATE KEY ---). On error none is returned.",
             "link": "[Full documentation]({{ docsurl }}functions.html#ed25519_privatekey)"
@@ -864,6 +916,10 @@
                     {
                         "name": "message",
                         "type": "string"
+                    },
+                    {
+                        "name": "certificate",
+                        "type": "array"
                     }
                 ],
                 "optional": [
@@ -874,10 +930,44 @@
                 ]
             },
             "returnType": "array",
-            "detail": "cms_decrypt(string $message [, array $options]): array",
+            "detail": "cms_decrypt(string $message, array $certificate [, array $options]): array",
             "value": "cms_decrypt($0)",
             "documentation": "CMS decrypt (S\/MIME) a message. If certificate is given as an associative array it should\n                        include a x509 (X509Resource), privatekey (*PrivateKeyResource).\n                        If certificate is given as a string it should either be an id or a PEM encoded string with a x509 certificate and a privatekey.",
             "link": "[Full documentation]({{ docsurl }}functions.html#cms_decrypt)"
+        },
+        {
+            "name": "cms_type",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "message",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "string or none",
+            "detail": "cms_type(string $message): string or none",
+            "value": "cms_type($0)",
+            "documentation": "Get the CMS type of a message, eg. if it is pkcs7-signedData (signed) or pkcs7-envelopedData (encrypted) as return by OpenSSL CMS_get0_type() encoded with OBJ_obj2txt().",
+            "link": "[Full documentation]({{ docsurl }}functions.html#cms_type)"
+        },
+        {
+            "name": "cms_recipients",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "message",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "array or none",
+            "detail": "cms_recipients(string $message): array or none",
+            "value": "cms_recipients($0)",
+            "documentation": "Get recipients information from a S\/MIME encrypted message. This can be used to determine which certificate to use for decryption.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#cms_recipients)"
         },
         {
             "name": "random_bytes",
@@ -908,11 +998,15 @@
                     {
                         "name": "last",
                         "type": "number"
+                    },
+                    {
+                        "name": "seed",
+                        "type": "number"
                     }
                 ]
             },
             "returnType": "number",
-            "detail": "random_number([number $first [, number $last]]): number",
+            "detail": "random_number([number $first [, number $last [, number $seed]]]): number",
             "value": "random_number($0)",
             "documentation": "Return a random integer between first and last (inclusive) or a random double (decimal) between 0 and 1 (inclusive).",
             "link": "[Full documentation]({{ docsurl }}functions.html#random_number)"
@@ -2722,6 +2816,40 @@
             "link": "[Full documentation]({{ docsurl }}functions.html#pcre_replace)"
         },
         {
+            "name": "is_x509_resource",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "resource",
+                        "type": "any"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "boolean",
+            "detail": "is_x509_resource(any $resource): boolean",
+            "value": "is_x509_resource($0)",
+            "documentation": "Return a true if resource is a X509 resource.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#is_x509_resource)"
+        },
+        {
+            "name": "is_x509crl_resource",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "resource",
+                        "type": "any"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "boolean",
+            "detail": "is_x509crl_resource(any $resource): boolean",
+            "value": "is_x509crl_resource($0)",
+            "documentation": "Return a true if resource is a X509 resource.",
+            "link": "[Full documentation]({{ docsurl }}functions.html#is_x509crl_resource)"
+        },
+        {
             "name": "FFIFunction",
             "parameters": {
                 "required": [],
@@ -3246,6 +3374,22 @@
             "value": "Reply($0)",
             "documentation": "Send a reply to the client (The default is code 250). The command is not passed to the SMTP server\u2019s state machine.",
             "link": "[Full documentation]({{ docsurl }}proxy.html#Reply)"
+        },
+        {
+            "name": "Next",
+            "parameters": {
+                "required": [],
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
+            },
+            "detail": "Next([array $options])",
+            "value": "Next($0)",
+            "documentation": "Request to get the next line from the client to the proxy hook, without sending any data back to the client.",
+            "link": "[Full documentation]({{ docsurl }}proxy.html#Next)"
         }
     ],
     "helo": [
