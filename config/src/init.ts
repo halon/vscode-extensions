@@ -62,8 +62,11 @@ export const run = (
 
     fs.writeFileSync(
       path.join(base, ".devcontainer", "Dockerfile"),
-      `FROM --platform=linux/amd64 ubuntu:24.04
+      `FROM ubuntu:26.04
 LABEL org.opencontainers.image.authors="support@halon.io"
+
+ARG TARGETARCH
+ARG TARGETOS
 
 ARG HALON_REPO_USER
 ENV HALON_REPO_USER=$HALON_REPO_USER
@@ -73,10 +76,10 @@ ENV HALON_REPO_PASS=$HALON_REPO_PASS
 RUN apt-get update && apt-get install -y wget gnupg
 RUN apt-get update && apt-get install -y apt-transport-https
 
-RUN wget -qO - https://raw.githubusercontent.com/halon/pgp-keys/master/pgp-keys/7F0A73B5.asc | apt-key add -
-RUN echo "deb https://repo.halon.io/ noble stable" >> /etc/apt/sources.list.d/halon.list
+RUN wget -qO- https://raw.githubusercontent.com/halon/pgp-keys/master/pgp-keys/7F0A73B5.gpg > /usr/share/keyrings/halon-archive-keyring.gpg
+RUN echo "deb [arch=\${TARGETARCH} signed-by=/usr/share/keyrings/halon-archive-keyring.gpg] https://repo.halon.io/ resolute stable" > /etc/apt/sources.list.d/halon.list
 RUN echo "machine repo.halon.io login \${HALON_REPO_USER} password \${HALON_REPO_PASS}" >> /etc/apt/auth.conf
-RUN apt-get update && apt-get install -y halon=6.11.3 halon-rated=10.2.2 halon-dlpd=10.2.2 halon-extras-rate=1.2.1 halon-extras-dlp=1.1.0
+RUN apt-get update && apt-get install -y halon-smtpd=6.12.0
 
 RUN /usr/bin/install -d /var/run/halon
 
@@ -105,12 +108,6 @@ exec "$@"`,
       `[supervisord]
 nodaemon=true
 loglevel=warn
-
-[program:rated]
-command=/opt/halon/sbin/rated -f
-
-[program:dlpd]
-command=/opt/halon/sbin/dlpd -f
 
 [program:smtpd]
 command=/opt/halon/sbin/smtpd -f
@@ -222,7 +219,7 @@ Accept();
   );
 
   const smtpd_app: any = {
-    version: "6.4",
+    version: "6.12",
     servers: [
       {
         id: "default",
@@ -291,7 +288,7 @@ Accept();
 
   if (development === "container") {
     const smtpd = {
-      version: "6.4",
+      version: "6.12",
       servers: [
         {
           id: "default",
@@ -328,70 +325,6 @@ Accept();
     fs.writeFileSync(
       path.join(base, "dist", "smtpd.yaml"),
       yaml.stringify(smtpd),
-    );
-    const rated = {
-      version: "6.4",
-      environment: {
-        controlsocket: {
-          group: "staff",
-          chmod: "0660",
-        },
-        socket: {
-          owner: "halon",
-          group: "halon",
-          chmod: "0660",
-        },
-        privdrop: {
-          user: "nobody",
-          group: "nogroup",
-        },
-      },
-    };
-    fs.writeFileSync(
-      path.join(base, "src", "config", "rated.yaml"),
-      yaml.stringify(rated),
-    );
-    fs.writeFileSync(
-      path.join(base, "dist", "rated.yaml"),
-      yaml.stringify(rated),
-    );
-    const dlpd = {
-      version: "6.4",
-      environment: {
-        controlsocket: {
-          group: "staff",
-          chmod: "0660",
-        },
-        socket: {
-          owner: "halon",
-          group: "halon",
-          chmod: "0660",
-        },
-        privdrop: {
-          user: "halon",
-          group: "halon",
-        },
-      },
-    };
-    fs.writeFileSync(
-      path.join(base, "src", "config", "dlpd.yaml"),
-      yaml.stringify(dlpd),
-    );
-    fs.writeFileSync(
-      path.join(base, "dist", "dlpd.yaml"),
-      yaml.stringify(dlpd),
-    );
-    const dlpd_app = {
-      version: "6.4",
-      rules: [],
-    };
-    fs.writeFileSync(
-      path.join(base, "src", "config", "dlpd-app.yaml"),
-      yaml.stringify(dlpd_app),
-    );
-    fs.writeFileSync(
-      path.join(base, "dist", "dlpd-app.yaml"),
-      yaml.stringify(dlpd_app),
     );
   }
 
